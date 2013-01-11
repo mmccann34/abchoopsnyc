@@ -3,12 +3,28 @@
 <head>
   <title>Abchoops</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <!--[if IE]>
+    <%= stylesheet_link_tag    "application_ie", :media => "all" %>
+    <![endif]-->
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<%= yield %>
+    <div class="container">
+      <% flash.each do |name, message| %>
+        <% case name
+           when :notice %>
+          <%= render "layouts/alert", status: "success", message: message %>
+        <% when :error %>
+          <%= render "layouts/alert", status: "error", message: message %>
+        <% else %>
+          <%= render "layouts/alert", status: "info", message: message %>
+        <% end %>
+      <% end %>
 
-</body>
-</html>
+      <%= yield %>
+    </div>
+
+  </body>
+  </html>
