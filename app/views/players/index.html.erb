@@ -1,2 +1,10 @@
-<h1>Players#index</h1>
-<p>Find me in app/views/players/index.html.erb</p>
+<h1>Players</h1>
+<ul class="unstyled">
+  <% for player in @players %>
+  <li id="player_<%= player.id %>">
+    <%= "#{player.id}: #{player.full_name} (#{player.key})" %>
+    | <%= link_to 'Edit', edit_player_path(player) %>
+    | <%= link_to 'Delete', player, method: 'delete', data: { confirm: 'Are you sure?' } %>
+  </li>
+  <% end %>
+</ul>
