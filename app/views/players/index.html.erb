@@ -1,8 +1,14 @@
-<h1>Players</h1>
+<% @active_page = 'players' %>
+
+<h2>Players</h2>
+<p>
+  <%= link_to 'Create a new Player', new_player_path, class: 'btn btn-small' %>
+</p>
 <ul class="unstyled">
   <% for player in @players %>
   <li id="player_<%= player.id %>">
-    <%= "#{player.id}: #{player.full_name} (#{player.key})" %>
+    <%= "#{player.id}: " %>
+    <%= link_to "#{player.name} (#{player.key})", player %>
     | <%= link_to 'Edit', edit_player_path(player) %>
     | <%= link_to 'Delete', player, method: 'delete', data: { confirm: 'Are you sure?' } %>
   </li>

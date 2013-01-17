@@ -1,6 +1,18 @@
 Abchoops::Application.routes.draw do
+  devise_for :users
+
   root to: "players#index"
   resources :players
+  resources :teams
+  resources :games do
+    member do
+      get 'boxscore'
+      get 'boxscore/edit', action: 'edit_boxscore'
+      put 'boxscore/edit', action: 'update_boxscore'
+    end
+  end
+  resources :seasons
+  
   # The priority is base d upon order of creation:
   # first created -> highest priority.
 

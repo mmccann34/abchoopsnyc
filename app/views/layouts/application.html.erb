@@ -1,30 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Abchoops</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <!--[if IE]>
+  <%  navigation_bar = [
+    ['/players', 'players', 'Players'],
+    ['/teams', 'teams', 'Teams'],
+    ['/games', 'games', 'Games'],
+    ['/seasons', 'seasons', 'Seasons']
+    ] %>
+
+    <title>Abchoops</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <!--[if IE]>
     <%= stylesheet_link_tag    "application_ie", :media => "all" %>
     <![endif]-->
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-
+    <div class="navbar navbar-static-top" style="margin-bottom:20px;">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">ABC Hoops NYC</a>
+          <ul class="nav">
+            <% navigation_bar.each do |href, id, caption| %>
+            <li <% if id == @active_page %> class="active" <% end %>>
+              <a href="<%= href %>"><%= caption %></a>
+            </li>
+            <% end %>
+          </ul>
+          <div class="pull-right navbar-text">
+            <% if user_signed_in? %>
+              <%= current_user.email %> (<%= link_to "Log Out", destroy_user_session_path, method: :delete %>)
+            <% else %>
+              <%= link_to "Log In", new_user_session_path %>
+              <span class="divider-vertical"></span>
+              <%= link_to "Sign Up", new_user_registration_path %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <% flash.each do |name, message| %>
-        <% case name
-           when :notice %>
-          <%= render "layouts/alert", status: "success", message: message %>
-        <% when :error %>
-          <%= render "layouts/alert", status: "error", message: message %>
-        <% else %>
-          <%= render "layouts/alert", status: "info", message: message %>
-        <% end %>
-      <% end %>
+      <% case name
+       when :notice %>
+       <%= render "layouts/alert", status: "success", message: message %>
+       <% when :error %>
+       <%= render "layouts/alert", status: "error", message: message %>
+       <% when :timedout %>
+       <% else %>
+       <%= render "layouts/alert", status: "info", message: message %>
+       <% end %>
+       <% end %>
 
-      <%= yield %>
-    </div>
+       <%= yield %>
+     </div>
 
-  </body>
-  </html>
+   </body>
+   </html>

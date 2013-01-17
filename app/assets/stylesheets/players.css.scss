@@ -1,13 +1,19 @@
 // Place all the styles related to the Players controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
 
 div.player_form {
   max-width: 300px;
   margin: 0 auto; 
-  /*background-color: white;*/
 }
 
-form label.hidden {
-  display: none;
+#player_profile
+{
+  div.header {
+    @include gradient-vertical($black, $white);
+    color: white;
+    padding: 20px;
+  }
 }

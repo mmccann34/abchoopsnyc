@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'test/unit'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -39,4 +38,7 @@ RSpec.configure do |config|
   
   # Fix for 'no visit method in rspec'
   config.include Capybara::DSL
+
+  # Import all fixtures
+  config.global_fixtures = :all
 end

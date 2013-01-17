@@ -1,0 +1,15 @@
+<% @active_page = 'teams' %>
+
+<h2>Teams</h2>
+<p>
+  <%= link_to 'Create a new Team', new_team_path, class: 'btn btn-small' %>
+</p>
+<ul class="unstyled">
+  <% for team in @teams %>
+  <li id="team_<%= team.id %>">
+    <%= "#{team.id}: #{team.name}" %>
+    | <%= link_to 'Edit', edit_team_path(team) %>
+    | <%= link_to 'Delete', team, method: 'delete', data: { confirm: 'Are you sure?' } %>
+  </li>
+  <% end %>
+</ul>
