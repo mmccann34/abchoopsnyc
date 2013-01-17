@@ -1,0 +1,16 @@
+<div class="page-header" style="text-align:center;">
+  <h2>Box Score</h2>
+  <h3><%= "#{@game.away_team.name} @ #{@game.home_team.name}" %></h3>
+</div>
+<div id="edit_boxscore">
+  <%= form_tag(boxscore_edit_game_path(@game), method: :put) do %>
+  <h3><%= @game.home_team.name %></h3>
+  <%= render "edit_team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
+  <h3><%= @game.away_team.name %></h3>
+  <%= render "edit_team_stats", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
+  <div style="text-align:center;">
+    <%= submit_tag "Save Changes", class: 'btn btn-primary' %>
+    <%= link_to "Cancel", :back, class: "btn" %>
+  </div>
+  <% end %>
+</div>

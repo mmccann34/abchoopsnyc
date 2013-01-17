@@ -7,6 +7,8 @@ gem 'rails', '3.2.11'
 
 gem 'sqlite3'
 gem 'simple_form'
+gem "paperclip", "~> 3.0"
+gem "devise"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,13 +26,17 @@ end
 gem 'jquery-rails'
 
 group :test, :development do
-  gem 'turn'
+  # gem 'turn'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'minitest'
-  gem 'rb-inotify', '~> 0.8.8'
+  gem 'rb-inotify', '~> 0.8.8', require: false
+  gem 'rb-fsevent', require: false
+  gem 'rb-fchange', require: false
   gem 'launchy'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # To use ActiveModel has_secure_password

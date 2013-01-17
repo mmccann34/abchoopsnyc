@@ -1,0 +1,13 @@
+<div class="page-header" style="text-align:center;">
+  <h2>Box Score</h2>
+  <h3><%= "#{@game.away_team.name} @ #{@game.home_team.name}" %></h3>
+</div>
+<div style="text-align:center;">
+  <%= link_to "Edit Box Score", boxscore_edit_game_path(@game), class: "btn" %>
+</div>
+<div id="boxscore">
+  <h3><%= @game.home_team.name %></h3>
+  <%= render "team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
+  <h3><%= @game.away_team.name %></h3>
+  <%= render "team_stats", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
+</div>

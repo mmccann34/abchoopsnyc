@@ -1,0 +1,20 @@
+<div id="player_profile">
+  <div class="page-header">
+    <div class="row">
+      <div class="span3" style="text-align:center;">
+        <% if @player.profile_pic? %>
+        <%= image_tag @player.profile_pic.url(:profile) %>
+        <% else %>
+        <%= image_tag "http://www.placehold.it/200x200&text=no+image" %>
+        <% end %>
+      </div>
+      <div class="span8">
+        <h2><%= @player.name %> <small><%= @player.team.try(:name) %></small></h2>
+      </div>
+    </div>
+  </div>
+  <div>
+   <h2>Game Log</h2>
+   <%= render 'player_stats', stat_lines: @player.stat_lines %>
+</div>
+</div>

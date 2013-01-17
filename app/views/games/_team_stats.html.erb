@@ -1,0 +1,45 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:left;">PLAYER</th>
+      <th>FG</th>
+      <th>3PT</th>
+      <th>FT</th>
+      <th>OREB</th>
+      <th>DREB</th>
+      <th>REB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>PF</th>
+      <th>PTS</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr style="font-weight:bold;">
+      <td style="text-align:left;">TOTALS</td>
+      <% totals = StatLine.stat_line_totals(stat_lines) %>
+      <td><%= "#{totals.threem}-#{totals.threea}" %><%= " (#{number_to_percentage(totals.threepct * 100.0, precision: 1)})" if totals.threepct %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% stat_lines.each do |stat| %>
+    <tr>
+      <td style="text-align:left;"><%= link_to stat.player.name, stat.player %></td>
+      <td><%= "#{stat.fgm}-#{stat.fga}" %><%= " (#{number_to_percentage(stat.fgpct * 100.0, precision: 1)})" if stat.fgpct %></td>
+      <td><%= "#{stat.threem}-#{stat.threea}" %><%= " (#{number_to_percentage(stat.threepct * 100.0, precision: 1)})" if stat.threepct %></td>
+      <td><%= "#{stat.ftm}-#{stat.fta}" %><%= " (#{number_to_percentage(stat.ftpct * 100.0, precision: 1)})" if stat.ftpct %></td>
+      <td><%= stat.orb %></td>
+      <td><%= stat.drb %></td>
+      <td><%= stat.trb %></td>
+      <td><%= stat.ast %></td>
+      <td><%= stat.stl %></td>
+      <td><%= stat.blk %></td>
+      <td><%= stat.to %></td>
+      <td><%= stat.fl %></td>
+      <td><%= stat.points %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

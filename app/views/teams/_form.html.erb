@@ -1,0 +1,7 @@
+<%= simple_form_for @team, defaults: { input_html: { class: 'input-block-level' }, label_html: { class: 'hide' } } do |f| %>
+  <fieldset>
+  <% if header %><legend><%= header %></legend><% end %>
+  <%= f.input :name, placeholder: 'Name', input_html: { autofocus: 'autofocus' } %>
+  <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
+  </fieldset>
+<% end %>

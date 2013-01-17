@@ -1,0 +1,9 @@
+<%= simple_form_for @game, defaults: { input_html: { class: 'input-block-level' }, label_html: { class: 'hide' } } do |f| %>
+  <fieldset>
+    <% if header %><legend><%= header %></legend><% end %>
+    <%= f.association :season , prompt: 'Season' %>
+    <%= f.association :home_team, prompt: 'Home Team' %>
+    <%= f.association :away_team, prompt: 'Away Team' %>
+    <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
+  </fieldset>
+<% end %>
