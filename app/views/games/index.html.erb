@@ -1,21 +1,20 @@
 <% @active_page = 'games' %>
 
-<h2>Games</h2>
+<div class="page-header"><h2>Games</h2></div>
 <p>
   <%= link_to 'Create a new Game', new_game_path, class: 'btn btn-small' %>
 </p>
 <% @games.group_by(&:season).each do |season, games| %>
-<div class="page-header">
-  <h3><%= season.name %></h3>
-</div>
+<h3><%= season.name %></h3>
 <ul class="unstyled">
   <% games.each do |game| %>
-    <li id="game_<%= game.id %>">
-      <%= "#{game.id}: #{game.away_team.name} @ #{game.home_team.name}" %>
-      | <%= link_to 'Edit', edit_game_path(game) %>
-      | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
-      | <%= link_to 'Box Score', boxscore_game_path(game) %>
-    </li>
+  <li id="game_<%= game.id %>">
+    <%= "#{game.id}: #{game.away_team.name} @ #{game.home_team.name}" %>
+    | <%= link_to 'Edit', edit_game_path(game) %>
+    | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
+    | <%= link_to 'Box Score', boxscore_game_path(game) %>
+    | <%= link_to 'Edit Box Score', boxscore_edit_game_path(game) %>
+  </li>
   <% end %>
 </ul>
 <% end %>

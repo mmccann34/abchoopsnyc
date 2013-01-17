@@ -52,7 +52,6 @@ class GamesController < ApplicationController
       redirect_to games_url, flash: { error: "Game does not exist." }
     else
       @game.create_stat_lines
-      @game.create_stat_lines
     end
   end
 

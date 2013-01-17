@@ -24,10 +24,8 @@ describe Game do
   end
 
   it "should create stat lines if they are missing" do
-    player = Player.create(first_name: "Matt", last_name: "McCann", key: "MattMcCann")
-    player_two = Player.create(first_name: "Lewis", last_name: "Tse", key: "LewisTse")
-    Roster.create(team_id: @home_team.id, season_id: @season.id, player_id: player.id)
-    Roster.create(team_id: @home_team.id, season_id: @season.id, player_id: player_two.id)
+    player = Player.create(first_name: "Matt", last_name: "McCann", key: "MattMcCann", team_id: @home_team.id)
+    player_two = Player.create(first_name: "Lewis", last_name: "Tse", key: "LewisTse", team_id: @home_team.id)
     stat_line = StatLine.create(game_id: @game.id, team_id: @home_team.id, player_id: player.id)
 
     @game.stat_lines.count.should == 1

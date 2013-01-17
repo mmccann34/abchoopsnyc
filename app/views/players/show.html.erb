@@ -9,7 +9,7 @@
         <% end %>
       </div>
       <div class="span8">
-        <h2><%= @player.name %> <small><%= @player.team.try(:name) %></small></h2>
+        <h2><%= @player.name %> <small><%= "##{@player.number} #{@player.team.try(:name)}" %></small></h2>
       </div>
     </div>
   </div>

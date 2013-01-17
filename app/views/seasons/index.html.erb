@@ -1,13 +1,13 @@
 <% @active_page = 'seasons' %>
 
-<h2>Seasons</h2>
+<div class="page-header"><h2>Seasons</h2></div>
 <p>
   <%= link_to 'Create a new Season', new_season_path, class: 'btn btn-small' %>
 </p>
 <ul class="unstyled">
   <% for season in @seasons %>
   <li id="season_<%= season.id %>">
-    <%= "#{season.id}: #{season.name} (#{season.key})" %>
+    <%= "#{season.id}: #{season.name}" %>
     | <%= link_to 'Edit', edit_season_path(season) %>
     | <%= link_to 'Delete', season, method: 'delete', data: { confirm: 'Are you sure?' } %>
   </li>

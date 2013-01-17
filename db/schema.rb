@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117142118) do
+ActiveRecord::Schema.define(:version => 20130117225837) do
 
   create_table "games", :force => true do |t|
     t.integer  "season_id"
@@ -34,14 +34,8 @@ ActiveRecord::Schema.define(:version => 20130117142118) do
     t.string   "profile_pic_content_type"
     t.integer  "profile_pic_file_size"
     t.datetime "profile_pic_updated_at"
-  end
-
-  create_table "rosters", :force => true do |t|
     t.integer  "team_id"
-    t.integer  "season_id"
-    t.integer  "player_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "number"
   end
 
   create_table "seasons", :force => true do |t|

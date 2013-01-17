@@ -20,7 +20,18 @@
     <tr style="font-weight:bold;">
       <td style="text-align:left;">TOTALS</td>
       <% totals = StatLine.stat_line_totals(stat_lines) %>
+      <td><%= "#{totals.fgm}-#{totals.fga}" %><%= " (#{number_to_percentage(totals.fgpct * 100.0, precision: 1)})" if totals.fgpct %></td>
       <td><%= "#{totals.threem}-#{totals.threea}" %><%= " (#{number_to_percentage(totals.threepct * 100.0, precision: 1)})" if totals.threepct %></td>
+      <td><%= "#{totals.ftm}-#{totals.fta}" %><%= " (#{number_to_percentage(totals.ftpct * 100.0, precision: 1)})" if totals.ftpct %></td>
+      <td><%= totals.orb %></td>
+      <td><%= totals.drb %></td>
+      <td><%= totals.trb %></td>
+      <td><%= totals.ast %></td>
+      <td><%= totals.stl %></td>
+      <td><%= totals.blk %></td>
+      <td><%= totals.to %></td>
+      <td><%= totals.fl %></td>
+      <td><%= totals.points %></td>
     </tr>
   </tfoot>
   <tbody>
