@@ -23,12 +23,18 @@ describe Game do
     @game.team_stats(@away_team.id).count.should == 1
   end
 
-  it "should create stat lines if they are missing" do
+  it "should create stat lines after creation" do
     player = Player.create(first_name: "Matt", last_name: "McCann", key: "MattMcCann", team_id: @home_team.id)
     player_two = Player.create(first_name: "Lewis", last_name: "Tse", key: "LewisTse", team_id: @home_team.id)
-    stat_line = StatLine.create(game_id: @game.id, team_id: @home_team.id, player_id: player.id)
+    new_game = Game.create(season_id: 1, home_team_id: @home_team.id, away_team_id: @away_team.id)
 
-    @game.stat_lines.count.should == 1
+    new_game.stat_lines.count.should == 2
+  end
+
+  it "should create stat lines if they are missing" do
+    @game.home_team.players << Player.create(first_name: "Matt", last_name: "McCann", key: "MattMcCann")
+    @game.home_team.players << Player.create(first_name: "Lewis", last_name: "Tse", key: "LewisTse")
+
     @game.create_stat_lines
     @game.stat_lines.count.should == 2
   end

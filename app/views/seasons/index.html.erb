@@ -1,9 +1,9 @@
 <% @active_page = 'seasons' %>
 
 <div class="page-header"><h2>Seasons</h2></div>
-<p>
-  <%= link_to 'Create a new Season', new_season_path, class: 'btn btn-small' %>
-</p>
+<% if user_admin? %>
+<p style="margin-bottom:30px;"><%= link_to 'Create a new Season', new_season_path, class: 'btn btn-small btn-primary' %></p>
+<% end %>
 <ul class="unstyled">
   <% for season in @seasons %>
   <li id="season_<%= season.id %>">

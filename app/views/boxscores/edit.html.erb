@@ -1,0 +1,28 @@
+<div class="page-header" style="text-align:center;">
+  <h2>Box Score</h2>
+  <h3><%= "#{@game.away_team.name} @ #{@game.home_team.name}" %></h3>
+</div>
+<div id="edit_boxscore">
+  <%= form_tag(boxscore_edit_game_path(@game), method: :put) do %>
+  <h3 class="form-inline">
+    <%= @game.home_team.name %> 
+    <%= label_tag 'game[home_score_first]', '1st Half', class: '' %>
+    <%= number_field_tag 'game[home_score_first]', @game.home_score_first, min: 0, class: 'half_score' %>
+    <%= label_tag 'game[home_score_second]', '2nd Half', class: '' %>
+    <%= number_field_tag 'game[home_score_second]', @game.home_score_second, min: 0, class: 'half_score' %>
+  </h3>
+  <%= render "edit_team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
+  <h3 class="form-inline">
+    <%= @game.away_team.name %>
+    <%= label_tag 'game[away_score_first]', '1st Half', class: '' %>
+    <%= number_field_tag 'game[away_score_first]', @game.away_score_first, min: 0, class: 'half_score' %>
+    <%= label_tag 'game[away_score_second]', '2nd Half', class: '' %>
+    <%= number_field_tag 'game[away_score_second]', @game.away_score_second, min: 0, class: 'half_score' %>
+  </h3>
+  <%= render "edit_team_stats", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
+  <div style="text-align:center;">
+    <%= submit_tag "Save Changes", class: 'btn btn-primary' %>
+    <%= link_to "Cancel", :back, class: "btn" %>
+  </div>
+  <% end %>
+</div>

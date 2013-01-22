@@ -1,9 +1,9 @@
 <% @active_page = 'teams' %>
 
 <div class="page-header"><h2>Teams</h2></div>
-<p>
-  <%= link_to 'Create a new Team', new_team_path, class: 'btn btn-small' %>
-</p>
+<% if user_admin? %>
+<p style="margin-bottom:30px;"><%= link_to 'Create a new Team', new_team_path, class: 'btn btn-small btn-primary' %></p>
+<% end %>
 <ul class="unstyled">
   <% for team in @teams %>
   <li id="team_<%= team.id %>">

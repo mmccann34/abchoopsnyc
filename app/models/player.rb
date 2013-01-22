@@ -3,7 +3,7 @@ class Player < ActiveRecord::Base
   validates :first_name, :last_name, :key, presence: true
   validates :key, uniqueness: { case_sensitive: false }
 
-  has_attached_file :profile_pic, styles: { medium: "300x300>", profile: "200X200>", thumb: "100x100>" }
+  has_attached_file :profile_pic, styles: { medium: "300x300#", profile: "200X200#", thumb: "100x100#" }
 
   belongs_to :team
   has_many :stat_lines, dependent: :destroy

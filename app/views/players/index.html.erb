@@ -1,12 +1,14 @@
 <% @active_page = 'players' %>
 
-<div class="page-header"><h2>Players</h2></div>
-<p>
-  <%= link_to 'Create a new Player', new_player_path, class: 'btn btn-small' %>
-</p>
+<div class="page-header">
+  <h2>Players</h2>
+</div>
+<% if user_admin? %>
+<p style="margin-bottom:30px;"><%= link_to 'Create a new Player', new_player_path, class: 'btn btn-small btn-primary' %></p>
+<% end %>
 <ul class="unstyled">
   <% for player in @players %>
-  <li id="player_<%= player.id %>">
+  <li id="player_<%= player.id %>" style="margin-top:10px;">
     <% pic_url = player.profile_pic? ? player.profile_pic.url(:thumb) : "http://www.placehold.it/100x100&text=no+image" %>
     <%= link_to image_tag(pic_url), player_path(player) %>
     <%= link_to player.name, player %>

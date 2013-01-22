@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'simple_form'
 gem "paperclip", "~> 3.0"
 gem "devise"
+gem "koala", "~> 1.6.0"
 
 # Gems used only for assets and not required
 # in production environments by default.

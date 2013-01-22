@@ -37,4 +37,7 @@ Abchoops::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Paperclip on Windows
+  Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.8.1-Q16'
 end

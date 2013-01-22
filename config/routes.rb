@@ -6,9 +6,9 @@ Abchoops::Application.routes.draw do
   resources :teams
   resources :games do
     member do
-      get 'boxscore'
-      get 'boxscore/edit', action: 'edit_boxscore'
-      put 'boxscore/edit', action: 'update_boxscore'
+      get 'boxscore' => "boxscores#show"
+      get 'boxscore/edit' => "boxscores#edit"
+      put 'boxscore/edit' => "boxscores#update"
     end
   end
   resources :seasons
