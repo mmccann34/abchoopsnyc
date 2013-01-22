@@ -11,14 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117225837) do
+ActiveRecord::Schema.define(:version => 20130122165552) do
 
   create_table "games", :force => true do |t|
     t.integer  "season_id"
     t.integer  "home_team_id"
     t.integer  "away_team_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.date     "date"
+    t.time     "time"
+    t.integer  "home_score"
+    t.integer  "away_score"
+    t.integer  "home_score_first"
+    t.integer  "home_score_second"
+    t.integer  "away_score_first"
+    t.integer  "away_score_second"
   end
 
   create_table "players", :force => true do |t|
@@ -91,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20130117225837) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

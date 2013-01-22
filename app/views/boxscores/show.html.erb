@@ -3,7 +3,7 @@
   <h3><%= "#{@game.away_team.name} @ #{@game.home_team.name}" %></h3>
 </div>
 <div style="text-align:center;">
-  <%= link_to("Edit Box Score", boxscore_edit_game_path(@game), class: "btn") if user_signed_in? %>
+  <%= link_to("Edit Box Score", boxscore_edit_game_path(@game), class: "btn btn-primary") if user_admin? %>
 </div>
 <div id="boxscore">
   <h3><%= @game.home_team.name %></h3>

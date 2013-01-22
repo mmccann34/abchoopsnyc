@@ -6,7 +6,7 @@
 
 div.player_form {
   max-width: 300px;
-  margin: 0 auto; 
+  margin: 20px auto 0 auto;
 }
 
 #player_profile
@@ -15,5 +15,9 @@ div.player_form {
     @include gradient-vertical($black, $white);
     color: white;
     padding: 20px;
+  }
+
+  #game-log td, #game-log th {
+    text-align: center;
   }
 }

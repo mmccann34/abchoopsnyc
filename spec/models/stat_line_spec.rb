@@ -28,15 +28,4 @@ describe StatLine do
     stat_line.save
     stat_line.fgpct.should == 10.0/12
   end
-
-  it "should calculate stat line totals" do
-    stat_lines = [StatLine.create(game_id: 1, team_id: 1, player_id: 1, fgm: 10, fga: 12, threem: 3),
-                  StatLine.create(game_id: 1, team_id: 1, player_id: 2, fgm: 1, fga: 2)]
-
-    stat_line_totals = StatLine.stat_line_totals(stat_lines)
-    stat_line_totals.fgm.should == 11
-    stat_line_totals.fga.should == 14
-    stat_line_totals.threem.should == 3
-
-  end
 end
