@@ -68,7 +68,6 @@ module Abchoops
     # For Heroku
     config.assets.initialize_on_precompile = false
 
-    config.assets.precompile += ["application_ie.css"]
-    config.assets.precompile += ["ie.css"]
+    config.assets.precompile += ["ie.css", "application_ie.css"]
   end
 end
