@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate_admin, only: [:new, :create, :edit, :update, :destroy], unless: :devise_controller?
+  # before_filter :authenticate_admin, only: [:new, :create, :edit, :update, :destroy], unless: :devise_controller?
 
   private
 

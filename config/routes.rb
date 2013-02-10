@@ -1,7 +1,7 @@
 Abchoops::Application.routes.draw do
   devise_for :users
 
-  root to: "players#index"
+  root to: "games#index"
   resources :players
   resources :teams
   resources :games do
