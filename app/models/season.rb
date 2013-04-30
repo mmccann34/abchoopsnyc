@@ -4,7 +4,7 @@ class Season < ActiveRecord::Base
 
   has_many :games
 
-  has_many :roster_entries, class_name: 'Roster', dependent: :destroy
+  # has_many :roster_entries, class_name: 'Roster', dependent: :destroy
 
   def self.current_season
     Season.find_by_current(true)
