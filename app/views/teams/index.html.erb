@@ -1,11 +1,9 @@
 <% @active_page = 'teams' %>
 
 <div class="page-header"><h2>Teams</h2></div>
-<% if user_admin? %>
 <%= form_for @new_team, html: { class: 'form-inline', style: 'margin-bottom:25px;' } do |f| %>
 <%= f.text_field :name, placeholder: 'Name' %>
 <%= f.submit 'Create Team', class: 'btn btn-primary' %>
-<% end %>
 <% end %>
 <table id="teams" class="table table-striped">
   <thead>
