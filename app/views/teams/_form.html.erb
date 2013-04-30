@@ -1,7 +1,22 @@
-<%= simple_form_for @team, defaults: { input_html: { class: 'input-block-level' }, label_html: { class: 'hide' } } do |f| %>
-  <fieldset>
-  <% if header %><legend><%= header %></legend><% end %>
-  <%= f.input :name, placeholder: 'Name', input_html: { autofocus: 'autofocus' } %>
-  <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
-  </fieldset>
+<%= simple_form_for @team, defaults: { label_html: { class: 'hide' } } do |f| %>
+<fieldset>
+  <div class="page-header" style="text-align:center;">
+    <%= f.input :name, placeholder: 'Team Name' %>
+  </div>
+  <ul class="unstyled">
+    <% 12.times do |i| %>
+    <% player = @team.players[i] || Player.new %>
+    <li>
+      <input type="hidden" name="players[<%= i %>[id]]" value="<%= player.id %>">
+      <input type="text" name="players[<%= i %>[first_name]]" placeholder="First Name" value="<%= player.first_name %>" />
+      <input type="text" name="players[<%= i %>[last_name]]" placeholder="Last Name" value="<%= player.last_name %>" />
+      <input type="number" name="players[<%= i %>[number]]" placeholder="Number" min="0" value="<%= player.number %>" />
+    </li>
+    <% end %>
+  </ul>
+  <div style="text-align:center;">
+      <%= f.button :submit, class: 'btn-primary', value: 'Save Changes' %>
+      <a href="/teams/<%= @team.id %>" class="btn">Cancel</a>
+    </div>
+</fieldset>
 <% end %>

@@ -1,0 +1,70 @@
+<div class="page-header">
+  <h2><%= @team.name %> Roster</h2>
+</div>
+<div class="row">
+  <div class="span4">
+    <h3>Create a Player</h3>
+    <%= form_for @new_player, url: roster_edit_team_path(@team) do |f| %>
+    <%= f.text_field :first_name, placeholder: 'First' %>
+    <%= f.text_field :last_name, placeholder: 'Last' %>
+    <%= f.number_field :number, placeholder: '#', min: 0 %>
+    <%= f.submit 'Create and Add to Roster', class: 'btn btn-primary', style: 'width:220px;' %>
+    <% end %>
+  </div>
+  <div class="span8">
+    <h3>Find a Player</h3>
+    <table id="findPlayer" class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>First</th>
+          <th>Last</th>
+          <th>#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for player in @all_players %>
+        <tr>
+          <td style="width:50px;">
+            <%= form_tag do %>
+            <%= hidden_field_tag :player_id, player.id %>
+            <%= submit_tag "Add to Roster", class: "btn btn-mini btn-primary" %>
+            <% end %>
+          </td>
+          <td><%= player.first_name %></td>
+          <td><%= player.last_name %></td>
+          <td><%= player.number %></td>
+        </tr>
+        <% end %> 
+      </tbody>
+    </table>
+  </div>
+</div>
+<div>
+  <h3>Current Roster</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for player in @team.players %>
+      <tr>
+        <td style="width:25px;">
+          <%= form_tag({}, method: :delete ) do %>
+          <%= hidden_field_tag :player_id, player.id %>
+          <%= submit_tag "Remove", class: "btn btn-mini btn-danger" %>
+          <% end %>
+        </td>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.number %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

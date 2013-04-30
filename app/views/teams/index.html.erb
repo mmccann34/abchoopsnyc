@@ -2,14 +2,26 @@
 
 <div class="page-header"><h2>Teams</h2></div>
 <% if user_admin? %>
-<p style="margin-bottom:30px;"><%= link_to 'Create a new Team', new_team_path, class: 'btn btn-small btn-primary' %></p>
+<%= form_for @new_team, html: { class: 'form-inline', style: 'margin-bottom:25px;' } do |f| %>
+<%= f.text_field :name, placeholder: 'Name' %>
+<%= f.submit 'Create Team', class: 'btn btn-primary' %>
 <% end %>
-<ul class="unstyled">
-  <% for team in @teams %>
-  <li id="team_<%= team.id %>">
-    <%= "#{team.id}: #{team.name}" %>
-    | <%= link_to 'Edit', edit_team_path(team) %>
-    | <%= link_to 'Delete', team, method: 'delete', data: { confirm: 'Are you sure?' } %>
-  </li>
-  <% end %>
-</ul>
+<% end %>
+<table id="teams" class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for team in @teams %>
+    <tr>
+      <td style="width:70px;"><%= link_to 'Edit Roster', roster_edit_team_url(team), class: 'btn btn-primary btn-mini' %></td>
+      <td style="width:50px;"><%= button_to 'Delete', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini' %></td>
+      <td><%= team.name %></td>
+    </tr>
+    <% end %>  
+  </tbody>
+</table>
