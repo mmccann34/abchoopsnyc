@@ -6,7 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'sqlite3'
+# gem 'sqlite3'
 gem 'simple_form'
 gem "paperclip", "~> 3.0"
 gem "devise"
@@ -34,7 +34,7 @@ group :test, :development do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'minitest'
-  gem 'rb-inotify', '~> 0.8.8', require: false
+  gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
   gem 'launchy'
