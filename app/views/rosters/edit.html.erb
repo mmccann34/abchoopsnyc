@@ -1,7 +1,7 @@
 <div class="page-header">
   <h2><%= @team.name %> Roster</h2>
 </div>
-<div class="row" style="min-width:370px;">
+<div class="row" style="min-height:370px;">
   <div class="span3">
     <h3>Create a Player</h3>
     <%= form_for @new_player, url: roster_edit_team_path(@team) do |f| %>
