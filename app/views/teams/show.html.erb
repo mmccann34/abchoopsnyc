@@ -1,2 +1,14 @@
-<h1>Team#show</h1>
-<p>Find me in app/views/team/show.html.erb</p>
+<div class="page-header" style="text-align:center'">
+  <h2><%= @team.name %></h2>
+</div>
+<ul class="unstyled">
+  <% @team.players.each do |player| %>
+  <li>
+    
+    <input type="hidden" name="players[<%= i %>[id]]" value="<%= player.id %>">
+    <input type="text" name="players[<%= i %>[first_name]]" placeholder="First Name" value="<%= player.first_name %>" />
+    <input type="text" name="players[<%= i %>[last_name]]" placeholder="Last Name" value="<%= player.last_name %>" />
+    <input type="number" name="players[<%= i %>[number]]" placeholder="Number" min="0" value="<%= player.number %>" />
+  </li>
+  <% end %>
+</ul>

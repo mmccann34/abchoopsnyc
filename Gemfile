@@ -6,11 +6,15 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'sqlite3'
 gem 'simple_form'
 gem "paperclip", "~> 3.0"
 gem "devise"
 gem "koala", "~> 1.6.0"
 gem 'bootstrap-sass', '~> 2.2.2.0'
+gem "awesome_print"
+gem "jquery-rails"
+gem "jquery-datatables-rails", "~> 1.11.2"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,8 +27,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
 
 group :test, :development do
   # gem 'turn'

@@ -3,7 +3,13 @@ Abchoops::Application.routes.draw do
 
   root to: "games#index"
   resources :players
-  resources :teams
+  resources :teams do
+    member do
+      get 'roster/edit' => "rosters#edit"
+      post 'roster/edit' => "rosters#add"
+      delete 'roster/edit' => "rosters#remove"
+    end
+  end
   resources :games do
     member do
       get 'boxscore' => "boxscores#show"
