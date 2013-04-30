@@ -1,6 +1,6 @@
 $(function() {
   $('#findPlayer').dataTable({
-    "sDom": "<'row'<'span8'f>r>t<'row'<'span4'i><'span4'p>>",
+    "sDom": "<'row'<'span9'f>r>t<'row'<'span4'i><'span5'p>>",
     "sPaginationType": "bootstrap",
     "iDisplayLength": 5,
     "bLengthChange": false,
