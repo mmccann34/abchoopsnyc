@@ -7,7 +7,11 @@
     <%= form_for @new_player, url: roster_edit_team_path(@team) do |f| %>
     <%= f.text_field :first_name, placeholder: 'First' %>
     <%= f.text_field :last_name, placeholder: 'Last' %>
-    <%= f.number_field :number, placeholder: '#', min: 0 %>
+    <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
+    <%= f.select :position, ['PG', 'SG', 'SF', 'PF', 'C'], { prompt: 'Pos' }, class: 'input-mini', style: 'float:left; margin-left:10px; width:74px;' %>
+    <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;' %>
+    <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
+    <%= f.text_field :school, placeholder: 'School', style: 'clear:both;' %>
     <%= f.submit 'Create and Add to Roster', class: 'btn btn-primary', style: 'width:220px;' %>
     <% end %>
   </div>
