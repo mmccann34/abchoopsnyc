@@ -1,6 +1,7 @@
 class PlayersController < ApplicationController
   def index
     @players = Player.all
+    @new_player = Player.new
   end
 
   def new
@@ -10,7 +11,7 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(params[:player])
     if @player.save
-      redirect_to players_url
+      redirect_to players_url, notice: "Player has successfully been created."
     else
       render action: "new",  flash: { error: "An error occurred while creating Player." }
     end
@@ -23,7 +24,7 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
     if @player.update_attributes(params[:player])
-      redirect_to @player, notice: "Player has successfully been updated."
+      redirect_to players_url, notice: "Player has successfully been updated."
     else
       render action: "edit", flash: { error: "An error occurred while updating Player." }
     end

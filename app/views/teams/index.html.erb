@@ -16,7 +16,7 @@
   <tbody>
     <% for team in @teams %>
     <tr>
-      <td style="width:70px;"><%= link_to 'Edit Roster', roster_edit_team_url(team), class: 'btn btn-primary btn-mini' %></td>
+      <td style="width:70px;"><%= link_to 'Edit Roster', roster_edit_team_path(team), class: 'btn btn-primary btn-mini' %></td>
       <td style="width:50px;"><%= button_to 'Delete', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini' %></td>
       <td><%= team.name %></td>
     </tr>
