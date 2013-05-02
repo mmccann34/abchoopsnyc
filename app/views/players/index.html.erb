@@ -1,21 +1,44 @@
 <% @active_page = 'players' %>
 
-<div class="page-header">
-  <h2>Players</h2>
-</div>
-<% if user_admin? %>
-<p style="margin-bottom:30px;"><%= link_to 'Create a new Player', new_player_path, class: 'btn btn-small btn-primary' %></p>
-<% end %>
-<ul class="unstyled">
-  <% for player in @players %>
-  <li id="player_<%= player.id %>" style="margin-top:10px;">
-    <% pic_url = player.profile_pic? ? player.profile_pic.url(:thumb) : "http://www.placehold.it/100x100&text=no+image" %>
-    <%= link_to image_tag(pic_url), player_path(player) %>
-    <%= link_to player.name, player %>
-    <%= "##{player.number}" if player.number %>
-    <%= " - #{player.team.name}" if player.team %>
-    | <%= link_to 'Edit', edit_player_path(player) %>
-    | <%= link_to 'Delete', player, method: 'delete', data: { confirm: 'Are you sure?' } %>
-  </li>
+<div style="width:220px; margin: 25px auto;">
+  <%= form_for @new_player do |f| %>
+  <fieldset>
+    <%= f.text_field :first_name, placeholder: 'First' %>
+    <%= f.text_field :last_name, placeholder: 'Last' %>
+    <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
+    <%= f.select :position, ['PG', 'SG', 'SF', 'PF', 'C'], { prompt: 'Pos' }, class: 'input-mini', style: 'float:left; margin-left:10px; width:74px;' %>
+    <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;' %>
+    <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
+    <%= f.text_field :school, placeholder: 'School', style: 'clear:both;' %>
+    <%= f.submit 'Create Player', class: 'btn btn-primary', style: 'width:220px;' %>
+  </fieldset>
   <% end %>
-</ul>
+</div>
+<table id="players" class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>First</th>
+      <th>Last</th>
+      <th>#</th>
+      <th>Pos</th>
+      <th>Height</th>
+      <th>School</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for player in @players %>
+    <tr>
+      <td style="width:20px;"><%= link_to 'Edit', edit_player_path(player), class: 'btn btn-primary btn-mini' %></td>
+      <td style="width:50px;"><%= button_to 'Delete', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini' %></td>
+      <td><%= player.first_name %></td>
+      <td><%= player.last_name %></td>
+      <td><%= player.number %></td>
+      <td><%= player.position %></td>
+      <td><%= player.height %></td>
+      <td><%= player.school %></td>
+    </tr>
+    <% end %>  
+  </tbody>
+</table>
