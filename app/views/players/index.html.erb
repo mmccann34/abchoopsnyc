@@ -10,6 +10,7 @@
     <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;' %>
     <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
     <%= f.text_field :school, placeholder: 'School', style: 'clear:both;' %>
+    <%= f.text_field :hometown, placeholder: 'Hometown' %>
     <%= f.submit 'Create Player', class: 'btn btn-primary', style: 'width:220px;' %>
   </fieldset>
   <% end %>
@@ -25,6 +26,7 @@
       <th>Pos</th>
       <th>Height</th>
       <th>School</th>
+      <th>Hometown</th>
     </tr>
   </thead>
   <tbody>
@@ -38,6 +40,7 @@
       <td><%= player.position %></td>
       <td><%= player.height %></td>
       <td><%= player.school %></td>
+      <td><%= player.hometown %></td>
     </tr>
     <% end %>  
   </tbody>
