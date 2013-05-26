@@ -3,6 +3,8 @@ module ApplicationHelper
     stat_totals = stat_lines.inject(StatLine.new) do |total, stat_line|
       total.fgm += stat_line.fgm
       total.fga += stat_line.fga
+      total.twom += stat_line.twom
+      total.twoa += stat_line.twoa
       total.threem += stat_line.threem
       total.threea += stat_line.threea
       total.ftm += stat_line.ftm

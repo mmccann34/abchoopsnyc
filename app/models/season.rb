@@ -1,12 +1,12 @@
 class Season < ActiveRecord::Base
   attr_accessible :key, :name
-  validates :key, :name, presence: true
+  validates :name, presence: true
 
   has_many :games
 
   # has_many :roster_entries, class_name: 'Roster', dependent: :destroy
 
-  def self.current_season
+  def self.current
     Season.find_by_current(true)
   end
 end

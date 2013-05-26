@@ -1,10 +1,11 @@
 class Game < ActiveRecord::Base
-  attr_accessible :away_team_id, :home_team_id, :season_id, :home_score_first, :home_score_second, :away_score_first, :away_score_second, :date, :time
+  attr_accessible :away_team_id, :home_team_id, :season_id, :home_score_first, :home_score_second, :home_score_ot_one, :home_score_ot_two, :home_score_ot_three, :away_score_first, :away_score_second, :away_score_ot_one, :away_score_ot_two, :away_score_ot_three, :date, :time, :location_id
   validates :away_team_id, :home_team_id, :season_id, presence: true
 
   belongs_to :home_team, class_name: 'Team', foreign_key: 'home_team_id'
   belongs_to :away_team, class_name: 'Team', foreign_key: 'away_team_id'
   belongs_to :season
+  belongs_to :location
 
   has_many :stat_lines, dependent: :destroy
 
@@ -12,8 +13,8 @@ class Game < ActiveRecord::Base
 
   before_save do
     set_defaults
-    home_score = home_score_first + home_score_second
-    away_score = away_score_first + away_score_second
+    self.home_score = home_score_first + home_score_second + home_score_ot_one + home_score_ot_two + home_score_ot_three
+    self.away_score = away_score_first + away_score_second + away_score_ot_one + away_score_ot_two + away_score_ot_three
   end
 
   after_save(on: :create) do
@@ -24,9 +25,15 @@ class Game < ActiveRecord::Base
     self.home_score ||= 0
     self.home_score_first ||= 0
     self.home_score_second ||= 0
+    self.home_score_ot_one ||= 0
+    self.home_score_ot_two ||= 0
+    self.home_score_ot_three ||= 0
     self.away_score ||= 0
     self.away_score_first ||= 0
     self.away_score_second ||= 0
+    self.away_score_ot_one ||= 0
+    self.away_score_ot_two ||= 0
+    self.away_score_ot_three ||= 0
   end
 
   def team_stats(team_id)

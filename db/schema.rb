@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503182644) do
+ActiveRecord::Schema.define(:version => 20130525014803) do
 
   create_table "games", :force => true do |t|
     t.integer  "season_id"
     t.integer  "home_team_id"
     t.integer  "away_team_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.date     "date"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.datetime "date"
     t.time     "time"
     t.integer  "home_score"
     t.integer  "away_score"
@@ -27,6 +27,20 @@ ActiveRecord::Schema.define(:version => 20130503182644) do
     t.integer  "home_score_second"
     t.integer  "away_score_first"
     t.integer  "away_score_second"
+    t.integer  "location_id"
+    t.integer  "home_score_ot_one"
+    t.integer  "home_score_ot_two"
+    t.integer  "home_score_ot_three"
+    t.integer  "away_score_ot_one"
+    t.integer  "away_score_ot_two"
+    t.integer  "away_score_ot_three"
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "players", :force => true do |t|
@@ -90,6 +104,10 @@ ActiveRecord::Schema.define(:version => 20130503182644) do
     t.integer  "blk"
     t.integer  "fl"
     t.integer  "to"
+    t.boolean  "dnp"
+    t.integer  "twom"
+    t.integer  "twoa"
+    t.float    "twopct"
   end
 
   create_table "teams", :force => true do |t|

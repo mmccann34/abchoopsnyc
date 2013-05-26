@@ -15,6 +15,7 @@ gem 'bootstrap-sass', '~> 2.2.2.0'
 gem "awesome_print"
 gem "jquery-rails"
 gem "jquery-datatables-rails", "~> 1.11.2"
+gem "bootstrap-datepicker-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.

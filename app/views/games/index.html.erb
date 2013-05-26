@@ -1,18 +1,19 @@
 <% @active_page = 'games' %>
 
 <div class="page-header"><h2>Games</h2></div>
-<% if user_admin? %>
-<p style="margin-bottom:30px;"><%= link_to 'Create a new Game', new_game_path, class: 'btn btn-small btn-primary' %></p>
-<% end %>
-<% @games.group_by(&:season).each do |season, games| %>
-<h3><%= season.name %></h3>
+<p style="margin-bottom:30px;"><%= link_to 'Add New Games', new_game_path, class: 'btn btn-small btn-primary' %></p>
+<form action="/games" method="get">
+  <%= select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();'} %>
+</form>
+<% @games.group_by{ |g| g.date.to_date }.each do |date, games| %>
 <ul class="unstyled">
-  <% games.each do |game| %>
+  <h3><%= date.strftime('%m/%d/%Y') %></h3>
+  <% games.sort_by{ |g| g.date }.each do |game| %>
   <li id="game_<%= game.id %>">
-    <%= "#{game.id}: #{game.away_team.name} @ #{game.home_team.name}" %>
+    <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name} (#{game.location.name})" %>
     | <%= link_to 'Edit', edit_game_path(game) %>
     | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
-    | <%= link_to 'Box Score', boxscore_game_path(game) %>
+    | <%= link_to 'View Box Score', boxscore_game_path(game) %>
     | <%= link_to 'Edit Box Score', boxscore_edit_game_path(game) %>
   </li>
   <% end %>
