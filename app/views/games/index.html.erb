@@ -5,6 +5,7 @@
 <form action="/games" method="get">
   <%= select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();'} %>
 </form>
+<% if @games %>
 <% @games.group_by{ |g| g.date.to_date }.each do |date, games| %>
 <ul class="unstyled">
   <h3><%= date.strftime('%m/%d/%Y') %></h3>
@@ -18,4 +19,5 @@
   </li>
   <% end %>
 </ul>
+<% end %>
 <% end %>
