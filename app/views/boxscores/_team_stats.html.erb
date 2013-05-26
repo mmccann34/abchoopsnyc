@@ -35,9 +35,13 @@
     </tr>
   </tfoot>
   <tbody>
-    <% stat_lines.each do |stat| %>
+    <% stat_lines.select { |stat| !stat.dnp }.each do |stat| %>
     <tr>
+      <% if stat.player %>
       <td style="text-align:left;"><%= link_to stat.player.name, stat.player %></td>
+      <% else %>
+      <td style="text-align:left;">Sub</td>
+      <% end %>
       <td><%= "#{stat.fgm}-#{stat.fga}" %><%= " (#{number_to_percentage(stat.fgpct * 100.0, precision: 1)})" if stat.fgpct %></td>
       <td><%= "#{stat.threem}-#{stat.threea}" %><%= " (#{number_to_percentage(stat.threepct * 100.0, precision: 1)})" if stat.threepct %></td>
       <td><%= "#{stat.ftm}-#{stat.fta}" %><%= " (#{number_to_percentage(stat.ftpct * 100.0, precision: 1)})" if stat.ftpct %></td>

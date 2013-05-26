@@ -1,13 +1,24 @@
 <% @active_page = 'seasons' %>
-
 <div class="page-header"><h2>Seasons</h2></div>
-<% if user_admin? %>
-<p style="margin-bottom:30px;"><%= link_to 'Create a new Season', new_season_path, class: 'btn btn-small btn-primary' %></p>
+<div style="text-align:center;">
+  <%= form_tag seasons_path, { method: :put, class: 'form-inline', style: 'margin-bottom:25px;' } do %>
+  Current Season:
+  <% if @current_season %>
+  <%= select_tag "current_season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id) %>
+  <% else %>
+  <%= select_tag "current_season", options_from_collection_for_select(@seasons, "id", "name"), include_blank: true %>
+  <% end %>
+  <%= submit_tag "Update", class: 'btn' %>
+  <% end %>
+</div>
+<%= form_for @new_season, html: { class: 'form-inline', style: 'margin-bottom:25px;' }   do |f| %>
+<%= f.text_field :name, placeholder: 'Name', required: true %>
+<%= f.submit 'Create Season', class: 'btn btn-primary' %>
 <% end %>
-<ul class="unstyled">
+<ul class="unstyled"> 
   <% for season in @seasons %>
   <li id="season_<%= season.id %>">
-    <%= "#{season.id}: #{season.name}" %>
+    <%= season.name %><% if season.current %> (Current)<% end %>
     | <%= link_to 'Edit', edit_season_path(season) %>
     | <%= link_to 'Delete', season, method: 'delete', data: { confirm: 'Are you sure?' } %>
   </li>

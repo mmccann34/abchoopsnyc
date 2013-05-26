@@ -1,6 +1,8 @@
 class SeasonsController < ApplicationController
   def index
-    @seasons = Season.all
+    @seasons = Season.order("id DESC").all
+    @new_season = Season.new
+    @current_season = Season.current
   end
 
   def new
@@ -23,7 +25,7 @@ class SeasonsController < ApplicationController
   def update
     @season = Season.find(params[:id])
     if @season.update_attributes(params[:season])
-      redirect_to seasons_url, notice: "Season has successfully been updated."
+      redirect_to edit_season_url(@season), notice: "Season has been updated."
     else
       render action: "edit", flash: { error: "An error occurred while updating Season." }
     end
@@ -36,5 +38,18 @@ class SeasonsController < ApplicationController
     else
       redirect_to seasons_url, flash: { error: "An error occurred while deleting Season."}
     end
+  end
+
+  def set_current
+    current_season = Season.current
+    current_season.update_attribute(:current, false) if current_season
+
+    new_id = params[:current_season]
+    if not new_id.empty?
+      season = Season.find(new_id)
+      season.update_attribute(:current,  true)
+    end
+
+    redirect_to seasons_url, notice: "Current Season has been set."
   end
 end

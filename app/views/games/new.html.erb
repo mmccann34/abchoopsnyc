@@ -1,3 +1,24 @@
-<div class="game_form well well-large">
-  <%= render 'form', header: 'Create a Game' %>
-</div>
+<div class="page-header"><h2>Add New Games</h2></div>
+<%= form_tag games_path do %>
+<p class="form-inline" style="margin-bottom: 20px;">
+  <%= select_tag "season_id", options_from_collection_for_select(@seasons, "id", "name", (@current_season ? @current_season.id : 0)), required: true %>
+  <input name="date" type="text" data-behavior="datepicker" value="<%= Date.today.strftime('%m/%d/%Y') %>">
+  <%= select_tag "location_id", options_from_collection_for_select(Location.order('name').all, "id", "name") %>
+</p>
+<table class="table table-striped">
+  <tbody>
+    <% @games.each_with_index do |game, index| %>
+    <tr>
+      <td>
+        <%= simple_fields_for game, defaults: { label: false, wrapper_html: { style: 'float:left; margin-bottom:0px; margin-right:10px;' }, input_html: { style: 'margin-bottom:0px;' } } do |f| %>
+        <%= select_tag "games[game#{index}[time]]", options_for_select(@times, "12:00 PM"), style: 'float:left; margin-bottom:0px; margin-right:10px;' %>
+        <%= f.association :home_team, prompt: 'Home Team', input_html: { name: "games[game#{index}[home_team_id]]" } %>
+        <%= f.association :away_team, prompt: 'Away Team', input_html: { name: "games[game#{index}[away_team_id]]" } %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= submit_tag "Add Games", class: 'btn btn-primary' %>
+<% end %>
