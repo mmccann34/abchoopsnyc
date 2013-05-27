@@ -11,7 +11,7 @@
   <h3><%= date.strftime('%m/%d/%Y') %></h3>
   <% games.sort_by{ |g| g.date }.each do |game| %>
   <li id="game_<%= game.id %>">
-    <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name} (#{game.location.name})" %>
+    <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name}" %><%= " (#{game.location.name})" if game.location %>
     | <%= link_to 'Edit', edit_game_path(game) %>
     | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
     | <%= link_to 'View Box Score', boxscore_game_path(game) %>
