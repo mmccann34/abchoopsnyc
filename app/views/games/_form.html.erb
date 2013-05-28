@@ -2,14 +2,11 @@
 <fieldset>
   <% if header %><legend><%= header %></legend><% end %>
   <%= f.association :season , prompt: 'Season' %>
-  <%= f.association :home_team, prompt: 'Home Team' %>
-  <%= f.association :away_team, prompt: 'Away Team' %>
-  <div class="form-inline">
-    <%= f.input :date, input_html: { class: 'input-small' }, :wrapper_html => { style: 'text-align:center;' } %>
-  </div>
-  <div class="form-inline">
-    <%= f.input :time, input_html: { class: 'input-small' }, :wrapper_html => { style: 'text-align:center;' }, ampm: true %>
-  </div>
+  <input name="game[date]" type="text" data-behavior="datepicker" value="<%= @game.date ? @game.date.strftime('%m/%d/%Y') : Date.today.strftime('%m/%d/%Y') %>">
+  <%= select_tag 'game[time]', options_for_select(@times, @game.date ? @game.date.strftime('%l:%M %p').strip : "12:00 PM") %>
+  <%= f.association :location, prompt: 'Location', collection: Location.order(:name) %>
+  <%= f.association :home_team, prompt: 'Home Team', collection: Team.order(:name) %>
+  <%= f.association :away_team, prompt: 'Away Team', collection: Team.order(:name) %>
   <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
 </fieldset>
 <% end %>

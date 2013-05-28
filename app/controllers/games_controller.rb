@@ -41,12 +41,23 @@ class GamesController < ApplicationController
 
   def edit
     @game = Game.find(params[:id])
+    @times = get_times("AM")
+    @times.concat get_times("PM")
   end
 
   def update
     @game = Game.find(params[:id])
-    if @game.update_attributes(params[:game])
-      redirect_to games_url, notice: "Game has successfully been updated."
+    game_update = params[:game]
+    date = DateTime.strptime(game_update[:date], '%m/%d/%Y')
+    time = Time.parse(game_update[:time]) rescue nil
+    if time
+      game_update[:date] = date.change(hour: time.hour, min: time.min)
+    else
+      game_update[:date] = date
+    end
+
+    if @game.update_attributes(game_update)
+      redirect_to edit_game_url(@game), notice: "Game has successfully been updated."
     else
       render action: "edit", flash: { error: "An error occurred while updating Game." }
     end
