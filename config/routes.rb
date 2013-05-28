@@ -19,6 +19,7 @@ Abchoops::Application.routes.draw do
   end
   resources :seasons
   put 'seasons' => "seasons#set_current"
+  resources :locations
   
   # The priority is base d upon order of creation:
   # first created -> highest priority.
