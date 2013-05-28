@@ -3,7 +3,7 @@
 <p class="form-inline" style="margin-bottom: 20px;">
   <%= select_tag "season_id", options_from_collection_for_select(@seasons, "id", "name", (@current_season ? @current_season.id : 0)), required: true %>
   <input name="date" type="text" data-behavior="datepicker" value="<%= Date.today.strftime('%m/%d/%Y') %>">
-  <%= select_tag "location_id", options_from_collection_for_select(Location.order('name'), "id", "name") %>
+  <%= select_tag "location_id", options_from_collection_for_select(Location.order('name'), "id", "name"), prompt: 'Location' %>
 </p>
 <table class="table table-striped">
   <tbody>
