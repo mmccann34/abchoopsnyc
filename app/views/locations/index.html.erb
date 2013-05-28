@@ -1,0 +1,16 @@
+<% @active_page = 'locations' %>
+<div class="page-header"><h2>Locations</h2></div>
+<%= form_for @new_location, html: { class: 'form-inline', style: 'margin-bottom:25px;' }  do |f| %>
+<%= f.text_field :name, placeholder: 'Name', required: true %>
+<%= f.text_field :address, placeholder: 'Address' %>
+<%= f.submit 'Create Location', class: 'btn btn-primary' %>
+<% end %>
+<ul class="unstyled"> 
+  <% for location in @locations %>
+  <li id="location_<%= location.id %>">
+    <%= location.name %><%= " - #{location.address}" if location.address %>
+    | <%= link_to 'Edit', edit_location_path(location) %>
+    | <%= link_to 'Delete', location, method: 'delete', data: { confirm: 'Are you sure?' } %>
+  </li>
+  <% end %>
+</ul>
