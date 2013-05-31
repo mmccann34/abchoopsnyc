@@ -1,3 +1,13 @@
+$(function() {
+  if ($('#game_forfeit').checked) {
+    $("#team_stats :input").prop("disabled", true);
+  }
+  
+  $('#game_forfeit').change(function () {
+    $("#team_stats :input").prop("disabled", this.checked ? true : false);
+  });
+});
+
 function validateInputs() {
   $('[id^="stat_"]').each(function() {
     var stat_id = $(this).attr("id").split("_")[1];
