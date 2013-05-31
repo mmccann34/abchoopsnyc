@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531183436) do
+ActiveRecord::Schema.define(:version => 20130531205305) do
 
   create_table "games", :force => true do |t|
     t.integer  "season_id"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20130531183436) do
     t.integer  "away_score_ot_one"
     t.integer  "away_score_ot_two"
     t.integer  "away_score_ot_three"
+    t.boolean  "forfeit"
+    t.integer  "winner"
   end
 
   create_table "locations", :force => true do |t|

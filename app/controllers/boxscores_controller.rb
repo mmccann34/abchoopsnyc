@@ -25,15 +25,17 @@ class BoxscoresController < ApplicationController
     else
       game.update_attributes(params[:game])
 
-      params[:stat_lines].each do |stat_line_id, stat_line_params|
-        if !stat_line_id.starts_with?'sub'
-          stat = StatLine.find_by_id(stat_line_id)
-        else
-          team_id = stat_line_id.split('_')[1]
-          stat = StatLine.create(team_id: team_id, player_id: -1)
-          game.stat_lines << stat
+      if !params[:game][:forfeit]      
+        params[:stat_lines].each do |stat_line_id, stat_line_params|
+          if !stat_line_id.starts_with?'sub'
+            stat = StatLine.find_by_id(stat_line_id)
+          else
+            team_id = stat_line_id.split('_')[1]
+            stat = StatLine.create(team_id: team_id, player_id: -1)
+            game.stat_lines << stat
+          end
+          stat.update_attributes(stat_line_params)
         end
-        stat.update_attributes(stat_line_params)
       end
     end
 
