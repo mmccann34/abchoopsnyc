@@ -47,7 +47,7 @@ class Game < ActiveRecord::Base
 
   private
   def update_stat_lines(team)
-    team.players.each do |player|
+    team.roster(self.season_id).each do |player|
       if !self.stat_lines.any? {|stat| stat.player_id == player.id and stat.team_id == team.id }
         self.stat_lines << StatLine.create(team_id: team.id, player_id: player.id)
       end
