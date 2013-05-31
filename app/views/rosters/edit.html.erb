@@ -1,6 +1,9 @@
 <div class="page-header">
   <h2><%= @team.name %> Roster</h2>
 </div>
+<form action="<%= roster_edit_team_path(@team) %>" method="get">
+  <%= select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();', style: 'font-weight:bold;' } %>
+</form>
 <div class="row" style="margin-bottom:25px;">
   <div class="span3">
     <h3>Create a Player</h3>
@@ -13,6 +16,7 @@
     <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
     <%= f.text_field :school, placeholder: 'School', style: 'clear:both;' %>
     <%= f.text_field :hometown, placeholder: 'Hometown' %>
+    <%= hidden_field_tag :season_id, @selected_season.id %>
     <%= f.submit 'Create and Add to Roster', class: 'btn btn-primary', style: 'width:220px;' %>
     <% end %>
   </div>
@@ -33,6 +37,7 @@
           <td style="width:50px;">
             <%= form_tag do %>
             <%= hidden_field_tag :player_id, player.id %>
+            <%= hidden_field_tag :season_id, @selected_season.id %>
             <%= submit_tag "Add to Roster", class: "btn btn-mini btn-primary" %>
             <% end %>
           </td>
@@ -57,11 +62,12 @@
       </tr>
     </thead>
     <tbody>
-      <% for player in @team.players %>
+      <% for player in @team.roster(@selected_season.id) %>
       <tr>
         <td style="width:25px;">
           <%= form_tag({}, method: :delete ) do %>
           <%= hidden_field_tag :player_id, player.id %>
+          <%= hidden_field_tag :season_id, @selected_season.id %>
           <%= submit_tag "Remove", class: "btn btn-mini btn-danger" %>
           <% end %>
         </td>
