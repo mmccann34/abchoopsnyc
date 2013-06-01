@@ -16,6 +16,9 @@ Abchoops::Application.routes.draw do
       get 'boxscore/edit' => "boxscores#edit"
       put 'boxscore/edit' => "boxscores#update"
     end
+    collection do
+      get 'resave' => "games#resave"
+    end
   end
   resources :seasons
   put 'seasons' => "seasons#set_current"
