@@ -7,13 +7,11 @@ development:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  timeout: 5000
-  database: <%= ENV['ABCHOOPSNYC_DEV_DATABASE'] %>
-  username: <%= ENV['ABCHOOPSNYC_DEV_USER'] %>
-  password: <%= ENV['ABCHOOPSNYC_DEV_PASSWORD'] %>
-  host: <%= ENV['ABCHOOPSNYC_DEV_HOST'] %>
-  port: <%= ENV['ABCHOOPSNYC_DEV_PORT'] %>
- 
+  database: d9t5ikclj2qedv
+  username: lucwgwwbhuzlvf
+  password: QLRskH7gpg2QVGbCt3IhDmQSXp
+  host: ec2-54-227-252-82.compute-1.amazonaws.com
+  port: 5432
 
 # development:
 #   adapter: sqlite3
