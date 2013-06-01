@@ -18,7 +18,11 @@ class Game < ActiveRecord::Base
     self.home_score = home_score_first + home_score_second + home_score_ot_one + home_score_ot_two + home_score_ot_three
     self.away_score = away_score_first + away_score_second + away_score_ot_one + away_score_ot_two + away_score_ot_three
     if !self.forfeit
-      self.winner = self.home_score > self.away_score ? self.home_team.id : self.away_team.id
+      if self.home_score != 0 && self.away_score != 0
+        self.winner = self.home_score > self.away_score ? self.home_team.try(:id) : self.away_team.try(:id)
+      else
+        self.winner = nil
+      end
     end
   end
 
