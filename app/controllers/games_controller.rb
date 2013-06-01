@@ -72,6 +72,13 @@ class GamesController < ApplicationController
     end
   end
 
+  def resave
+    Game.all.each do |g|
+      g.save
+    end
+
+    redirect_to games_url
+  end
 
   private
   def get_times(am_pm)
