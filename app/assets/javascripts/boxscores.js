@@ -1,10 +1,15 @@
 $(function() {
-  if ($('#game_forfeit').checked) {
+  if ($('#game_forfeit').attr("checked") == "checked") {
     $("#team_stats :input").prop("disabled", true);
+    $("[name='game[winner]']").show();
   }
-  
+  else {
+    $("[name='game[winner]']").hide();
+  }
+
   $('#game_forfeit').change(function () {
-    $("#team_stats :input").prop("disabled", this.checked ? true : false);
+    $("#team_stats :input").prop("disabled", this.checked);
+    $("[name='game[winner]']").toggle();
   });
 });
 

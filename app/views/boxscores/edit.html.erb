@@ -10,6 +10,8 @@
       <input name="game[forfeit]" type="hidden" value="0">
       <%= check_box_tag 'game[forfeit]', "1", @game.forfeit %> Forfeit
     </label>
+    <%= label_tag 'game[winner]', 'Winner', name: 'game[winner]', style: 'margin-left:10px;' %>
+    <%= select_tag 'game[winner]', options_for_select({@game.away_team.name => @game.away_team.id, @game.home_team.name => @game.home_team.id}, @game.winner), include_blank: true %>
   </div>
   <div id="team_stats">
     <h3 class="form-inline">
