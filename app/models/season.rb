@@ -5,6 +5,7 @@ class Season < ActiveRecord::Base
   has_many :games
   has_many :team_spots
   has_many :teams, through: :team_spots
+  has_many :divisions
   # has_many :roster_entries, class_name: 'Roster', dependent: :destroy
 
   def self.current

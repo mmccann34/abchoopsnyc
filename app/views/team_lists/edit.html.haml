@@ -22,17 +22,41 @@
                 = hidden_field_tag :team_id, team.id
                 = submit_tag "Add to Teams", class: "btn btn-mini btn-primary"
             %td= team.name
-%h3 Teams
-%table.table.table-striped
-  %thead
-    %tr
-      %th{ style: 'width:50px;' }
-      %th Name
-  %tbody
-    - for team in @season.teams
-      %tr
-        %td
-          = form_tag({}, method: :delete)
-          = hidden_field_tag :team_id, team.id
-          = submit_tag "Remove", class: "btn btn-mini btn-danger"
-        %td= team.name
+.row
+  .span7
+    %h3 Teams
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{ style: 'width:50px;' }
+          %th Name
+          %th Division
+      %tbody
+        - for team_spot in @season.team_spots
+          %tr
+            %td
+              = form_tag({}, method: :delete) do
+                = hidden_field_tag :team_id, team_spot.team.id
+                = submit_tag "Remove", class: "btn btn-mini btn-danger"
+            %td= team_spot.team.name
+            %td
+              = form_tag division_edit_season_path(@season), method: :put do
+                = hidden_field_tag :team_id, team_spot.team.id
+                = select_tag "division_id", options_from_collection_for_select(@season.divisions, "id", "name", team_spot.division_id), onchange: 'this.form.submit();', include_blank: true
+  .span5
+    %h3 Divisions
+    = form_for @new_division, url: season_divisions_path(@season), html: { class: 'form-inline', style: 'margin-bottom:25px;' }  do |f|
+      = f.text_field :name, placeholder: 'Name', required: true
+      = f.submit 'Create Division', class: 'btn btn-primary'
+    -if @season.divisions.any?
+      %table.table.table-striped
+        %thead
+          %tr
+            %th{ style: 'width:50px;' }
+            %th Name
+        %tbody
+          - for division in @season.divisions
+            %tr
+              %td= button_to 'Delete', season_division_path(@season, division), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini'
+              %td= division.name
+            

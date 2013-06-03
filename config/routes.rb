@@ -25,7 +25,9 @@ Abchoops::Application.routes.draw do
       get 'teams/edit' => "team_lists#edit", as: "team_list_edit"
       post 'teams/edit' => "team_lists#add"
       delete 'teams/edit' => "team_lists#remove"
+      put 'teams/edit' => "team_lists#set_division", as: "division_edit"
     end
+    resources :divisions
   end
   put 'seasons' => "seasons#set_current"
   resources :locations
