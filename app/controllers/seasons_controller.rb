@@ -20,6 +20,8 @@ class SeasonsController < ApplicationController
 
   def edit
     @season = Season.find(params[:id])
+    @new_team = Team.new
+    @all_teams = @season.teams.any? ? Team.where('id not in (?)', @season.teams.map(&:id)) : Team.all
   end
 
   def update

@@ -3,7 +3,8 @@ class Season < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :games
-
+  has_many :team_spots
+  has_many :teams, through: :team_spots
   # has_many :roster_entries, class_name: 'Roster', dependent: :destroy
 
   def self.current

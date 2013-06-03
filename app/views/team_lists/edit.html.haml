@@ -1,0 +1,38 @@
+.page-header
+  %h2= "#{@season.name} Teams"
+
+.row{ style: 'margin-bottom:25px;' }
+  .span3
+    %h3 Create a Team
+    = form_for @new_team, url: team_list_edit_season_path(@season) do |f|
+      = f.text_field :name, placeholder: 'Name'
+      = f.submit 'Create and Add to Teams', class: 'btn btn-primary', style: 'width:220px;'
+  .span9
+    %h3 Find a Team
+    %table#findTeam.table.table-striped
+      %thead
+        %tr
+          %th{ style: 'width:50px;' }
+          %th Name
+      %tbody
+        - for team in @all_teams
+          %tr
+            %td
+              = form_tag do
+                = hidden_field_tag :team_id, team.id
+                = submit_tag "Add to Teams", class: "btn btn-mini btn-primary"
+            %td= team.name
+%h3 Teams
+%table.table.table-striped
+  %thead
+    %tr
+      %th{ style: 'width:50px;' }
+      %th Name
+  %tbody
+    - for team in @season.teams
+      %tr
+        %td
+          = form_tag({}, method: :delete)
+          = hidden_field_tag :team_id, team.id
+          = submit_tag "Remove", class: "btn btn-mini btn-danger"
+        %td= team.name

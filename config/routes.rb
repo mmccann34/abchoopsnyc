@@ -20,7 +20,13 @@ Abchoops::Application.routes.draw do
       get 'resave' => "games#resave"
     end
   end
-  resources :seasons
+  resources :seasons do
+    member do
+      get 'teams/edit' => "team_lists#edit", as: "team_list_edit"
+      post 'teams/edit' => "team_lists#add"
+      delete 'teams/edit' => "team_lists#remove"
+    end
+  end
   put 'seasons' => "seasons#set_current"
   resources :locations
   
