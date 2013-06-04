@@ -32,7 +32,7 @@
           %th Name
           %th Division
       %tbody
-        - for team_spot in @season.team_spots
+        - for team_spot in @season.team_spots.order('division_id')
           %tr
             %td
               = form_tag({}, method: :delete) do
@@ -52,11 +52,13 @@
       %table.table.table-striped
         %thead
           %tr
+            %th{ style: 'width:20px;' }
             %th{ style: 'width:50px;' }
             %th Name
         %tbody
           - for division in @season.divisions
             %tr
+              %td= link_to 'Edit', edit_season_division_path(@season, division), class: 'btn btn-primary btn-mini'
               %td= button_to 'Delete', season_division_path(@season, division), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini'
               %td= division.name
             
