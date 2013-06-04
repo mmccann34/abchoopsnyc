@@ -1,0 +1,6 @@
+.division_form.well.well-large
+  = simple_form_for @division, url: season_division_path(@season), defaults: { input_html: { class: 'input-block-level' }, label_html: { class: 'hide' } } do |f|
+    %fieldset
+      %legend Edit Division
+      = f.input :name, placeholder: 'Name', input_html: { autofocus: 'autofocus', required: 'required' }
+      = f.button :submit, class: 'btn-primary btn-large btn-block'
