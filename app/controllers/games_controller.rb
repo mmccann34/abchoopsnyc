@@ -12,10 +12,18 @@ class GamesController < ApplicationController
   end
 
   def new
+    season_id = params[:season]
+    if season_id
+      @selected_season = Season.find(season_id)
+    else
+      @selected_season = Season.current
+    end
+    
+    @teams = @selected_season.teams.order(:name)
+    @seasons = Season.order("id DESC").all
+    
     @games = []
     10.times { @games.append(Game.new) }
-    @seasons = Season.order("id DESC").all
-    @current_season = Season.current
     @times = get_times("AM")
     @times.concat get_times("PM")
   end
