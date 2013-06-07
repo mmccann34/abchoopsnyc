@@ -11,9 +11,65 @@ $(function() {
     $("#team_stats :input").prop("disabled", this.checked);
     $("[name='game[winner]']").toggle();
   });
+  
+  $('#away_stats [id^="twom_"], #away_stats [id^="threem_"], #away_stats [id^="ftm_"]').change(function() { calcTotalScore("away"); });
+  $('#home_stats [id^="twom_"], #home_stats [id^="threem_"], #home_stats [id^="ftm_"]').change(function() { calcTotalScore("home"); });
+  
+  $('input[id^="game_away_score_"]').change(function() { sumTotalScore("away"); });
+  $('input[id^="game_home_score_"]').change(function() { sumTotalScore("home"); });
+  
+  calcTotalScore("away");
+  calcTotalScore("home");
+  sumTotalScore("away");
+  sumTotalScore("home");
 });
 
+function checkTotals(team) {
+  if (parseInt($('#'+team+'_score_total_sum').html()) != parseInt($('#'+team+'_score_total').html())) {
+    $('#'+team+'_totals').css("color", "red");
+  }
+  else {
+    $('#'+team+'_totals').css("color", "black");
+  }
+}
+
+function sumTotalScore(team) {
+  var total = 0;
+  $('input[id^="game_'+team+'_score_"]').each(function() {
+    total += parseInt($(this).val());
+  });
+  $('#'+team+'_score_total_sum').html(total);
+  
+  checkTotals(team);
+}
+
+function calcTotalScore(team) {
+  var total = 0;
+  //2 pointers
+  $('#'+team+'_stats [id^="twom_"]').each(function() {
+    if ($(this).val()) {
+      total += (parseInt($(this).val()) * 2);
+    }
+  });
+  //3 pointers
+  $('#'+team+'_stats [id^="threem_"]').each(function() {
+    if ($(this).val()) {
+      total += (parseInt($(this).val()) * 3);
+    }
+  });
+  //free throws
+  $('#'+team+'_stats [id^="ftm_"]').each(function() {
+    if ($(this).val()) {
+      total += (parseInt($(this).val()));
+    }
+  });
+  $('#'+team+'_score_total').html(total);
+  
+  checkTotals(team);
+}
+
 function validateInputs() {
+  var broken = false;
   $('[id^="stat_"]').each(function() {
     var stat_id = $(this).attr("id").split("_")[1];
     var player_name = $(this).text();
@@ -22,6 +78,7 @@ function validateInputs() {
     var attempted = $('#twoa_' + stat_id).val();
     if (parseInt(made) > parseInt(attempted)) {
       alert("2PM for " + player_name + " greater than 2PA");
+      broken = true;
       return false;
     }
 
@@ -29,6 +86,7 @@ function validateInputs() {
     attempted = $('#threea_' + stat_id).val();
     if (parseInt(made) > parseInt(attempted)) {
       alert("3PM for " + player_name + " greater than 3PA");
+      broken = true;
       return false;
     }
 
@@ -36,11 +94,12 @@ function validateInputs() {
     attempted = $('#fta_' + stat_id).val();
     if (parseInt(made) > parseInt(attempted)) {
       alert("FTM for " + player_name + " greater than FTA");
+      broken = true;
       return false;
     }
   });
 
-  return true;
+  return !broken;
 }
 
 var subCount = 0;
