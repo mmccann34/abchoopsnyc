@@ -10,10 +10,10 @@
     <%= form_for @new_player, url: roster_edit_team_path(@team) do |f| %>
     <%= f.text_field :first_name, placeholder: 'First' %>
     <%= f.text_field :last_name, placeholder: 'Last' %>
-    <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
+    <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;', min: 0 %>
     <%= f.select :position, ['PG', 'SG', 'SF', 'PF', 'C'], { prompt: 'Pos' }, class: 'input-mini', style: 'float:left; margin-left:10px; width:74px;' %>
-    <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;' %>
-    <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
+    <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;', min: 0 %>
+    <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;', min: 0 %>
     <%= f.text_field :school, placeholder: 'School', style: 'clear:both;' %>
     <%= f.text_field :hometown, placeholder: 'Hometown' %>
     <%= hidden_field_tag :season_id, @selected_season.id %>
@@ -28,7 +28,6 @@
           <th></th>
           <th>First</th>
           <th>Last</th>
-          <th>#</th>
         </tr>
       </thead>
       <tbody>
@@ -43,7 +42,6 @@
           </td>
           <td><%= player.first_name %></td>
           <td><%= player.last_name %></td>
-          <td><%= player.number %></td>
         </tr>
         <% end %> 
       </tbody>
@@ -58,23 +56,30 @@
         <th></th>
         <th>First</th>
         <th>Last</th>
-        <th>Number</th>
+        <th>Jersey #</th>
       </tr>
     </thead>
     <tbody>
-      <% for player in @team.roster(@selected_season.id) %>
-      <tr>
-        <td style="width:25px;">
-          <%= form_tag({}, method: :delete ) do %>
-          <%= hidden_field_tag :player_id, player.id %>
-          <%= hidden_field_tag :season_id, @selected_season.id %>
-          <%= submit_tag "Remove", class: "btn btn-mini btn-danger" %>
-          <% end %>
-        </td>
-        <td><%= player.first_name %></td>
-        <td><%= player.last_name %></td>
-        <td><%= player.number %></td>
-      </tr>
+      <% for roster_spot in @team.roster(@selected_season.id).sort_by { |r| [r.player.last_name, r.player.first_name] } %>
+        <% player = roster_spot.player %>
+        <tr>
+          <td style="width:25px;">
+            <%= form_tag({}, method: :delete) do %>
+            <%= hidden_field_tag :roster_spot_id, roster_spot.id %>
+            <%= hidden_field_tag :season_id, @selected_season.id %>
+            <%= submit_tag "Remove", class: "btn btn-mini btn-danger" %>
+            <% end %>
+          </td>
+          <td><%= player.first_name %></td>
+          <td><%= player.last_name %></td>
+          <td>
+            <%= form_tag({}, method: :put) do %>
+              <%= hidden_field_tag :roster_spot_id, roster_spot.id %>
+              <%= hidden_field_tag :season_id, @selected_season.id %>
+              <%= number_field_tag 'roster_spot[jersey_number]', roster_spot.jersey_number, class: 'input-mini' %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

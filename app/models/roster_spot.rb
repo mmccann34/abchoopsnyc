@@ -1,5 +1,5 @@
 class RosterSpot < ActiveRecord::Base
-  attr_accessible :player_id, :team_id, :season_id
+  attr_accessible :player_id, :team_id, :season_id, :jersey_number
 
   belongs_to :player
   belongs_to :team

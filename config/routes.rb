@@ -7,6 +7,7 @@ Abchoops::Application.routes.draw do
     member do
       get 'roster/edit' => "rosters#edit"
       post 'roster/edit' => "rosters#add"
+      put 'roster/edit' => "rosters#edit_number"
       delete 'roster/edit' => "rosters#remove"
     end
   end

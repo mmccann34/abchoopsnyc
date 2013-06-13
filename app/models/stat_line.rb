@@ -1,5 +1,5 @@
 class StatLine < ActiveRecord::Base
-  attr_accessible :game_id, :player_id, :team_id, :fgm, :fga, :twom, :twoa, :threem, :threea, :ftm, :fta, :orb, :drb, :ast, :stl, :blk, :fl, :to, :dnp
+  attr_accessible :game_id, :player_id, :team_id, :fgm, :fga, :twom, :twoa, :threem, :threea, :ftm, :fta, :orb, :drb, :ast, :stl, :blk, :fl, :to, :dnp, :jersey_number
   validates :game_id, :player_id, :team_id, presence: true
 
   belongs_to :player

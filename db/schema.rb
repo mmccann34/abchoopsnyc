@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603192218) do
+ActiveRecord::Schema.define(:version => 20130613141154) do
 
   create_table "divisions", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -77,9 +77,10 @@ ActiveRecord::Schema.define(:version => 20130603192218) do
   create_table "roster_spots", :force => true do |t|
     t.integer  "player_id"
     t.integer  "team_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "season_id"
+    t.integer  "jersey_number"
   end
 
   create_table "seasons", :force => true do |t|
@@ -94,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20130603192218) do
     t.integer  "player_id"
     t.integer  "game_id"
     t.integer  "points"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "team_id"
     t.integer  "fgm"
     t.integer  "fga"
@@ -118,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20130603192218) do
     t.integer  "twom"
     t.integer  "twoa"
     t.float    "twopct"
+    t.integer  "jersey_number"
   end
 
   create_table "team_spots", :force => true do |t|
