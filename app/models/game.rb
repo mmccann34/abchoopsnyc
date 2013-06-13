@@ -46,7 +46,7 @@ class Game < ActiveRecord::Base
   end
 
   def team_stats(team_id)
-    stat_lines.select {|s| s.team_id == team_id}
+    stat_lines.where(team_id: team_id)
   end
 
   def create_stat_lines
@@ -56,9 +56,15 @@ class Game < ActiveRecord::Base
 
   private
   def update_stat_lines(team)
-    team.roster(self.season_id).each do |player|
-      if !self.stat_lines.any? {|stat| stat.player_id == player.id and stat.team_id == team.id }
-        self.stat_lines << StatLine.create(team_id: team.id, player_id: player.id)
+    team.roster(self.season_id).each do |roster_spot|
+      player = roster_spot.player
+      stat_line = self.stat_lines.where(player_id: player.id, team_id: team.id).first
+      if !stat_line
+        self.stat_lines << StatLine.create(team_id: team.id, player_id: player.id, jersey_number: roster_spot.jersey_number)
+      else
+        if !stat_line.jersey_number
+          stat_line.update_attribute(:jersey_number, roster_spot.jersey_number)
+        end
       end
     end
   end

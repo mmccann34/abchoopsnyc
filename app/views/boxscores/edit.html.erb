@@ -15,8 +15,10 @@
   </div>
   <div id="team_stats">
     <div id="away_stats">
-      <h3 class="form-inline">
+      <h3>
         <%= @game.away_team.name %>
+      </h3>
+      <div class="form-inline">
         <%= label_tag 'game[away_score_first]', '1st Half', class: '' %>
         <%= number_field_tag 'game[away_score_first]', @game.away_score_first, min: 0, class: 'half_score' %>
         <%= label_tag 'game[away_score_second]', '2nd Half', class: '' %>
@@ -31,13 +33,16 @@
           <b style="font-size:14px;">TOTAL(Sum): <span id="away_score_total_sum">0</span></b>
           <b style="font-size:14px;">TOTAL(Shots Made): <span id="away_score_total">0</span></b>
         </span>
-      </h3>
+      </div>
       <%= render "edit_team_stats", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
       <button type="button" class="btn btn-info" onclick="addSub(<%= @game.away_team.id %>)">Add Sub</button>
     </div>
+    <br/>
     <div id="home_stats">
-      <h3 class="form-inline">
+      <h3>
         <%= @game.home_team.name %> 
+      </h3>
+      <div class="form-inline">
         <%= label_tag 'game[home_score_first]', '1st Half', class: '' %>
         <%= number_field_tag 'game[home_score_first]', @game.home_score_first, min: 0, class: 'half_score' %>
         <%= label_tag 'game[home_score_second]', '2nd Half', class: '' %>
@@ -52,7 +57,7 @@
           <b style="font-size:14px;">TOTAL(Sum): <span id="home_score_total_sum">0</span></b>
           <b style="font-size:14px;">TOTAL(Shots Made): <span id="home_score_total">0</span></b>
         </span>
-      </h3>
+      </div>
       <%= render "edit_team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
       <button type="button" class="btn btn-info" onclick="addSub(<%= @game.home_team.id %>)">Add Sub</button>
     </div>

@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>PLAYER</th>
+      <th style="text-align:center;">#</th>
       <th>DNP</th>
       <th>2PM</th>
       <th>2PA</th>
@@ -19,13 +20,14 @@
     </tr>
   </thead>
   <tbody>
-    <% stat_lines.each do |stat| %>
+    <% stat_lines.sort_by {|s| [s.player_id == -1 ? 1 : 0, s.player ? s.player.last_name : '']}.each do |stat| %>
     <tr>
       <% if stat.player %>
       <td><%= link_to stat.player.name, stat.player, id: "stat_" + stat.id.to_s %></td>
       <% else %>
       <td><span id="stat_<%= stat.id %>">Sub</span></td>
       <% end %>
+      <td><input id="jersey_number_<%= stat.id %>" name="stat_lines[<%= stat.id %>[jersey_number]]" type="number" min="0" value="<%= stat.jersey_number %>"></td>
       <td style="text-align:center;">
         <input name="stat_lines[<%= stat.id %>[dnp]]" type="hidden" value="0">
         <input id="dnp_<%= stat.id %>" name="stat_lines[<%= stat.id %>[dnp]]" type="checkbox" value="1" <% if stat.dnp %>checked<% end %>>

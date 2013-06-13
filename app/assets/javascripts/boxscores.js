@@ -110,6 +110,7 @@ function addSub(team) {
   var team_id = 'sub_' + team + '_' + subCount;
   table.append('<tr>\
     <td><span id="stat_sub0">Sub</span></td>\
+    <td><input id="jersey_number_sub0" name="stat_lines[sub_0[jersey_number]]" type="number" min="0" value=""></td>\
     <td style="text-align:center;">\
     <input name="stat_lines[sub_0[dnp]]" type="hidden" value="0">\
     <input id="dnp_sub0" name="stat_lines[sub_0[dnp]]" type="checkbox" value="1"></td>\

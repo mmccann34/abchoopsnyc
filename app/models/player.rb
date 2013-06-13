@@ -1,7 +1,6 @@
 class Player < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :key, :height, :weight, :age, :profile_pic, :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown
-  validates :first_name, presence: true
-  # validates :key, uniqueness: { case_sensitive: false }
+  validate :first_or_last
 
   has_attached_file :profile_pic, styles: { medium: "300x300#", profile: "200X200#", thumb: "100x100#" }
 
@@ -19,5 +18,13 @@ class Player < ActiveRecord::Base
 
   def height
     "#{height_feet}-#{height_inches}"
+  end
+  
+  private
+
+  def first_or_last
+    if (first_name.blank? && last_name.blank?)
+      errors[:base] << "Specify at least a first or last name."
+    end
   end
 end
