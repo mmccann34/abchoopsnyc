@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <% stat_lines.sort_by {|s| [s.player_id == -1 ? 1 : 0, s.player ? s.player.last_name : '']}.each do |stat| %>
+    <% stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.each do |stat| %>
     <tr>
       <% if stat.player %>
       <td><%= link_to stat.player.name, stat.player, id: "stat_" + stat.id.to_s %></td>

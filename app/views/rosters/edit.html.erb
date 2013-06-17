@@ -56,9 +56,23 @@
         <th></th>
         <th>First</th>
         <th>Last</th>
-        <th>Jersey #</th>
+        <th>
+          <%= form_tag({}, id: 'form_update_numbers', method: :put) do %>
+          <%= hidden_field_tag :season_id, @selected_season.id %>
+          <%= submit_tag "Save Changes", class: "btn btn-primary btn-mini" %>
+          <% end %>
+          Jersey #
+        </th>
       </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= submit_tag "Save Changes", class: "btn btn-primary btn-mini", form: 'form_update_numbers' %></td>
+      </tr>
+    </tfoot>
     <tbody>
       <% for roster_spot in @team.roster(@selected_season.id).sort_by { |r| [r.player.last_name, r.player.first_name] } %>
         <% player = roster_spot.player %>
@@ -73,11 +87,7 @@
           <td><%= player.first_name %></td>
           <td><%= player.last_name %></td>
           <td>
-            <%= form_tag({}, method: :put) do %>
-              <%= hidden_field_tag :roster_spot_id, roster_spot.id %>
-              <%= hidden_field_tag :season_id, @selected_season.id %>
-              <%= number_field_tag 'roster_spot[jersey_number]', roster_spot.jersey_number, class: 'input-mini' %>
-            <% end %>
+            <%= number_field_tag "roster_spots[#{roster_spot.id}[jersey_number]]", roster_spot.jersey_number, class: 'input-mini', form: 'form_update_numbers' %>
           </td>
         </tr>
       <% end %>

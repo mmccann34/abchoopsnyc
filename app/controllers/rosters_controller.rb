@@ -30,10 +30,13 @@ class RostersController < ApplicationController
   end
   
   def edit_number
-    roster_spot = RosterSpot.find(params[:roster_spot_id])
-    roster_spot.update_attributes(params[:roster_spot])
+    #render text: params
+    params[:roster_spots].each do |id, rs|
+      roster_spot = RosterSpot.find(id)
+      roster_spot.update_attributes(rs)
+    end
     
-    redirect_to roster_edit_team_url(params[:id], season: params[:season_id]), notice: "Jersey # has been updated."
+    redirect_to roster_edit_team_url(params[:id], season: params[:season_id]), notice: "Jersey #s have been updated."
   end
 
   def remove
