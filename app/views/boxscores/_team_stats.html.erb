@@ -1,6 +1,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>#</th>
       <th style="text-align:left;">PLAYER</th>
       <th>FG</th>
       <th>3PT</th>
@@ -18,6 +19,7 @@
   </thead>
   <tfoot>
     <tr style="font-weight:bold;">
+      <td></td>
       <td style="text-align:left;">TOTALS</td>
       <% totals = total_stat_lines(stat_lines) %>
       <td><%= "#{totals.fgm}-#{totals.fga}" %><%= " (#{number_to_percentage(totals.fgpct * 100.0, precision: 1)})" if totals.fgpct %></td>
@@ -35,8 +37,9 @@
     </tr>
   </tfoot>
   <tbody>
-    <% stat_lines.select { |stat| !stat.dnp }.each do |stat| %>
+    <% stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| !stat.dnp }.each do |stat| %>
     <tr>
+      <td><%= stat.jersey_number%></td>
       <% if stat.player %>
       <td style="text-align:left;"><%= link_to stat.player.name, stat.player %></td>
       <% else %>
