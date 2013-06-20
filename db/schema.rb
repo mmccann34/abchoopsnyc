@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613141154) do
+ActiveRecord::Schema.define(:version => 20130619140621) do
+
+  create_table "date_ranges", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "name"
+    t.boolean  "playoffs"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "season_id"
+  end
 
   create_table "divisions", :force => true do |t|
     t.datetime "created_at", :null => false

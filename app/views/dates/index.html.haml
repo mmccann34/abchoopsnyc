@@ -1,0 +1,31 @@
+- @active_page = 'dates'
+.page-header
+  %h2 Dates
+%form{ action: dates_path, method: :get }
+  = select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();', style: 'font-weight:bold; margin-bottom:20px' }
+= form_for @new_date_range, url: dates_path, html: { class: 'form-inline', style: 'margin-bottom:25px;' } do |f|
+  <input name="date_range[start_date]" type="text" data-behavior="datepicker" value="#{Date.today.strftime('%m/%d/%Y')}" required="required" class="input-small"> -
+  <input name="date_range[end_date]" type="text" data-behavior="datepicker" value="#{7.days.from_now.strftime('%m/%d/%Y')}" required="required" class="input-small">
+  = f.text_field :name, required: true, placeholder: 'Name', class: 'input-medium'
+  = f.label :playoffs, class:'checkbox' do
+    = f.check_box :playoffs
+    Playoffs
+  = hidden_field_tag :season_id, @selected_season.id
+  = f.submit 'Create Date Range', class: 'btn btn-primary'
+= link_to "Edit Dates", edit_dates_path(season: @selected_season.id), class: 'btn btn-primary'    
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+      %th Start Date
+      %th End Date
+      %th Name
+      %th Season
+  %tbody
+    - for date_range in @date_ranges
+      %tr
+        %td{style: "width:50px"}= button_to('Delete', date_path(date_range), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini')
+        %td= date_range.start_date.strftime('%m/%d/%Y')
+        %td= date_range.end_date.strftime('%m/%d/%Y')
+        %td= date_range.name
+        %td= date_range.playoffs ? "Playoffs" : "Regular"
