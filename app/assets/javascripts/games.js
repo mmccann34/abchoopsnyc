@@ -1,6 +1,4 @@
 $(function() {
-  $('[data-behavior~=datepicker]').datepicker({"autoclose": true})
-
   $('#games_game0_time').change(function() {
     var count = 1;
     var selected_index = this.selectedIndex;

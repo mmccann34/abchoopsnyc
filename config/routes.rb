@@ -2,7 +2,9 @@ Abchoops::Application.routes.draw do
   devise_for :users
 
   root to: "games#index"
+  
   resources :players
+  
   resources :teams do
     member do
       get 'roster/edit' => "rosters#edit"
@@ -11,6 +13,7 @@ Abchoops::Application.routes.draw do
       delete 'roster/edit' => "rosters#remove"
     end
   end
+  
   resources :games do
     member do
       get 'boxscore' => "boxscores#show"
@@ -21,6 +24,7 @@ Abchoops::Application.routes.draw do
       get 'resave' => "games#resave"
     end
   end
+  
   resources :seasons do
     member do
       get 'teams/edit' => "team_lists#edit", as: "team_list_edit"
@@ -31,7 +35,16 @@ Abchoops::Application.routes.draw do
     resources :divisions
   end
   put 'seasons' => "seasons#set_current"
+  
   resources :locations
+  
+  resources :dates, only: [:index, :create, :destroy] do
+    collection do
+      get 'edit' => "dates#edit"
+      put '' => "dates#update"
+    end
+  end
+  
   
   # The priority is base d upon order of creation:
   # first created -> highest priority.
