@@ -9,7 +9,7 @@ $(function() {
     "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" }
   });
   
-  $("#roster input").click(function(e){
-    e.stopPropagation();
+  $("#roster input").click(function(event){
+    event.stopPropagation();
   });
 });
