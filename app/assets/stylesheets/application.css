@@ -13,3 +13,8 @@
  *= require dataTables/jquery.dataTables.bootstrap
  *= require bootstrap-datepicker
  */
+
+tr[onclick]:hover {
+  cursor: pointer;
+  color: #08C;
+}

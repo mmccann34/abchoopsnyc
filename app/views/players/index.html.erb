@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     <% for player in @players %>
-    <tr>
+    <tr onclick="document.location = '<%= player_path(player) %>';">
       <td style="width:20px;"><%= link_to 'Edit', edit_player_path(player), class: 'btn btn-primary btn-mini' %></td>
       <td style="width:50px;"><%= button_to 'Delete', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini' %></td>
       <td><%= player.first_name %></td>

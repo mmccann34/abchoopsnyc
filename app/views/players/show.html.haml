@@ -1,0 +1,11 @@
+.page-header
+  %h2= @player.name
+  
+%h3 Roster History
+
+- @player.roster_spots.sort_by { |rs| rs.season.id }.reverse.group_by { |rs| rs.season }.each do |season, roster_spots|
+  %div
+    %h4= season.name
+    %ul.unstyled
+      -roster_spots.each do |roster_spot|
+        %li= roster_spot.team.name

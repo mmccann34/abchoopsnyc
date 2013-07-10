@@ -19,6 +19,7 @@ class BoxscoresController < ApplicationController
   end
 
   def update
+    test.poop
     game = Game.find_by_id(params[:id])
     if !game
       redirect_to games_url, flash: { error: "Game does not exist." }
