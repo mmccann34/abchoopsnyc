@@ -87,7 +87,7 @@
           <td><%= player.first_name %></td>
           <td><%= player.last_name %></td>
           <td>
-            <%= number_field_tag "roster_spots[#{roster_spot.id}[jersey_number]]", roster_spot.jersey_number, class: 'input-mini', form: 'form_update_numbers', onclick: 'e.stopPropagation();' %>
+            <%= number_field_tag "roster_spots[#{roster_spot.id}[jersey_number]]", roster_spot.jersey_number, class: 'input-mini', form: 'form_update_numbers', min: 0 %>
           </td>
         </tr>
       <% end %>
