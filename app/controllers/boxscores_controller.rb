@@ -24,8 +24,8 @@ class BoxscoresController < ApplicationController
       redirect_to games_url, flash: { error: "Game does not exist." }
     else
       game.update_attributes(params[:game])
-
-      if params[:game][:forfeit] != true
+      
+      if params[:game][:forfeit] != "1"
         params[:stat_lines].each do |stat_line_id, stat_line_params|
           if !stat_line_id.starts_with?'sub'
             stat = StatLine.find_by_id(stat_line_id)
