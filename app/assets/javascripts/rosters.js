@@ -8,4 +8,8 @@ $(function() {
     "aaSorting": [[2,'asc']],
     "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" }
   });
+  
+  $("#roster input").click(function(e){
+    e.stopPropagation();
+  });
 });
