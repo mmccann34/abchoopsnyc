@@ -20,6 +20,10 @@ class Player < ActiveRecord::Base
     "#{height_feet}-#{height_inches}"
   end
   
+  def last_team
+    roster_spots.sort[-1].try(:team).try(:name)
+  end
+  
   private
 
   def first_or_last

@@ -45,6 +45,7 @@ Abchoops::Application.routes.draw do
     end
   end
   
+  get 'abc/boxscore' => "abc#show_boxscore"
   
   # The priority is base d upon order of creation:
   # first created -> highest priority.
