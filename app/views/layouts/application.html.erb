@@ -9,12 +9,9 @@
     ['/locations', 'locations', 'Locations'],
     ['/dates', 'dates', 'Dates']
     ] %>
-
+  
     <title>Abc Hoops NYC</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
-    <!--[if IE]>
-    <%= stylesheet_link_tag    "application_ie", :media => "all" %>
-    <![endif]-->
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
@@ -54,7 +51,7 @@
        <%= render "layouts/alert", status: "info", message: message %>
        <% end %>
        <% end %>
-
+      
        <%= yield %>
      </div>
 
