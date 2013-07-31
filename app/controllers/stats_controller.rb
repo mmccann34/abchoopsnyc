@@ -10,6 +10,7 @@ class StatsController < ApplicationController
     if !@game
       redirect_to games_url, flash: { error: "Game does not exist." }
     end
+    @divisions = @game.season.divisions
   end
   
   private

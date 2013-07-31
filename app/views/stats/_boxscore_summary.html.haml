@@ -16,9 +16,9 @@
     %td.half= game.away_score_second
     %td.total= game.away_score
   %tr
-    %td.team(style="font-weight:bold;font-size:10px;")= "Played at the #{game.location.name}"
+    %td.team(style="font-weight:bold;font-size:10px;")= "Played at the #{game.location.try(:name)}"
     %td.half &nbsp;
     %td.total(colspan="2")
-      %a(href="../s10_summer13_sun/wk4_12pm_hk.shtml#fullboxscore") Full Box Score&#187;
+      %a(href="/stats/games/#{game.id}/boxscore#fullboxscore") Full Box Score&#187;
       &nbsp;
 %div.horizline
