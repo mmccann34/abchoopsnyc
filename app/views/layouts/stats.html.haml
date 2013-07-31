@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title Abc Hoops NYC
+    = stylesheet_link_tag  "abc", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    %link(rel="shortcut icon" type="image/ico" href="/assets/favicon.ico")
+  %body
+    %div#main
+      = render "header"
+      %div#container-outer
+        %div#container-inner
+          %div#content
+            = yield
+          %div.rightcolumn
+            = render "sidebar"
+            = render "sidebar_bottom"
+      = render "footer"

@@ -1,0 +1,24 @@
+%table.boxscore(width="550" border="0" cellspacing="0" cellpadding="5")
+  %tr
+    %td
+      %a(href="../s10_summer13_sun/wk4_12pm_hk.shtml") Week 4 - 12:00PM
+    %td.half(width="90") 1st Half
+    %td.half(width="90") 2nd Half
+    %td.total(width="90") Total
+  %tr
+    %td.team  #{"&#8226;".html_safe if game.home_team.id == game.winner} #{game.home_team.name}
+    %td.half= game.home_score_first
+    %td.half= game.home_score_second
+    %td.total= game.home_score
+  %tr
+    %td.team #{"&#8226;".html_safe if game.away_team.id == game.winner} #{game.away_team.name}
+    %td.half= game.away_score_first
+    %td.half= game.away_score_second
+    %td.total= game.away_score
+  %tr
+    %td.team(style="font-weight:bold;font-size:10px;")= "Played at the #{game.location.name}"
+    %td.half &nbsp;
+    %td.total(colspan="2")
+      %a(href="../s10_summer13_sun/wk4_12pm_hk.shtml#fullboxscore") Full Box Score&#187;
+      &nbsp;
+%div.horizline

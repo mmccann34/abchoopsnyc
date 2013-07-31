@@ -1,5 +1,6 @@
 class StatsController < ApplicationController
   layout "stats"
+  before_filter :load_sidebar
   
   def show_boxscore
     @game = Game.find_by_id(params[:id])
@@ -9,5 +10,11 @@ class StatsController < ApplicationController
     if !@game
       redirect_to games_url, flash: { error: "Game does not exist." }
     end
+  end
+  
+  private
+  
+  def load_sidebar
+    @divisions = Season.current.divisions
   end
 end

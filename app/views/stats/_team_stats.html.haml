@@ -1,0 +1,73 @@
+%table{cellspacing: "0", cellpadding: "2", width: "650"}
+  %tbody
+    %tr.statthead
+      %td{colspan: "10", style: "font-size: 14px"}= team.name
+    %tr.statthead
+      %td{width: "132"} &nbsp;
+      %td{width: "78"} Field Goals
+      %td{width: "75"} 3PT
+      %td{width: "75"} FT
+      %td{width: "75"} Rebounds
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "45"} &nbsp;
+%p.ns
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding:"2", width:"650"}
+  %thead.statthead
+    %tr
+      %th{width: "25"}No.
+      %th.sorttable_nosort Name
+      %th{width: "43"}M-A
+      %th{width: "35"} %
+      %th{width: "40"} M-A
+      %th{width: "35"} %
+      %th{width: "40"} M-A
+      %th{width: "35"} %
+      %th{width: "25"} O
+      %th{width: "25"} D
+      %th{width: "25"} T
+      %th{width: "25"} A
+      %th{width: "25"} S
+      %th{width: "25"} B
+      %th{width: "25"} F
+      %th{width: "45"} P
+  %tbody
+    - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| !stat.dnp }.each do |stat|
+      %tr{class: "#{cycle('odd2', 'even2')}"}
+        %td= stat.jersey_number
+        %td= stat.player ? stat.player.name : 'Sub'
+        %td.lline= "#{stat.fgm}-#{stat.fga}"
+        %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
+        %td.lline= "#{stat.threem}-#{stat.threea}"
+        %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
+        %td.lline= "#{stat.ftm}-#{stat.fta}"
+        %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
+        %td.lline= stat.orb
+        %td= stat.drb
+        %td= stat.trb
+        %td.lline= stat.stl
+        %td.lline= stat.blk
+        %td.lline= stat.to
+        %td.lline= stat.fl
+        %td.lline= stat.points
+  %tfoot
+    %tr.stattotal
+      %td &nbsp;
+      %td Total
+      - totals = total_stat_lines(stat_lines)
+      %td.lline= "#{totals.fgm}-#{totals.fga}"
+      %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
+      %td.lline= "#{totals.threem}-#{totals.threea}"
+      %td= number_with_precision((totals.threepct ? totals.threepct : 0), precision: 3) 
+      %td.lline= "#{totals.ftm}-#{totals.fta}"
+      %td= number_with_precision((totals.ftpct ? totals.ftpct : 0), precision: 3) 
+      %td.lline= totals.orb
+      %td= totals.drb
+      %td= totals.trb
+      %td.lline= totals.stl
+      %td.lline= totals.blk
+      %td.lline= totals.to
+      %td.lline= totals.fl
+      %td.lline= totals.points
