@@ -1,0 +1,15 @@
+%div.sidebarscrollpane
+  %p.sidebarhead Standings:
+  %div.section#suns
+    %div.scroll-paneNS
+      %table.standings
+        - @divisions.each do |division|
+          %tr
+            %td.division{ colspan: "3" }= division.name
+          - division.teams.sort_by{|t| t.win_pct}.reverse!.each do |team|
+            %tr
+              %td &nbsp;
+              %td
+                %b
+                  %a{ href: "#" }= team.name
+              %td= team.record

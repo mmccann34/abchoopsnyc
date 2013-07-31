@@ -1,0 +1,39 @@
+<h1>Results</h1>
+<h2>&nbsp;</h2>
+<table width="650" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="150" align="left"><a href="wk4_11am_hk.shtml">&#171;11AM: TCU vs TSW</a></td>
+    <td align="center"><b><%= "#{@game.time.strftime("%l:%M")}: #{@game.home_team.name} vs #{@game.away_team.name}" %></b></td>
+    <td width="150" align="right"><a href="wk4_5pm_hk.shtml">5PM: FLD vs FRN&#187;</a></td>
+  </tr>
+</table>
+<p class="sep">
+  <%= render "boxscore_summary", game: @game %>
+</p>
+<script type="text/javascript" id="sourcecode">
+ang(document).ready(function(){
+ ang('#slides1').bxGallery({
+  maxwidth: '',
+  maxheight: '',
+  thumbwidth: 150,
+  thumbcrop: false,
+  croppercent: .35,
+  thumbplacement: 'top',
+  thumbcontainer: '',
+  opacity: .7,
+  load_text: '',
+  load_image: 'http://abchoopsnyc.com/images/spinner.gif',
+  wrapperclass: 'outer' 
+});
+});
+</script>
+<a name="fullboxscore" id="fullboxscore"></a>
+<p class="sep">
+  <%= render "team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
+</p>
+<p class="sep">
+  <%= render "team_stats", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
+</p>
+<p class="ls">
+  <%= render "glossary" %>
+</p>
