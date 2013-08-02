@@ -11,11 +11,13 @@ class StatsController < ApplicationController
       redirect_to games_url, flash: { error: "Game does not exist." }
     end
     @divisions = @game.season.divisions
+    @current_season = @game.season
   end
   
   private
   
   def load_sidebar
     @divisions = Season.current.divisions
+    @current_season = Season.current
   end
 end
