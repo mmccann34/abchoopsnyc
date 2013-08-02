@@ -3,4 +3,5 @@ class TeamSpot < ActiveRecord::Base
   
   belongs_to :team
   belongs_to :division
+  belongs_to :league
 end

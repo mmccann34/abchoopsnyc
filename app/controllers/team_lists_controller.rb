@@ -25,7 +25,11 @@ class TeamListsController < ApplicationController
   
   def set_division
     team_spot = TeamSpot.find_by_team_id_and_season_id(params[:team_id], params[:id])
-    team_spot.update_attribute(:division_id, params[:division_id])
+    if (params[:division_id])
+      team_spot.update_attribute(:division_id, params[:division_id])
+    else
+      team_spot.update_attribute(:league_id, params[:league_id])
+    end
     
     redirect_to team_list_edit_season_url(params[:id])
   end

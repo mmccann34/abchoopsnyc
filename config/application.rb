@@ -71,6 +71,6 @@ module Abchoops
     #Fonts
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
-    config.assets.precompile += ["abc.css"]
+    #config.assets.precompile += ["abc.css"]
   end
 end

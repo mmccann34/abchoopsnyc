@@ -1,15 +1,24 @@
+- teams = @current_season.team_spots.group_by { |ts| ts.league }
 %div.sidebarscrollpane
-  %p.sidebarhead Standings:
-  %div.section#suns
-    %div.scroll-paneNS
-      %table.standings
-        - @divisions.each do |division|
-          %tr
-            %td.division{ colspan: "3" }= division.name
-          - division.teams.sort_by{|t| t.win_pct}.reverse!.each do |team|
-            %tr
-              %td &nbsp;
-              %td
-                %b
-                  %a{ href: "#" }= team.name
-              %td= team.record
+  %p.sidebarhead 
+    Standings:
+    - if teams.count > 1
+      %span.rightSatSun
+        - teams.keys.sort.each_with_index do |league, index|
+          = index != 0 ? "/" : ""
+          %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
+  - teams.sort.map do |league, team_spots|
+    %div.section{ id: "#{league.short_name}", style: league.short_name != "Sun" ? "display: none;" : "" }
+      %div.scroll-paneNS
+        %table.standings
+          - team_spots.group_by { |ts| ts.division }.each do |division, division_team_spots|
+            - if division
+              %tr
+                %td.division{ colspan: "3" }= division.name
+            - division_team_spots.map(&:team).sort_by{|t| t.win_pct}.reverse!.each do |team|
+              %tr
+                %td &nbsp;
+                %td
+                  %b
+                    %a{ href: "#" }= team.name
+                %td= team.record

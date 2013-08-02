@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619140621) do
+ActiveRecord::Schema.define(:version => 20130801202523) do
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -53,6 +53,13 @@ ActiveRecord::Schema.define(:version => 20130619140621) do
     t.integer  "away_score_ot_three"
     t.boolean  "forfeit"
     t.integer  "winner"
+  end
+
+  create_table "leagues", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "short_name"
   end
 
   create_table "locations", :force => true do |t|
@@ -138,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20130619140621) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "division_id"
+    t.integer  "league_id"
   end
 
   create_table "teams", :force => true do |t|
