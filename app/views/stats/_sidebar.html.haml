@@ -7,8 +7,8 @@
         - teams.keys.sort.each_with_index do |league, index|
           = index != 0 ? "/" : ""
           %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
-  - teams.sort.map do |league, team_spots|
-    %div.section{ id: "#{league.short_name}", style: league.short_name != "Sun" ? "display: none;" : "" }
+  - teams.sort.each_with_index.map do |(league, team_spots), index|
+    %div.section{ id: "#{league.try(:short_name)}", style: index != 0 ? "display: none;" : "" }
       %div.scroll-paneNS
         %table.standings
           - team_spots.group_by { |ts| ts.division }.each do |division, division_team_spots|
