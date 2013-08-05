@@ -42,6 +42,9 @@
             %td= division.name
 %div
   %h3 Teams
+  %div{ style: 'text-align:center;' }
+    = form_tag({}, id: 'form_save_changes', method: :put) do
+      = submit_tag "Save Changes", class: "btn btn-primary btn-mini"
   %table.table.table-striped
     %thead
       %tr
@@ -58,10 +61,8 @@
               = submit_tag "Remove", class: "btn btn-mini btn-danger"
           %td= team_spot.team.name
           %td
-            = form_tag division_edit_season_path(@season), method: :put do
-              = hidden_field_tag :team_id, team_spot.team.id
-              = select_tag "league_id", options_from_collection_for_select(League.all, "id", "name", team_spot.league_id), onchange: 'this.form.submit();', include_blank: true
+            = select_tag "team_spots[#{team_spot.id}[league_id]]", options_from_collection_for_select(League.all, "id", "name", team_spot.league_id), form: 'form_save_changes', include_blank: true
           %td
-            = form_tag division_edit_season_path(@season), method: :put do
-              = hidden_field_tag :team_id, team_spot.team.id
-              = select_tag "division_id", options_from_collection_for_select(@season.divisions, "id", "name", team_spot.division_id), onchange: 'this.form.submit();', include_blank: true
+            = select_tag "team_spots[#{team_spot.id}[division_id]]", options_from_collection_for_select(@season.divisions, "id", "name", team_spot.division_id), form: 'form_save_changes', include_blank: true
+  %div{ style: 'text-align:center; margin-bottom: 10px;' }
+    = submit_tag "Save Changes", class: "btn btn-primary btn-mini", form: "form_save_changes"
