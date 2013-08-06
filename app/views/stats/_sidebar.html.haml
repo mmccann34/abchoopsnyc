@@ -15,7 +15,7 @@
             - if division
               %tr
                 %td.division{ colspan: "3" } #{division.name} Division
-            - division_team_spots.map(&:team).sort_by{|t| t.win_pct}.reverse!.each do |team|
+            - division_team_spots.map(&:team).sort_by{|t| t.win_pct(@current_season)}.reverse!.each do |team|
               %tr
                 %td &nbsp;
                 %td
