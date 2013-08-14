@@ -1,7 +1,7 @@
 %table.boxscore(width="550" border="0" cellspacing="0" cellpadding="5")
   %tr
     %td
-      %a(href="../s10_summer13_sun/wk4_12pm_hk.shtml") Week 4 - 12:00PM
+      %a(href="/stats/games/#{game.id}/boxscore") #{game.week_name + " - " if game.week_name} #{game.time.strftime("%l:%M%p")}
     %td.half(width="90") 1st Half
     %td.half(width="90") 2nd Half
     %td.total(width="90") Total

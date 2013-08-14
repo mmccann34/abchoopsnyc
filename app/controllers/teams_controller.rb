@@ -53,4 +53,13 @@ class TeamsController < ApplicationController
       redirect_to teams_url, flash: { error: "Team does not exist." }
     end
   end
+  
+  def save_changes
+    params[:teams].each do |id, t|
+      team = Team.find(id)
+      team.update_attributes(t)
+    end
+    
+    redirect_to teams_url, notice: 'Changes were saved successfully.'
+  end
 end
