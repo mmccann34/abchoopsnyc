@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801202523) do
+ActiveRecord::Schema.define(:version => 20130814144047) do
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -150,8 +150,9 @@ ActiveRecord::Schema.define(:version => 20130801202523) do
 
   create_table "teams", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "abbreviation"
   end
 
   create_table "users", :force => true do |t|

@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :abbreviation
   validates :name, presence: true
 
   has_many :home_games, class_name: 'Game', foreign_key: 'home_team_id'

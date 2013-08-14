@@ -1,0 +1,27 @@
+- @active_page = 'teams'
+
+.page-header
+  %h2 Teams
+= form_for @new_team, html: { class: 'form-inline', style: 'margin-bottom:25px;' } do |f|
+  = f.text_field :name, placeholder: 'Name'
+  = f.text_field :abbreviation, placeholder: 'Abbreviation', class: 'input-small'
+  = f.submit 'Create Team', class: 'btn btn-primary'
+%div{ style: 'text-align:center;' }
+  = form_tag({}, id: 'form_save_changes', method: :put) do
+    = submit_tag "Save Changes", class: "btn btn-primary btn-mini"
+%table#teams.table.table-striped
+  %thead
+    %tr
+      %th
+      %th
+      %th Name
+      %th Abbreviation
+  %tbody
+    - for team in @teams
+      %tr
+        %td{ style: "width:70px;" }= link_to 'Edit Roster', roster_edit_team_path(team), class: 'btn btn-primary btn-mini'
+        %td{ style: "width:50px;" }= button_to 'Delete', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini'
+        %td= text_field_tag "teams[#{team.id}[name]]", team.name, form: 'form_save_changes'
+        %td= text_field_tag "teams[#{team.id}[abbreviation]]", team.abbreviation, form: 'form_save_changes', class: 'input-small'
+%div{ style: 'text-align:center; margin-bottom: 10px;' }
+  = submit_tag "Save Changes", class: "btn btn-primary btn-mini", form: "form_save_changes"

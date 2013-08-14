@@ -53,6 +53,11 @@ class Game < ActiveRecord::Base
     update_stat_lines(home_team)
     update_stat_lines(away_team)
   end
+  
+  def week_name
+    date_range = DateRange.where('? > start_date AND ? < end_date', date, date).first
+    date_range ? date_range.name : nil
+  end
 
   private
   def update_stat_lines(team)

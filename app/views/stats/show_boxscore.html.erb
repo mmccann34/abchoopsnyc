@@ -12,10 +12,10 @@
 </p>
 <a name="fullboxscore" id="fullboxscore"></a>
 <p class="sep">
-  <%= render "team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
+  <%= render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
 </p>
 <p class="sep">
-  <%= render "team_stats", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
+  <%= render "team_boxscore", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id) %>
 </p>
 <p class="ls">
   <%= render "glossary" %>

@@ -13,6 +13,7 @@ Abchoops::Application.routes.draw do
       delete 'roster/edit' => "rosters#remove"
     end
   end
+  put "teams" => "teams#save_changes"
   
   resources :games do
     member do
