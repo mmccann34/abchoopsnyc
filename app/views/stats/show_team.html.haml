@@ -76,7 +76,7 @@
       %th{width: "25"} F
       %th{width: "25"} P
   %tbody
-    - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number}.each do |roster_spot|
+    - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @per_game_player_stats.has_key?(roster_spot.player_id)
         - stats = @per_game_player_stats[roster_spot.player_id]
         %tr{class: "#{cycle('odd2', 'even2')}"}
@@ -151,7 +151,7 @@
       %th{width: "25"} F
       %th{width: "25"} P
   %tbody
-    - @roster.sort_by {|rs| rs.jersey_number ? rs.jersey_number : rs.player.last_name}.each do |roster_spot|
+    - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @cumulative_player_stats.has_key?(roster_spot.player_id)
         - stats = @cumulative_player_stats[roster_spot.player_id]
         %tr{class: "#{cycle('odd2', 'even2')}"}
