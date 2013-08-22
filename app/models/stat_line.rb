@@ -34,10 +34,10 @@ class StatLine < ActiveRecord::Base
   end
 
   def calc_percentages
-    self.fgpct = fgm.to_f/fga unless fga == 0
-    self.twopct = twom.to_f/twoa unless twoa == 0
-    self.threepct = threem.to_f/threea unless threea == 0
-    self.ftpct = ftm.to_f/fta unless fta == 0
+    self.fgpct = fga != 0 ? fgm / fga : 0
+    self.twopct = twoa != 0 ? twom / twoa : 0
+    self.threepct = threea != 0 ? threem / threea : 0
+    self.ftpct = fta != 0 ? ftm / fta : 0
     self.trb = orb + drb
     self.points = (twom * 2) + (threem * 3) + (ftm * 1)
   end

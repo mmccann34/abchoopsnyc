@@ -17,6 +17,7 @@ gem "jquery-rails"
 gem "jquery-datatables-rails", "~> 1.11.2"
 gem "bootstrap-datepicker-rails"
 gem "haml"
+gem "linguistics", "~> 2.0.2"
 
 # Gems used only for assets and not required
 # in production environments by default.

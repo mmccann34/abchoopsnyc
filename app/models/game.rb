@@ -24,6 +24,12 @@ class Game < ActiveRecord::Base
         self.winner = nil
       end
     end
+    
+    #Figure out league/division
+    home_team_spot = self.home_team.team_spots.where(season_id: self.season_id).first
+    away_team_spot = self.away_team.team_spots.where(season_id: self.season_id).first
+    self.league_id = home_team_spot.league_id == away_team_spot.league_id ? home_team_spot.league_id : nil
+    self.division_id = home_team_spot.division_id == away_team_spot.division_id ? home_team_spot.division_id : nil
   end
 
   after_save(on: :create) do
@@ -55,11 +61,33 @@ class Game < ActiveRecord::Base
   end
   
   def week_name
-    date_range = DateRange.where('? > start_date AND ? < end_date', date, date).first
+    date_range = DateRange.where('? > start_date AND ? < end_date', self.date, self.date).first
     date_range ? date_range.name : nil
+  end
+  
+  def next_game
+    surrounding_games "next"
+  end
+  
+  def previous_game
+    surrounding_games "previous"
+  end
+  
+  def abbreviation
+    "#{self.time.strftime("%l%p")}: #{self.home_team.abbreviation} vs #{self.away_team.abbreviation}"
   end
 
   private
+  def surrounding_games(game)
+    games = Game.where('Date(date) = ?', self.date.to_date).where(league_id: self.league_id, division_id: self.division_id).order(:time)
+    curr_index = games.index(self)
+    if game == "next"
+      curr_index + 1 < games.length ? games[curr_index + 1] : nil
+    else
+      curr_index - 1 >= 0 ? games[curr_index - 1] : nil
+    end
+  end
+    
   def update_stat_lines(team)
     team.roster(self.season_id).each do |roster_spot|
       player = roster_spot.player

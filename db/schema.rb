@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130814144047) do
+ActiveRecord::Schema.define(:version => 20130821201917) do
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(:version => 20130814144047) do
     t.integer  "away_score_ot_three"
     t.boolean  "forfeit"
     t.integer  "winner"
+    t.integer  "league_id"
+    t.integer  "division_id"
   end
 
   create_table "leagues", :force => true do |t|
@@ -111,30 +113,30 @@ ActiveRecord::Schema.define(:version => 20130814144047) do
   create_table "stat_lines", :force => true do |t|
     t.integer  "player_id"
     t.integer  "game_id"
-    t.integer  "points"
+    t.float    "points"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "team_id"
-    t.integer  "fgm"
-    t.integer  "fga"
+    t.float    "fgm"
+    t.float    "fga"
     t.float    "fgpct"
-    t.integer  "threem"
-    t.integer  "threea"
+    t.float    "threem"
+    t.float    "threea"
     t.float    "threepct"
-    t.integer  "ftm"
-    t.integer  "fta"
+    t.float    "ftm"
+    t.float    "fta"
     t.float    "ftpct"
-    t.integer  "orb"
-    t.integer  "drb"
-    t.integer  "trb"
-    t.integer  "ast"
-    t.integer  "stl"
-    t.integer  "blk"
-    t.integer  "fl"
-    t.integer  "to"
+    t.float    "orb"
+    t.float    "drb"
+    t.float    "trb"
+    t.float    "ast"
+    t.float    "stl"
+    t.float    "blk"
+    t.float    "fl"
+    t.float    "to"
     t.boolean  "dnp"
-    t.integer  "twom"
-    t.integer  "twoa"
+    t.float    "twom"
+    t.float    "twoa"
     t.float    "twopct"
     t.integer  "jersey_number"
   end

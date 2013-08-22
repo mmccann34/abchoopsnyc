@@ -32,19 +32,19 @@
         <input name="stat_lines[<%= stat.id %>[dnp]]" type="hidden" value="0">
         <input id="dnp_<%= stat.id %>" name="stat_lines[<%= stat.id %>[dnp]]" type="checkbox" value="1" <% if stat.dnp %>checked<% end %>>
       </td>
-      <td><input id="twom_<%= stat.id %>" name="stat_lines[<%= stat.id %>[twom]]" type="number" min="0" value="<%= stat.twom %>"></td>
-      <td><input id="twoa_<%= stat.id %>" name="stat_lines[<%= stat.id %>[twoa]]" type="number" min="0" value="<%= stat.twoa %>"></td>
-      <td><input id="threem_<%= stat.id %>" name="stat_lines[<%= stat.id %>[threem]]" type="number" min="0" value="<%= stat.threem %>"></td>
-      <td><input id="threea_<%= stat.id %>" name="stat_lines[<%= stat.id %>[threea]]" type="number" min="0" value="<%= stat.threea %>"></td>
-      <td><input id="ftm_<%= stat.id %>" name="stat_lines[<%= stat.id %>[ftm]]" type="number" min="0" value="<%= stat.ftm %>"></td>
-      <td><input id="fta_<%= stat.id %>" name="stat_lines[<%= stat.id %>[fta]]" type="number" min="0" value="<%= stat.fta %>"></td>
-      <td><input id="orb_<%= stat.id %>" name="stat_lines[<%= stat.id %>[orb]]" type="number" min="0" value="<%= stat.orb %>"></td>
-      <td><input id="drb_<%= stat.id %>" name="stat_lines[<%= stat.id %>[drb]]" type="number" min="0" value="<%= stat.drb %>"></td>
-      <td><input id="ast_<%= stat.id %>" name="stat_lines[<%= stat.id %>[ast]]" type="number" min="0" value="<%= stat.ast %>"></td>
-      <td><input id="stl_<%= stat.id %>" name="stat_lines[<%= stat.id %>[stl]]" type="number" min="0" value="<%= stat.stl %>"></td>
-      <td><input id="blk_<%= stat.id %>" name="stat_lines[<%= stat.id %>[blk]]" type="number" min="0" value="<%= stat.blk %>"></td>
-      <td><input id="fl_<%= stat.id %>" name="stat_lines[<%= stat.id %>[fl]]" type="number" min="0" value="<%= stat.fl %>"></td>
-      <td><input id="to_<%= stat.id %>" name="stat_lines[<%= stat.id %>[to]]" type="number" min="0" value="<%= stat.to %>"></td>
+      <td><input id="twom_<%= stat.id %>" name="stat_lines[<%= stat.id %>[twom]]" type="number" min="0" value="<%= stat.twom.round %>"></td>
+      <td><input id="twoa_<%= stat.id %>" name="stat_lines[<%= stat.id %>[twoa]]" type="number" min="0" value="<%= stat.twoa.round %>"></td>
+      <td><input id="threem_<%= stat.id %>" name="stat_lines[<%= stat.id %>[threem]]" type="number" min="0" value="<%= stat.threem.round %>"></td>
+      <td><input id="threea_<%= stat.id %>" name="stat_lines[<%= stat.id %>[threea]]" type="number" min="0" value="<%= stat.threea.round %>"></td>
+      <td><input id="ftm_<%= stat.id %>" name="stat_lines[<%= stat.id %>[ftm]]" type="number" min="0" value="<%= stat.ftm.round %>"></td>
+      <td><input id="fta_<%= stat.id %>" name="stat_lines[<%= stat.id %>[fta]]" type="number" min="0" value="<%= stat.fta.round %>"></td>
+      <td><input id="orb_<%= stat.id %>" name="stat_lines[<%= stat.id %>[orb]]" type="number" min="0" value="<%= stat.orb.round %>"></td>
+      <td><input id="drb_<%= stat.id %>" name="stat_lines[<%= stat.id %>[drb]]" type="number" min="0" value="<%= stat.drb.round %>"></td>
+      <td><input id="ast_<%= stat.id %>" name="stat_lines[<%= stat.id %>[ast]]" type="number" min="0" value="<%= stat.ast.round %>"></td>
+      <td><input id="stl_<%= stat.id %>" name="stat_lines[<%= stat.id %>[stl]]" type="number" min="0" value="<%= stat.stl.round %>"></td>
+      <td><input id="blk_<%= stat.id %>" name="stat_lines[<%= stat.id %>[blk]]" type="number" min="0" value="<%= stat.blk.round %>"></td>
+      <td><input id="fl_<%= stat.id %>" name="stat_lines[<%= stat.id %>[fl]]" type="number" min="0" value="<%= stat.fl.round %>"></td>
+      <td><input id="to_<%= stat.id %>" name="stat_lines[<%= stat.id %>[to]]" type="number" min="0" value="<%= stat.to.round %>"></td>
     </tr>
     <% end %>
   </tbody>

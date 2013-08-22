@@ -2,9 +2,17 @@
 <h2>&nbsp;</h2>
 <table width="650" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="150" align="left"><a href="wk4_11am_hk.shtml">&#171;11AM: TCU vs TSW</a></td>
-    <td align="center"><b><%= "#{@game.time.strftime("%l:%M")}: #{@game.home_team.name} vs #{@game.away_team.name}" %></b></td>
-    <td width="150" align="right"><a href="wk4_5pm_hk.shtml">5PM: FLD vs FRN&#187;</a></td>
+    <td width="150" align="left">
+      <% if @game.previous_game %>
+        <%= link_to "&#171;".html_safe + "#{@game.previous_game.abbreviation}", stats_boxscore_path(@game.previous_game) %>
+      <% end %>
+    </td>
+    <td align="center"><b><%= "#{@game.time.strftime("%l:%M%p")}: #{@game.home_team.name} vs #{@game.away_team.name}" %></b></td>
+    <td width="150" align="right">
+      <% if @game.next_game %>
+        <%= link_to "#{@game.next_game.abbreviation}" "&#187;".html_safe, stats_boxscore_path(@game.next_game) %>
+      <% end %>
+    </td>
   </tr>
 </table>
 <p class="sep">
