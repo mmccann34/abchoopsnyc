@@ -20,5 +20,5 @@
                 %td &nbsp;
                 %td
                   %b
-                    %a{ href: "#" }= team.name
+                    %a{href: stats_team_path(team)}= team.name
                 %td= team.record(@current_season)

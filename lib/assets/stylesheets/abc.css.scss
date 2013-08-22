@@ -1027,3 +1027,7 @@ ul#slides2 {
 #slides2 {
 	list-style:none;
 }
+tr[onclick]:hover {
+  cursor: pointer;
+  color: #08C;
+}
