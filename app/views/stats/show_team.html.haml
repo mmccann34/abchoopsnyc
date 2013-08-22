@@ -1,0 +1,192 @@
+%h1= @team.name
+%p.ls This is #{@team.name}'s #{@team.season_count} season. See below for the following:
+%ul
+  %il
+    %p.sep 
+      &bull;&nbsp;
+      %a{ href: "#schedule" }> #{@team.name}'s schedule with results
+      ,
+  %il
+    %p.shortlinesep
+      &bull;&nbsp;
+      %a{ href: "#stats" }> Per game and cumulative stats for each player
+      \.
+%p.ls &nbsp;
+%a#schedule{ name: "schedule" }
+%h1 Schedule
+%p.hl
+%table.maintablestand{ border: "0", width: "550", cellpadding:"5", cellspacing:"0" }
+  %tbody
+    %tr.statthead
+      %td Week
+      %td Date
+      %td Time
+      %td Opponent
+      %td{ colspan: "2" } Result
+    - @schedule.sort_by {|g| g.date}.each do |game|
+      %tr{class: "#{cycle('odd2', 'even2')}"}
+        %td
+          %a{ href: stats_boxscore_path(game) }= game.week_name
+        %td= game.date.to_s(:short_ordinal)
+        %td= game.time.strftime("%l:%M%p")
+        %td= game.home_team.id == @team.id ? game.away_team.name : game.home_team.name
+        - if game.winner
+          %td{ class: game.winner == @team.id ? "win" : "loss" }= game.winner == @team.id ? "W" : "L"
+          %td= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+        - else
+          %td
+          %td
+%p.ls &nbsp;
+%a#stats{name: "stats"}
+%h1 Team Stats
+%p.sep Per game stats for #{@team.name}:
+%table{cellspacing: "0", cellpadding: "2", width: "650"}
+  %tbody
+    %tr.statthead
+      %td{width: "120"}= @team.abbreviation
+      %td{width: "80"} Field Goals
+      %td{width: "80"} 3PT
+      %td{width: "80"} FT
+      %td{width: "75"} Rebounds
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+%p.ns
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", width: "650"}
+  %thead.statthead
+    %tr
+      %th{width: "20"} No.
+      %th.sorttable_nosort{width: "100"} Name
+      %th{width: "45"} M-A
+      %th{width: "35"} %
+      %th{width: "45"} M-A
+      %th{width: "35"} %
+      %th{width: "45"} M-A
+      %th{width: "35"} %
+      %th{width: "25"} O
+      %th{width: "25"} D
+      %th{width: "25"} T
+      %th{width: "25"} A
+      %th{width: "25"} S
+      %th{width: "25"} B
+      %th{width: "25"} F
+      %th{width: "25"} P
+  %tbody
+    - @roster.sort_by {|rs| rs.jersey_number ? rs.jersey_number : rs.player.last_name}.each do |roster_spot|
+      - if @per_game_player_stats.has_key?(roster_spot.player_id)
+        - stats = @per_game_player_stats[roster_spot.player_id]
+        %tr{class: "#{cycle('odd2', 'even2')}"}
+          %td= roster_spot.jersey_number
+          %td= roster_spot.player.name
+          %td.lline #{stats.fgm.round(1)}-#{stats.fga.round(1)}
+          %td= stats.fgpct ? number_with_precision(stats.fgpct, precision: 3) : "0.000"
+          %td.lline #{stats.threem.round(1)}-#{stats.threea.round(1)}
+          %td= stats.threepct ? number_with_precision(stats.threepct, precision: 3) : "0.000"
+          %td.lline #{stats.ftm.round(1)}-#{stats.fta.round(1)}
+          %td= stats.ftpct ? number_with_precision(stats.ftpct, precision: 3) : "0.000"
+          %td.lline= stats.orb.round(1)
+          %td= stats.drb.round(1)
+          %td= stats.trb.round(1)
+          %td.lline= stats.ast.round(1)
+          %td.lline= stats.stl.round(1)
+          %td.lline= stats.blk.round(1)
+          %td.lline= stats.fl.round(1)
+          %td.lline= stats.points.round(1)
+  %tfoot
+    %tr.stattotal
+      %td &nbsp;
+      %td Total
+      %td.lline #{@per_game_stats.fgm.round(1)}-#{@per_game_stats.fga.round(1)}
+      %td= number_with_precision(@per_game_stats.fgpct, precision: 3)
+      %td.lline #{@per_game_stats.threem.round(1)}-#{@per_game_stats.threea.round(1)}
+      %td= number_with_precision(@per_game_stats.threepct, precision: 3)
+      %td.lline #{@per_game_stats.ftm.round(1)}-#{@per_game_stats.fta.round(1)}
+      %td= number_with_precision(@per_game_stats.ftpct, precision: 3)
+      %td.lline= @per_game_stats.orb.round(1)
+      %td= @per_game_stats.drb.round(1)
+      %td= @per_game_stats.trb.round(1)
+      %td.lline= @per_game_stats.ast.round(1)
+      %td.lline= @per_game_stats.stl.round(1)
+      %td.lline= @per_game_stats.blk.round(1)
+      %td.lline= @per_game_stats.fl.round(1)
+      %td.lline= @per_game_stats.points.round(1)
+%br
+%p.sep Cumulative stats for Game Blouses:
+%p.ls
+%table{cellspacing: "0", cellpadding: "2", width: "650"}
+  %tbody
+    %tr.statthead
+      %td{width: "120"}= @team.abbreviation
+      %td{width: "80"} Field Goals
+      %td{width: "80"} 3PT
+      %td{width: "80"} FT
+      %td{width: "75"} Rebounds
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+      %td{width: "25"} &nbsp;
+%p.ns
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", width: "650"}
+  %thead.statthead
+    %tr
+      %th{width: "20"} No.
+      %th.sorttable_nosort{width: "100"} Name
+      %th{width: "45"} M-A
+      %th{width: "35"} %
+      %th{width: "45"} M-A
+      %th{width: "35"} %
+      %th{width: "45"} M-A
+      %th{width: "35"} %
+      %th{width: "25"} O
+      %th{width: "25"} D
+      %th{width: "25"} T
+      %th{width: "25"} A
+      %th{width: "25"} S
+      %th{width: "25"} B
+      %th{width: "25"} F
+      %th{width: "25"} P
+  %tbody
+    - @roster.sort_by {|rs| rs.jersey_number ? rs.jersey_number : rs.player.last_name}.each do |roster_spot|
+      - if @cumulative_player_stats.has_key?(roster_spot.player_id)
+        - stats = @cumulative_player_stats[roster_spot.player_id]
+        %tr{class: "#{cycle('odd2', 'even2')}"}
+          %td= roster_spot.jersey_number
+          %td= roster_spot.player.name
+          %td.lline #{stats.fgm.round}-#{stats.fga.round}
+          %td= stats.fgpct ? number_with_precision(stats.fgpct, precision: 3) : "0.000"
+          %td.lline #{stats.threem.round}-#{stats.threea.round}
+          %td= stats.threepct ? number_with_precision(stats.threepct, precision: 3) : "0.000"
+          %td.lline #{stats.ftm.round}-#{stats.fta.round}
+          %td= stats.ftpct ? number_with_precision(stats.ftpct, precision: 3) : "0.000"
+          %td.lline= stats.orb.round
+          %td= stats.drb.round
+          %td= stats.trb.round
+          %td.lline= stats.ast.round
+          %td.lline= stats.stl.round
+          %td.lline= stats.blk.round
+          %td.lline= stats.fl.round
+          %td.lline= stats.points.round
+  %tfoot
+    - per_game_stats = total_stat_lines(@cumulative_player_stats.values)
+    %tr.stattotal
+      %td &nbsp;
+      %td Total
+      %td.lline #{per_game_stats.fgm.round}-#{per_game_stats.fga.round}
+      %td= number_with_precision(per_game_stats.fgpct, precision: 3)
+      %td.lline #{per_game_stats.threem.round}-#{per_game_stats.threea.round}
+      %td= number_with_precision(per_game_stats.threepct, precision: 3)
+      %td.lline #{per_game_stats.ftm.round}-#{per_game_stats.fta.round}
+      %td= number_with_precision(per_game_stats.ftpct, precision: 3)
+      %td.lline= per_game_stats.orb.round
+      %td= per_game_stats.drb.round
+      %td= per_game_stats.trb.round
+      %td.lline= per_game_stats.ast.round
+      %td.lline= per_game_stats.stl.round
+      %td.lline= per_game_stats.blk.round
+      %td.lline= per_game_stats.fl.round
+      %td.lline= per_game_stats.points.round
+%p.ls
+  =render "glossary"

@@ -6,3 +6,6 @@ Abchoops::Application.initialize!
 
 #SSL Fix
 ENV['SSL_CERT_FILE'] = 'C:\RailsInstaller\cacert.pem'
+
+#Linguistics
+Linguistics::use(:en)

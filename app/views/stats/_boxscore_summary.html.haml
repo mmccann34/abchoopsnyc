@@ -6,7 +6,7 @@
     %td.half(width="90") 2nd Half
     %td.total(width="90") Total
   %tr
-    %td.team  #{"&#8226;".html_safe if game.home_team.id == game.winner} #{game.home_team.name}
+    %td.team #{"&#8226;".html_safe if game.home_team.id == game.winner} #{game.home_team.name}
     %td.half= game.home_score_first
     %td.half= game.home_score_second
     %td.total= game.home_score

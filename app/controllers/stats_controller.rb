@@ -14,8 +14,22 @@ class StatsController < ApplicationController
     @current_season = @game.season
   end
   
-  private
+  def show_team
+    if params[:season]
+      @current_season = Season.find(params[:season])
+    else
+      @current_season = Season.current
+    end
+    
+    @team = Team.find_by_id(params[:id])
+    @schedule = @team.games(@current_season)
+    @roster = @team.roster(@current_season)
+    @per_game_player_stats = @team.per_game_player_stats(@current_season)
+    @per_game_stats = @team.per_game_stats(@current_season)
+    @cumulative_player_stats = @team.cumulative_player_stats(@current_season)
+  end
   
+  private
   def load_sidebar
     @divisions = Season.current.divisions
     @current_season = Season.current

@@ -22,18 +22,18 @@
       <td></td>
       <td style="text-align:left;">TOTALS</td>
       <% totals = total_stat_lines(stat_lines) %>
-      <td><%= "#{totals.fgm}-#{totals.fga}" %><%= " (#{number_to_percentage(totals.fgpct * 100.0, precision: 1)})" if totals.fgpct %></td>
-      <td><%= "#{totals.threem}-#{totals.threea}" %><%= " (#{number_to_percentage(totals.threepct * 100.0, precision: 1)})" if totals.threepct %></td>
-      <td><%= "#{totals.ftm}-#{totals.fta}" %><%= " (#{number_to_percentage(totals.ftpct * 100.0, precision: 1)})" if totals.ftpct %></td>
-      <td><%= totals.orb %></td>
-      <td><%= totals.drb %></td>
-      <td><%= totals.trb %></td>
-      <td><%= totals.ast %></td>
-      <td><%= totals.stl %></td>
-      <td><%= totals.blk %></td>
-      <td><%= totals.to %></td>
-      <td><%= totals.fl %></td>
-      <td><%= totals.points %></td>
+      <td><%= "#{totals.fgm.round}-#{totals.fga.round}" %><%= " (#{number_to_percentage(totals.fgpct * 100.0, precision: 1)})" if totals.fgpct %></td>
+      <td><%= "#{totals.threem.round}-#{totals.threea.round}" %><%= " (#{number_to_percentage(totals.threepct * 100.0, precision: 1)})" if totals.threepct %></td>
+      <td><%= "#{totals.ftm.round}-#{totals.fta.round}" %><%= " (#{number_to_percentage(totals.ftpct * 100.0, precision: 1)})" if totals.ftpct %></td>
+      <td><%= totals.orb.round %></td>
+      <td><%= totals.drb.round %></td>
+      <td><%= totals.trb.round %></td>
+      <td><%= totals.ast.round %></td>
+      <td><%= totals.stl.round %></td>
+      <td><%= totals.blk.round %></td>
+      <td><%= totals.to.round %></td>
+      <td><%= totals.fl.round %></td>
+      <td><%= totals.points.round %></td>
     </tr>
   </tfoot>
   <tbody>
@@ -45,18 +45,18 @@
       <% else %>
       <td style="text-align:left;">Sub</td>
       <% end %>
-      <td><%= "#{stat.fgm}-#{stat.fga}" %><%= " (#{number_to_percentage(stat.fgpct * 100.0, precision: 1)})" if stat.fgpct %></td>
-      <td><%= "#{stat.threem}-#{stat.threea}" %><%= " (#{number_to_percentage(stat.threepct * 100.0, precision: 1)})" if stat.threepct %></td>
-      <td><%= "#{stat.ftm}-#{stat.fta}" %><%= " (#{number_to_percentage(stat.ftpct * 100.0, precision: 1)})" if stat.ftpct %></td>
-      <td><%= stat.orb %></td>
-      <td><%= stat.drb %></td>
-      <td><%= stat.trb %></td>
-      <td><%= stat.ast %></td>
-      <td><%= stat.stl %></td>
-      <td><%= stat.blk %></td>
-      <td><%= stat.to %></td>
-      <td><%= stat.fl %></td>
-      <td><%= stat.points %></td>
+      <td><%= "#{stat.fgm.round}-#{stat.fga.round}" %><%= " (#{number_to_percentage(stat.fgpct * 100.0, precision: 1)})" if stat.fgpct %></td>
+      <td><%= "#{stat.threem.round}-#{stat.threea.round}" %><%= " (#{number_to_percentage(stat.threepct * 100.0, precision: 1)})" if stat.threepct %></td>
+      <td><%= "#{stat.ftm.round}-#{stat.fta.round}" %><%= " (#{number_to_percentage(stat.ftpct * 100.0, precision: 1)})" if stat.ftpct %></td>
+      <td><%= stat.orb.round %></td>
+      <td><%= stat.drb.round %></td>
+      <td><%= stat.trb.round %></td>
+      <td><%= stat.ast.round %></td>
+      <td><%= stat.stl.round %></td>
+      <td><%= stat.blk.round %></td>
+      <td><%= stat.to.round %></td>
+      <td><%= stat.fl.round %></td>
+      <td><%= stat.points.round %></td>
     </tr>
     <% end %>
   </tbody>
