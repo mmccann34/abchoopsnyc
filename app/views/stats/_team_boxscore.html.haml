@@ -38,36 +38,36 @@
       %tr{class: "#{cycle('odd2', 'even2')}"}
         %td= stat.jersey_number
         %td= stat.player ? stat.player.name : 'Sub'
-        %td.lline= "#{stat.fgm}-#{stat.fga}"
+        %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
         %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
-        %td.lline= "#{stat.threem}-#{stat.threea}"
+        %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
         %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
-        %td.lline= "#{stat.ftm}-#{stat.fta}"
+        %td.lline= "#{stat.ftm.round}-#{stat.fta.round}"
         %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
-        %td.lline= stat.orb
-        %td= stat.drb
-        %td= stat.trb
-        %td.lline= stat.stl
-        %td.lline= stat.blk
-        %td.lline= stat.to
-        %td.lline= stat.fl
-        %td.lline= stat.points
+        %td.lline= stat.orb.round
+        %td= stat.drb.round
+        %td= stat.trb.round
+        %td.lline= stat.stl.round
+        %td.lline= stat.blk.round
+        %td.lline= stat.to.round
+        %td.lline= stat.fl.round
+        %td.lline= stat.points.round
   %tfoot
     %tr.stattotal
       %td &nbsp;
       %td Total
       - totals = total_stat_lines(stat_lines)
-      %td.lline= "#{totals.fgm}-#{totals.fga}"
+      %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
       %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
-      %td.lline= "#{totals.threem}-#{totals.threea}"
+      %td.lline= "#{totals.threem.round}-#{totals.threea.round}"
       %td= number_with_precision((totals.threepct ? totals.threepct : 0), precision: 3) 
-      %td.lline= "#{totals.ftm}-#{totals.fta}"
+      %td.lline= "#{totals.ftm.round}-#{totals.fta.round}"
       %td= number_with_precision((totals.ftpct ? totals.ftpct : 0), precision: 3) 
-      %td.lline= totals.orb
-      %td= totals.drb
-      %td= totals.trb
-      %td.lline= totals.stl
-      %td.lline= totals.blk
-      %td.lline= totals.to
-      %td.lline= totals.fl
-      %td.lline= totals.points
+      %td.lline= totals.orb.round
+      %td= totals.drb.round
+      %td= totals.trb.round
+      %td.lline= totals.stl.round
+      %td.lline= totals.blk.round
+      %td.lline= totals.to.round
+      %td.lline= totals.fl.round
+      %td.lline= totals.points.round
