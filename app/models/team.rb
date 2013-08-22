@@ -43,14 +43,15 @@ class Team < ActiveRecord::Base
                         'AVG(ftm) as ftm, AVG(fta) as fta, AVG(coalesce(ftm/nullif(fta, 0), 0)) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
                         'AVG(points) as points FROM (SELECT SUM(fgm) as fgm, SUM(fga) as fga, SUM(twom) as twom, SUM(twoa) as twoa, SUM(threem) as threem, SUM(threea) as threea,' \
                         'SUM(ftm) as ftm, SUM(fta) as fta, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-                        "SUM(points) as points FROM stat_lines sl INNER JOIN games g ON sl.game_id = g.id WHERE (sl.dnp is null OR not sl.dnp) AND team_id = #{self.id} AND g.season_id = #{season_id} GROUP BY game_id) sums").first
+                        "SUM(points) as points FROM stat_lines sl INNER JOIN games g ON sl.game_id = g.id " \
+                        "WHERE (g.forfeit is null or not g.forfeit) AND (sl.dnp is null OR not sl.dnp) AND team_id = #{self.id} AND g.season_id = #{season_id} GROUP BY game_id) sums").first
   end
   
   def per_game_player_stats(season_id = nil)
     player_stats = Hash.new
     StatLine.select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                     'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-                    'AVG(points) as points, player_id').where(team_id: self.id).where("dnp is null OR not dnp").joins(:game).where("games.season_id" => season_id ? season_id : Season.current).group(:player_id).each do |averages|
+                    'AVG(points) as points, player_id').where(team_id: self.id).where("dnp is null OR not dnp").joins(:game).where("games.forfeit is null OR not games.forfeit").where("games.season_id" => season_id ? season_id : Season.current).group(:player_id).each do |averages|
       player_stats[averages.player_id] = averages
     end
     player_stats
@@ -60,7 +61,7 @@ class Team < ActiveRecord::Base
     player_stats = Hash.new
     StatLine.select('SUM(fgm) as fgm, SUM(fga) as fga, SUM(twom) as twom, SUM(twoa) as twoa, SUM(threem) as threem, SUM(threea) as threea,' \
                     'SUM(ftm) as ftm, SUM(fta) as fta, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-                    'SUM(points) as points, player_id').where(team_id: self.id).where("dnp is null OR not dnp").joins(:game).where("games.season_id" => season_id ? season_id : Season.current).group(:player_id).each do |totals|
+                    'SUM(points) as points, player_id').where(team_id: self.id).where("dnp is null OR not dnp").joins(:game).where("games.forfeit is null OR not games.forfeit").where("games.season_id" => season_id ? season_id : Season.current).group(:player_id).each do |totals|
       totals.calc_percentages
       player_stats[totals.player_id] = totals
     end
