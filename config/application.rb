@@ -72,6 +72,6 @@ module Abchoops
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     config.assets.precompile += ["stats.css"]
-    config.assets.precompile += ["stats.js"]
+    config.assets.precompile += ["activatables.js"]
   end
 end
