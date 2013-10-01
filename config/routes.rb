@@ -49,6 +49,7 @@ Abchoops::Application.routes.draw do
   #add scope
   get 'stats/games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
   get 'stats/teams/:id' => "stats#show_team", as: "stats_team"
+  get 'stats/players/:id' => "stats#show_player", as: "stats_player"
   
   # The priority is base d upon order of creation:
   # first created -> highest priority.
