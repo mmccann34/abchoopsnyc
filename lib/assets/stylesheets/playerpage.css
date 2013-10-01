@@ -1,0 +1,133 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.profstats {
+	clear: left;
+	padding-top:1em;
+}
+.profstats.inactive {
+	display: none;
+}
+ul#playerprof1 {
+	margin:0px;
+	padding:0px;
+	position:relative;
+}
+ul#playerprof1 li {
+	display:inline;
+}
+ul#playerprof1 li a:link {
+	text-decoration:none;
+}
+ul#playerprof1 li a:visited {
+	text-decoration:none;
+}
+.stat_types {
+	display:block;
+	float:left;
+	border-style:none;
+	margin-right:10px;
+	font-size:20px;
+	font-family:BebasRegular, Verdana, Geneva, sans-serif;
+	color:#444444;
+	word-spacing:2px;
+	margin:0px;
+	font-weight:normal;
+	padding-left:2px;
+}
+.profbutton {
+	text-decoration:none;
+	font-size:20px;
+	line-height:2em;
+	display:block;
+	border: 3px solid #444444;
+	width:100px;
+	text-align:center;
+}
+.profbutton:hover {
+	text-shadow: -2px 2px 0px #000000 !important;
+	text-decoration:none;
+	background-color:#2e3b56 !important;
+	color:#ffffff;
+	font-size:20px;
+	line-height:2em;
+	display:block;
+	border: 3px solid #2e3b56 !important;
+}
+.profbutton:active {
+	text-decoration:none;
+	background-color:#e07000 !important;
+	color:#ffffff;
+	font-size:20px;
+	line-height:2em;
+	display:block;
+	border: 3px solid #444444 !important;
+}
+.profbutton.active {
+	text-shadow: -1px 1px 0px #000000 !important;
+	text-decoration:none;
+	background-color:#e07000 !important;
+	color:#ffffff;
+	font-size:20px;
+	line-height:2em;
+	display:block;
+	border: 3px solid #444444 !important;
+}
+.playerbox {
+	border: 3px solid #444444;
+	height:200px;
+}
+.playername {
+	font-size: 36px;
+	font-family: BebasRegular, Verdana, Geneva, sans-serif;
+	color: #444444;
+	font-weight: normal;
+	word-spacing: 3px;
+	margin: 0px;
+	padding-bottom: 5px;
+	border-bottom: dashed 1px #C0C0C0;
+}
+.noplayerpic {
+	background:url('/assets/playerprof_nopic_halfball.png') no-repeat;
+	background-size:contain;
+	margin-top:-4px;
+	margin-left:2px;
+}
+.playernumbernopic {
+	font-family:BebasRegular, Verdana, Geneva, sans-serif;
+	font-size:148px;
+	margin-left:35px;
+	text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
+}
+.playerteam {
+	font-size: 20px;
+	font-family: BebasRegular, Verdana, Geneva, sans-serif;
+	color: #444444;
+	font-weight: normal;
+	word-spacing: 3px;
+	margin: 0px;
+	padding-bottom: 5px;
+}
+.socmedfirst {
+	width: 50px;
+	height: 48px;
+	overflow: hidden;
+	float:left;
+	margin-left:20px;
+}
+.socmednext {
+	width: 50px;
+	height: 49px;
+	overflow: hidden;
+	float:left;
+	margin-left:15px;
+}
+.pptwitter {
+	margin-top:-250px;
+}
+.ppinstagram {
+	margin-top:-150px;
+}
+.ppfacebook {
+	margin-top:-51px;
+}

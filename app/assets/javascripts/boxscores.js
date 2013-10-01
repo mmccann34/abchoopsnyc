@@ -12,8 +12,8 @@ $(function() {
     $("[name='game[winner]']").toggle();
   });
   
-  $('#away_stats [id^="twom_"], #away_stats [id^="threem_"], #away_stats [id^="ftm_"]').change(function() { calcTotalScore("away"); });
-  $('#home_stats [id^="twom_"], #home_stats [id^="threem_"], #home_stats [id^="ftm_"]').change(function() { calcTotalScore("home"); });
+  $('#away_stats').on('change', '[id^="twom_"], [id^="threem_"], [id^="ftm_"]', function() { calcTotalScore("away"); });
+  $('#home_stats').on('change', '[id^="twom_"], [id^="threem_"], [id^="ftm_"]', function() { calcTotalScore("home"); });
   
   $('input[id^="game_away_score_"]').change(function() { sumTotalScore("away"); });
   $('input[id^="game_home_score_"]').change(function() { sumTotalScore("home"); });
@@ -114,8 +114,8 @@ function addSub(team) {
     <td style="text-align:center;">\
     <input name="stat_lines[sub_0[dnp]]" type="hidden" value="0">\
     <input id="dnp_sub0" name="stat_lines[sub_0[dnp]]" type="checkbox" value="1"></td>\
-    <td><input id="fgm_sub0" name="stat_lines[sub_0[twom]]" type="number" min="0" value="0"></td>\
-    <td><input id="fga_sub0" name="stat_lines[sub_0[twoa]]" type="number" min="0" value="0"></td>\
+    <td><input id="twom_sub0" name="stat_lines[sub_0[twom]]" type="number" min="0" value="0"></td>\
+    <td><input id="twoa_sub0" name="stat_lines[sub_0[twoa]]" type="number" min="0" value="0"></td>\
     <td><input id="threem_sub0" name="stat_lines[sub_0[threem]]" type="number" min="0" value="0"></td>\
     <td><input id="threea_sub0" name="stat_lines[sub_0[threea]]" type="number" min="0" value="0"></td>\
     <td><input id="ftm_sub0" name="stat_lines[sub_0[ftm]]" type="number" min="0" value="0"></td>\
