@@ -37,7 +37,11 @@
     - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| !stat.dnp }.each do |stat|
       %tr{class: "#{cycle('odd2', 'even2')}"}
         %td= stat.jersey_number
-        %td= stat.player ? stat.player.name : 'Sub'
+        %td
+          - if stat.player 
+            %a{href: stats_player_path(stat.player)}= stat.player.name
+          - else
+            Sub
         %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
         %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
         %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
@@ -47,9 +51,9 @@
         %td.lline= stat.orb.round
         %td= stat.drb.round
         %td= stat.trb.round
+        %td.lline= stat.ast.round
         %td.lline= stat.stl.round
         %td.lline= stat.blk.round
-        %td.lline= stat.to.round
         %td.lline= stat.fl.round
         %td.lline= stat.points.round
   %tfoot
@@ -66,8 +70,8 @@
       %td.lline= totals.orb.round
       %td= totals.drb.round
       %td= totals.trb.round
+      %td.lline= totals.ast.round
       %td.lline= totals.stl.round
       %td.lline= totals.blk.round
-      %td.lline= totals.to.round
       %td.lline= totals.fl.round
       %td.lline= totals.points.round
