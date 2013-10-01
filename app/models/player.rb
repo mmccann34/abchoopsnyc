@@ -1,5 +1,5 @@
 class Player < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :key, :height, :weight, :age, :profile_pic, :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job
+  attr_accessible :first_name, :last_name, :key, :height, :weight, :age, :profile_pic, :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job, :about
   validate :first_or_last
 
   has_attached_file :profile_pic, styles: { medium: "300x300#", profile: "200X200#", thumb: "100x100#" }
