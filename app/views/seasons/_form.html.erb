@@ -2,6 +2,7 @@
 <fieldset>
   <% if header %><legend><%= header %></legend><% end %>
   <%= f.input :name, placeholder: 'Name', input_html: { autofocus: 'autofocus', required: 'required' } %>
+  <%= f.input :number, placeholder: 'Number', input_html: { required: 'required' } %>
   <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
 </fieldset>
 <% end %>

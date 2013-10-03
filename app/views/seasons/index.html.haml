@@ -12,6 +12,7 @@
 
 = form_for @new_season, html: { class: 'form-inline', style: 'margin-bottom:25px;' }   do |f|
   = f.text_field :name, placeholder: 'Name', required: true
+  = f.number_field :number, placeholder: 'Number', required: true
   = f.submit 'Create Season', class: 'btn btn-primary'
   
 %table.table.table-striped
@@ -28,6 +29,6 @@
         %td= button_to 'Delete', season, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini'
         %td= link_to 'Edit Teams', team_list_edit_season_path(season), class: 'btn btn-info btn-mini'
         - if season.current
-          %td= "#{season.name} (Current)"
+          %td= "#{season.name} - #{season.number} (Current)"
         - else
-          %td= season.name
+          %td= "#{season.name} - #{season.number}"

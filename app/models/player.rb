@@ -51,7 +51,7 @@ class Player < ActiveRecord::Base
   def career_season_averages
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                             'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-                                            'AVG(points) as points, seasons.name as season_name, team_id').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").group("team_id").group("seasons.name")
+                                            'AVG(points) as points, seasons.number as season_number, team_id').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").group("team_id").group("seasons.number")
   end
   
   def career_averages
@@ -63,7 +63,7 @@ class Player < ActiveRecord::Base
   def career_season_totals
     StatLine.joins(:game => :season).select('SUM(fgm) as fgm, SUM(fga) as fga, SUM(twom) as twom, SUM(twoa) as twoa, SUM(threem) as threem, SUM(threea) as threea,' \
                     'SUM(ftm) as ftm, SUM(fta) as fta, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-                    'SUM(points) as points, seasons.name as season_name, team_id').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").group("team_id").group("seasons.name")
+                    'SUM(points) as points, seasons.number as season_number, team_id').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").group("team_id").group("seasons.number")
   end
   
   def average_per_season_totals
