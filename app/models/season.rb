@@ -1,5 +1,5 @@
 class Season < ActiveRecord::Base
-  attr_accessible :key, :name
+  attr_accessible :key, :name, :number
   validates :name, presence: true
 
   has_many :games

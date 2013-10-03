@@ -1,6 +1,6 @@
 class SeasonsController < ApplicationController
   def index
-    @seasons = Season.order("id DESC").all
+    @seasons = Season.order("number DESC").all
     @new_season = Season.new
     @current_season = Season.current
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001184836) do
+ActiveRecord::Schema.define(:version => 20131003151618) do
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20131001184836) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "current"
+    t.integer  "number"
   end
 
   create_table "stat_lines", :force => true do |t|

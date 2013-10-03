@@ -256,7 +256,7 @@
       %tbody
         - @career_season_averages.each do |stat|
           %tr{class: "#{cycle('even2', 'odd2')}"}
-            %td= stat.season_name
+            %td= stat.season_number
             %td= stat.team.abbreviation
             %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
@@ -327,7 +327,7 @@
         - @career_season_totals.each do |stat|
           - stat.calc_percentages
           %tr{class: "#{cycle('even2', 'odd2')}"}
-            %td= stat.season_name
+            %td= stat.season_number
             %td= stat.team.abbreviation
             %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
             %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
