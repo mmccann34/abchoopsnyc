@@ -14,6 +14,7 @@
     <%= f.number_field :age, placeholder: 'Age' %>
     <%= f.text_field :day_job, placeholder: 'Day Job' %>
     <%= f.text_area :about, placeholder: 'More About', rows: 3 %>
+    <p>Profile pic: <%= f.file_field :profile_pic %></p>
     <%= f.submit 'Create Player', class: 'btn btn-primary', style: 'width:220px;' %>
   </fieldset>
   <% end %>
@@ -45,7 +46,7 @@
       <td><%= player.height %></td>
       <td><%= player.school %></td>
       <td><%= player.hometown %></td>
-      <td><%= player.last_team %></td>
+      <td><%= player.last_team.try(:name) %></td>
     </tr>
     <% end %>  
   </tbody>

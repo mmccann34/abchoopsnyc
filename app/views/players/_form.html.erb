@@ -12,6 +12,7 @@
     <%= f.input :age, placeholder: 'Age' %>
     <%= f.input :day_job, placeholder: 'Day Job' %>
     <%= f.input :about, placeholder: 'More About', input_html: { rows: 3 } %>
+    <p>Profile pic: <%= f.input :profile_pic %></p>
     <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
   </fieldset>
 <% end %>

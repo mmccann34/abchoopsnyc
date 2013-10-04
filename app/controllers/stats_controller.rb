@@ -44,6 +44,12 @@ class StatsController < ApplicationController
     @career_season_totals = @player.career_season_totals
     @average_per_season_totals = @player.average_per_season_totals
     @current_season_averages = @player.current_season_averages
+    
+    @splits = Hash.new
+    @splits['By Result'] = @player.splits_by_result
+    @splits['By Month'] = @player.splits_by_month
+    @splits['By Time'] = @player.splits_by_time
+    @splits['By Opponent'] = @player.splits_by_opponent
   end
   
   private
