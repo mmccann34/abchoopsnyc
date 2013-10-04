@@ -9,7 +9,7 @@
           %p.playernumbernopic= @player.last_number
     %tr
       %td{ style:"padding-left:4px;" }
-        %p.playerteam= @player.last_team
+        %p.playerteam= @player.last_team.try(:name)
       %td{ rowspan:"2", style:"padding-left:4px;" }
         %table{ cellpadding:"3", cellspacing:"0", border:"0" }
           %thead.statthead{ style:"font-size:12px;outline: 1px solid #2e3b56;" }
@@ -93,7 +93,7 @@
         %td{ style:"padding: 5px" }
           %span{ style:"line-height:130%;font-size:13px;" }= @player.name
         %td{ rowspan:"8", colspan:"2", align:"center" }
-          %img.pic{ alt:"", src:""}
+          =image_tag(@player.profile_pic.url(:profile), class: "pic")
           %br
       %tr
         %td{ style:"padding: 5px", align:"right" }
@@ -104,7 +104,7 @@
         %td{ style:"padding: 5px", align:"right" }
           %h2 Team:
         %td{ style:"padding: 5px" }
-          %span{ style:"line-height:130%;font-size:13px;" }= @player.last_team
+          %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_team) }= @player.last_team.try(:name)
       %tr
         %td{ style:"padding: 5px", align:"right" }
           %h2 Hometown:
@@ -126,7 +126,63 @@
         %td{ style:"padding: 5px" }
           %span{ style:"line-height:130%;font-size:13px;" }= @player.about
 %div.profstats#splits
-  %h1 SPLITS
+  %p.sep
+    %table{ cellspacing:"0", cellpadding:"2", width:"650" }
+      %tbody
+        %tr.statthead
+          %td{ width:"80" } &nbsp;
+          %td{ width:"130" } Field Goals
+          %td{ width:"85" } 3PT
+          %td{ width:"95" }FT
+          %td{ width:"75" } Rebounds
+          %td{ width:"25" } &nbsp;
+          %td{ width:"25" } &nbsp;
+          %td{ width:"25" } &nbsp;
+          %td{ width:"25" } &nbsp;
+          %td &nbsp;
+    %p.ns
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", width:"650" }
+      %thead.statthead
+        %tr
+          %th.sorttable_nosort{ colspan:"2", width:"25" } Split
+          %th.sorttable_nosort M-A
+          %th.sorttable_nosort{ width:"35" } %
+          %th.sorttable_nosort M-A
+          %th.sorttable_nosort{ width:"35" } %
+          %th.sorttable_nosort M-A
+          %th.sorttable_nosort{ width:"35" } %
+          %th.sorttable_nosort{ width:"25" } O
+          %th.sorttable_nosort{ width:"25" } D
+          %th.sorttable_nosort{ width:"25" } T
+          %th.sorttable_nosort{ width:"25" } A
+          %th.sorttable_nosort{ width:"25" } S
+          %th.sorttable_nosort{ width:"25" } B
+          %th.sorttable_nosort{ width:"25" } F
+          %th.sorttable_nosort{ width:"45" } P
+      %tbody
+        - @splits.each do |split, stats|
+          %tr.statthead
+            %td{ colspan:"2" }= split
+            %td{ colspan:"14" } &nbsp;
+          - stats.each do |stat|
+            %tr{class: "#{cycle('even2', 'odd2')}"}
+              %td{ colspan:"2" }= stat.split_name
+              %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
+              %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
+              %td.lline #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}
+              %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
+              %td.lline #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: true)}
+              %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
+              %td.lline= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
+  %br
+  =render "glossary", hide_sort: true
 %div.profstats#abcplus
   %h1 ABC+
 %div.profstats#gamelog
@@ -134,7 +190,7 @@
     %table{ cellspacing:"0", cellpadding:"2", width:"650" }
       %tbody
         %tr.statthead
-          %td{ width:"70" }= @player.last_team_abbrev
+          %td{ width:"70" }= @player.last_team.try(:abbreviation)
           %td{ width:"130" } Field Goals
           %td{ width:"85" } 3PT
           %td{ width:"95" }FT
@@ -186,11 +242,11 @@
         %tr.stattotal
           %td{ colspan:"2" } Per Gm
           %td.lline #{number_with_precision(@per_game_stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.fga, precision: 1, strip_insignificant_zeros: true)}
-          %td= number_with_precision(@per_game_stats.fgpct, precision: 3)
+          %td= number_with_precision((@per_game_stats.fgpct ? @per_game_stats.fgpct : 0), precision: 3)
           %td.lline #{number_with_precision(@per_game_stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.threea, precision: 1, strip_insignificant_zeros: true)}
-          %td= number_with_precision(@per_game_stats.threepct, precision: 3)
+          %td= number_with_precision((@per_game_stats.threepct ? @per_game_stats.threepct : 0), precision: 3)
           %td.lline #{number_with_precision(@per_game_stats.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.fta, precision: 1, strip_insignificant_zeros: true)}
-          %td= number_with_precision(@per_game_stats.ftpct, precision: 3)
+          %td= number_with_precision((@per_game_stats.ftpct ? @per_game_stats.ftpct : 0), precision: 3)
           %td.lline= number_with_precision(@per_game_stats.orb, precision: 1, strip_insignificant_zeros: true)
           %td= number_with_precision(@per_game_stats.drb, precision: 1, strip_insignificant_zeros: true)
           %td= number_with_precision(@per_game_stats.trb, precision: 1, strip_insignificant_zeros: true)
