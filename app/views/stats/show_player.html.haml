@@ -3,7 +3,7 @@
   %table{ width:"650", border:"0", style:"margin-top:-3px;" }
     %tr
       %td{ colspan:"2", style:"padding-left:4px;" }
-        %p.playername= @player.name
+        %p.playername= "#{@player.name} (#{number_with_precision(@player.abc_plus(Season.current), precision: 2, strip_insignificant_zeros: true)})"
       %td{ rowspan:"4", width:"200" }
         %div.noplayerpic                  
           %p.playernumbernopic= @player.last_number
