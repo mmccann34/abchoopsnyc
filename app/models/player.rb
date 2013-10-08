@@ -125,7 +125,18 @@ class Player < ActiveRecord::Base
     offensive_measure = totals.fgm + (0.5 * totals.threem) + (0.25 * totals.ftm)
     points_per_game = self.season_averages(season).points
     
-    (0.03 * team.abc_plus_win_pct(season)) + (0.05 * rebound_rate) + (0.05 * effective_assists) + (0.07 * ft_pct) + (0.12 * defensive_measure) + (0.18 * approx_value) + (0.3 * offensive_measure) + (0.2 * points_per_game)
+    results = Hash.new
+    results["pyth expe"] = 0.03 * team.abc_plus_win_pct(season)
+    results["reb rate"] = 0.05 * rebound_rate
+    results["effect assist"] = 0.05 * effective_assists
+    results["ft%"] = 0.07 * ft_pct
+    results["def measure"] = 0.12 * defensive_measure
+    results["approx value"] = 0.18 * approx_value
+    results["off measure"] = 0.3 * offensive_measure
+    results["ppg"] = 0.2 * points_per_game
+    results["total"] = (0.03 * team.abc_plus_win_pct(season)) + (0.05 * rebound_rate) + (0.05 * effective_assists) + (0.07 * ft_pct) + (0.12 * defensive_measure) + (0.18 * approx_value) + (0.3 * offensive_measure) + (0.2 * points_per_game)
+    
+    results
   end
   
   #PRIVATE METHODS
