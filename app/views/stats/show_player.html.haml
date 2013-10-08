@@ -190,7 +190,7 @@
     %table{ cellspacing:"0", cellpadding:"2", width:"650" }
       %tbody
         %tr.statthead
-          %td{ width:"70" }= @player.last_team.try(:abbreviation)
+          %td{ width:"70" }= @player.team_by_season(@log_season).try(:abbreviation)
           %td{ width:"130" } Field Goals
           %td{ width:"85" } 3PT
           %td{ width:"95" }FT
@@ -204,7 +204,7 @@
     %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", width:"650" }
       %thead.statthead
         %tr
-          %th.sorttable_nosort{ colspan:"2", width:"25" }= @current_season.name
+          %th.sorttable_nosort{ colspan:"2", width:"25" }= @log_season.name
           %th M-A
           %th{ width:"35" } %
           %th M-A
