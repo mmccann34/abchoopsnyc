@@ -48,6 +48,8 @@ class StatsController < ApplicationController
     @splits['By Month'] = @player.splits_by_month(@splits_season)
     @splits['By Time'] = @player.splits_by_time(@splits_season)
     @splits['By Opponent'] = @player.splits_by_opponent(@splits_season)
+    
+    @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season)
   end
   
   private
