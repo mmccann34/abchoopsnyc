@@ -80,8 +80,6 @@
   %li.stat_types
     %a.profbutton{ href:"#splits" } Splits
   %li.stat_types
-    %a.profbutton{ href:"#abcplus" } ABC+
-  %li.stat_types
     %a.profbutton{ href:"#playerphotos" } Photos    
   
 %div.profstats#about
@@ -126,6 +124,9 @@
         %td{ style:"padding: 5px" }
           %span{ style:"line-height:130%;font-size:13px;" }= @player.about
 %div.profstats#splits
+  %form{action: "#{stats_player_path(@player)}#splits", method: "get", style: 'font-weight:bold;'}
+    Season:
+    =select_tag "splits", options_from_collection_for_select(@seasons, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %p.sep
     %table{ cellspacing:"0", cellpadding:"2", width:"650" }
       %tbody
@@ -183,9 +184,10 @@
               %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
   %br
   =render "glossary", hide_sort: true
-%div.profstats#abcplus
-  %h1 ABC+
 %div.profstats#gamelog
+  %form{action: "#{stats_player_path(@player)}#gamelog", method: "get", style: 'font-weight:bold;'}
+    Season:
+    =select_tag "log", options_from_collection_for_select(@seasons, "id", "name", @log_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %p.sep
     %table{ cellspacing:"0", cellpadding:"2", width:"650" }
       %tbody
@@ -438,4 +440,4 @@
 .profstats#playerphotos
 = javascript_include_tag "activatables"
 %script{type: "text/javascript"}
-  activatables('page', ['gamelog', 'careerstats', 'playerphotos', 'about', 'splits', 'abcplus']);
+  activatables('page', ['gamelog', 'careerstats', 'playerphotos', 'about', 'splits']);
