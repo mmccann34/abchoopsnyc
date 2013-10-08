@@ -70,7 +70,7 @@ class Team < ActiveRecord::Base
   end
   
   def abc_plus_win_pct(season)
-    self.games(season).pluck("sum(case when home_team_id = 1 then home_score else away_score end) / sum(home_score + away_score + 0.0)").first.to_f
+    self.games(season).pluck("sum(case when home_team_id = #{self.id} then home_score else away_score end) / sum(home_score + away_score + 0.0)").first.to_f
   end
   
   def total_rebounds(season)
