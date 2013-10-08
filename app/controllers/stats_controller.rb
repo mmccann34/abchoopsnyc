@@ -31,8 +31,9 @@ class StatsController < ApplicationController
   
   def show_player 
     @player = Player.find_by_id(params[:id])
+    @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season)
     
-    @log_season = params[:log] ? Season.find(params[:log]) : Season.current
+    @log_season = params[:log] ? Season.find(params[:log]) : @seasons.first
     @game_log = @player.game_log(@log_season)
     @per_game_stats = @player.per_game_stats(@log_season)
 
@@ -42,14 +43,12 @@ class StatsController < ApplicationController
     @average_per_season_totals = @player.average_per_season_totals
     @current_season_averages = @player.season_averages(Season.current)
 
-    @splits_season = params[:splits] ? Season.find(params[:splits]) : Season.current    
+    @splits_season = params[:splits] ? Season.find(params[:splits]) : @seasons.first
     @splits = Hash.new
     @splits['By Result'] = @player.splits_by_result(@splits_season)
     @splits['By Month'] = @player.splits_by_month(@splits_season)
     @splits['By Time'] = @player.splits_by_time(@splits_season)
     @splits['By Opponent'] = @player.splits_by_opponent(@splits_season)
-    
-    @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season)
   end
   
   private
