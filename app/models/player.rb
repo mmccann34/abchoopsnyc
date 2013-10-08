@@ -115,6 +115,9 @@ class Player < ActiveRecord::Base
   def abc_plus(season)
     totals = self.season_totals(season)
     team = self.team_by_season(season)
+    
+    return 0 if not team
+    
     team_totals = team.season_totals(season)
     
     rebound_rate = team_totals.trb == 0 ? 0 : totals.trb / team_totals.trb
