@@ -6,6 +6,7 @@ class Team < ActiveRecord::Base
   has_many :away_games, class_name: 'Game', foreign_key: 'away_team_id'
   has_many :roster_spots, dependent: :destroy
   has_many :team_spots, dependent: :destroy
+  has_many :stat_lines
   #has_many :players, through: :roster_spots, order: 'last_name'
   
   def roster(season_id = nil)
@@ -66,5 +67,13 @@ class Team < ActiveRecord::Base
       player_stats[totals.player_id] = totals
     end
     player_stats
+  end
+  
+  def abc_plus_win_pct(season)
+    self.games(season).pluck("sum(case when home_team_id = 1 then home_score else away_score end) / sum(home_score + away_score + 0.0)").first.to_f
+  end
+  
+  def total_rebounds(season)
+    self.stat_lines.joins(:game).where("games.season_id" => season).pluck("sum(trb)").first.to_f
   end
 end
