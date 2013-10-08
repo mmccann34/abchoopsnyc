@@ -113,12 +113,12 @@ class Player < ActiveRecord::Base
   end
   
   def abc_plus(season)
-    team = self.team_by_season(season)
     totals = self.season_totals(season)
+    team = self.team_by_season(season)
+    team_totals = team.season_totals(season)
     
-    team_rebounds = team.total_rebounds(season) 
-    rebound_rate = team_rebounds == 0 ? 0 : totals.trb / team_rebounds
-    effective_assists = totals.fgm == 0 ? 0 : totals.ast / totals.fgm
+    rebound_rate = team_totals.trb == 0 ? 0 : totals.trb / team_totals.trb
+    effective_assists = team_totals.fgm == 0 ? 0 : totals.ast / team_totals.fgm
     ft_pct = totals.fta == 0 ? 0 : totals.ftm / totals.fta
     defensive_measure = totals.stl + totals.blk + totals.fl
     approx_value = ((totals.points + totals.trb + totals.ast + totals.stl + totals.blk - (totals.fta - totals.ftm) - (totals.fga - totals.fgm)) ** 0.75) / 21.0
