@@ -15,13 +15,11 @@ class StatsController < ApplicationController
   end
   
   def show_team
-    if params[:season]
-      @current_season = Season.find(params[:season])
-    else
-      @current_season = Season.current
-    end
-    
     @team = Team.find_by_id(params[:id])
+    
+    @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season)
+    @current_season = params[:season] ? Season.find(params[:season]) : @seasons.first
+
     @schedule = @team.games(@current_season)
     @roster = @team.roster(@current_season)
     @per_game_player_stats = @team.per_game_player_stats(@current_season)

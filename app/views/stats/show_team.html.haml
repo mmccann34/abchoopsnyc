@@ -1,4 +1,8 @@
 %h1= @team.name
+%p
+  %form{action: "#{stats_team_path(@team)}", method: "get", style: 'font-weight:bold;'}
+    Season:
+    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
 %p.ls This is #{@team.name}'s #{@team.season_count} season. See below for the following:
 %ul
   %il
@@ -11,9 +15,9 @@
       &bull;&nbsp;
       %a{ href: "#stats" }> Per game and cumulative stats for each player
       \.
-%p.ls &nbsp;
+%p.ls &nbsp;  
 %a#schedule{ name: "schedule" }
-%h1 Schedule
+%h1= "#{@current_season.try(:name)} Schedule"
 %p.hl
 %table.maintablestand{ border: "0", width: "550", cellpadding:"5", cellspacing:"0" }
   %tbody
@@ -44,7 +48,7 @@
           %td
 %p.ls &nbsp;
 %a#stats{name: "stats"}
-%h1 Team Stats
+%h1= "#{@current_season.try(:name)} Team Stats"
 %p.sep Per game stats for #{@team.name}:
 %table{cellspacing: "0", cellpadding: "2", width: "650"}
   %tbody
