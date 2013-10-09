@@ -61,7 +61,7 @@ class Game < ActiveRecord::Base
   end
   
   def week_name
-    date_range = DateRange.where('? > start_date AND ? < end_date', self.date, self.date).first
+    date_range = DateRange.where('season_id = ? AND ? >= start_date AND ? <= end_date', self.season_id, self.date, self.date).first
     date_range ? date_range.name : nil
   end
   
