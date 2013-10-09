@@ -90,9 +90,6 @@
           %h2 Name:
         %td{ style:"padding: 5px" }
           %span{ style:"line-height:130%;font-size:13px;" }= @player.name
-        %td{ rowspan:"8", colspan:"2", align:"center" }
-          =image_tag(@player.profile_pic.url(:profile), class: "pic")
-          %br
       %tr
         %td{ style:"padding: 5px", align:"right" }
           %h2 Age:
@@ -126,7 +123,7 @@
 %div.profstats#splits
   %form{action: "#{stats_player_path(@player)}#splits", method: "get", style: 'font-weight:bold;'}
     Season:
-    =select_tag "splits", options_from_collection_for_select(@seasons, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+    =select_tag "splits", options_from_collection_for_select(@seasons_splits, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %p.sep
     %table{ cellspacing:"0", cellpadding:"2", width:"650" }
       %tbody
@@ -134,7 +131,7 @@
           %td{ width:"80" } &nbsp;
           %td{ width:"130" } Field Goals
           %td{ width:"85" } 3PT
-          %td{ width:"95" }FT
+          %td{ width:"95" } FT
           %td{ width:"75" } Rebounds
           %td{ width:"25" } &nbsp;
           %td{ width:"25" } &nbsp;
@@ -145,7 +142,7 @@
     %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", width:"650" }
       %thead.statthead
         %tr
-          %th.sorttable_nosort{ colspan:"2", width:"25" } Split
+          %th.sorttable_nosort{ colspan:"2", width:"25", style:"text-align:left;" } Split
           %th.sorttable_nosort M-A
           %th.sorttable_nosort{ width:"35" } %
           %th.sorttable_nosort M-A
@@ -163,11 +160,11 @@
       %tbody
         - @splits.each do |split, stats|
           %tr.statthead
-            %td{ colspan:"2" }= split
+            %td{ colspan:"2", style:"text-align:left;" }= split
             %td{ colspan:"14" } &nbsp;
           - stats.each do |stat|
             %tr{class: "#{cycle('even2', 'odd2')}"}
-              %td{ colspan:"2" }= stat.split_name
+              %td{ colspan:"2", style:"text-align:left;" }= stat.split_name
               %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
               %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
               %td.lline #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}

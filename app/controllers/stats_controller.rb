@@ -43,7 +43,20 @@ class StatsController < ApplicationController
     @average_per_season_totals = @player.average_per_season_totals
     @current_season_averages = @player.season_averages(Season.current)
 
-    @splits_season = params[:splits] ? Season.find(params[:splits]) : @seasons.first
+    career_splits = Season.new(name: "Career")
+    career_splits.id = -1
+    @seasons_splits = [career_splits].concat(@seasons)
+    
+    if params[:splits]
+      if params[:splits] == "-1"
+        @splits_season = career_splits
+      else
+        @splits_season = Season.find(params[:splits])
+      end
+    else
+      @splits_season = @seasons.first
+    end
+    
     @splits = Hash.new
     @splits['By Result'] = @player.splits_by_result(@splits_season)
     @splits['By Month'] = @player.splits_by_month(@splits_season)
