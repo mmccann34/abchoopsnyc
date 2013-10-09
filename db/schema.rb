@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131003151618) do
+ActiveRecord::Schema.define(:version => 20131009150816) do
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20131003151618) do
     t.string   "hometown"
     t.text     "about"
     t.string   "day_job"
+    t.date     "birthday"
   end
 
   create_table "roster_spots", :force => true do |t|

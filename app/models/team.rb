@@ -45,7 +45,7 @@ class Team < ActiveRecord::Base
                         'AVG(points) as points FROM (SELECT SUM(fgm) as fgm, SUM(fga) as fga, SUM(twom) as twom, SUM(twoa) as twoa, SUM(threem) as threem, SUM(threea) as threea,' \
                         'SUM(ftm) as ftm, SUM(fta) as fta, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
                         "SUM(points) as points FROM stat_lines sl INNER JOIN games g ON sl.game_id = g.id " \
-                        "WHERE (g.forfeit is null or not g.forfeit) AND (sl.dnp is null OR not sl.dnp) AND team_id = #{self.id} AND g.season_id = #{season_id} GROUP BY game_id) sums").first
+        "WHERE (g.forfeit is null or not g.forfeit) AND (sl.dnp is null OR not sl.dnp) AND team_id = #{self.id} AND g.season_id = #{season_id} GROUP BY game_id) sums").first
   end
   
   def per_game_player_stats(season_id = nil)

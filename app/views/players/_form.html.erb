@@ -9,7 +9,11 @@
     <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
     <%= f.input :school, placeholder: 'School', style: 'clear:both;' %>
     <%= f.input :hometown, placeholder: 'Hometown' %>
-    <%= f.input :age, placeholder: 'Age' %>
+    <div class="control-group date optional player_birthday">
+      <div class="controls">
+        <input name="player[birthday]" class="input-block-level" type="text" data-behavior="datepicker" placeholder="Birthday" value="<%= @player.birthday.strftime('%m/%d/%Y') if @player.birthday %>">
+      </div>
+    </div>
     <%= f.input :day_job, placeholder: 'Day Job' %>
     <%= f.input :about, placeholder: 'More About', input_html: { rows: 3 } %>
     <p>Profile pic: <%= f.input :profile_pic %></p>

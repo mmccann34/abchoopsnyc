@@ -11,7 +11,7 @@
     <%= f.number_field :height_inches, placeholder: 'Inches', class: 'input-mini', style: 'float:left; margin-left:10px;' %>
     <%= f.text_field :school, placeholder: 'School', style: 'clear:both;' %>
     <%= f.text_field :hometown, placeholder: 'Hometown' %>
-    <%= f.number_field :age, placeholder: 'Age' %>
+    <input name="player[birthday]" type="text" data-behavior="datepicker" placeholder="Birthday" value="<%= @new_player.birthday.strftime('%m/%d/%Y') if @new_player.birthday %>">
     <%= f.text_field :day_job, placeholder: 'Day Job' %>
     <%= f.text_area :about, placeholder: 'More About', rows: 3 %>
     <p>Profile pic: <%= f.file_field :profile_pic %></p>
