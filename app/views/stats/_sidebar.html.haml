@@ -1,4 +1,4 @@
-- teams = @current_season.team_spots.group_by { |ts| ts.league }
+- teams = Season.current.team_spots.group_by { |ts| ts.league }
 %div.sidebarscrollpane
   %p.sidebarhead 
     Standings:
@@ -15,10 +15,10 @@
             - if division
               %tr
                 %td.division{ colspan: "3" } #{division.name} Division
-            - division_team_spots.map(&:team).sort_by{|t| t.win_pct(@current_season)}.reverse!.each do |team|
+            - division_team_spots.map(&:team).sort_by{|t| t.win_pct(Season.current)}.reverse!.each do |team|
               %tr
                 %td &nbsp;
                 %td
                   %b
                     %a{href: stats_team_path(team)}= team.name
-                %td= team.record(@current_season)
+                %td= team.record(Season.current)
