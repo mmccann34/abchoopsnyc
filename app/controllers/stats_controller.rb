@@ -60,6 +60,7 @@ class StatsController < ApplicationController
     @splits['By Month'] = @player.splits_by_month(@splits_season)
     @splits['By Time'] = @player.splits_by_time(@splits_season)
     @splits['By Opponent'] = @player.splits_by_opponent(@splits_season)
+    @splits_totals = @player.season_averages(@splits_season)
   end
   
   private
