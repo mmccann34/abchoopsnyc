@@ -110,10 +110,8 @@ class Player < ActiveRecord::Base
   def splits_by_opponent(season)
     StatLine.joins(:game).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        "AVG(points) as points, COUNT(*) as games_played, case when games.home_team_id = team_id then games.away_team_id else games.home_team_id end as split_name").where(player_id: self.id).where("dnp is null OR not dnp")
-        .where("games.forfeit is null OR not games.forfeit").where("games.season_id = #{season.id != -1 ? season.id : "games.season_id"}").group("split_name").order("split_name").each do |split|
-          split.split_name = 'vs. ' + Team.find(split.split_name).try(:name)
-        end
+        "AVG(points) as points, COUNT(*) as games_played, (SELECT name FROM teams WHERE id = (case when games.home_team_id = team_id then games.away_team_id else games.home_team_id end) limit 1) as split_name").where(player_id: self.id).where("dnp is null OR not dnp")
+        .where("games.forfeit is null OR not games.forfeit").where("games.season_id = #{season.id != -1 ? season.id : "games.season_id"}").group("split_name").order("split_name")
   end
   
   def abc_plus(season)
