@@ -20,6 +20,10 @@ class Player < ActiveRecord::Base
     "#{height_feet}-#{height_inches}"
   end
   
+  def calc_age
+    Time.diff(Date.today, self.birthday)[:year]
+  end
+  
   def last_team
     roster_spots.sort_by{|rs| rs.season_id}[-1].try(:team)
   end

@@ -45,7 +45,7 @@
           %tr
             %td
               %b Age:
-            %td= @player.age
+            %td= @player.calc_age
           %tr
             %td
               %b School:
@@ -94,7 +94,7 @@
         %td{ style:"padding: 5px", align:"right" }
           %h2 Age:
         %td{ style:"padding: 5px" }
-          %span{ style:"line-height:130%;font-size:13px;" }= @player.age
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.calc_age
       %tr
         %td{ style:"padding: 5px", align:"right" }
           %h2 Team:
