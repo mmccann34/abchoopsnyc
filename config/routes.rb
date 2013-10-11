@@ -3,53 +3,55 @@ Abchoops::Application.routes.draw do
 
   root to: "games#index"
   
-  resources :players
-  
-  resources :teams do
-    member do
-      get 'roster/edit' => "rosters#edit"
-      post 'roster/edit' => "rosters#add"
-      put 'roster/edit' => "rosters#edit_number"
-      delete 'roster/edit' => "rosters#remove"
+  scope '/admin' do
+    resources :players
+    
+    resources :teams do
+      member do
+        get 'roster/edit' => "rosters#edit"
+        post 'roster/edit' => "rosters#add"
+        put 'roster/edit' => "rosters#edit_number"
+        delete 'roster/edit' => "rosters#remove"
+      end
     end
-  end
-  put "teams" => "teams#save_changes"
-  
-  resources :games do
-    member do
-      get 'boxscore' => "boxscores#show"
-      get 'boxscore/edit' => "boxscores#edit"
-      put 'boxscore/edit' => "boxscores#update"
+    put "teams" => "teams#save_changes"
+    
+    resources :games do
+      member do
+        get 'boxscore' => "boxscores#show"
+        get 'boxscore/edit' => "boxscores#edit"
+        put 'boxscore/edit' => "boxscores#update"
+      end
+      collection do
+        get 'resave' => "games#resave"
+      end
     end
-    collection do
-      get 'resave' => "games#resave"
+    
+    resources :seasons do
+      member do
+        get 'teams/edit' => "team_lists#edit", as: "team_list_edit"
+        post 'teams/edit' => "team_lists#add"
+        delete 'teams/edit' => "team_lists#remove"
+        put 'teams/edit' => "team_lists#set_division", as: "division_edit"
+      end
+      resources :divisions
     end
-  end
-  
-  resources :seasons do
-    member do
-      get 'teams/edit' => "team_lists#edit", as: "team_list_edit"
-      post 'teams/edit' => "team_lists#add"
-      delete 'teams/edit' => "team_lists#remove"
-      put 'teams/edit' => "team_lists#set_division", as: "division_edit"
-    end
-    resources :divisions
-  end
-  put 'seasons' => "seasons#set_current"
-  
-  resources :locations
-  
-  resources :dates, only: [:index, :create, :destroy] do
-    collection do
-      get 'edit' => "dates#edit"
-      put '' => "dates#update"
+    put 'seasons' => "seasons#set_current"
+    
+    resources :locations
+    
+    resources :dates, only: [:index, :create, :destroy] do
+      collection do
+        get 'edit' => "dates#edit"
+        put '' => "dates#update"
+      end
     end
   end
   
   #add scope
-  get 'stats/games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
-  get 'stats/teams/:id' => "stats#show_team", as: "stats_team"
-  get 'stats/players/:id' => "stats#show_player", as: "stats_player"
+  get 'games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
+  get 'teams/:id' => "stats#show_team", as: "stats_team"
+  get 'players/:id' => "stats#show_player", as: "stats_player"
   
   # The priority is base d upon order of creation:
   # first created -> highest priority.
