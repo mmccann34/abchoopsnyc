@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
 
   def create
     birthday = params[:player][:birthday]
-    params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday
+    params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday && !birthday.empty?
     @player = Player.new(params[:player])
     if @player.save
       redirect_to players_url, notice: "Player has successfully been created."
@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
     birthday = params[:player][:birthday]
-    params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday
+    params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday && !birthday.empty?
     if @player.update_attributes(params[:player])
       redirect_to players_url, notice: "Player has successfully been updated."
     else
