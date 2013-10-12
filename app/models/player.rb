@@ -21,7 +21,7 @@ class Player < ActiveRecord::Base
   end
   
   def calc_age
-    Time.diff(Date.today, self.birthday)[:year]
+    self.birthday ? Time.diff(Date.today, self.birthday)[:year] : nil
   end
   
   def last_team
