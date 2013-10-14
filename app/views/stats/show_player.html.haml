@@ -125,39 +125,69 @@
     Season:
     =select_tag "splits", options_from_collection_for_select(@seasons_splits, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %p.sep
-    %table{ cellspacing:"0", cellpadding:"2", width:"650" }
+    %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
       %tbody
         %tr.statthead
-          %td{ width:"80" } &nbsp;
-          %td{ width:"130" } Field Goals
-          %td{ width:"85" } 3PT
-          %td{ width:"95" } FT
-          %td{ width:"75" } Rebounds
-          %td{ width:"25" } &nbsp;
-          %td{ width:"25" } &nbsp;
-          %td{ width:"25" } &nbsp;
-          %td{ width:"25" } &nbsp;
-          %td &nbsp;
+          %td{ colspan:"2" } &nbsp;
+          %td{ colspan:"2" } Field Goals
+          %td{ colspan:"2" } 3PT
+          %td{ colspan:"2" } FT
+          %td{ colspan:"3" } Rebounds
+          %td{ colspan:"5" } &nbsp;
     %p.ns
-    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", width:"650" }
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 25px;" }
       %thead.statthead
         %tr
           %th.sorttable_nosort{ style:"text-align:left;" } Split
           %th.sorttable_nosort GP
           %th.sorttable_nosort M-A
-          %th.sorttable_nosort{ width:"35" } %
+          %th.sorttable_nosort %
           %th.sorttable_nosort M-A
-          %th.sorttable_nosort{ width:"35" } %
+          %th.sorttable_nosort %
           %th.sorttable_nosort M-A
-          %th.sorttable_nosort{ width:"35" } %
-          %th.sorttable_nosort{ width:"25" } O
-          %th.sorttable_nosort{ width:"25" } D
-          %th.sorttable_nosort{ width:"25" } T
-          %th.sorttable_nosort{ width:"25" } A
-          %th.sorttable_nosort{ width:"25" } S
-          %th.sorttable_nosort{ width:"25" } B
-          %th.sorttable_nosort{ width:"25" } F
-          %th.sorttable_nosort{ width:"45" } P
+          %th.sorttable_nosort %
+          %th.sorttable_nosort O
+          %th.sorttable_nosort D
+          %th.sorttable_nosort T
+          %th.sorttable_nosort A
+          %th.sorttable_nosort S
+          %th.sorttable_nosort B
+          %th.sorttable_nosort F
+          %th.sorttable_nosort P
       %tbody
         %tr.stattotal
           %td{ style:"text-align:left" } Total
@@ -178,8 +208,8 @@
           %td.lline= number_with_precision(@splits_totals.points, precision: 1, strip_insignificant_zeros: true)
         - @splits.each do |split, stats|
           %tr.statthead
-            %td{ colspan:"2", style:"text-align:left;" }= split
-            %td{ colspan:"14" } &nbsp;
+            %td{ style:"text-align:left;" }= split
+            %td{ colspan:"15" } &nbsp;
           - stats.each do |stat|
             %tr{class: "#{cycle('even2', 'odd2')}"}
               %td{ style:"text-align:left;" }= stat.split_name
@@ -199,7 +229,7 @@
               %td.lline= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: true)
               %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
         %tr.stattotal
-          %td{ style:"text-align:left" } Total
+          %td{ style:"text-align:left;" } Total
           %td.lline= @splits_totals.games_played
           %td.lline #{number_with_precision(@splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(@splits_totals.fgpct, precision: 3)

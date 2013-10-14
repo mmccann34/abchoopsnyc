@@ -16,7 +16,8 @@
     </div>
     <%= f.input :day_job, placeholder: 'Day Job' %>
     <%= f.input :about, placeholder: 'More About', input_html: { rows: 3 } %>
-    <p>Profile pic: <%= f.input :profile_pic %></p>
+    <%= f.input :profile_pic_url, placeholder: 'Profile Pic URL' %>
+    <%= f.input :profile_pic_flickr_url, placeholder: 'Profile Pic Flickr URL' %>
     <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
   </fieldset>
 <% end %>
