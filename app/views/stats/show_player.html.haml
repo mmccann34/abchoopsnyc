@@ -127,22 +127,22 @@
   %p.sep
     %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
       %colgroup
-        %col{ span:"1", style:"width: 170px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 105px;" }
+        %col{ span:"1", style:"width: 20px;" }
+        %col{ span:"1", style:"width: 60px;" }
         %col{ span:"1", style:"width: 35px;" }
-        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
         %col{ span:"1", style:"width: 35px;" }
-        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
         %col{ span:"1", style:"width: 35px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
       %tbody
         %tr.statthead
           %td{ colspan:"2" } &nbsp;
@@ -154,22 +154,22 @@
     %p.ns
     %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
       %colgroup
-        %col{ span:"1", style:"width: 170px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 105px;" }
+        %col{ span:"1", style:"width: 20px;" }
+        %col{ span:"1", style:"width: 60px;" }
         %col{ span:"1", style:"width: 35px;" }
-        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
         %col{ span:"1", style:"width: 35px;" }
-        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
         %col{ span:"1", style:"width: 35px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
-        %col{ span:"1", style:"width: 25px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
       %thead.statthead
         %tr
           %th.sorttable_nosort{ style:"text-align:left;" } Split
@@ -295,42 +295,74 @@
     Season:
     =select_tag "log", options_from_collection_for_select(@seasons, "id", "name", @log_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %p.sep
-    %table{ cellspacing:"0", cellpadding:"2", width:"650" }
+    %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 110px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
       %tbody
         %tr.statthead
-          %td{ width:"70" }= @player.team_by_season(@log_season).try(:abbreviation)
-          %td{ width:"130" } Field Goals
-          %td{ width:"85" } 3PT
-          %td{ width:"95" }FT
-          %td{ width:"75" } Rebounds
-          %td{ width:"25" } &nbsp;
-          %td{ width:"25" } &nbsp;
-          %td{ width:"25" } &nbsp;
-          %td{ width:"25" } &nbsp;
+          %td= @player.team_by_season(@log_season).try(:abbreviation)
+          %td{ colspan:"2" } Field Goals
+          %td{ colspan:"2" } 3PT
+          %td{ colspan:"2" } FT
+          %td{ colspan:"3" } Rebounds
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
           %td &nbsp;
     %p.ns
-    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", width:"650" }
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 110px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
       %thead.statthead
         %tr
-          %th.sorttable_nosort{ colspan:"2", width:"25" }= @log_season.name
+          %th.sorttable_nosort= @log_season.name
           %th M-A
-          %th{ width:"35" } %
+          %th %
           %th M-A
-          %th{ width:"35" } %
+          %th %
           %th M-A
-          %th{ width:"35" } %
-          %th{ width:"25" } O
-          %th{ width:"25" } D
-          %th{ width:"25" } T
-          %th{ width:"25" } A
-          %th{ width:"25" } S
-          %th{ width:"25" } B
-          %th{ width:"25" } F
-          %th{ width:"45" } P
+          %th %
+          %th O
+          %th D
+          %th T
+          %th A
+          %th S
+          %th B
+          %th F
+          %th P
       %tbody
         - @game_log.each do |stat|
           %tr{class: "#{cycle('even2', 'odd2')}"}
-            %td{ colspan:"2" }
+            %td
               %a{href: stats_boxscore_path(stat.game)}= stat.game.week_name ? stat.game.week_name : "N/A"
             %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
             %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
@@ -348,7 +380,7 @@
             %td.lline= stat.points.round
       %tfooter
         %tr.stattotal
-          %td{ colspan:"2" } Per Gm
+          %td Per Gm
           %td.lline #{number_with_precision(@per_game_stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision((@per_game_stats.fgpct ? @per_game_stats.fgpct : 0), precision: 3)
           %td.lline #{number_with_precision(@per_game_stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.threea, precision: 1, strip_insignificant_zeros: true)}
@@ -364,7 +396,7 @@
           %td.lline= number_with_precision(@per_game_stats.fl, precision: 1, strip_insignificant_zeros: true)
           %td.lline= number_with_precision(@per_game_stats.points, precision: 1, strip_insignificant_zeros: true)
         %tr.stattotal
-          %td{ colspan:"2" } Total
+          %td Total
           - totals = total_stat_lines(@game_log)
           %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
           %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
