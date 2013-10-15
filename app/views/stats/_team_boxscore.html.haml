@@ -1,38 +1,72 @@
-%table{cellspacing: "0", cellpadding: "2", width: "650"}
+%table{cellspacing: "0", cellpadding: "2", style:"width:650px; table-layout:fixed;" }
+  %colgroup
+    %col{ span:"1", style:"width: 25px;" }
+    %col{ span:"1", style:"width: 130px;" }
+    %col{ span:"1", style:"width: 45px;" }
+    %col{ span:"1", style:"width: 40px;" }
+    %col{ span:"1", style:"width: 45px;" }
+    %col{ span:"1", style:"width: 40px;" }
+    %col{ span:"1", style:"width: 45px;" }
+    %col{ span:"1", style:"width: 40px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
   %tbody
     %tr.statthead
-      %td{colspan: "10", style: "font-size: 14px"}= team.name
+      %td{colspan: "16", style: "font-size: 14px"}= team.name
     %tr.statthead
-      %td{width: "132"} &nbsp;
-      %td{width: "78"} Field Goals
-      %td{width: "75"} 3PT
-      %td{width: "75"} FT
-      %td{width: "75"} Rebounds
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "45"} &nbsp;
+      %td{colspan: "2"} &nbsp;
+      %td{colspan: "2"} Field Goals
+      %td{colspan: "2"} 3PT
+      %td{colspan: "2"} FT
+      %td{colspan: "3"} Rebounds
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
 %p.ns
-%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding:"2", width:"650"}
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding:"2", style:"width:650px; table-layout:fixed;"}
+  %colgroup
+    %col{ span:"1", style:"width: 25px;" }
+    %col{ span:"1", style:"width: 130px;" }
+    %col{ span:"1", style:"width: 45px;" }
+    %col{ span:"1", style:"width: 40px;" }
+    %col{ span:"1", style:"width: 45px;" }
+    %col{ span:"1", style:"width: 40px;" }
+    %col{ span:"1", style:"width: 45px;" }
+    %col{ span:"1", style:"width: 40px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
   %thead.statthead
     %tr
-      %th{width: "25"}No.
+      %th No.
       %th.sorttable_nosort Name
-      %th{width: "43"}M-A
-      %th{width: "35"} %
-      %th{width: "40"} M-A
-      %th{width: "35"} %
-      %th{width: "40"} M-A
-      %th{width: "35"} %
-      %th{width: "25"} O
-      %th{width: "25"} D
-      %th{width: "25"} T
-      %th{width: "25"} A
-      %th{width: "25"} S
-      %th{width: "25"} B
-      %th{width: "25"} F
-      %th{width: "45"} P
+      %th M-A
+      %th %
+      %th M-A
+      %th %
+      %th M-A
+      %th %
+      %th O
+      %th D
+      %th T
+      %th A
+      %th S
+      %th B
+      %th F
+      %th P
   %tbody
     - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| !stat.dnp }.each do |stat|
       %tr{class: "#{cycle('odd2', 'even2')}"}
@@ -58,8 +92,7 @@
         %td.lline= stat.points.round
   %tfoot
     %tr.stattotal
-      %td &nbsp;
-      %td Total
+      %td{colspan:"2"} Total
       - totals = total_stat_lines(stat_lines)
       %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
       %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
