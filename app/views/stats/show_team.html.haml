@@ -50,39 +50,73 @@
 %a#stats{name: "stats"}
 %h1= "#{@current_season.try(:name)} Team Stats"
 %p.sep Per game stats for #{@team.name}:
-%table{cellspacing: "0", cellpadding: "2", width: "650"}
+%table{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
+  %colgroup
+    %col{ span:"1", style:"width: 20px;" }
+    %col{ span:"1", style:"width: 105px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
   %tbody
     %tr.statthead
-      %td{width: "105"}= @team.abbreviation
-      %td{width: "90"} Field Goals
-      %td{width: "90"} 3PT
-      %td{width: "90"} FT
-      %td{width: "75"} Rebounds
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
+      %td{colspan: "2"}= @team.abbreviation
+      %td{colspan: "2"} Field Goals
+      %td{colspan: "2"} 3PT
+      %td{colspan: "2"} FT
+      %td{colspan: "3"} Rebounds
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
 %p.ns
-%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", width: "650"}
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
+  %colgroup
+    %col{ span:"1", style:"width: 20px;" }
+    %col{ span:"1", style:"width: 105px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
   %thead.statthead
     %tr
-      %th{width: "10"} No.
-      %th.sorttable_nosort{width: "95"} Name
-      %th{width: "55"} M-A
-      %th{width: "35"} %
-      %th{width: "55"} M-A
-      %th{width: "35"} %
-      %th{width: "55"} M-A
-      %th{width: "35"} %
-      %th{width: "25"} O
-      %th{width: "25"} D
-      %th{width: "25"} T
-      %th{width: "25"} A
-      %th{width: "25"} S
-      %th{width: "25"} B
-      %th{width: "25"} F
-      %th{width: "25"} P
+      %th No.
+      %th.sorttable_nosort Name
+      %th M-A
+      %th %
+      %th M-A
+      %th %
+      %th M-A
+      %th %
+      %th O
+      %th D
+      %th T
+      %th A
+      %th S
+      %th B
+      %th F
+      %th P
   %tbody
     - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @per_game_player_stats.has_key?(roster_spot.player_id)
@@ -126,39 +160,73 @@
 %br
 %p.sep Cumulative stats for Game Blouses:
 %p.ls
-%table{cellspacing: "0", cellpadding: "2", width: "650"}
+%table{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
+  %colgroup
+    %col{ span:"1", style:"width: 20px;" }
+    %col{ span:"1", style:"width: 105px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
   %tbody
     %tr.statthead
-      %td{width: "105"}= @team.abbreviation
-      %td{width: "90"} Field Goals
-      %td{width: "90"} 3PT
-      %td{width: "90"} FT
-      %td{width: "75"} Rebounds
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
-      %td{width: "25"} &nbsp;
+      %td{colspan: "2"}= @team.abbreviation
+      %td{colspan: "2"} Field Goals
+      %td{colspan: "2"} 3PT
+      %td{colspan: "2"} FT
+      %td{colspan: "3"} Rebounds
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
+      %td &nbsp;
 %p.ns
-%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", width: "650"}
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
+  %colgroup
+    %col{ span:"1", style:"width: 20px;" }
+    %col{ span:"1", style:"width: 105px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 60px;" }
+    %col{ span:"1", style:"width: 35px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
+    %col{ span:"1", style:"width: 30px;" }
   %thead.statthead
     %tr
-      %th{width: "10"} No.
-      %th.sorttable_nosort{width: "95"} Name
-      %th{width: "55"} M-A
-      %th{width: "35"} %
-      %th{width: "55"} M-A
-      %th{width: "35"} %
-      %th{width: "55"} M-A
-      %th{width: "35"} %
-      %th{width: "25"} O
-      %th{width: "25"} D
-      %th{width: "25"} T
-      %th{width: "25"} A
-      %th{width: "25"} S
-      %th{width: "25"} B
-      %th{width: "25"} F
-      %th{width: "25"} P
+      %th No.
+      %th.sorttable_nosort Name
+      %th M-A
+      %th %
+      %th M-A
+      %th %
+      %th M-A
+      %th %
+      %th O
+      %th D
+      %th T
+      %th A
+      %th S
+      %th B
+      %th F
+      %th P
   %tbody
     - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @cumulative_player_stats.has_key?(roster_spot.player_id)
