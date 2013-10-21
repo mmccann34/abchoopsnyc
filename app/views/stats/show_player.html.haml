@@ -676,9 +676,13 @@
           %td= @career_highs['blocks'].value.to_i
           %td= @career_highs['blocks'].game
         %tr.even2
-          %td.text-left Fouls
-          %td= @career_highs['fouls'].value.to_i
-          %td= @career_highs['fouls'].game
+          %td.text-left 3PT Made
+          %td= @career_highs['threem'].value.to_i
+          %td= @career_highs['threem'].game
+        %tr.odd2
+          %td.text-left FT Made
+          %td= @career_highs['ftm'].value.to_i
+          %td= @career_highs['ftm'].game
     %br
   =render "glossary"
 .profstats#playerphotos
