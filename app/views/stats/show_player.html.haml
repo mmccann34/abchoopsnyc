@@ -645,16 +645,16 @@
           %td.lline= number_with_precision(@average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: true)
           %td.lline= number_with_precision(@average_per_season_totals.points, precision: 1, strip_insignificant_zeros: true)
   %br
-  %h1 Career Highs
-  %p.sep
-  %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
-    %thead.statthead
-      %tr
-        %th.text-left Stat
-        %th Career High
-        %th Game
-    %tbody
-      - unless @career_highs.empty?
+  - unless @career_highs.empty?
+    %h1 Career Highs
+    %p.sep
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+      %thead.statthead
+        %tr
+          %th.text-left Stat
+          %th Career High
+          %th Game
+      %tbody
         %tr.odd2
           %td.text-left Points
           %td= @career_highs['points'].value.to_i
@@ -679,7 +679,7 @@
           %td.text-left Fouls
           %td= @career_highs['fouls'].value.to_i
           %td= @career_highs['fouls'].game
-  %br
+    %br
   =render "glossary"
 .profstats#playerphotos
 = javascript_include_tag "activatables"

@@ -161,11 +161,13 @@ class Player < ActiveRecord::Base
   
   def set_career_high(stat_type, stat_field)
     max_stat = self.stat_lines.max_by { |stat| stat.send(stat_field) }
-    career_high = self.career_highs.select { |ch| ch.stat_type == stat_type }.first
-    career_high ||= self.career_highs.build(stat_type: stat_type)
-    career_high.value = max_stat.send(stat_field)
-    career_high.game = career_high.value == 0 ? "N/A" : "#{max_stat.game.season.name} vs. #{max_stat.game.home_team_id == max_stat.team_id ? max_stat.game.away_team.name : max_stat.game.home_team.name}"
-    career_high.save
+    unless max_stat.nil?
+      career_high = self.career_highs.select { |ch| ch.stat_type == stat_type }.first
+      career_high ||= self.career_highs.build(stat_type: stat_type)
+      career_high.value = max_stat.send(stat_field)
+      career_high.game = career_high.value == 0 ? "N/A" : "#{max_stat.game.season.name} vs. #{max_stat.game.home_team_id == max_stat.team_id ? max_stat.game.away_team.name : max_stat.game.home_team.name}"
+      career_high.save
+    end
   end
   
   #PRIVATE METHODS
