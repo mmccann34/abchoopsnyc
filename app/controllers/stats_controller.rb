@@ -1,6 +1,14 @@
 class StatsController < ApplicationController
   layout "stats"
   before_filter :load_sidebar
+
+  def recalc_stats
+    Player.all.each do |player|
+      player.calc_stats
+    end
+    
+    redirect_to :root
+  end
   
   def show_boxscore
     @game = Game.find_by_id(params[:id])
@@ -40,6 +48,8 @@ class StatsController < ApplicationController
     @career_season_totals = @player.career_season_totals
     @average_per_season_totals = @player.average_per_season_totals
     @current_season_averages = @player.season_averages(Season.current)
+    
+    @career_highs = Hash[@player.career_highs.map{ |ch| [ch.stat_type, ch] }]
 
     career_splits = Season.new(name: "Career")
     career_splits.id = -1

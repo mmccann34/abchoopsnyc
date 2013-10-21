@@ -7,6 +7,7 @@ class Player < ActiveRecord::Base
   has_many :stat_lines, dependent: :destroy
   has_many :roster_spots, dependent: :destroy
   has_many :teams, through: :roster_spots
+  has_many :career_highs, dependent: :destroy
 
   before_validation do
     self.key = key.strip if key
@@ -147,6 +148,24 @@ class Player < ActiveRecord::Base
     #results
     
     (0.03 * team.abc_plus_win_pct(season)) + (0.05 * rebound_rate) + (0.05 * effective_assists) + (0.07 * ft_pct) + (0.12 * defensive_measure) + (0.18 * approx_value) + (0.3 * offensive_measure) + (0.2 * points_per_game)
+  end
+  
+  def calc_stats
+    set_career_high('points', :points)
+    set_career_high('rebounds', :trb)
+    set_career_high('assists', :ast)
+    set_career_high('steals', :stl)
+    set_career_high('blocks', :blk)
+    set_career_high('fouls', :fl)
+  end
+  
+  def set_career_high(stat_type, stat_field)
+    max_stat = self.stat_lines.max_by { |stat| stat.send(stat_field) }
+    career_high = self.career_highs.select { |ch| ch.stat_type == stat_type }.first
+    career_high ||= self.career_highs.build(stat_type: stat_type)
+    career_high.value = max_stat.send(stat_field)
+    career_high.game = career_high.value == 0 ? "N/A" : "#{max_stat.game.season.name} vs. #{max_stat.game.home_team_id == max_stat.team_id ? max_stat.game.away_team.name : max_stat.game.home_team.name}"
+    career_high.save
   end
   
   #PRIVATE METHODS

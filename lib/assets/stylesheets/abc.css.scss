@@ -1031,3 +1031,18 @@ tr[onclick]:hover {
   cursor: pointer;
   color: #08C;
 }
+a.no_underline:link {
+	text-decoration: none;
+}
+a.no_underline:visited {
+	text-decoration: none;
+}
+a.no_underline:active {
+	text-decoration: none;
+}
+a.no_underline:hover {
+	text-decoration: underline;
+}
+.text-left {
+  text-align: left !important; 
+}

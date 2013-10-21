@@ -7,6 +7,7 @@ class StatLine < ActiveRecord::Base
   belongs_to :team
 
   after_initialize :set_defaults
+  after_save { self.player.calc_stats }
 
   def set_defaults
     self.fgm ||= 0
