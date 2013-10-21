@@ -3,8 +3,13 @@ class StatsController < ApplicationController
   before_filter :load_sidebar
 
   def recalc_stats
-    Player.all.each do |player|
-      player.calc_stats
+    if params[:player_id]
+      player = Player.find_by_id(params[:player_id])
+      player.calc_stats if player
+    else
+      Player.all.each do |player|
+        player.calc_stats
+      end
     end
     
     redirect_to :root
