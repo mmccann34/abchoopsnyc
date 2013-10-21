@@ -654,30 +654,31 @@
         %th Career High
         %th Game
     %tbody
-      %tr.odd2
-        %td.text-left Points
-        %td= @career_highs['points'].value.to_i
-        %td= @career_highs['points'].game
-      %tr.even2
-        %td.text-left Rebounds
-        %td= @career_highs['rebounds'].value.to_i
-        %td= @career_highs['rebounds'].game
-      %tr.odd2
-        %td.text-left Assists
-        %td= @career_highs['assists'].value.to_i
-        %td= @career_highs['assists'].game
-      %tr.even2
-        %td.text-left Steals
-        %td= @career_highs['steals'].value.to_i
-        %td= @career_highs['steals'].game
-      %tr.odd2
-        %td.text-left Blocks
-        %td= @career_highs['blocks'].value.to_i
-        %td= @career_highs['blocks'].game
-      %tr.even2
-        %td.text-left Fouls
-        %td= @career_highs['fouls'].value.to_i
-        %td= @career_highs['fouls'].game
+      - unless @career_highs.empty?
+        %tr.odd2
+          %td.text-left Points
+          %td= @career_highs['points'].value.to_i
+          %td= @career_highs['points'].game
+        %tr.even2
+          %td.text-left Rebounds
+          %td= @career_highs['rebounds'].value.to_i
+          %td= @career_highs['rebounds'].game
+        %tr.odd2
+          %td.text-left Assists
+          %td= @career_highs['assists'].value.to_i
+          %td= @career_highs['assists'].game
+        %tr.even2
+          %td.text-left Steals
+          %td= @career_highs['steals'].value.to_i
+          %td= @career_highs['steals'].game
+        %tr.odd2
+          %td.text-left Blocks
+          %td= @career_highs['blocks'].value.to_i
+          %td= @career_highs['blocks'].game
+        %tr.even2
+          %td.text-left Fouls
+          %td= @career_highs['fouls'].value.to_i
+          %td= @career_highs['fouls'].game
   %br
   =render "glossary"
 .profstats#playerphotos
