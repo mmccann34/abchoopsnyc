@@ -157,6 +157,8 @@ class Player < ActiveRecord::Base
     set_career_high('steals', :stl)
     set_career_high('blocks', :blk)
     set_career_high('fouls', :fl)
+    set_career_high('threem', :threem)
+    set_career_high('ftm', :ftm)
   end
   
   def set_career_high(stat_type, stat_field)
