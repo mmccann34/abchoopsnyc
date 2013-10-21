@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014150019) do
+ActiveRecord::Schema.define(:version => 20131019184033) do
+
+  create_table "career_highs", :force => true do |t|
+    t.integer  "player_id"
+    t.string   "description"
+    t.float    "value"
+    t.string   "game"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "stat_type"
+  end
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"

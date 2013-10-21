@@ -4,6 +4,8 @@ Abchoops::Application.routes.draw do
   root to: "games#index"
   
   scope '/admin' do
+    get 'recalc-stats' => "stats#recalc_stats"
+    
     resources :players
     
     resources :teams do
