@@ -28,8 +28,9 @@ class Game < ActiveRecord::Base
     #Figure out league/division
     home_team_spot = self.home_team.team_spots.where(season_id: self.season_id).first
     away_team_spot = self.away_team.team_spots.where(season_id: self.season_id).first
-    self.league_id = home_team_spot.league_id == away_team_spot.league_id ? home_team_spot.league_id : nil
-    self.division_id = home_team_spot.division_id == away_team_spot.division_id ? home_team_spot.division_id : nil
+    if home_team_spot && away_team_spot
+      self.league_id = home_team_spot.league_id == away_team_spot.league_id ? home_team_spot.league_id : nil
+      self.division_id = home_team_spot.division_id == away_team_spot.division_id ? home_team_spot.division_id : nil
   end
 
   after_save(on: :create) do
@@ -60,9 +61,12 @@ class Game < ActiveRecord::Base
     update_stat_lines(away_team)
   end
   
+  def week
+    DateRange.where('season_id = ? AND ? >= start_date AND ? <= end_date', self.season_id, self.date, self.date).first
+  end
+  
   def week_name
-    date_range = DateRange.where('season_id = ? AND ? >= start_date AND ? <= end_date', self.season_id, self.date, self.date).first
-    date_range ? date_range.name : nil
+    self.week ? self.week.name : nil
   end
   
   def next_game

@@ -82,8 +82,6 @@
     %a.profbutton{ href:"#careerstats" } Career
   %li.stat_types
     %a.profbutton{ href:"#splits" } Splits
-  %li.stat_types
-    %a.profbutton{ href:"#playerphotos" } Photos    
   
 %div.profstats#about
   %table{ width:"665", cellpadding:"0", cellspacing:"0", border:"0"}
@@ -685,7 +683,6 @@
           %td= @career_highs['ftm'].game
     %br
   =render "glossary"
-.profstats#playerphotos
 = javascript_include_tag "activatables"
 %script{type: "text/javascript"}
-  activatables('page', ['gamelog', 'careerstats', 'playerphotos', 'about', 'splits']);
+  activatables('page', ['gamelog', 'careerstats', 'about', 'splits']);

@@ -40,6 +40,17 @@ class StatsController < ApplicationController
     @cumulative_player_stats = @team.cumulative_player_stats(@current_season)
   end
   
+  def show_schedules
+    @seasons = Season.order("number DESC")
+    @leagues = League.all
+  end
+  
+  def show_schedule
+    @current_season = params[:season] ? Season.find(params[:season]) : Season.current
+    @league = params[:league] ? League.find(params[:league]) : League.find_by_name("Sunday")  
+    @games = @current_season.games.group_by { |game| game.week_name ? (game.week_name.sub "Week", "") : "0" }
+  end
+  
   def show_player 
     @player = Player.find_by_id(params[:id])
     @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season)
