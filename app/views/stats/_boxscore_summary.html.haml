@@ -43,8 +43,14 @@
     %td.total= game.away_score
   %tr
     %td &nbsp;
-    %td.team(style="font-weight:bold;font-size:10px;")= "Played at the #{game.location.try(:name)}"
+    %td.team(style="font-weight:bold;font-size:10px;")= "Played at #{game.location.try(:name)}"
     %td.half &nbsp;
+    - if ot_one
+      %td.half &nbsp;
+    - if ot_two
+      %td.half(width="10") &nbsp;
+    - if ot_three
+      %td.half(width="10") &nbsp;
     %td.total(colspan="2")
       %a(href="/games/#{game.id}/boxscore#fullboxscore") Full Box Score&#187;
       &nbsp;

@@ -54,6 +54,8 @@ Abchoops::Application.routes.draw do
   get 'games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
   get 'teams/:id' => "stats#show_team", as: "stats_team"
   get 'players/:id' => "stats#show_player", as: "stats_player"
+  get 'schedule' => "stats#show_schedule", as: "schedule"
+  get 'schedules' => "stats#show_schedules", as: "schedules"
   
   # The priority is base d upon order of creation:
   # first created -> highest priority.
