@@ -31,6 +31,7 @@ class Game < ActiveRecord::Base
     if home_team_spot && away_team_spot
       self.league_id = home_team_spot.league_id == away_team_spot.league_id ? home_team_spot.league_id : nil
       self.division_id = home_team_spot.division_id == away_team_spot.division_id ? home_team_spot.division_id : nil
+    end
   end
 
   after_save(on: :create) do
