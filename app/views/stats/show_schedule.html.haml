@@ -1,0 +1,23 @@
+%h1 #{@current_season.name} - #{@league.name} Schedule &amp; Scores
+%br
+%ul#weekscores
+  %li
+    %a.weekscores_wk{name: "scores"}
+      %h1 Week
+  - @games.keys.each_with_index do |week_name, i|
+    %li
+      %a.weekscores_wklink{href: "#wk#{(i + 65).chr}"}
+        %h1.weekscores_wkname= week_name
+- @games.each_with_index do |(week_name, games), i|
+  .scores{id: "wk#{(i + 65).chr}"}
+    - games.each do |game|
+      %p.sep
+        = render "boxscore_summary", game: game
+= javascript_include_tag "activatables"
+%script{type: "text/javascript"}
+  activatables('page', [
+  - (1..@games.count).each do |i|
+    - if i == @games.count
+      = "'wk#{(i + 64).chr}']);"
+    -else
+      = "'wk#{(i + 64).chr}',"
