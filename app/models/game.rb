@@ -71,6 +71,10 @@ class Game < ActiveRecord::Base
     self.week ? self.week.name : nil
   end
   
+  def short_week_name
+    self.week ? self.week.short_name : nil
+  end
+  
   def next_game
     surrounding_games "next"
   end

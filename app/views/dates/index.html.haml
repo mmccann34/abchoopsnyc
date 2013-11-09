@@ -7,6 +7,7 @@
   <input name="date_range[start_date]" type="text" data-behavior="datepicker" value="#{Date.today.strftime('%m/%d/%Y')}" required="required" class="input-small"> -
   <input name="date_range[end_date]" type="text" data-behavior="datepicker" value="#{7.days.from_now.strftime('%m/%d/%Y')}" required="required" class="input-small">
   = f.text_field :name, required: true, placeholder: 'Name', class: 'input-medium'
+  = f.text_field :short_name, required: true, placeholder: 'Short Name', class: 'input-medium'
   = f.label :playoffs, class:'checkbox' do
     = f.check_box :playoffs
     Playoffs
@@ -20,6 +21,7 @@
       %th Start Date
       %th End Date
       %th Name
+      %th Short Name
       %th Season
   %tbody
     - for date_range in @date_ranges
@@ -28,4 +30,5 @@
         %td= date_range.start_date.strftime('%m/%d/%Y')
         %td= date_range.end_date.strftime('%m/%d/%Y')
         %td= date_range.name
+        %td= date_range.short_name
         %td= date_range.playoffs ? "Playoffs" : "Regular"

@@ -10,6 +10,7 @@
         %th Start Date
         %th End Date
         %th Name
+        %th Short Name
         %th Playoffs
     %tbody
       - @date_ranges.each do |date_range|
@@ -18,6 +19,7 @@
             %td= f.text_field :start_date, name: "date_ranges[#{date_range.id}[start_date]]", "data-behavior" => "datepicker", value: date_range.start_date.strftime('%m/%d/%Y'), required: true
             %td= f.text_field :end_date, name: "date_ranges[#{date_range.id}[end_date]]", "data-behavior" => "datepicker", value: date_range.end_date.strftime('%m/%d/%Y'), required: true
             %td= f.text_field :name, name: "date_ranges[#{date_range.id}[name]]", required: true
+            %td= f.text_field :short_name, name: "date_ranges[#{date_range.id}[short_name]]", required: true
             %td= f.check_box :playoffs, name: "date_ranges[#{date_range.id}[playoffs]]"
   = submit_tag "Save Changes", class: 'btn btn-primary'
   = link_to "Cancel", dates_path(season: @selected_season.id), class: "btn"
