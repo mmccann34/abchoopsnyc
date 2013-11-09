@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
   belongs_to :winning_team, class_name: 'Team', foreign_key: 'winner'
   belongs_to :season
   belongs_to :location
+  belongs_to :league
 
   has_many :stat_lines, dependent: :destroy
 
