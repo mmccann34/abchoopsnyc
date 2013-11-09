@@ -6,6 +6,7 @@
 <%= hidden_field_tag :season_id, @selected_season.id %>
 <p class="form-inline" style="margin-bottom: 20px;">
   <input name="date" type="text" data-behavior="datepicker" value="<%= Date.today.strftime('%m/%d/%Y') %>">
+  <%= select_tag "league_id", options_from_collection_for_select(League.order(:id), "id", "name"), prompt: 'League' %>
   <%= select_tag "location_id", options_from_collection_for_select(Location.order(:name), "id", "name"), prompt: 'Location' %>
 </p>
 <table class="table table-striped">

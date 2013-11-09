@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
   attr_accessible :away_team_id, :home_team_id, :season_id, :home_score_first, :home_score_second, :home_score_ot_one, :home_score_ot_two, :home_score_ot_three, 
-  :away_score_first, :away_score_second, :away_score_ot_one, :away_score_ot_two, :away_score_ot_three, :date, :time, :location_id, :forfeit, :winner
+  :away_score_first, :away_score_second, :away_score_ot_one, :away_score_ot_two, :away_score_ot_three, :date, :time, :location_id, :forfeit, :winner, :league_id
   validates :away_team_id, :home_team_id, :season_id, presence: true
 
   belongs_to :home_team, class_name: 'Team', foreign_key: 'home_team_id'
@@ -26,12 +26,12 @@ class Game < ActiveRecord::Base
     end
     
     #Figure out league/division
-    home_team_spot = self.home_team.team_spots.where(season_id: self.season_id).first
-    away_team_spot = self.away_team.team_spots.where(season_id: self.season_id).first
-    if home_team_spot && away_team_spot
-      self.league_id = home_team_spot.league_id == away_team_spot.league_id ? home_team_spot.league_id : nil
-      self.division_id = home_team_spot.division_id == away_team_spot.division_id ? home_team_spot.division_id : nil
-    end
+    #home_team_spot = self.home_team.team_spots.where(season_id: self.season_id).first
+    #away_team_spot = self.away_team.team_spots.where(season_id: self.season_id).first
+    #if home_team_spot && away_team_spot
+    #  self.league_id = home_team_spot.league_id == away_team_spot.league_id ? home_team_spot.league_id : nil
+    #  self.division_id = home_team_spot.division_id == away_team_spot.division_id ? home_team_spot.division_id : nil
+    #end
   end
 
   after_save(on: :create) do

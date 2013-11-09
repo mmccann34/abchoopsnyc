@@ -31,6 +31,7 @@ class GamesController < ApplicationController
   def create
     season_id = params[:season_id]
     date = DateTime.strptime(params[:date], '%m/%d/%Y')
+    league_id = params[:league_id]
     location_id = params[:location_id]
     params[:games].values.each do |game|
       game[:season_id] = season_id
@@ -40,6 +41,7 @@ class GamesController < ApplicationController
       else
         game[:date] = date
       end
+      game[:league_id] = league_id
       game[:location_id] = location_id
       Game.create(game)
     end
