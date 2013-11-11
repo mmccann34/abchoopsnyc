@@ -48,7 +48,8 @@ class StatsController < ApplicationController
   def show_schedule
     @current_season = params[:season] ? Season.find(params[:season]) : Season.current
     @league = params[:league] ? League.find(params[:league]) : League.find_by_name("Sunday")  
-    @games = @league.games(@current_season).order(:date).group_by { |game| game.short_week_name || (game.week_name ? (game.week_name.sub "Week", "") : "0") }
+    @games = @league.games(@current_season).order(:date).group_by { |game| game.week }
+    @teams = @league.teams(@current_season)
   end
   
   def show_player 

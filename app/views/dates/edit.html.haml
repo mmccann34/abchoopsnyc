@@ -2,6 +2,7 @@
   %h2 Edit Dates
 %form{ action: edit_dates_path, method: :get }
   = select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();', style: 'font-weight:bold; margin-bottom:20px' }
+  = select_tag "league", options_from_collection_for_select(@leagues, "id", "name", @selected_league.id), { onchange: 'this.form.submit();', style: 'font-weight:bold; margin-bottom:20px' }
 = form_tag dates_path, method: :put do
   = hidden_field_tag :season_id, @selected_season.id
   %table.table.table-striped
@@ -22,4 +23,4 @@
             %td= f.text_field :short_name, name: "date_ranges[#{date_range.id}[short_name]]", required: true
             %td= f.check_box :playoffs, name: "date_ranges[#{date_range.id}[playoffs]]"
   = submit_tag "Save Changes", class: 'btn btn-primary'
-  = link_to "Cancel", dates_path(season: @selected_season.id), class: "btn"
+  = link_to "Cancel", dates_path(season: @selected_season.id, league: @selected_league.id), class: "btn"

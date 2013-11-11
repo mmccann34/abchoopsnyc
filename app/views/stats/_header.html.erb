@@ -15,10 +15,13 @@
           <li><a href="http://abchoopsnyc.com/theleague.shtml#contact">Contact</a></li>
         </ul>
       </li>
-      <li><a href="http://abchoopsnyc.com/schedule.shtml">Scores & Sched</a>
+      <li><a href="/schedules">Scores & Sched</a>
         <ul class="schedulemenu">
-           
-            <li><a href="http://abchoopsnyc.com/schedule_s10_sun.shtml">Sunday Scores & Sched</a></li>
+          <% League.order(:id).each do |league| %>
+            <% if !league.games(@current_season).empty? %>
+              <li><%= link_to "#{league.name}", "#{schedule_path}?season=#{@current_season.id}&=league=#{league.id}" %></li>
+            <% end %>
+          <% end %>
         </ul>
       </li>
       <li><a href="http://abchoopsnyc.com/results.shtml">Stats</a>

@@ -1,14 +1,12 @@
 class DatesController < ApplicationController
   def index
-    if params[:season]
-      @selected_season = Season.find(params[:season])
-    else
-      @selected_season = Season.current
-    end
+    @selected_season = params[:season] ? Season.find(params[:season]) : Season.current
+    @selected_league = params[:league] ? League.find(params[:league]) : League.find_by_name("Sunday")
     
-    @date_ranges = DateRange.order(:start_date).find_all_by_season_id(@selected_season.id)
+    @date_ranges = DateRange.order(:start_date).where(season_id: @selected_season).where(league_id: @selected_league)
     @new_date_range = DateRange.new
     @seasons = Season.order("id DESC").all
+    @leagues = League.order(:id).all
   end
 
   def create
@@ -17,6 +15,7 @@ class DatesController < ApplicationController
     date_range.start_date = DateTime.strptime(params[:date_range][:start_date], '%m/%d/%Y')
     date_range.end_date = DateTime.strptime(params[:date_range][:end_date], '%m/%d/%Y')
     date_range.season_id = season_id
+    date_range.league_id = params[:league_id]
     if date_range.save
       redirect_to dates_url(season: season_id)
     else
@@ -26,13 +25,12 @@ class DatesController < ApplicationController
   
   def edit
     @seasons = Season.order("id DESC").all
-    if params[:season]
-      @selected_season = Season.find(params[:season])
-    else
-      @selected_season = Season.current
-    end
+    @leagues = League.order(:id).all
     
-    @date_ranges = DateRange.order(:start_date).find_all_by_season_id(@selected_season.id)
+    @selected_season = params[:season] ? Season.find(params[:season]) : Season.current
+    @selected_league = params[:league] ? League.find(params[:league]) : League.find_by_name("Sunday")
+    
+    @date_ranges = DateRange.order(:start_date).where(season_id: @selected_season).where(league_id: @selected_league)
   end
 
   def update
