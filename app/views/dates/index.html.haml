@@ -3,6 +3,7 @@
   %h2 Dates
 %form{ action: dates_path, method: :get }
   = select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();', style: 'font-weight:bold; margin-bottom:20px' }
+  = select_tag "league", options_from_collection_for_select(@leagues, "id", "name", @selected_league.id), { onchange: 'this.form.submit();', style: 'font-weight:bold; margin-bottom:20px' }
 = form_for @new_date_range, url: dates_path, html: { class: 'form-inline', style: 'margin-bottom:25px;' } do |f|
   <input name="date_range[start_date]" type="text" data-behavior="datepicker" value="#{Date.today.strftime('%m/%d/%Y')}" required="required" class="input-small"> -
   <input name="date_range[end_date]" type="text" data-behavior="datepicker" value="#{7.days.from_now.strftime('%m/%d/%Y')}" required="required" class="input-small">
@@ -13,7 +14,7 @@
     Playoffs
   = hidden_field_tag :season_id, @selected_season.id
   = f.submit 'Create Date Range', class: 'btn btn-primary'
-= link_to "Edit Dates", edit_dates_path(season: @selected_season.id), class: 'btn btn-primary'    
+= link_to "Edit Dates", edit_dates_path(season: @selected_season.id, league: @selected_league.id), class: 'btn btn-primary'    
 %table.table.table-striped
   %thead
     %tr

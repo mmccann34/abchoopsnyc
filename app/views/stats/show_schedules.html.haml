@@ -5,5 +5,5 @@
     - @leagues.each do |league|
       - if !league.games(season).empty?
         %li{style: "padding-top:10px"}
-          %a{href: "/schedule?season=#{season.id}league=#{league.id}", style: "#{'font-weight:bold;' if season.current}"}
+          %a{href: "/schedule?season=#{season.id}&league=#{league.id}", style: "#{'font-weight:bold;' if season.current}"}
             #{season.name} - #{league.name} Scores &amp; Schedule

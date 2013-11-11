@@ -5,7 +5,7 @@
   %tr
     %td(width="1") &nbsp;
     %td
-      %a(href="/games/#{game.id}/boxscore") #{game.week_name + " - " if game.week_name} #{game.time.strftime("%l:%M%p")}
+      %a(href="/games/#{game.id}/boxscore") #{(game.playoff_round || game.week_name) + " - " if (game.playoff_round || game.week_name)} #{game.time.strftime("%l:%M%p")}
     %td.half(width="90") 1st Half
     %td.half(width="90") 2nd Half
     - if ot_one
