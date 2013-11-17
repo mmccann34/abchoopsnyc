@@ -1,0 +1,6 @@
+%td.text-left= name
+%td= career_high.value.to_i
+-if career_high.game_id
+  %td= link_to career_high.game, stats_boxscore_path(career_high.game_id)
+-else
+  %td= career_high.game
