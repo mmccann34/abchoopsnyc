@@ -168,6 +168,7 @@ class Player < ActiveRecord::Base
       career_high ||= self.career_highs.build(stat_type: stat_type)
       career_high.value = max_stat.send(stat_field)
       career_high.game = career_high.value == 0 ? "N/A" : "#{max_stat.game.season.name} vs. #{max_stat.game.home_team_id == max_stat.team_id ? max_stat.game.away_team.name : max_stat.game.home_team.name}"
+      career_high.game_id = max_stat.game.id if career_high.value != 0
       career_high.save
     end
   end
