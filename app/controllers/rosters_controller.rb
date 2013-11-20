@@ -9,8 +9,11 @@ class RostersController < ApplicationController
     
     @seasons = Season.order("id DESC").all
     
+    gon.team_id = params[:id]
+    gon.season_id = @selected_season.id
+    
     @team = Team.find(params[:id])
-    @all_players = @team.roster(@selected_season.id).any? ? Player.where('id not in (?)', @team.roster(@selected_season.id).map(&:player)) : Player.all
+    #@all_players = @team.roster(@selected_season.id).any? ? Player.where('id not in (?)', @team.roster(@selected_season.id).map(&:player)) : Player.all
     @new_player = Player.new
   end
 
