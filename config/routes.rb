@@ -6,7 +6,11 @@ Abchoops::Application.routes.draw do
   scope '/admin' do
     get 'recalc-stats' => "stats#recalc_stats"
     
-    resources :players
+    resources :players do
+      collection do
+        get 'datatables' => "players#datatables", as: "datatables"
+      end
+    end
     
     resources :teams do
       member do

@@ -3,6 +3,12 @@ class PlayersController < ApplicationController
     @players = Player.all
     @new_player = Player.new
   end
+  
+  def datatables
+    respond_to do |format|
+      format.json { render json: PlayersDatatable.new(view_context) }
+    end
+  end
 
   def new
     @player = Player.new
