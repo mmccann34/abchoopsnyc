@@ -120,6 +120,8 @@ class Player < ActiveRecord::Base
   end
   
   def abc_plus(season)
+    return 0 unless self.stat_lines.joins(:game).where("games.season_id" => season).any?
+    
     totals = self.season_totals(season)
     team = self.team_by_season(season)
     
