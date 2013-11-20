@@ -12,7 +12,6 @@ $(function() {
     "fnServerParams": function ( aoData ) {
       aoData.push({ name: "team_id", value: gon.team_id }); 
       aoData.push({ name: "season_id", value: gon.season_id }); 
-      console.log(aoData);
     }
   });
   
