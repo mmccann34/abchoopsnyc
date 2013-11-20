@@ -41,7 +41,7 @@ private
 
   def fetch_players
     team = Team.find(params[:team_id])
-    players = team.roster(params[:season_id]).any? ? Player.where('id not in (?)', team.roster(params[:season_id]).map(&:player)) : Player.all
+    players = team.roster(params[:season_id]).any? ? Player.where('id not in (?)', team.roster(params[:season_id]).map(&:player)) : Player
     players = players.order("#{sort_column} #{sort_direction}")
     players = players.page(page).per_page(per_page)
     if params[:sSearch].present?
