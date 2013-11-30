@@ -210,7 +210,7 @@ class Player < ActiveRecord::Base
     #totals = self.season_totals(season)
     #team = self.team_by_season(season)
     
-    #return 0 if not team
+    return if not totals
     
     season_averages = self.player_stats.where(stat_type: 'season_average').where(season_id: totals.season_id).first
     
