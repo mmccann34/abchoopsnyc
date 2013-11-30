@@ -5,6 +5,7 @@
   = select_tag "league", options_from_collection_for_select(@leagues, "id", "name", @selected_league.id), { onchange: 'this.form.submit();', style: 'font-weight:bold; margin-bottom:20px' }
 = form_tag dates_path, method: :put do
   = hidden_field_tag :season_id, @selected_season.id
+  = hidden_field_tag :league_id, @selected_league.id
   %table.table.table-striped
     %thead
       %tr

@@ -17,9 +17,9 @@ class DatesController < ApplicationController
     date_range.season_id = season_id
     date_range.league_id = params[:league_id]
     if date_range.save
-      redirect_to dates_url(season: season_id)
+      redirect_to dates_url(season: season_id, league: params[:league_id])
     else
-      redirect_to dates_url(season: season_id), flash: { error: "An error occurred while creating Date Range." }
+      redirect_to dates_url(season: season_id, league: params[:league_id]), flash: { error: "An error occurred while creating Date Range." }
     end
   end
   
@@ -41,16 +41,17 @@ class DatesController < ApplicationController
       date_range.update_attributes(values)
     end
     
-    redirect_to dates_url(season: params[:season_id]), notice: "Date Ranges have been updated."
+    redirect_to dates_url(season: params[:season_id], league: params[:league_id]), notice: "Date Ranges have been updated."
   end
 
   def destroy
     date_range = DateRange.find(params[:id])
     season_id = date_range.season_id
+    league_id = date_range.league_id
     if date_range.destroy
-      redirect_to dates_url(season: season_id), notice: "Date Range has been deleted."
+      redirect_to dates_url(season: season_id, league: league_id), notice: "Date Range has been deleted."
     else
-      redirect_to dates_url(season: season_id), flash: { error: "An error occurred while deleting Date Range."}
+      redirect_to dates_url(season: season_id, league: league_id), flash: { error: "An error occurred while deleting Date Range."}
     end
   end
 end
