@@ -13,6 +13,7 @@
     = f.check_box :playoffs
     Playoffs
   = hidden_field_tag :season_id, @selected_season.id
+  = hidden_field_tag :league_id, @selected_league.id
   = f.submit 'Create Date Range', class: 'btn btn-primary'
 = link_to "Edit Dates", edit_dates_path(season: @selected_season.id, league: @selected_league.id), class: 'btn btn-primary'    
 %table.table.table-striped

@@ -36,6 +36,17 @@ class BoxscoresController < ApplicationController
           end
           stat.update_attributes(stat_line_params)
         end
+        
+        ###Calculate Stats###
+        game.home_team.calc_stats(game.season)
+        game.home_team.roster(game.season).each do |rs|
+          rs.player.calc_stats(game.season)
+        end
+        
+        game.away_team.calc_stats(game.season)
+        game.away_team.roster(game.season).each do |rs|
+          rs.player.calc_stats(game.season)
+        end        
       end
     end
 

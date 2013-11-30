@@ -250,7 +250,7 @@
           %td.lline= stats.fl.round
           %td.lline= stats.points.round
   %tfoot
-    - per_game_stats = total_stat_lines(@cumulative_player_stats.values)
+    - per_game_stats = @cumulative_team_stats #total_stat_lines(@cumulative_player_stats.values)
     %tr.stattotal
       %td &nbsp;
       %td Total

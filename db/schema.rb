@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131117012110) do
+ActiveRecord::Schema.define(:version => 20131123052214) do
+
+  create_table "abc_plus_scores", :force => true do |t|
+    t.integer  "player_id"
+    t.integer  "season_id"
+    t.float    "score"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "career_highs", :force => true do |t|
     t.integer  "player_id"
@@ -83,6 +91,39 @@ ActiveRecord::Schema.define(:version => 20131117012110) do
     t.string   "address"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "player_stats", :force => true do |t|
+    t.integer  "player_id"
+    t.integer  "season_id"
+    t.float    "points"
+    t.integer  "team_id"
+    t.float    "fgm"
+    t.float    "fga"
+    t.float    "fgpct"
+    t.float    "threem"
+    t.float    "threea"
+    t.float    "threepct"
+    t.float    "ftm"
+    t.float    "fta"
+    t.float    "ftpct"
+    t.float    "orb"
+    t.float    "drb"
+    t.float    "trb"
+    t.float    "ast"
+    t.float    "stl"
+    t.float    "blk"
+    t.float    "fl"
+    t.float    "to"
+    t.float    "twom"
+    t.float    "twoa"
+    t.float    "twopct"
+    t.integer  "game_count"
+    t.string   "stat_type"
+    t.string   "split_name"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "season_number"
   end
 
   create_table "players", :force => true do |t|

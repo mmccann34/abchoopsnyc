@@ -192,7 +192,7 @@
       %tbody
         %tr.stattotal
           %td{ style:"text-align:left" } Total
-          %td.lline= @splits_totals.games_played
+          %td.lline= @splits_totals.game_count
           %td.lline #{number_with_precision(@splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(@splits_totals.fgpct, precision: 3)
           %td.lline #{number_with_precision(@splits_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.threea, precision: 1, strip_insignificant_zeros: true)}
@@ -214,7 +214,7 @@
           - stats.each do |stat|
             %tr{class: "#{cycle('even2', 'odd2')}"}
               %td{ style:"text-align:left;" }= stat.split_name
-              %td.lline= stat.games_played
+              %td.lline= stat.game_count
               %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
               %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
               %td.lline #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}
@@ -231,7 +231,7 @@
               %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
         %tr.stattotal
           %td{ style:"text-align:left;" } Total
-          %td.lline= @splits_totals.games_played
+          %td.lline= @splits_totals.game_count
           %td.lline #{number_with_precision(@splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(@splits_totals.fgpct, precision: 3)
           %td.lline #{number_with_precision(@splits_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.threea, precision: 1, strip_insignificant_zeros: true)}
@@ -590,7 +590,7 @@
           %th P
       %tbody
         - @career_season_totals.each do |stat|
-          - stat.calc_percentages
+          //- stat.calc_percentages
           %tr{class: "#{cycle('even2', 'odd2')}"}
             %td= stat.season_number
             %td= stat.team.abbreviation
