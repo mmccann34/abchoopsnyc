@@ -177,6 +177,8 @@ class Player < ActiveRecord::Base
   end
   
   def set_player_totals(stat_type, s)
+    return if not s
+    
     player_stat = self.player_stats.where(stat_type: stat_type).first_or_initialize
     player_stat.attributes = {game_count: s.game_count, points: s.points, fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to}
     player_stat.save
