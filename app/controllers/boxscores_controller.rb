@@ -56,8 +56,6 @@ class BoxscoresController < ApplicationController
         stats_players.each do |player|
           player.calc_stats(game.season)
         end
-        
-        Rails.logger.info stats_players.map(&:name)
       end
     end
 
