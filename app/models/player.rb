@@ -224,7 +224,7 @@ class Player < ActiveRecord::Base
     effective_assists = team_totals.fgm == 0 ? 0 : totals.ast / team_totals.fgm
     ft_pct = totals.fta == 0 ? 0 : totals.ftm / totals.fta
     defensive_measure = totals.stl + totals.blk + totals.fl
-    approx_value = ((totals.points + totals.trb + totals.ast + totals.stl + totals.blk - (totals.fta - totals.ftm) - (totals.fga - totals.fgm)) ** 0.75) / 21.0
+    approx_value = ((totals.points + totals.trb + totals.ast + totals.stl + totals.blk - (totals.fta - totals.ftm) - (totals.fga - totals.fgm)).abs ** 0.75) / 21.0
     offensive_measure = totals.fgm + (0.5 * totals.threem) + (0.25 * totals.ftm)
     points_per_game = season_averages.points # self.season_averages(season).points
     
