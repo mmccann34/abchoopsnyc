@@ -46,7 +46,7 @@ class Team < ActiveRecord::Base
                         'AVG(points) as points, COUNT(*) as game_count FROM (SELECT SUM(fgm) as fgm, SUM(fga) as fga, SUM(twom) as twom, SUM(twoa) as twoa, SUM(threem) as threem, SUM(threea) as threea,' \
                         'SUM(ftm) as ftm, SUM(fta) as fta, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
                         "SUM(points) as points FROM stat_lines sl INNER JOIN games g ON sl.game_id = g.id " \
-        "WHERE (g.forfeit is null or not g.forfeit) AND (sl.dnp is null OR not sl.dnp) AND team_id = #{self.id} AND g.season_id = #{season_id} GROUP BY game_id) sums").first
+        "WHERE g.winner is not null AND (g.forfeit is null or not g.forfeit) AND (sl.dnp is null OR not sl.dnp) AND team_id = #{self.id} AND g.season_id = #{season_id} GROUP BY game_id) sums").first
   end
   
   def per_game_player_stats(season_id = nil)
@@ -77,7 +77,7 @@ class Team < ActiveRecord::Base
   end
   
   def abc_plus_win_pct(season)
-    self.games(season).pluck("sum(case when home_team_id = #{self.id} then home_score else away_score end) / sum(home_score + away_score + 0.0)").first.to_f
+    self.games(season).pluck("sum(case when home_team_id = #{self.id} then home_score else away_score end) / sum(home_score + away_score + 0.0)").first.to_f rescue 0
   end
   
   def calc_stats(season)
