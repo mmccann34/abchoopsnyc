@@ -231,7 +231,7 @@ class Player < ActiveRecord::Base
     score = (0.03 * team.abc_plus_win_pct(totals.season_id)) + (0.05 * rebound_rate) + (0.05 * effective_assists) + (0.07 * ft_pct) + (0.12 * defensive_measure) + (0.18 * approx_value) + (0.3 * offensive_measure) + (0.2 * points_per_game)
     
     abc_plus = self.abc_plus_scores.where(season_id: totals.season_id).first_or_initialize
-    abc_plus.update_attributes(score: score)
+    abc_plus.update_attributes(score: score.to_f)
   end
   
   #PRIVATE METHODS
