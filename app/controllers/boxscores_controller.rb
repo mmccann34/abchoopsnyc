@@ -26,9 +26,13 @@ class BoxscoresController < ApplicationController
       game.update_attributes(params[:game])
       
       if params[:game][:forfeit] != "1"
+        stats_players = []
         params[:stat_lines].each do |stat_line_id, stat_line_params|
           if !stat_line_id.starts_with?'sub'
             stat = StatLine.find_by_id(stat_line_id)
+            if stat.player_id != -1 && stat_line_params[:dnp] == "0"
+              stats_players << stat.player
+            end
           else
             team_id = stat_line_id.split('_')[1]
             stat = StatLine.create(team_id: team_id, player_id: -1)
@@ -39,14 +43,21 @@ class BoxscoresController < ApplicationController
         
         ###Calculate Stats###
         game.home_team.calc_stats(game.season)
-        game.home_team.roster(game.season).each do |rs|
-          rs.player.calc_stats(game.season)
-        end
+        #game.home_team.roster(game.season).each do |rs|
+        #  rs.player.calc_stats(game.season)
+        #end
         
         game.away_team.calc_stats(game.season)
-        game.away_team.roster(game.season).each do |rs|
-          rs.player.calc_stats(game.season)
-        end        
+        #game.away_team.roster(game.season).each do |rs|
+        #  rs.player.calc_stats(game.season)
+        #end
+        
+        ## calc stats for all non-dnp and non-sub lines
+        stats_players.each do |player|
+          player.calc_stats(game.season)
+        end
+        
+        Rails.logger.info stats_players.map(&:name)
       end
     end
 
