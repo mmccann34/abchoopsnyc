@@ -22,6 +22,7 @@ gem "linguistics", "~> 2.0.2"
 gem "time_diff", "~> 0.3.0"
 gem "will_paginate", "~> 3.0.5"
 gem "gon"
+gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
 # in production environments by default.
