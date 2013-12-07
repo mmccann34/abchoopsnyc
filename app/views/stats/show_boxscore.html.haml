@@ -1,0 +1,55 @@
+%h1 Results
+%table{width:"800", cellspacing:"0", cellpadding:"2", style:"text-align:center;"}
+  %tr
+    -prev_game = @game.previous_game
+    %td{rowspan:"4", width:"50"}
+      -if prev_game
+        %span.scoreArrow        
+          =link_to "&#171;".html_safe, stats_boxscore_path(prev_game)
+    %td{rowspan:"4", width:"50"}
+      -if prev_game
+        %a{href:stats_boxscore_path(prev_game)}
+          %span= prev_game.time.strftime("%l%p")
+          %br>
+          %span= prev_game.home_team.abbreviation
+          %br>
+          %span vs.
+          %br>
+          %span= prev_game.away_team.abbreviation
+    %td
+      %i #{@game.week_name} - #{@game.time.strftime("%l:%M%p")}
+    -next_game = @game.next_game
+    %td{rowspan:"4", width:"50"}
+      -if next_game
+        %a{href:stats_boxscore_path(next_game)}
+          %span= next_game.time.strftime("%l%p")
+          %br>
+          %span= next_game.home_team.abbreviation
+          %br>
+          %span vs.
+          %br>
+          %span= next_game.home_team.abbreviation
+    %td{rowspan:"4", width:"50"}
+      -if next_game
+        %span.scoreArrow        
+          =link_to "&#187;".html_safe, stats_boxscore_path(next_game)
+  %tr
+    %td
+      %b
+        %a{href:stats_team_path(@game.home_team)}= @game.home_team.name
+  %tr
+    %td vs.
+  %tr
+    %td
+      %b
+        %a{href:stats_team_path(@game.away_team)}= @game.away_team.name
+.horizline
+%p
+=render "boxscore_summary", game: @game
+%p
+%a#fullboxscore{name:"fullboxscore"}
+= render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
+%p{style:"line-height:50%; margin:5px;"} &nbsp;
+= render "team_boxscore", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id)
+%br
+= render "glossary"

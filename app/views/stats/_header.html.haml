@@ -1,0 +1,83 @@
+.grid_3.headerItem.logo
+  %a{href: "/"}
+    %img{src: "/assets/logo-280t.png", border: "0"}
+.headerRight
+  .rightContainer
+    %p.slamHeader
+      Read about us in SLAM Online!
+      %a{href: "http://www.slamonline.com/online/blogs/the-notorious-dnp/2012/06/abchoopsny-abcs-of-love/", target: "_blank"}
+        %img{src: "/assets/slamlogo25pxh.gif", style: "vertical-align:middle; margin-left:3px;"}
+  .socmedContainer
+    %ul#socmedia
+      %li#facebook
+        %a{href: "https://www.facebook.com/abchoopsnyc", target: "_blank"}
+          %span{style: "display:none;"} Facebook
+      %li#flickr
+        %a{href: "http://www.flickr.com/photos/60289240@N08/", target: "_blank"}
+          %span{style: "display:none;"} Flickr
+      %li#twitter
+        %a{href: "https://www.twitter.com/abchoopsnyc", target: "_blank"}
+          %span{style: "display:none;"} Twitter
+      %li#instagram
+        %a{href: "http://instagram.com/abchoopsnyc", target: "_blank"}
+          %span{style: "display:none;"} Instagram
+  .findaplayer
+    %b Find A Player
+    %form{name: "input", style:"margin-top:1px;"}
+      %input.findPlayerField{type: "text", name: "user"}
+      %input.findPlayer{type: "submit", value: "Submit"}
+.navbarBG
+  %ul#navbar
+    %li
+      %a{href:"/the-league"} The League
+      %ul
+        %li
+          %a{href:"/news"} News
+        %li
+          %a{href:"/the-league"} Info
+        %li
+          %a{href:"/the-league#rules"} Rules
+        %li
+          %a{href:"/store"} Store
+        %li
+          %a{href:"/media"} Media
+        %li
+          %a{href:"/the-league#contact"} Contact
+    %li
+      %a{href:"/schedules"} Scores &amp; Sched
+      %ul.schedulemenu
+        %li
+          %a{href:"#{schedule_path}?season=#{@current_season.id}&league=3"} Weekdays
+        %li
+          %a{href:"#{schedule_path}?season=#{@current_season.id}&league=2"} Saturday
+        %li
+          %a{href:"#{schedule_path}?season=#{@current_season.id}&league=1"} Sunday
+    %li
+      %a{href:"/results"} Stats
+      %ul.statsmenu
+        %li
+          %a{href:"/results?season=#{@current_season.id}&league=3"} Weekdays
+        %li
+          %a{href:"/results?season=#{@current_season.id}&league=2"} Saturday
+        %li
+          %a{href:"/results?season=#{@current_season.id}&league=1"} Sunday
+    %li
+      %a{href:"/record-books"} Record Books
+#signupblock
+  %p.signuphead
+    %a{href:"/signup"} Sign Up
+  %p.signupheaddays
+    %a{href:"/signup"} Weekdays&nbsp;&nbsp;&amp;&nbsp;&nbsp;Weekends
+.addthisContainer
+  .addthis_toolbox.addthis_default_style.addthisInner
+    %ul
+      %p Share:
+      %li
+        %a.addthis_button_preferred_1
+      %li
+        %a.addthis_button_preferred_2
+      %li
+        %a.addthis_button_preferred_3
+:javascript
+  var addthis_config = {"data_track_addressbar":false};
+%script{:type => "text/javascript", src:"http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4fc4f8b56ea9e91f"}

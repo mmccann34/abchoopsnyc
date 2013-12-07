@@ -3,28 +3,29 @@
   %form{action: "#{stats_team_path(@team)}", method: "get", style: 'font-weight:bold;'}
     Season:
     =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-%p This is #{@team.name}'s #{@team.season_count} season. See below for the following:
+%p.ls This is #{@team.name}'s #{@team.season_count} season. See below for the following:
 %ul
-  %li
-    %a{ href: "#schedule" }> #{@team.name}'s schedule with results
-    ,
-  %li
-    %a{ href: "#stats" }> Per game and cumulative stats for each player
-    \.
--if not @team_spot.team_photo_url.blank?
-  %img.teampic{alt:"", src:"#{@team_spot.team_photo_url}"}
-%p &nbsp;  
+  %il
+    %p.sep 
+      &bull;&nbsp;
+      %a{ href: "#schedule" }> #{@team.name}'s schedule with results
+      ,
+  %il
+    %p.shortlinesep
+      &bull;&nbsp;
+      %a{ href: "#stats" }> Per game and cumulative stats for each player
+      \.
+%p.ls &nbsp;  
 %a#schedule{ name: "schedule" }
-%h1 Schedule
+%h1= "#{@current_season.try(:name)} Schedule"
 %p.hl
-%table.maintablestand{ border: "0", width: "800", cellpadding:"5", cellspacing:"0" }
+%table.maintablestand{ border: "0", width: "550", cellpadding:"5", cellspacing:"0" }
   %tbody
     %tr.statthead
       %td Week
       %td Date
       %td Time
       %td Opponent
-      %td Location
       %td{ colspan: "2" } Result
     - @schedule.sort_by {|g| g.date}.each do |game|
       %tr{class: "#{cycle('odd2', 'even2')}"}
@@ -35,7 +36,6 @@
         %td
           -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
           %a{href: stats_team_path(opponent)}= opponent.name
-        %td= game.location.name
         - if game.winner
           %td{ class: game.winner == @team.id ? "win" : "loss" }= game.winner == @team.id ? "W" : "L"
           - if !game.forfeit
@@ -48,9 +48,9 @@
           %td
 %p.ls &nbsp;
 %a#stats{name: "stats"}
-%h1 Team Stats
-%p Per game stats for #{@team.name}:
-%table.statthead{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
+%h1= "#{@current_season.try(:name)} Team Stats"
+%p.sep Per game stats for #{@team.name}:
+%table{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -69,10 +69,8 @@
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
   %tbody
-    %tr
-      %td{colspan:"16", style:"font-size:14px;"}= @team.name
-    %tr
-      %td{colspan: "2"} &nbsp;
+    %tr.statthead
+      %td{colspan: "2"}= @team.abbreviation
       %td{colspan: "2"} Field Goals
       %td{colspan: "2"} 3PT
       %td{colspan: "2"} FT
@@ -82,7 +80,8 @@
       %td &nbsp;
       %td &nbsp;
       %td &nbsp;
-%table#teamstats.sortable{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
+%p.ns
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -159,8 +158,9 @@
       %td.lline= number_with_precision(@per_game_stats.fl, precision: 1, strip_insignificant_zeros: true)
       %td.lline= number_with_precision(@per_game_stats.points, precision: 1, strip_insignificant_zeros: true)
 %br
-%p Cumulative stats for #{@team.name}:
-%table.statthead{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
+%p.sep Cumulative stats for Game Blouses:
+%p.ls
+%table{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -179,10 +179,8 @@
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
   %tbody
-    %tr
-      %td{colspan:"16", style:"font-size:14px;"}= @team.name
-    %tr
-      %td{colspan: "2"} &nbsp;
+    %tr.statthead
+      %td{colspan: "2"}= @team.abbreviation
       %td{colspan: "2"} Field Goals
       %td{colspan: "2"} 3PT
       %td{colspan: "2"} FT
@@ -192,7 +190,8 @@
       %td &nbsp;
       %td &nbsp;
       %td &nbsp;
-%table#teamstats.sortable{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
+%p.ns
+%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding: "2", style: "width:650px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -269,5 +268,5 @@
       %td.lline= per_game_stats.blk.round
       %td.lline= per_game_stats.fl.round
       %td.lline= per_game_stats.points.round
-%br
-=render "glossary"
+%p.ls
+  =render "glossary"

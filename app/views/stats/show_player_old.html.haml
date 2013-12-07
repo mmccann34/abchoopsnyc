@@ -1,0 +1,674 @@
+%p{ style:"margin-bottom:15px;" } &nbsp;
+%div.playerbox
+  %table{ width:"650", border:"0", style:"margin-top:-3px;" }
+    %tr
+      %td{ colspan:"2", style:"padding-left:4px;" }
+        %p.playername= "#{@player.name} (#{number_with_precision(@player.abc_plus(Season.current), precision: 2, strip_insignificant_zeros: true)})"
+      %td{ rowspan:"4", width:"200" }
+        %div.noplayerpic                  
+          %p.playernumbernopic= @player.last_number
+    %tr
+      %td{ style:"padding-left:4px;" }
+        - if @player.last_team  
+          %p.playerteam 
+            %a{class: "no_underline", href: stats_team_path(@player.last_team)}= @player.last_team.try(:name)
+          
+      %td{ rowspan:"2", style:"padding-left:4px;" }
+        %table{ cellpadding:"3", cellspacing:"0", border:"0" }
+          %thead.statthead{ style:"font-size:12px;outline: 1px solid #2e3b56;" }
+            %tr
+              %td &nbsp;
+              %td PPG
+              %td RPG
+              %td APG
+              %td SPG
+              %td BPG
+          %tbody
+            %tr.odd2{ style:"font-size:14px;outline: 1px solid #000000;" }
+              %td{ style:"font-size:10px;"} CAREER
+              %td.lline= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@career_averages.trb, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@career_averages.ast, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@career_averages.stl, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: true)
+            %tr.even2{ style:"font-size:14px;outline: 1px solid #000000;" }
+              %td{ style:"font-size:10px;"} SEASON
+              %td.lline= number_with_precision(@current_season_averages.points, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@current_season_averages.trb, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@current_season_averages.ast, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@current_season_averages.stl, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(@current_season_averages.blk, precision: 1, strip_insignificant_zeros: true)
+    %tr
+      %td{ rowspan:"2" }
+        %table{ cellpadding:"1", cellspacing:"0", border:"0" }
+          %tr
+            %td{ width:"70px" }
+              %b Hometown:
+            %td= @player.hometown
+          %tr
+            %td
+              %b Age:
+            %td= @player.calc_age
+          %tr
+            %td
+              %b School:
+            %td= @player.school
+          %tr
+            %td
+              %b Day Job:
+            %td= @player.day_job
+          %tr
+            %td
+              %b Seasons:
+            %td= @player.season_count
+    %tr
+      %td
+        %div.socmedfirst
+          %a{ href:"http://www.facebook.com/abchoopsnyc", target:"_blank" }
+            %img.ppfacebook{ src:"/assets/socmedicons.png" }
+        %div.socmednext
+          %a{ href:"http://instagram.com/sensationalbulldogs", target:"_blank" }
+            %img.ppinstagram{ src:"/assets/socmedicons.png" }
+        %div.socmednext
+          %a{ href:"https://twitter.com/coffee_dad", target:"_blank" }
+            %img.pptwitter{ src:"/assets/socmedicons.png" }
+%br
+%ul#playerprof1
+  %li.stat_types
+    %a.profbutton{ href:"#about" } About
+  %li.stat_types
+    %a.profbutton{ href:"#gamelog" } Game Log
+  %li.stat_types
+    %a.profbutton{ href:"#careerstats" } Career
+  %li.stat_types
+    %a.profbutton{ href:"#splits" } Splits
+  
+%div.profstats#about
+  %table{ width:"665", cellpadding:"0", cellspacing:"0", border:"0"}
+    %tbody
+      %tr
+        %td{ style:"padding: 5px", width:"120", align:"right" }
+          %h2 Name:
+        %td{ style:"padding: 5px" }
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.name
+      %tr
+        %td{ style:"padding: 5px", align:"right" }
+          %h2 Age:
+        %td{ style:"padding: 5px" }
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.calc_age
+      %tr
+        %td{ style:"padding: 5px", align:"right" }
+          %h2 Team:
+        %td{ style:"padding: 5px" }
+          %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_team) }= @player.last_team.try(:name)
+      %tr
+        %td{ style:"padding: 5px", align:"right" }
+          %h2 Hometown:
+        %td{ style:"padding: 5px" }
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.hometown
+      %tr
+        %td{ style:"padding: 5px", align:"right" }
+          %h2 Education:
+        %td{ style:"padding: 5px" }
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.school
+      %tr
+        %td{ align:"right", style:"padding: 5px" }
+          %h2 Day Job:
+        %td{ style:"padding: 5px" }
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.day_job
+      %tr
+        %td{ align:"right", style:"padding: 5px" }
+          %h2 More about me:
+        %td{ style:"padding: 5px" }
+          %span{ style:"line-height:130%;font-size:13px;" }= @player.about
+%div.profstats#splits
+  %form{action: "#{stats_player_path(@player)}#splits", method: "get", style: 'font-weight:bold;'}
+    Season:
+    =select_tag "splits", options_from_collection_for_select(@seasons_splits, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+  %p.sep
+    %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 105px;" }
+        %col{ span:"1", style:"width: 20px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %tbody
+        %tr.statthead
+          %td{ colspan:"2" } &nbsp;
+          %td{ colspan:"2" } Field Goals
+          %td{ colspan:"2" } 3PT
+          %td{ colspan:"2" } FT
+          %td{ colspan:"3" } Rebounds
+          %td{ colspan:"5" } &nbsp;
+    %p.ns
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 105px;" }
+        %col{ span:"1", style:"width: 20px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %thead.statthead
+        %tr
+          %th.sorttable_nosort{ style:"text-align:left;" } Split
+          %th.sorttable_nosort GP
+          %th.sorttable_nosort M-A
+          %th.sorttable_nosort %
+          %th.sorttable_nosort M-A
+          %th.sorttable_nosort %
+          %th.sorttable_nosort M-A
+          %th.sorttable_nosort %
+          %th.sorttable_nosort O
+          %th.sorttable_nosort D
+          %th.sorttable_nosort T
+          %th.sorttable_nosort A
+          %th.sorttable_nosort S
+          %th.sorttable_nosort B
+          %th.sorttable_nosort F
+          %th.sorttable_nosort P
+      %tbody
+        %tr.stattotal
+          %td{ style:"text-align:left" } Total
+          %td.lline= @splits_totals.game_count
+          %td.lline #{number_with_precision(@splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@splits_totals.fgpct, precision: 3)
+          %td.lline #{number_with_precision(@splits_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.threea, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@splits_totals.threepct, precision: 3)
+          %td.lline #{number_with_precision(@splits_totals.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fta, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@splits_totals.ftpct, precision: 3)
+          %td.lline= number_with_precision(@splits_totals.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@splits_totals.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@splits_totals.trb, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.ast, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.stl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.blk, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.fl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.points, precision: 1, strip_insignificant_zeros: true)
+        - @splits.each do |split, stats|
+          %tr.statthead
+            %td{ style:"text-align:left;" }= split
+            %td{ colspan:"15" } &nbsp;
+          - stats.each do |stat|
+            %tr{class: "#{cycle('even2', 'odd2')}"}
+              %td{ style:"text-align:left;" }= stat.split_name
+              %td.lline= stat.game_count
+              %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
+              %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
+              %td.lline #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}
+              %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
+              %td.lline #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: true)}
+              %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
+              %td.lline= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: true)
+              %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
+        %tr.stattotal
+          %td{ style:"text-align:left;" } Total
+          %td.lline= @splits_totals.game_count
+          %td.lline #{number_with_precision(@splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@splits_totals.fgpct, precision: 3)
+          %td.lline #{number_with_precision(@splits_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.threea, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@splits_totals.threepct, precision: 3)
+          %td.lline #{number_with_precision(@splits_totals.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@splits_totals.fta, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@splits_totals.ftpct, precision: 3)
+          %td.lline= number_with_precision(@splits_totals.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@splits_totals.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@splits_totals.trb, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.ast, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.stl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.blk, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.fl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@splits_totals.points, precision: 1, strip_insignificant_zeros: true)
+  %br
+  %table(cellpadding="2" cellspacing="0" border="0" width="650")
+    %tbody
+      %tr
+        %td(colspan="3")
+          %b
+            %em Glossary
+      %tr.terms
+        %td
+          %b GP
+        %td(width="205") Games Played
+        %td
+          %b O
+        <td width="155">Offensive Rebounds
+        %td
+          %b A
+        %td Assists
+        %td
+          %b F
+        %td Fouls
+      %tr.terms
+        %td
+          %b 3PT
+        %td(width="205") Three Pointers (Made &amp; Attempted)
+        %td
+          %b D
+        %td(width="155") Defensive Rebounds
+        %td
+          %b S
+        %td Steals
+        %td
+          %b P
+        %td Points
+      %tr.terms
+        %td
+          %b FT
+        %td(width="205") Free Throws (Made &amp; Attempted)
+        %td
+          %b T
+        %td(width="155") Total Rebounds
+        %td
+          %b B
+        %td Blocks
+        %td &nbsp;
+        %td &nbsp;
+%div.profstats#gamelog
+  %form{action: "#{stats_player_path(@player)}#gamelog", method: "get", style: 'font-weight:bold;'}
+    Season:
+    =select_tag "log", options_from_collection_for_select(@seasons, "id", "name", @log_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+  %p.sep
+    %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 110px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %tbody
+        %tr.statthead
+          %td= @player.team_by_season(@log_season).try(:abbreviation)
+          %td{ colspan:"2" } Field Goals
+          %td{ colspan:"2" } 3PT
+          %td{ colspan:"2" } FT
+          %td{ colspan:"3" } Rebounds
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+    %p.ns
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 110px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %thead.statthead
+        %tr
+          %th.sorttable_nosort= @log_season.name
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th O
+          %th D
+          %th T
+          %th A
+          %th S
+          %th B
+          %th F
+          %th P
+      %tbody
+        - @game_log.each do |stat|
+          %tr{class: "#{cycle('even2', 'odd2')}"}
+            %td
+              %a{href: stats_boxscore_path(stat.game)}= stat.game.week_name ? stat.game.week_name : "N/A"
+            %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
+            %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
+            %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
+            %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
+            %td.lline= "#{stat.ftm.round}-#{stat.fta.round}"
+            %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
+            %td.lline= stat.orb.round
+            %td= stat.drb.round
+            %td= stat.trb.round
+            %td.lline= stat.ast.round
+            %td.lline= stat.stl.round
+            %td.lline= stat.blk.round
+            %td.lline= stat.fl.round
+            %td.lline= stat.points.round
+      %tfooter
+        %tr.stattotal
+          %td Per Gm
+          %td.lline #{number_with_precision(@per_game_stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.fga, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision((@per_game_stats.fgpct ? @per_game_stats.fgpct : 0), precision: 3)
+          %td.lline #{number_with_precision(@per_game_stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.threea, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision((@per_game_stats.threepct ? @per_game_stats.threepct : 0), precision: 3)
+          %td.lline #{number_with_precision(@per_game_stats.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@per_game_stats.fta, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision((@per_game_stats.ftpct ? @per_game_stats.ftpct : 0), precision: 3)
+          %td.lline= number_with_precision(@per_game_stats.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@per_game_stats.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@per_game_stats.trb, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@per_game_stats.ast, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@per_game_stats.stl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@per_game_stats.blk, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@per_game_stats.fl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@per_game_stats.points, precision: 1, strip_insignificant_zeros: true)
+        %tr.stattotal
+          %td Total
+          - totals = total_stat_lines(@game_log)
+          %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
+          %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
+          %td.lline= "#{totals.threem.round}-#{totals.threea.round}"
+          %td= number_with_precision((totals.threepct ? totals.threepct : 0), precision: 3) 
+          %td.lline= "#{totals.ftm.round}-#{totals.fta.round}"
+          %td= number_with_precision((totals.ftpct ? totals.ftpct : 0), precision: 3) 
+          %td.lline= totals.orb.round
+          %td= totals.drb.round
+          %td= totals.trb.round
+          %td.lline= totals.ast.round
+          %td.lline= totals.stl.round
+          %td.lline= totals.blk.round
+          %td.lline= totals.fl.round
+          %td.lline= totals.points.round
+  %br
+  =render "glossary"
+%div.profstats#careerstats
+  %p.sep
+    %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %tbody
+        %tr.statthead
+          %td{ colspan:"2" } Per Game
+          %td{ colspan:"2" } Field Goals
+          %td{ colspan:"2" } 3PT
+          %td{ colspan:"2" } FT
+          %td{ colspan:"3" } Rebounds
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+    %p.ns
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %thead.statthead
+        %tr
+          %th Season
+          %th.sorttable_nosort TM
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th O
+          %th D
+          %th T
+          %th A
+          %th S
+          %th B
+          %th F
+          %th P
+      %tbody
+        - @career_season_averages.each do |stat|
+          %tr{class: "#{cycle('even2', 'odd2')}"}
+            %td= stat.season_number
+            %td= stat.team.abbreviation
+            %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
+            %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
+            %td.lline #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}
+            %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
+            %td.lline #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: true)}
+            %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
+            %td.lline= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: true)
+            %td.lline= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: true)
+            %td.lline= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: true)
+            %td.lline= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: true)
+            %td.lline= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: true)
+            %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
+      %tfoot
+        %tr.stattotal
+          %td{ colspan:"2" } Career Avg
+          %td.lline #{number_with_precision(@career_averages.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@career_averages.fga, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@career_averages.fgpct, precision: 3)
+          %td.lline #{number_with_precision(@career_averages.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@career_averages.threea, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@career_averages.threepct, precision: 3)
+          %td.lline #{number_with_precision(@career_averages.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@career_averages.fta, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@career_averages.ftpct, precision: 3)
+          %td.lline= number_with_precision(@career_averages.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.trb, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@career_averages.ast, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@career_averages.stl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@career_averages.fl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: true)
+    %br
+    %table{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %tbody
+        %tr.statthead
+          %td{ colspan:"2" } Total
+          %td{ colspan:"2" } Field Goals
+          %td{ colspan:"2" } 3PT
+          %td{ colspan:"2" } FT
+          %td{ colspan:"3" } Rebounds
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+    %p.ns
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:650px; table-layout:fixed;" }
+      %colgroup
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 60px;" }
+        %col{ span:"1", style:"width: 40px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+        %col{ span:"1", style:"width: 30px;" }
+      %thead.statthead
+        %tr
+          %th Season
+          %th.sorttable_nosort TM
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th O
+          %th D
+          %th T
+          %th A
+          %th S
+          %th B
+          %th F
+          %th P
+      %tbody
+        - @career_season_totals.each do |stat|
+          //- stat.calc_percentages
+          %tr{class: "#{cycle('even2', 'odd2')}"}
+            %td= stat.season_number
+            %td= stat.team.abbreviation
+            %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
+            %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
+            %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
+            %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
+            %td.lline= "#{stat.ftm.round}-#{stat.fta.round}"
+            %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
+            %td.lline= stat.orb.round
+            %td= stat.drb.round
+            %td= stat.trb.round
+            %td.lline= stat.ast.round
+            %td.lline= stat.stl.round
+            %td.lline= stat.blk.round
+            %td.lline= stat.fl.round
+            %td.lline= stat.points.round
+      %tfoot
+        %tr.stattotal
+          %td{ colspan:"2" } Total
+          - totals = total_stat_lines(@career_season_totals)
+          %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
+          %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
+          %td.lline= "#{totals.threem.round}-#{totals.threea.round}"
+          %td= number_with_precision((totals.threepct ? totals.threepct : 0), precision: 3) 
+          %td.lline= "#{totals.ftm.round}-#{totals.fta.round}"
+          %td= number_with_precision((totals.ftpct ? totals.ftpct : 0), precision: 3) 
+          %td.lline= totals.orb.round
+          %td= totals.drb.round
+          %td= totals.trb.round
+          %td.lline= totals.ast.round
+          %td.lline= totals.stl.round
+          %td.lline= totals.blk.round
+          %td.lline= totals.fl.round
+          %td.lline= totals.points.round
+        %tr.stattotal
+          %td{ colspan:"2" } Avg/Season
+          %td.lline #{number_with_precision(@average_per_season_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@average_per_season_totals.fga, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@average_per_season_totals.fgpct, precision: 3)
+          %td.lline #{number_with_precision(@average_per_season_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@average_per_season_totals.threea, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@average_per_season_totals.threepct, precision: 3)
+          %td.lline #{number_with_precision(@average_per_season_totals.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@average_per_season_totals.fta, precision: 1, strip_insignificant_zeros: true)}
+          %td= number_with_precision(@average_per_season_totals.ftpct, precision: 3)
+          %td.lline= number_with_precision(@average_per_season_totals.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@average_per_season_totals.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@average_per_season_totals.trb, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@average_per_season_totals.ast, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@average_per_season_totals.stl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@average_per_season_totals.blk, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: true)
+          %td.lline= number_with_precision(@average_per_season_totals.points, precision: 1, strip_insignificant_zeros: true)
+  %br
+  - unless @career_highs.empty?
+    %h1 Career Highs
+    %p.sep
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+      %thead.statthead
+        %tr
+          %th.text-left Stat
+          %th Career High
+          %th Game
+      %tbody
+        %tr.odd2
+          =render "career_high", name: 'Points', career_high: @career_highs['points']
+        %tr.even2
+          =render "career_high", name: 'Rebounds', career_high: @career_highs['rebounds']
+        %tr.odd2
+          =render "career_high", name: 'Assists', career_high: @career_highs['assists']
+        %tr.even2
+          =render "career_high", name: 'Steals', career_high: @career_highs['steals']
+        %tr.odd2
+          =render "career_high", name: 'Blocks', career_high: @career_highs['blocks']
+        %tr.even2
+          =render "career_high", name: '3PT Made', career_high: @career_highs['threem']
+        %tr.odd2
+          =render "career_high", name: 'FT Made', career_high: @career_highs['ftm']
+    %br
+  =render "glossary"
+= javascript_include_tag "activatables"
+%script{type: "text/javascript"}
+  activatables('page', ['gamelog', 'careerstats', 'about', 'splits']);
