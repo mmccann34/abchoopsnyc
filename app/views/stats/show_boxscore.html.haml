@@ -45,7 +45,7 @@
         %a{href:stats_team_path(@game.away_team)}= @game.away_team.name
 .horizline
 %p
-=render "boxscore_summary", game: @game
+=render "boxscore_summary", game: @game, show_week: false
 %p
 %a#fullboxscore{name:"fullboxscore"}
 = render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
