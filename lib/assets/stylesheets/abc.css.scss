@@ -1191,3 +1191,85 @@ margin-right: 10px;}
 
 .indexStandings { width: 250px;margin-left:0px;padding-left: 10px;padding-top: 3px;height: 340px;font-size: 14px; }
 .newsHeadline {font-weight:bold;}
+
+
+/* TABBED NAVIGATION */
+.scores {
+	clear: left;
+	padding: 1em;
+}
+.scores.inactive {
+	display: none;
+}
+ul#weekscores {
+	margin:0px;
+	padding:0px;
+	position:relative;
+}
+ul#weekscores li {
+	display:inline;
+}
+ul#weekscores li a {
+	text-decoration:none;
+	color:#FC0
+}
+ul#weekscores li a.active {
+	text-decoration:underline;
+	color:#FC0;
+	border-style:none;
+}
+.weekscores_wkno {
+	display:block;
+	float:left;
+	margin-right:30px;
+	border-style:none;
+}
+.weekscores_wknos2 {
+	display:block;
+	float:left;
+	margin-right:5px;
+	border-style:none;
+}
+.weekscores_wknos {
+	display:block;
+	width:24px;
+	height:28px;
+	float:left;
+	border-style:none;
+}
+.weekscores_wklink {
+	display:block;
+	height:28px;
+	float:left;
+	border-style:none;
+}
+.weekscores_wkname {
+  padding-right:15px;
+}
+.weekscores_wkfinals {
+	display:block;
+	width:82px;
+	height:28px;
+	float:left;
+	border-style:none;
+}
+.weekscores_wkdivs {
+	display:block;
+	width:115px;
+	height:28px;
+	float:left;
+	border-style:none;
+}
+.weekscores_wk1st {
+	display:block;
+	width:95px;
+	height:28px;
+	float:left;
+	border-style:none;
+}
+.weekscores_wk {
+	float:left;
+	border-style:none;
+	width:65px;
+	height:28px;
+}
