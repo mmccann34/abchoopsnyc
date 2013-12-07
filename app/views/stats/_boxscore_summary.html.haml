@@ -3,9 +3,11 @@
 - ot_three = game.home_score_ot_three != 0 || game.away_score_ot_three != 0
 %table.boxscore(cellspacing="0" cellpadding="5")
   %tr
-    %td(width="1") &nbsp;
-    %td
-      %a(href="/games/#{game.id}/boxscore") #{game.boxscore_week_name + " - " if game.boxscore_week_name} #{game.time.strftime("%l:%M%p")}
+    %td{colspan:"2"}
+      -if show_week
+        %a(href="/games/#{game.id}/boxscore") #{game.boxscore_week_name + " - " if game.boxscore_week_name} #{game.time.strftime("%l:%M%p")}
+      -else
+        &nbsp;
     %td.half(width="90") 1st Half
     %td.half(width="90") 2nd Half
     - if ot_one
@@ -16,7 +18,7 @@
       %td.half(width="10") 3OT
     %td.total(width="90") Total
   %tr
-    %td #{"&#8226;".html_safe if game.home_team.id == game.winner}
+    %td{width:"1"} #{"&#8226;".html_safe if game.home_team.id == game.winner}
     %td.team
       %a{href: stats_team_path(game.home_team)} #{game.home_team.name}
     %td.half= game.home_score_first
@@ -29,7 +31,7 @@
       %td.half= game.home_score_ot_three
     %td.total= game.home_score
   %tr
-    %td #{"&#8226;".html_safe if game.away_team.id == game.winner}
+    %td{width:"1"} #{"&#8226;".html_safe if game.away_team.id == game.winner}
     %td.team 
       %a{href: stats_team_path(game.away_team)} #{game.away_team.name}
     %td.half= game.away_score_first

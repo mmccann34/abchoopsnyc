@@ -1,9 +1,0 @@
-%h1 Schedule &amp; Scores
-%p{style: "font-size:14px; margin-bottom:0px;"} To view the Schedule &amp; Scores for each league, click the following links:
-%ul{style: "font-size:14px; margin-top:0px;"}
-  - @seasons.each do |season|
-    - @leagues.each do |league|
-      - if !league.games(season).empty?
-        %li{style: "padding-top:10px"}
-          %a{href: "/schedule?season=#{season.id}&league=#{league.id}", style: "#{'font-weight:bold;' if season.current}"}
-            #{season.name} - #{league.name} Scores &amp; Schedule

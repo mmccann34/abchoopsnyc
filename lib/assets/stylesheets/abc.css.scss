@@ -250,9 +250,9 @@ color:#FFF;
 }
 
 .addthisContainer {
-position:relative;
-top:175px;
-left:375px;
+position:absolute;
+top:361px;
+left:440px;
 width:110px;
 z-index:2;
 }
@@ -502,7 +502,7 @@ border:none;
 .team {
 text-align:left;
 font-weight:bold;
-text-indent:10px;
+//text-indent:10px;
 }
 
 .total {
