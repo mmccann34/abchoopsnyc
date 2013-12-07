@@ -1,6 +1,6 @@
 %h1 #{@current_season.name} - #{@league.name} Schedule &amp; Scores
 %br
-%table.sortable.maintablestand{border: "0", width: "600", cellpadding: "3", cellspacing: "0"}
+%table.sortable.maintablestand{border: "0", width: "800", cellpadding: "3", cellspacing: "0"}
   %thead.statthead
     %tr
       %th{width: "50"} Week
@@ -17,6 +17,11 @@
       - @games.each do |week, games|
         - bye_teams = @teams.select{|team| !games.any? {|game| game.home_team == team || game.away_team == team}}.map(&:abbreviation)
         %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
+%p{style:"font-size:12px; font-weight:bold;"}
+  -if [1, 2].include? @league.id
+    %span Unless otherwise noted, all #{@league.name} games are played at the Hells Kitchen Gym.
+  -else
+    %span All Weekday games are played at the Financial District Gym.
 %h3 &nbsp;
 %ul#weekscores
   %li
