@@ -76,6 +76,10 @@ class Game < ActiveRecord::Base
     self.week ? self.week.short_name : nil
   end
   
+  def boxscore_week_name
+    self.playoff_round.blank? ? self.week_name : self.playoff_round
+  end
+  
   def next_game
     surrounding_games "next"
   end

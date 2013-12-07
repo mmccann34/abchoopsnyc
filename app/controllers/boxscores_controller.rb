@@ -42,13 +42,13 @@ class BoxscoresController < ApplicationController
         end
         
         ###Calculate Stats###
-        #game.home_team.calc_stats(game.season)        
-        #game.away_team.calc_stats(game.season)
+        game.home_team.calc_stats(game.season)        
+        game.away_team.calc_stats(game.season)
 
         ## calc stats for all non-dnp and non-sub lines
-        #stats_players.each do |player|
-        #  player.calc_stats(game.season)
-        #end
+        stats_players.each do |player|
+          player.calc_stats(game.season)
+        end
       end
     end
 

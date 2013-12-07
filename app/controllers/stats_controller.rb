@@ -29,9 +29,10 @@ class StatsController < ApplicationController
   
   def show_team
     @team = Team.find_by_id(params[:id])
-    
+
     @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season)
     @current_season = params[:season] ? Season.find(params[:season]) : @seasons.first
+    @team_spot = @team.team_spots.where(season_id: @current_season).first
     
     @schedule = @team.games(@current_season)
     @roster = @team.roster(@current_season)
@@ -58,17 +59,18 @@ class StatsController < ApplicationController
     @player = Player.find_by_id(params[:id])
     player_stats = @player.player_stats
     
-    @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season)
+    @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
+    @show_stats = @seasons.any?
     
     @log_season = params[:log] ? Season.find(params[:log]) : @seasons.first
     @game_log = @player.game_log(@log_season)
-    @per_game_stats = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @log_season.id }.first #@player.per_game_stats(@log_season)
+    @per_game_stats = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @log_season.id }.sort_by{|ps| ps.team_id}.first #@player.per_game_stats(@log_season)
 
-    @career_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' }.sort_by{ |ps| ps.season_number }.reverse! #@player.career_season_averages
-    @career_averages = player_stats.select{ |ps| ps.stat_type == 'career_per_game_average' }.first #@player.career_averages
+    @career_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.team_id != -1  }.sort_by{ |ps| ps.season_number }.reverse! #@player.career_season_averages
+    @career_averages = player_stats.select{ |ps| ps.stat_type == 'career_per_game_average' }.first || StatLine.new #@player.career_averages
     @career_season_totals = player_stats.select{ |ps| ps.stat_type == 'season_total' }.sort_by{ |ps| ps.season_number }.reverse! #@player.career_season_totals
     @average_per_season_totals = player_stats.select{ |ps| ps.stat_type == 'career_per_season_average' }.first # @player.average_per_season_totals
-    @current_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == Season.current.id }.first #@player.season_averages(Season.current)
+    @current_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == Season.current.id }.sort_by{|ps| ps.team_id}.first || StatLine.new #@player.season_averages(Season.current)
     
     @career_highs = Hash[@player.career_highs.map{ |ch| [ch.stat_type, ch] }]
 
@@ -83,7 +85,7 @@ class StatsController < ApplicationController
         @splits_season = Season.find(params[:splits])
       end
     else
-      @splits_season = @seasons.first
+      @splits_season = @seasons.any? ? @seasons.first : career_splits
     end
     
     @splits = Hash.new
@@ -91,7 +93,7 @@ class StatsController < ApplicationController
     @splits['By Month'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_month' && ps.season_id == @splits_season.id }.sort_by{ |ps| DateTime.strptime(ps.split_name, '%B') } #@player.splits_by_month(@splits_season)
     @splits['By Time'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_time' && ps.season_id == @splits_season.id }.sort_by{ |ps| DateTime.strptime(ps.split_name, '%l:%M %p') } # @player.splits_by_time(@splits_season)
     @splits['By Opponent'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_opponent' && ps.season_id == @splits_season.id }.sort_by{ |ps| ps.split_name } # @player.splits_by_opponent(@splits_season)
-    @splits_totals = @splits_season.id == -1 ? @career_averages : player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @splits_season.id }.first #@player.season_averages(@splits_season)
+    @splits_totals = @splits_season.id == -1 ? @career_averages : player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @splits_season.id }.first #@player.season_averages(@splits_season) 
   end
   
   private

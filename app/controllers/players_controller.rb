@@ -18,6 +18,7 @@ class PlayersController < ApplicationController
     birthday = params[:player][:birthday]
     params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday && !birthday.empty?
     @player = Player.new(params[:player])
+    set_social_media
     if @player.save
       redirect_to players_url, notice: "Player has successfully been created."
     else
@@ -33,10 +34,22 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     birthday = params[:player][:birthday]
     params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday && !birthday.empty?
+    set_social_media
     if @player.update_attributes(params[:player])
-      redirect_to players_url, notice: "Player has successfully been updated."
+      redirect_to edit_player_url(@player), notice: "Player has successfully been updated."
     else
       render action: "edit", flash: { error: "An error occurred while updating Player." }
+    end
+  end
+  
+  def set_social_media
+    @player.social_media_urls.clear
+   
+    params[:social_media_values].each do |index, value|
+      if not value.blank?
+        type = params[:social_media][index]
+        @player.social_media_urls[type] = value
+      end
     end
   end
 

@@ -17,7 +17,22 @@
     <%= f.input :day_job, placeholder: 'Day Job' %>
     <%= f.input :about, placeholder: 'More About', input_html: { rows: 3 } %>
     <%= f.input :profile_pic_url, placeholder: 'Profile Pic URL' %>
-    <%= f.input :profile_pic_flickr_url, placeholder: 'Profile Pic Flickr URL' %>
+    <p style="font-weight:bold;">Social Media URLs</p>
+    <% social_media_options = [['Facebook', 'facebook'], ['Twitter', 'twitter'], ['Instagram', 'instagram'], ['LinkedIn', 'linkedin'], ['Tumblr', 'tumblr'], ['Flickr', 'flickr'], ['Google+', 'googleplus'], ['You Tube', 'youtube'], ['Vimeo', 'vimeo'], ['Vine', 'vine'], ['Email', 'email']] %>
+    <div id="social_media_urls">
+      <% if @player.social_media_urls.any? %>
+        <% @player.social_media_urls.each_with_index do |(type, value), i| %>
+          <%= select_tag "social_media[#{i+1}]", options_for_select(social_media_options, "#{type}"), class: 'input-medium' %>
+          <%= text_field_tag "social_media_values[#{i+1}]", value, class: 'input-block-level' %>
+        <% end %>
+      <% else %>
+        <%= select_tag 'social_media[1]', options_for_select(social_media_options, 'facebook'), class: 'input-medium' %>
+        <%= text_field_tag 'social_media_values[1]', @player.facebook, class: 'input-block-level' %>
+        <%= select_tag 'social_media[2]', options_for_select(social_media_options, 'twitter'), class: 'input-medium' %>
+        <%= text_field_tag 'social_media_values[2]', @player.twitter, class: 'input-block-level' %>
+      <% end %>
+    </div>
+    <button id="add_social_media" type="button" class="btn btn-info" style="margin-bottom:20px;">Add Social Media URL</button>
     <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
   </fieldset>
 <% end %>

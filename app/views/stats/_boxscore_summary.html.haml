@@ -1,11 +1,11 @@
 - ot_one = game.home_score_ot_one != 0 || game.away_score_ot_one != 0
 - ot_two = game.home_score_ot_two != 0 || game.away_score_ot_two != 0
 - ot_three = game.home_score_ot_three != 0 || game.away_score_ot_three != 0
-%table.boxscore(width="550" border="0" cellspacing="0" cellpadding="5")
+%table.boxscore(cellspacing="0" cellpadding="5")
   %tr
     %td(width="1") &nbsp;
     %td
-      %a(href="/games/#{game.id}/boxscore") #{(game.playoff_round || game.week_name) + " - " if (game.playoff_round || game.week_name)} #{game.time.strftime("%l:%M%p")}
+      %a(href="/games/#{game.id}/boxscore") #{game.boxscore_week_name + " - " if game.boxscore_week_name} #{game.time.strftime("%l:%M%p")}
     %td.half(width="90") 1st Half
     %td.half(width="90") 2nd Half
     - if ot_one
@@ -43,7 +43,7 @@
     %td.total= game.away_score
   %tr
     %td &nbsp;
-    %td.team(style="font-weight:bold;font-size:10px;")= "Played at #{game.location.try(:name)}"
+    %td.team(style="font-weight:normal;font-size:12px;")= "Played at the #{game.location.try(:name)}"
     %td.half &nbsp;
     - if ot_one
       %td.half &nbsp;

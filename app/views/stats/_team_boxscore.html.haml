@@ -1,4 +1,4 @@
-%table{cellspacing: "0", cellpadding: "2", style:"width:650px; table-layout:fixed;" }
+%table.statthead{cellspacing: "0", cellpadding: "3", style:"table-layout:fixed;" }
   %colgroup
     %col{ span:"1", style:"width: 25px;" }
     %col{ span:"1", style:"width: 130px;" }
@@ -17,9 +17,9 @@
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
   %tbody
-    %tr.statthead
+    %tr
       %td{colspan: "16", style: "font-size: 14px"}= team.name
-    %tr.statthead
+    %tr
       %td{colspan: "2"} &nbsp;
       %td{colspan: "2"} Field Goals
       %td{colspan: "2"} 3PT
@@ -30,8 +30,7 @@
       %td &nbsp;
       %td &nbsp;
       %td &nbsp;
-%p.ns
-%table#teamstats.sortable.maintablelr{cellspacing: "0", cellpadding:"2", style:"width:650px; table-layout:fixed;"}
+%table#teamstats.sortable{cellspacing: "0", cellpadding:"3", style:"width:800px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 25px;" }
     %col{ span:"1", style:"width: 130px;" }

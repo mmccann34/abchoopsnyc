@@ -1,23 +1,23 @@
 - teams = Season.current.team_spots.group_by { |ts| ts.league }
 %div.sidebarscrollpane
-  %p.sidebarhead 
+  %p.standingsHead 
     Standings:
     - if teams.count > 1
       %span.rightSatSun
-        - teams.keys.sort.each_with_index do |league, index|
+        - teams.keys.sort.reverse!.each_with_index do |league, index|
           = index != 0 ? "/" : ""
           %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
   - teams.sort.each_with_index.map do |(league, team_spots), index|
-    %div.section{ id: "#{league.try(:short_name)}", style: index != 0 ? "display: none;" : "" }
-      %div.scroll-paneNS
-        %table.standings
+    %div.section{ id: "#{league.try(:short_name)}", style: league.id != 1 ? "display: none;" : "" }
+      %div.scroll-pane
+        %table.standingsTableSun{cellpadding:"3", cellspacing:"2"}
           - team_spots.group_by { |ts| ts.division }.each do |division, division_team_spots|
             - if division
               %tr
-                %td.division{ colspan: "3" } #{division.name} Division
+                %td.divisionName{ colspan: "3" } #{division.name} 
             - division_team_spots.map(&:team).sort_by{|t| t.win_pct(Season.current)}.reverse!.each do |team|
               %tr
-                %td &nbsp;
+                %td{width:"1px"} &nbsp;
                 %td
                   %b
                     %a{href: stats_team_path(team)}= team.name
