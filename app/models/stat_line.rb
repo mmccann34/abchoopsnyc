@@ -10,6 +10,7 @@ class StatLine < ActiveRecord::Base
 #  after_save { self.player.calc_stats }
 
   def set_defaults
+    self.points ||= 0
     self.fgm ||= 0
     self.fga ||= 0
     self.twom ||= 0
@@ -20,6 +21,7 @@ class StatLine < ActiveRecord::Base
     self.fta ||= 0
     self.orb ||= 0
     self.drb ||= 0
+    self.trb ||= 0
     self.ast ||= 0
     self.stl ||= 0
     self.blk ||= 0

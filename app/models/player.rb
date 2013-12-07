@@ -52,6 +52,10 @@ class Player < ActiveRecord::Base
     self.stat_lines.where("dnp is null OR not dnp").joins(:game).where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").where("games.season_id" => season).order("games.date").group_by{|sl| sl.team_id}
   end
   
+  def last_active_season
+    self.stat_lines.joins(:game).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").order("games.date desc").limit(1).pluck("games.season_id")
+  end
+  
   #def per_game_stats(season)
   #  StatLine.find_by_sql('SELECT AVG(fgm) as fgm, AVG(fga) as fga, AVG(coalesce(fgm/nullif(fga, 0), 0)) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(coalesce(twom/nullif(twoa, 0), 0)) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(coalesce(threem/nullif(threea, 0), 0)) as threepct,' \
   #                      'AVG(ftm) as ftm, AVG(fta) as fta, AVG(coalesce(ftm/nullif(fta, 0), 0)) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
@@ -133,7 +137,7 @@ class Player < ActiveRecord::Base
   end
   
   def abc_plus(season = nil)
-    abc_plus = self.abc_plus_scores.where(season_id: season || Season.current).first
+    abc_plus = self.abc_plus_scores.where(season_id: season || self.last_active_season).first
     abc_plus.try(:score) || 0
   end
   
