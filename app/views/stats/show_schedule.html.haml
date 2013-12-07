@@ -5,7 +5,7 @@
     %tr
       %th{width: "50"} Week
       - @games.keys.each do |week|
-        - week_name = week.try(:short_name) || (week.name ? (week.name.sub "Week", "") : "0")
+        - week_name = week.try(:short_name) || (week.try(:name) ? (week.name.sub "Week", "") : "0")
         %th= week_name
   %tbody
     %tr.even2
