@@ -1,0 +1,23 @@
+%table.record-book-entry{cellpadding:"5", cellspacing:"0", style:"display:inline-table; border-bottom: 1px solid #e7e7e7; margin-bottom:20px;", width:"260px"}
+  %thead.statthead
+    %tr
+      %th{colspan:"4", style:"font-size:14px; font-weight:bold;"}= stat_name
+    %tr
+      %th{colspan:"2"} Player
+      %th Team
+      %th Total
+  %tbody
+    -entries.each_with_index do |entry, i|
+      %tr{class: "#{cycle('odd2', 'even2')}"}
+        %td
+          -if i < 3
+            %a{href:stats_player_path(entry.player_id)}
+              %img{src:"#{entry.profile_pic_thumb_url}", style:"border:1px solid gray;", height:"52px;", width:"52px;"}
+          -else
+            &nbsp;
+        %td.text-left
+          %a{href:stats_player_path(entry.player_id)} #{entry.first_name} #{entry.last_name[0] + '.' if not entry.last_name.blank?}
+        %td
+          %a{href:stats_team_path(entry.team_id)}= entry.team_name
+        %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:percision, 1))) : number_with_delimiter(entry.total)
+    -reset_cycle

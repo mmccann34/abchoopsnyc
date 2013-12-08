@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131207070919) do
+ActiveRecord::Schema.define(:version => 20131208182623) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(:version => 20131207070919) do
     t.string   "profile_pic_url"
     t.string   "profile_pic_flickr_url"
     t.text     "social_media_urls"
+    t.string   "profile_pic_thumb_url"
   end
 
   create_table "roster_spots", :force => true do |t|

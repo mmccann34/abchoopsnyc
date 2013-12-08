@@ -250,9 +250,9 @@ color:#FFF;
 }
 
 .addthisContainer {
-position:absolute;
-top:361px;
-left:440px;
+position:relative;
+top:210px;
+left:375px;
 width:110px;
 z-index:2;
 }
@@ -1270,6 +1270,10 @@ ul#weekscores li a.active {
 .weekscores_wk {
 	float:left;
 	border-style:none;
-	width:65px;
+	width:70px;
 	height:28px;
+}
+
+table.record-book-entry + table.record-book-entry {
+  margin-left: 5px;
 }

@@ -71,6 +71,7 @@ class StatsController < ApplicationController
     @career_season_totals = player_stats.select{ |ps| ps.stat_type == 'season_total' }.sort_by{ |ps| ps.season_number }.reverse! #@player.career_season_totals
     @average_per_season_totals = player_stats.select{ |ps| ps.stat_type == 'career_per_season_average' }.first # @player.average_per_season_totals
     @current_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == Season.current.id }.sort_by{|ps| ps.team_id}.first || StatLine.new #@player.season_averages(Season.current)
+    @career_totals = player_stats.select{ |ps| ps.stat_type == 'career_total' }.first
     
     @career_highs = Hash[@player.career_highs.map{ |ch| [ch.stat_type, ch] }]
 
@@ -96,9 +97,67 @@ class StatsController < ApplicationController
     @splits_totals = @splits_season.id == -1 ? @career_averages : player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @splits_season.id }.first #@player.season_averages(@splits_season) 
   end
   
+  def show_record_books
+    @career_totals = {}
+    @career_totals[:points] = get_career_records('points', 'career_total')
+    @career_totals[:rebounds] = get_career_records('trb', 'career_total')
+    @career_totals[:assists] = get_career_records('ast', 'career_total')
+    @career_totals[:blocks] = get_career_records('blk', 'career_total')
+    @career_totals[:steals] = get_career_records('stl', 'career_total')
+    @career_totals[:fgpct] = get_career_records('fgpct', 'career_total')
+    @career_totals[:threepct] = get_career_records('threepct', 'career_total')
+    @career_totals[:ftpct] = get_career_records('ftpct', 'career_total')
+    @career_totals[:ftm] = get_career_records('ftm', 'career_total')
+    @career_totals[:threem] = get_career_records('threem * 3', 'career_total')
+    
+    @career_averages = {}
+    @career_averages[:points] = get_career_records('points', 'career_per_game_average')
+    @career_averages[:rebounds] = get_career_records('trb', 'career_per_game_average')
+    @career_averages[:assists] = get_career_records('ast', 'career_per_game_average')
+    @career_averages[:blocks] = get_career_records('blk', 'career_per_game_average')
+    @career_averages[:steals] = get_career_records('stl', 'career_per_game_average')
+    @career_averages[:fgpct] = get_career_records('fgpct', 'career_per_game_average')
+    @career_averages[:threepct] = get_career_records('threepct', 'career_per_game_average')
+    @career_averages[:ftpct] = get_career_records('ftpct', 'career_per_game_average')
+    @career_averages[:ftm] = get_career_records('ftm', 'career_per_game_average')
+    @career_averages[:threem] = get_career_records('threem * 3', 'career_per_game_average')
+    
+    @season_totals_season = params[:stotals] ? Season.find(params[:stotals]) : Season.current
+    @season_totals = {}
+    @season_totals[:points] = get_career_records('points', 'season_total', @season_totals_season)
+    @season_totals[:rebounds] = get_career_records('trb', 'season_total', @season_totals_season)
+    @season_totals[:assists] = get_career_records('ast', 'season_total', @season_totals_season)
+    @season_totals[:blocks] = get_career_records('blk', 'season_total', @season_totals_season)
+    @season_totals[:steals] = get_career_records('stl', 'season_total', @season_totals_season)
+    @season_totals[:fgpct] = get_career_records('fgpct', 'season_total', @season_totals_season)
+    @season_totals[:threepct] = get_career_records('threepct', 'season_total', @season_totals_season)
+    @season_totals[:ftpct] = get_career_records('ftpct', 'season_total', @season_totals_season)
+    @season_totals[:ftm] = get_career_records('ftm', 'season_total', @season_totals_season)
+    @season_totals[:threem] = get_career_records('threem * 3', 'season_total', @season_totals_season)
+    
+    @season_averages_season = params[:spergame] ? Season.find(params[:spergame]) : Season.current
+    @season_averages = {}
+    @season_averages[:points] = get_career_records('points', 'season_average', @season_averages_season)
+    @season_averages[:rebounds] = get_career_records('trb', 'season_average', @season_averages_season)
+    @season_averages[:assists] = get_career_records('ast', 'season_average', @season_averages_season)
+    @season_averages[:blocks] = get_career_records('blk', 'season_average', @season_averages_season)
+    @season_averages[:steals] = get_career_records('stl', 'season_average', @season_averages_season)
+    @season_averages[:fgpct] = get_career_records('fgpct', 'season_average', @season_averages_season)
+    @season_averages[:threepct] = get_career_records('threepct', 'season_average', @season_averages_season)
+    @season_averages[:ftpct] = get_career_records('ftpct', 'season_average', @season_averages_season)
+    @season_averages[:ftm] = get_career_records('ftm', 'season_average', @season_averages_season)
+    @season_averages[:threem] = get_career_records('threem * 3', 'season_average', @season_averages_season)
+  end
+  
   private
   def load_sidebar
     @divisions = Season.current.divisions
     @current_season = Season.current
+  end
+
+  def get_career_records(stat_field, stat_type, season_id = nil)
+    PlayerStat.joins(:player).joins(:team).where(stat_type: stat_type).where("player_stats.team_id <> -1").where(season_id: season_id)  #.where("#{stat_field} <> 0")
+              .select("player_id, players.first_name, players.last_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
+              .order("#{stat_field} desc").limit(10)
   end
 end
