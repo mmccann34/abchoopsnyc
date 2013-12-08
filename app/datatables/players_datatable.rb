@@ -45,7 +45,7 @@ private
     players = players.order("#{sort_column} #{sort_direction}")
     players = players.page(page).per_page(per_page)
     if params[:sSearch].present?
-      players = players.where("first_name ILIKE :search or last_name ILIKE :search or (first_name || ' ' || last_name) ILIKE :search", search: "%#{params[:sSearch]}%")
+      players = players.where("first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search", search: "%#{params[:sSearch]}%")
     end
     players 
   end
