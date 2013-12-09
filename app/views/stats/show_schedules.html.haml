@@ -1,0 +1,50 @@
+-if @show_all
+  = render "schedules_and_results", mode: 'schedules'
+-else
+  %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
+  %br
+  %table.sortable.maintablestand{border: "0", width: "800", cellpadding: "3", cellspacing: "0"}
+    %thead.statthead
+      %tr
+        %th{width: "50"} Week
+        - @games.keys.each do |week|
+          - week_name = week.try(:short_name) || (week ? (week.name.sub "Week", "") : "0")
+          %th= week_name
+    %tbody
+      %tr.even2
+        %td{style: "font-weight: bold;"} Date
+        - @games.keys.each do |week|
+          %td{style: "border-left: 1px dotted #999"}= week.start_date.strftime("%-m/%-d")
+      %tr.odd2
+        %td{style: "font-weight: bold;"} Bye
+        - @games.each do |week, games|
+          - bye_teams = @teams.select{|team| !games.any? {|game| game.home_team == team || game.away_team == team}}.map(&:abbreviation)
+          %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
+  %p{style:"font-size:12px; font-weight:bold;"}
+    -if [1, 2].include? @league.id
+      %span Unless otherwise noted, all #{@league.name} games are played at the Hells Kitchen Gym.
+    -else
+      %span All Weekday games are played at the Financial District Gym.
+  %h3 &nbsp;
+  %ul#weekscores
+    %li
+      %a.weekscores_wk{name: "scores"}
+        %h1 Week
+    - @games.keys.each_with_index do |week, i|
+      - week_name = week.try(:short_name) || (week.name ? (week.name.sub "Week", "") : "0")
+      %li
+        %a.weekscores_wklink{href: "#wk#{(i + 65).chr}"}
+          %h1.weekscores_wkname= week_name
+  - @games.each_with_index do |(week, games), i|
+    .scores{id: "wk#{(i + 65).chr}"}
+      - games.each do |game|
+        %p.sep
+          = render "boxscore_summary", game: game, show_week: true
+  = javascript_include_tag "activatables"
+  %script{type: "text/javascript"}
+    activatables('page', [
+    - (1..@games.count).each do |i|
+      - if i == @games.count
+        = "'wk#{(i + 64).chr}']);"
+      -else
+        = "'wk#{(i + 64).chr}',"

@@ -21,4 +21,31 @@ module ApplicationHelper
     stat_totals.calc_percentages
     stat_totals
   end
+  
+  def average_stat_lines(stat_lines)
+    stat_avg = StatLine.new
+    stat_avg.fgm = avg_column(stat_lines, :fgm)
+    stat_avg.fga = avg_column(stat_lines, :fga)
+    stat_avg.fgpct = avg_column(stat_lines, :fgpct)
+    stat_avg.threem = avg_column(stat_lines, :threem)
+    stat_avg.threea = avg_column(stat_lines, :threea)
+    stat_avg.threepct = avg_column(stat_lines, :threepct)
+    stat_avg.ftm = avg_column(stat_lines, :ftm)
+    stat_avg.fta = avg_column(stat_lines, :fta)
+    stat_avg.ftpct = avg_column(stat_lines, :ftpct)
+    stat_avg.orb = avg_column(stat_lines, :orb)
+    stat_avg.drb = avg_column(stat_lines, :drb)
+    stat_avg.trb = avg_column(stat_lines, :trb)
+    stat_avg.ast = avg_column(stat_lines, :ast)
+    stat_avg.stl = avg_column(stat_lines, :stl)
+    stat_avg.blk = avg_column(stat_lines, :blk)
+    stat_avg.fl = avg_column(stat_lines, :fl)
+    stat_avg.points = avg_column(stat_lines, :points)
+    stat_avg
+  end
+  
+  private
+  def avg_column(stats, field)
+    stats.size == 0 ? 0 : stats.map(&field).inject(:+).to_f / stats.size
+  end
 end
