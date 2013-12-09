@@ -3,6 +3,7 @@
     <% if header %><legend><%= header %></legend><% end %>
     <%= f.input :first_name, placeholder: 'First', input_html: { autofocus: 'autofocus' } %>
     <%= f.input :last_name, placeholder: 'Last' %>
+    <%= f.input :display_name, placeholder: 'Display Name' %>
     <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
     <%= f.select :position, ['PG', 'SG', 'SF', 'PF', 'C'], { prompt: 'Pos' }, class: 'input-mini', style: 'float:left; margin-left:10px; width:74px;' %>
     <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;' %>

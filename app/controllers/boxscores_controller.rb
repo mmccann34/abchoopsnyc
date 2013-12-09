@@ -40,8 +40,8 @@ class BoxscoresController < ApplicationController
           end
           stat.update_attributes(stat_line_params)
         end
-        
-        ###Calculate Stats###
+
+        ###Calculate Stats###        
         game.home_team.calc_stats(game.season)        
         game.away_team.calc_stats(game.season)
 

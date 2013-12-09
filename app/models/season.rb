@@ -6,9 +6,19 @@ class Season < ActiveRecord::Base
   has_many :team_spots
   has_many :teams, through: :team_spots
   has_many :divisions
-  # has_many :roster_entries, class_name: 'Roster', dependent: :destroy
+  has_many :roster_spots
 
   def self.current
     Season.find_by_current(true)
+  end
+  
+  def calc_stats
+    self.team_spots.each do |ts|
+      ts.team.calc_stats(self)
+    end
+    
+    self.roster_spots.each do |rs|
+      rs.player.calc_stats(self)
+    end
   end
 end

@@ -1,0 +1,108 @@
+-if @show_all
+  = render "schedules_and_results", mode: 'results'
+-else
+  %h1 #{@season.name} #{@league.name} Stats
+  %p
+    At ABC Hoops NYC, stats are very important to us.  We have three dedicated stat keepers at each game to make sure everything is recorded as accurately as possible.  For the each weeks' scores, go to the <a href="#{schedules_path(season:@season.id, league:@league.id)}">Schedule Page
+  %h3 &nbsp;
+  %h1
+    %a#standings{name:"standings"}
+    Standings
+  %p.hl
+  %table.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"550", style:"margin: 0 auto;"}
+    %thead.statthead
+      %tr
+        %th Team
+        %th{width:"50"} W
+        %th{width:"50"} L
+        %th{width:"50"} PF
+        %th{width:"50"} PA
+        %th{width:"50"} Diff
+        %th{width:"50"} Strk
+    %tbody
+      -@team_spots.group_by{|ts| ts.division}.each do |division, team_spots|
+        -if not division.nil?
+          %tr.even2
+            %td.team{colspan:"7"}= division.name
+        -team_spots.each do |ts|
+          %tr{class: "#{cycle('odd2', 'even2')}"}
+            %td.team
+              %a{href:stats_team_path(ts.team)}= ts.team.name
+            %td= ts.wins
+            %td= ts.losses
+            %td= ts.points_for
+            %td= ts.points_against
+            %td= ts.point_diff
+            %td= ts.streak
+        -reset_cycle
+  %h3 &nbsp;
+  %h1
+    %a#leaderboard{name:"leaderboard"}
+    Leaderboard
+  %p.hl
+  %table.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"800"}
+    %tbody
+      =render "leaderboard_entry", headers: ['Points Per Game', 'Rebounds Per Game', 'Assists Per Game'], entries: [@leaderboard[:points], @leaderboard[:rebounds], @leaderboard[:assists]], precisions: [1, 1, 1]
+      =render "leaderboard_entry", headers: ['Blocks Per Game', 'FG%', 'Steals Per Game'], entries: [@leaderboard[:blocks], @leaderboard[:fgpct], @leaderboard[:steals]], precisions: [1, 3, 1]
+      =render "leaderboard_entry", headers: ['3P%', 'FT%', 'Free Throws Per Game'], entries: [@leaderboard[:threepct], @leaderboard[:ftpct], @leaderboard[:ftm]], precisions: [3, 3, 1]
+  %br
+  %p.terms Minimum 4 GP for all stats.  Minimum 8 FGA per game for FG%, 3 3PA per game for 3P%, and 4 FTA per game for FT%.
+  %h3 &nbsp;
+  %h1 Team Stats
+  %p.hl
+  %table#teamstats.maintablelr{border:"0", width:"800", cellpadding:"3", cellspacing:"0"}
+    %thead.statthead
+      %tr
+        %th Team
+        %th PPG
+        %th FGM-A
+        %th FG%
+        %th 3PM-A
+        %th 3P%
+        %th FTM-A
+        %th FT%
+        %th O
+        %th D
+        %th TRPG
+        %th APG
+        %th SPG
+        %th BPG
+        %th FPG
+    %tbody
+      -@team_stats.each do |stat|
+        %tr{class: "#{cycle('odd2', 'even2')}"}
+          %td{width:"65"}
+            %strong
+            %a{href:stats_team_path(stat.team)}= stat.team.abbreviation
+          %td.lline= number_with_precision(stat.points, precision: 1)
+          %td.lline #{number_with_precision(stat.fgm, precision: 1)}-#{number_with_precision(stat.fga, precision: 1)}
+          %td= number_with_precision(stat.fgpct, precision: 3)
+          %td.lline #{number_with_precision(stat.threem, precision: 1)}-#{number_with_precision(stat.threea, precision: 1)}
+          %td= number_with_precision(stat.threepct, precision: 3)
+          %td.lline #{number_with_precision(stat.ftm, precision: 1)}-#{number_with_precision(stat.fta, precision: 1)}
+          %td= number_with_precision(stat.ftpct, precision: 3)
+          %td.lline= number_with_precision(stat.orb, precision: 1)
+          %td= number_with_precision(stat.drb, precision: 1)
+          %td= number_with_precision(stat.trb, precision: 1)
+          %td.lline= number_with_precision(stat.ast, precision: 1)
+          %td.lline= number_with_precision(stat.stl, precision: 1)
+          %td.lline= number_with_precision(stat.blk, precision: 1)
+          %td.lline= number_with_precision(stat.fl, precision: 1)
+    %tfoot
+      -stat = average_stat_lines(@team_stats)
+      %tr{style:"background-color:#FFF; text-align:center; outline:thin solid black;"}
+        %td.team &nbsp;&nbsp;Lg Avg
+        %td.lline= number_with_precision(stat.points, precision: 1)
+        %td.lline #{number_with_precision(stat.fgm, precision: 1)}-#{number_with_precision(stat.fga, precision: 1)}
+        %td= number_with_precision(stat.fgpct, precision: 3)
+        %td.lline #{number_with_precision(stat.threem, precision: 1)}-#{number_with_precision(stat.threea, precision: 1)}
+        %td= number_with_precision(stat.threepct, precision: 3)
+        %td.lline #{number_with_precision(stat.ftm, precision: 1)}-#{number_with_precision(stat.fta, precision: 1)}
+        %td= number_with_precision(stat.ftpct, precision: 3)
+        %td.lline= number_with_precision(stat.orb, precision: 1)
+        %td= number_with_precision(stat.drb, precision: 1)
+        %td= number_with_precision(stat.trb, precision: 1)
+        %td.lline= number_with_precision(stat.ast, precision: 1)
+        %td.lline= number_with_precision(stat.stl, precision: 1)
+        %td.lline= number_with_precision(stat.blk, precision: 1)
+        %td.lline= number_with_precision(stat.fl, precision: 1)
