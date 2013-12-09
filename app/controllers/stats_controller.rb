@@ -146,6 +146,7 @@ class StatsController < ApplicationController
     @career_totals[:ftpct] = get_records('ftpct', 'career_total')
     @career_totals[:ftm] = get_records('ftm', 'career_total')
     @career_totals[:threem] = get_records('threem * 3', 'career_total')
+    @career_totals[:doubles] = get_records('double_double', 'career_total')
     
     @career_averages = {}
     @career_averages[:points] = get_records('points', 'career_per_game_average')
@@ -171,6 +172,7 @@ class StatsController < ApplicationController
     @season_totals[:ftpct] = get_records('ftpct', 'season_total', @season_totals_season)
     @season_totals[:ftm] = get_records('ftm', 'season_total', @season_totals_season)
     @season_totals[:threem] = get_records('threem * 3', 'season_total', @season_totals_season)
+    @season_totals[:doubles] = get_records('double_double', 'season_total', @season_totals_season)
     
     @season_averages_season = params[:spergame] ? Season.find(params[:spergame]) : Season.current
     @season_averages = {}
