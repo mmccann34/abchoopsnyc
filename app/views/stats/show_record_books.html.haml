@@ -23,6 +23,7 @@
   =render "record_book_entry", stat_name: "Free Throws Made", entries: @career_totals[:ftm]
   %br
   =render "record_book_entry", stat_name: "Points from 3's", entries: @career_totals[:threem]
+  =render "record_book_entry", stat_name: "Double Doubles", entries: @career_totals[:doubles]
 .profstats#cpergame
   =render "record_book_entry", stat_name: "Points", entries: @career_averages[:points], use_percentage: true
   =render "record_book_entry", stat_name: "Rebounds", entries: @career_averages[:rebounds], use_percentage: true
@@ -55,6 +56,7 @@
   =render "record_book_entry", stat_name: "Free Throws Made", entries: @season_totals[:ftm]
   %br
   =render "record_book_entry", stat_name: "Points from 3's", entries: @season_totals[:threem]
+  =render "record_book_entry", stat_name: "Double Doubles", entries: @season_totals[:doubles]
 .profstats#spergame
   %form{action: "#{record_books_path}#spergame", method: "get", style: 'font-weight:bold;'}
     Season:

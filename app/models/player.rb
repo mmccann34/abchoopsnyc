@@ -66,31 +66,31 @@ class Player < ActiveRecord::Base
   def season_averages_by_team(season)
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                             'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        'AVG(points) as points, seasons.number as season_number, seasons.id as season_id, team_id, games.league_id, COUNT(*) as game_count').where(player_id: self.id).where("seasons.id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("team_id, games.league_id, seasons.number, seasons.id")
+        'AVG(points) as points, -1 as doubles, seasons.number as season_number, seasons.id as season_id, team_id, games.league_id, COUNT(*) as game_count').where(player_id: self.id).where("seasons.id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("team_id, games.league_id, seasons.number, seasons.id")
   end
   
   def season_averages_combined(season)
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                             'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        'AVG(points) as points, seasons.number as season_number, seasons.id as season_id, -1 as team_id, -1 as league_id, COUNT(*) as game_count').where(player_id: self.id).where("seasons.id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("seasons.number, seasons.id")
+        'AVG(points) as points, -1 as doubles, seasons.number as season_number, seasons.id as season_id, -1 as team_id, -1 as league_id, COUNT(*) as game_count').where(player_id: self.id).where("seasons.id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("seasons.number, seasons.id")
   end
   
   def career_averages
     StatLine.joins(:game).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        'AVG(points) as points, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").first
+        'AVG(points) as points, -1 as doubles, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").first
   end
   
   def season_totals(season)
     StatLine.joins(:game => :season).select('SUM(fgm) as fgm, SUM(fga) as fga, coalesce(SUM(fgm)/nullif(SUM(fga), 0), 0) as fgpct, SUM(twom) as twom, SUM(twoa) as twoa, coalesce(SUM(twom)/nullif(SUM(twoa), 0), 0) as twopct, SUM(threem) as threem, SUM(threea) as threea, coalesce(SUM(threem)/nullif(SUM(threea), 0), 0) as threepct,' \
                     'SUM(ftm) as ftm, SUM(fta) as fta, coalesce(SUM(ftm)/nullif(SUM(fta), 0), 0) as ftpct, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-        'SUM(points) as points, seasons.number as season_number, seasons.id as season_id, team_id, games.league_id, COUNT(*) as game_count').where(player_id: self.id).where("seasons.id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("team_id, games.league_id, seasons.number, seasons.id")
+        'SUM(points) as points, SUM(CASE WHEN double_double = true THEN 1 ELSE 0 END) as doubles, seasons.number as season_number, seasons.id as season_id, team_id, games.league_id, COUNT(*) as game_count').where(player_id: self.id).where("seasons.id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("team_id, games.league_id, seasons.number, seasons.id")
   end
 
   def career_totals
     StatLine.joins(:game).select('SUM(fgm) as fgm, SUM(fga) as fga, coalesce(SUM(fgm)/nullif(SUM(fga), 0), 0) as fgpct, SUM(twom) as twom, SUM(twoa) as twoa, coalesce(SUM(twom)/nullif(SUM(twoa), 0), 0) as twopct, SUM(threem) as threem, SUM(threea) as threea, coalesce(SUM(threem)/nullif(SUM(threea), 0), 0) as threepct,' \
                     'SUM(ftm) as ftm, SUM(fta) as fta, coalesce(SUM(ftm)/nullif(SUM(fta), 0), 0) as ftpct, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-        'SUM(points) as points, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").first
+        'SUM(points) as points, SUM(CASE WHEN double_double = true THEN 1 ELSE 0 END) as doubles, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").first
   end
   
   #def average_per_season_totals
@@ -194,7 +194,7 @@ class Player < ActiveRecord::Base
   def set_player_stats(stat_type, stats)
     stats.each do |s|
       player_stat = self.player_stats.where(stat_type: stat_type).where(season_id: s.season_id).where(team_id: s.team_id).where(league_id: s.league_id).first_or_initialize
-      player_stat.attributes = {game_count: s.game_count, points: s.points, season_number: s.season_number, fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to}
+      player_stat.attributes = {game_count: s.game_count, points: s.points, season_number: s.season_number, fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to, double_double: s.doubles}
       player_stat.save
     end
   end
@@ -203,7 +203,7 @@ class Player < ActiveRecord::Base
     return if not s
     
     player_stat = self.player_stats.where(stat_type: stat_type).first_or_initialize
-    player_stat.attributes = {game_count: s.game_count, points: s.points, team_id: self.last_team.try(:id), fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to}
+    player_stat.attributes = {game_count: s.game_count, points: s.points, team_id: self.last_team.try(:id), fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to, double_double: s.doubles}
     player_stat.save
   end
   

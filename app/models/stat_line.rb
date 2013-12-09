@@ -1,5 +1,5 @@
 class StatLine < ActiveRecord::Base
-  attr_accessible :game_id, :player_id, :team_id, :fgm, :fga, :twom, :twoa, :threem, :threea, :ftm, :fta, :orb, :drb, :ast, :stl, :blk, :fl, :to, :dnp, :jersey_number
+  attr_accessible :game_id, :player_id, :team_id, :fgm, :fga, :twom, :twoa, :threem, :threea, :ftm, :fta, :orb, :drb, :ast, :stl, :blk, :fl, :to, :dnp, :jersey_number, :double_double
   validates :game_id, :player_id, :team_id, presence: true
 
   belongs_to :player
@@ -43,5 +43,6 @@ class StatLine < ActiveRecord::Base
     self.ftpct = fta != 0 ? ftm / fta : 0
     self.trb = orb + drb
     self.points = (twom * 2) + (threem * 3) + (ftm * 1)
+    self.double_double = [points, trb, ast, stl, blk].select{|s| s >= 10}.count >= 2
   end
 end 
