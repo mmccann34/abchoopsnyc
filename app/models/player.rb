@@ -117,29 +117,29 @@ class Player < ActiveRecord::Base
   def splits_by_result(season_id)
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, team_id, games.league_id, case when games.winner = team_id then 'In wins' else 'In losses' end as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")
-    .group("split_name, team_id, games.league_id")
+        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, #{season_id == -1 ? "-1 as team_id, -1 as league_id" : "team_id, games.league_id"}, case when games.winner = team_id then 'In wins' else 'In losses' end as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")
+    .group("split_name#{season_id == -1 ? "": ", team_id, games.league_id"}")
   end
   
   def splits_by_month(season_id)
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, team_id, games.league_id, to_char(games.date, 'Month') as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")
-    .group("split_name, team_id, games.league_id")
+        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, #{season_id == -1 ? "-1 as team_id, -1 as league_id" : "team_id, games.league_id"}, to_char(games.date, 'Month') as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")
+    .group("split_name#{season_id == -1 ? "": ", team_id, games.league_id"}")
   end
   
   def splits_by_time(season_id)
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, team_id, games.league_id, to_char(games.date, 'FMHH:MI AM') as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")
-    .group("split_name, team_id, games.league_id")
+        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, #{season_id == -1 ? "-1 as team_id, -1 as league_id" : "team_id, games.league_id"}, to_char(games.date, 'FMHH:MI AM') as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")
+    .group("split_name#{season_id == -1 ? "": ", team_id, games.league_id"}")
   end
   
   def splits_by_opponent(season_id)
     StatLine.joins(:game => :season).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, team_id, games.league_id, (SELECT name FROM teams WHERE id = (case when games.home_team_id = team_id then games.away_team_id else games.home_team_id end) limit 1) as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp")
-        .where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("split_name, team_id, games.league_id")
+        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, #{season_id == -1 ? "-1 as team_id, -1 as league_id" : "team_id, games.league_id"}, (SELECT name FROM teams WHERE id = (case when games.home_team_id = team_id then games.away_team_id else games.home_team_id end) limit 1) as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp")
+        .where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("split_name#{season_id == -1 ? "": ", team_id, games.league_id"}")
   end
   
   def abc_plus(season = nil)
