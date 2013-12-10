@@ -63,7 +63,7 @@
     =select_tag "splits", options_from_collection_for_select(@seasons_splits, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %br
   -@all_splits.each do |team_id, splits|
-    -splits_totals = splits['Totals']
+    -splits_totals = splits['Totals'] || PlayerStat.new
     %table{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
       %colgroup
         %col{ span:"1", style:"width: 105px;" }
