@@ -1,11 +1,9 @@
 Abchoops::Application.routes.draw do
   devise_for :users
 
-  root to: "games#index"
+  root to: "stats#index"
   
-  scope '/admin' do
-    get 'recalc-stats' => "stats#recalc_stats"
-    
+  scope '/admin' do    
     resources :players do
       collection do
         get 'datatables' => "players#datatables", as: "datatables"
@@ -54,7 +52,10 @@ Abchoops::Application.routes.draw do
     end
   end
   
-  #add scope
+  get 'index' => "stats#index", as: "index"
+  get 'the-league' => "stats#info"
+  get 'media' => "stats#media"
+  get 'store' => "stats#store"
   get 'games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
   get 'teams/:id' => "stats#show_team", as: "stats_team"
   get 'players/:id' => "stats#show_player", as: "stats_player"
@@ -62,7 +63,7 @@ Abchoops::Application.routes.draw do
   get 'results' => "stats#show_results", as: "results"
   get 'record-books' => "stats#show_record_books", as: "record_books"
   
-  # The priority is base d upon order of creation:
+  # The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:
