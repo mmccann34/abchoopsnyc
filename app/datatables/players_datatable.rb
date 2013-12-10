@@ -1,5 +1,5 @@
 class PlayersDatatable
-  delegate :params, :form_tag, :hidden_field_tag, :submit_tag, :text_field_tag, to: :@view
+  delegate :params, :form_tag, :hidden_field_tag, :submit_tag, :text_field_tag, :button_to, :link_to, to: :@view
 
   def initialize(view)
     @view = view
@@ -20,8 +20,8 @@ private
     players.map do |player|
       [
         player_add_form(player),
-        player.first_name,
-        player.last_name,
+        link_to(player.first_name, Rails.application.routes.url_helpers.player_path(player)),
+        link_to(player.last_name, Rails.application.routes.url_helpers.player_path(player)),
         player.last_team.try(:name),
         player.number,
         player.position,
@@ -33,10 +33,15 @@ private
   end
   
   def player_add_form(player)
-    form_tag "" do
-      hidden_field_tag(:player_id, player.id) +
-      hidden_field_tag(:season_id, params[:season_id]) +
-      submit_tag("Add to Roster", class: "btn btn-mini btn-primary")
+    if params[:team_id]
+      form_tag "" do
+        hidden_field_tag(:player_id, player.id) +
+        hidden_field_tag(:season_id, params[:season_id]) +
+        submit_tag("Add to Roster", class: "btn btn-mini btn-primary")
+      end
+    else
+      link_to('Edit', Rails.application.routes.url_helpers.edit_player_path(player), class: 'btn btn-primary btn-mini') +
+      button_to('Delete', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini')
     end
   end
 

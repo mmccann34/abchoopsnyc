@@ -4,6 +4,10 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
+#players th:first-child {
+  width: 100px;
+}
+
 div.player_form {
   max-width: 300px;
   margin: 20px auto 0 auto;
