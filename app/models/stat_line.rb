@@ -44,5 +44,6 @@ class StatLine < ActiveRecord::Base
     self.trb = orb + drb
     self.points = (twom * 2) + (threem * 3) + (ftm * 1)
     self.double_double = [points, trb, ast, stl, blk].select{|s| s >= 10}.count >= 2
+    nil
   end
 end 
