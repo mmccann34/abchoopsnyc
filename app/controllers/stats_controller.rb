@@ -14,6 +14,9 @@ class StatsController < ApplicationController
   def store
   end
   
+  def news
+  end
+  
   def show_boxscore
     @game = Game.find_by_id(params[:id])
     @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0

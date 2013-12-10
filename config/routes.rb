@@ -54,6 +54,7 @@ Abchoops::Application.routes.draw do
   
   get 'index' => "stats#index", as: "index"
   get 'the-league' => "stats#info"
+  get 'news' => "stats#news"
   get 'media' => "stats#media"
   get 'store' => "stats#store"
   get 'games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
