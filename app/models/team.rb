@@ -82,7 +82,7 @@ class Team < ActiveRecord::Base
   def season_totals(season)
     StatLine.joins(:game).select('SUM(fgm) as fgm, SUM(fga) as fga, coalesce(SUM(fgm)/nullif(SUM(fga), 0), 0) as fgpct, SUM(twom) as twom, SUM(twoa) as twoa, coalesce(SUM(twom)/nullif(SUM(twoa), 0), 0) as twopct, SUM(threem) as threem, SUM(threea) as threea, coalesce(SUM(threem)/nullif(SUM(threea), 0), 0) as threepct,' \
                     'SUM(ftm) as ftm, SUM(fta) as fta, coalesce(SUM(ftm)/nullif(SUM(fta), 0), 0) as ftpct, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-                    'SUM(points) as points, games.league_id').where(team_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.season_id" => season).group("games.league_id")
+                    'SUM(points) as points, games.league_id').where(team_id: self.id).where("games.season_id" => season).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").group("games.league_id")
   end
   
   def abc_plus_win_pct(season)

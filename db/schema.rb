@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210042038) do
+ActiveRecord::Schema.define(:version => 20131210060828) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20131210042038) do
     t.string   "stat_type"
     t.integer  "game_id"
   end
+
+  add_index "career_highs", ["player_id"], :name => "index_career_highs_on_player_id"
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20131210042038) do
   end
 
   add_index "player_stats", ["player_id", "stat_type", "season_id"], :name => "index_player_stats_on_player_id_and_stat_type_and_season_id"
+  add_index "player_stats", ["team_id", "stat_type", "season_id"], :name => "index_player_stats_on_team_id_and_stat_type_and_season_id"
 
   create_table "players", :force => true do |t|
     t.string   "first_name"
@@ -211,6 +214,7 @@ ActiveRecord::Schema.define(:version => 20131210042038) do
   end
 
   add_index "stat_lines", ["player_id"], :name => "index_stat_lines_on_player_id"
+  add_index "stat_lines", ["team_id"], :name => "index_stat_lines_on_team_id"
 
   create_table "team_spots", :force => true do |t|
     t.integer  "team_id"
@@ -226,6 +230,9 @@ ActiveRecord::Schema.define(:version => 20131210042038) do
     t.integer  "points_against"
     t.string   "streak"
   end
+
+  add_index "team_spots", ["season_id"], :name => "index_team_spots_on_season_id"
+  add_index "team_spots", ["team_id"], :name => "index_team_spots_on_team_id"
 
   create_table "teams", :force => true do |t|
     t.string   "name"
