@@ -195,7 +195,7 @@ class StatsController < ApplicationController
   end
 
   def get_records(stat_field, stat_type, season_id = nil, league_id = nil, count = 10)
-    minimum = "game_count >= 4"
+    minimum = "game_count >= #{stat_type.start_with?('season') ? 4 : 16}"
     is_total = stat_type.end_with? 'total'
     case stat_field
     when "fgpct"

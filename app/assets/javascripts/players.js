@@ -3,10 +3,12 @@ $(function() {
     "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
     "sPaginationType": "bootstrap",
     "iDisplayLength": 25,
+ //   "bLengthChange": false,
     "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0, 1 ] } ],
-    "aaSorting": [[3,'asc']],
+    "aaSorting": [[2,'asc']],
     "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" },
-    "bPaginate": false
+    "bServerSide": true,
+    "sAjaxSource": $('#players').data('source')
   });
   
   $('#add_social_media').click(addSocialMedia);
