@@ -2,7 +2,7 @@
   = render "schedules_and_results", mode: 'results'
 -else
   %h1 #{@season.name} - #{@league.name} Stats
-  %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
+  %form{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
     Season:
     =select_tag "season", options_from_collection_for_select(Season.order("number desc"), "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
     =hidden_field_tag "league", @league.id
