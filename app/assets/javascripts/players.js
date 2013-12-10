@@ -8,7 +8,10 @@ $(function() {
     "aaSorting": [[2,'asc']],
     "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" },
     "bServerSide": true,
-    "sAjaxSource": $('#players').data('source')
+    "sAjaxSource": $('#players').data('source'),
+    "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+      $(nRow).attr("onclick", "document.location = '/admin/players/" + aData[9] + "';");
+    }
   });
   
   $('#add_social_media').click(addSocialMedia);
