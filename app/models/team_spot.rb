@@ -6,6 +6,15 @@ class TeamSpot < ActiveRecord::Base
   belongs_to :league
   belongs_to :season
   
+  after_initialize :set_defaults
+  
+  def set_defaults
+    self.wins ||= 0
+    self.losses ||= 0
+    self.points_for ||= 0
+    self.points_against ||= 0
+  end
+  
   def win_pct
     games_played = self.wins + self.losses
     games_played == 0 ? 0 : self.wins.to_f / games_played.to_f
