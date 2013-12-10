@@ -8,6 +8,14 @@
   width: 100px;
 }
 
+#players form.button_to {
+  display: inline;
+  margin-left: 10px;
+  div {
+    display: inline;
+  }
+}
+
 div.player_form {
   max-width: 300px;
   margin: 20px auto 0 auto;

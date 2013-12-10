@@ -20,14 +20,15 @@ private
     players.map do |player|
       [
         player_add_form(player),
-        link_to(player.first_name, Rails.application.routes.url_helpers.player_path(player)),
-        link_to(player.last_name, Rails.application.routes.url_helpers.player_path(player)),
+        player.first_name,
+        player.last_name,
         player.last_team.try(:name),
         player.number,
         player.position,
         player.height,
         player.school,
-        player.hometown
+        player.hometown,
+        player.id
       ]
     end
   end
