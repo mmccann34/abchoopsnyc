@@ -207,7 +207,7 @@ class StatsController < ApplicationController
     end
     
     query = PlayerStat.joins(:player).joins(:team)
-                      .where(stat_type: stat_type).where("player_stats.team_id <> -1").where(season_id: season_id) 
+                      .where(stat_type: stat_type).where(season_id: season_id).where("player_stats.team_id <> -1")
     #query = query.where("game_count >= 4 #{minimum}") if minimum
     query = query.where(league_id: league_id) if league_id
     

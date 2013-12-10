@@ -18,7 +18,7 @@ class Season < ActiveRecord::Base
     end
     
     self.roster_spots.each do |rs|
-      rs.player.calc_stats(self)
+      rs.player.calc_season_stats(self)
     end
   end
 end
