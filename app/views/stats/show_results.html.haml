@@ -25,7 +25,7 @@
         %th{width:"50"} Diff
         %th{width:"50"} Strk
     %tbody
-      -@team_spots.group_by{|ts| ts.division}.each do |division, team_spots|
+      -@team_spots.group_by{|ts| ts.division}.sort_by{|ts| ts.win_pct}.reverse!.each do |division, team_spots|
         -if not division.nil?
           %tr.even2
             %td.team{colspan:"7"}= division.name
