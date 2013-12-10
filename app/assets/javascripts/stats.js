@@ -1,6 +1,14 @@
 $(function () {
   $('.scroll-pane').jScrollPane();
 
+  $('.bxslider').bxSlider({
+    mode: 'fade',
+    captions: true,
+    controls: true,
+    auto: true,
+    preloadImages: 'all',
+  });
+  
   //sidebar
   $('a.showlink').css("text-decoration", "none");
   $("#show_Sun").css("text-decoration", "underline").click();

@@ -2,17 +2,16 @@ class StatsController < ApplicationController
   layout "stats"
   before_filter :load_sidebar
 
-  def recalc_stats
-    if params[:player_id]
-      player = Player.find_by_id(params[:player_id])
-      player.calc_stats if player
-    else
-      Player.all.each do |player|
-        player.calc_stats
-      end
-    end
-    
-    redirect_to :root
+  def index
+  end
+  
+  def info
+  end
+  
+  def media
+  end
+  
+  def store
   end
   
   def show_boxscore
@@ -90,7 +89,7 @@ class StatsController < ApplicationController
   
   def show_player 
     @player = Player.find_by_id(params[:id])
-    player_stats = @player.player_stats
+    player_stats = @player.player_stats.where("stat_type not like 'splits_%'")
     
     @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
     @show_stats = @seasons.any?
@@ -122,14 +121,15 @@ class StatsController < ApplicationController
       @splits_season = @seasons.any? ? @seasons.first : career_splits
     end
     
+    splits_stats = @player.player_stats.where("stat_type like 'splits_%'").where(season_id: @splits_season)
     @all_splits = {}
     team_ids = @splits_season.id == -1 ? [-1] : @player.roster_spots.where(season_id: @splits_season).map(&:team_id).uniq
     team_ids.each do |team_id|
       @all_splits[team_id] = {}
-      @all_splits[team_id]['By Result'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_results' && ps.season_id == @splits_season.id && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| ps.split_name }.reverse! #@player.splits_by_result(@splits_season)
-      @all_splits[team_id]['By Month'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_month' && ps.season_id == @splits_season.id && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| DateTime.strptime(ps.split_name, '%B') } #@player.splits_by_month(@splits_season)
-      @all_splits[team_id]['By Time'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_time' && ps.season_id == @splits_season.id && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| DateTime.strptime(ps.split_name, '%l:%M %p') } # @player.splits_by_time(@splits_season)
-      @all_splits[team_id]['By Opponent'] = player_stats.select{ |ps| ps.stat_type == 'splits_by_opponent' && ps.season_id == @splits_season.id && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| ps.split_name } # @player.splits_by_opponent(@splits_season)
+      @all_splits[team_id]['By Result'] = splits_stats.select{ |ps| ps.stat_type == 'splits_by_results' && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| ps.split_name }.reverse! #@player.splits_by_result(@splits_season)
+      @all_splits[team_id]['By Month'] = splits_stats.select{ |ps| ps.stat_type == 'splits_by_month' && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| DateTime.strptime(ps.split_name, '%B') } #@player.splits_by_month(@splits_season)
+      @all_splits[team_id]['By Time'] = splits_stats.select{ |ps| ps.stat_type == 'splits_by_time' && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| DateTime.strptime(ps.split_name, '%l:%M %p') } # @player.splits_by_time(@splits_season)
+      @all_splits[team_id]['By Opponent'] = splits_stats.select{ |ps| ps.stat_type == 'splits_by_opponent' && (team_id == -1 || ps.team_id == team_id) }.sort_by{ |ps| ps.split_name } # @player.splits_by_opponent(@splits_season)
       @all_splits[team_id]['Totals'] = @splits_season.id == -1 ? @career_averages : player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @splits_season.id && (team_id == -1 || ps.team_id == team_id) }.first #@player.season_averages(@splits_season) 
     end
   end
