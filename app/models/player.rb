@@ -209,7 +209,7 @@ class Player < ActiveRecord::Base
   
   def set_player_splits(stat_type, stats)
     stats.each do |s|
-      player_stat = self.player_stats.where(stat_type: stat_type).where(split_name: s.split_name).where(season_id: s.season_id).where(team_id: s.team_id).where(league_id: s.league_id).first_or_initialize
+      player_stat = self.player_stats.where(stat_type: stat_type).where(season_id: s.season_id).where(team_id: s.team_id).where(league_id: s.league_id).where(split_name: s.split_name).first_or_initialize
       player_stat.attributes = {game_count: s.game_count, points: s.points, fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to}
       player_stat.save
     end
