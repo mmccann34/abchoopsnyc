@@ -195,21 +195,20 @@ class StatsController < ApplicationController
   end
 
   def get_records(stat_field, stat_type, season_id = nil, league_id = nil, count = 10)
-    if stat_type.end_with? 'average'
-      minimum = "game_count >= 4"
-      case stat_field
-        when "fgpct"
-          minimum += " and fga >= 8"
-        when "threepct"
-          minimum += " and threea >= 3"
-        when "ftpct"
-          minimum += " and fta >= 4"
-      end
+    minimum = "game_count >= 4"
+    is_total = stat_type.end_with? 'total'
+    case stat_field
+    when "fgpct"
+      minimum += is_total ? " and fga/game_count >= 8" : " and fga >= 8"
+    when "threepct"
+      minimum += is_total ? " and threea/game_count >= 3" : " and threea >= 3"
+    when "ftpct"
+      minimum += is_total ? " and fta/game_count >= 4" : " and fta >= 4"
     end
     
     query = PlayerStat.joins(:player).joins(:team)
                       .where(stat_type: stat_type).where(season_id: season_id).where("player_stats.team_id <> -1")
-    query = query.where("#{minimum}") if minimum
+    query = query.where("#{minimum}")
     query = query.where(league_id: league_id) if league_id
     
     query.select("player_id, players.first_name, players.last_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
