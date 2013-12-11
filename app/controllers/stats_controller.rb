@@ -150,6 +150,7 @@ class StatsController < ApplicationController
     @career_totals[:ftm] = get_records('ftm', 'career_total')
     @career_totals[:threem] = get_records('threem * 3', 'career_total')
     @career_totals[:doubles] = get_records('double_double', 'career_total')
+    @career_totals[:games] = get_records('game_count', 'career_total')
     
     @career_averages = {}
     @career_averages[:points] = get_records('points', 'career_per_game_average')
@@ -198,7 +199,7 @@ class StatsController < ApplicationController
   end
 
   def get_records(stat_field, stat_type, season_id = nil, league_id = nil, count = 10)
-    minimum = "game_count >= #{stat_type.start_with?('season') ? 4 : 16}"
+    minimum = "game_count >= #{stat_type.start_with?('season') ? 0 : 16}"
     is_total = stat_type.end_with? 'total'
     case stat_field
     when "fgpct"
