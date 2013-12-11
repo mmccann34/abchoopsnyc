@@ -223,7 +223,7 @@ class StatsController < ApplicationController
     query = query.where("#{minimum}")
     query = query.where(league_id: options[:league_id]) if options[:league_id]
     
-    query.select("player_id, players.first_name, players.last_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
+  query.select("player_id, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
          .order("#{stat_field} desc").limit(options[:count])
   end
 end

@@ -3,8 +3,7 @@
     %tr
       %th{colspan:"4", style:"font-size:14px; font-weight:bold;"}= stat_name
     %tr
-      %th &nbsp;
-      %th.text-left Player
+      %th{colspan:"2"} Player
       %th Team
       %th Total
   %tbody
@@ -17,7 +16,7 @@
           -else
             &nbsp;
         %td.text-left
-          %a{href:stats_player_path(entry.player_id)} #{entry.first_name} #{entry.last_name}
+          %a{href:stats_player_path(entry.player_id)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
         %td
           %a{href:stats_team_path(entry.team_id)}= entry.team_name
         %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:percision, 1))) : number_with_delimiter(entry.total)
