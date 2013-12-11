@@ -32,7 +32,7 @@ class StatsController < ApplicationController
   def show_team
     @team = Team.find_by_id(params[:id])
 
-    @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season)
+    @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
     @current_season = params[:season] ? Season.find(params[:season]) : @seasons.first
     @team_spot = @team.team_spots.where(season_id: @current_season).first
     
@@ -75,17 +75,20 @@ class StatsController < ApplicationController
         @team_spots = TeamSpot.where(season_id: @season).where(league_id: @league)
         @team_stats = PlayerStat.where(stat_type: 'team_per_game_average').where(season_id: @season).where(league_id: @league)
         
+        season_game_count = Season.find(@season).played_games.map(&:date).map(&:at_beginning_of_week).uniq.count
+        min_games = season_game_count / 2
+        
         #leaderboard
         @leaderboard = {}
-        @leaderboard[:points] = get_records('points', 'season_average', @season, @league, 5)
-        @leaderboard[:rebounds] = get_records('trb', 'season_average', @season, @league, 5)
-        @leaderboard[:assists] = get_records('ast', 'season_average', @season, @league, 5)
-        @leaderboard[:blocks] = get_records('blk', 'season_average', @season, @league, 5)
-        @leaderboard[:steals] = get_records('stl', 'season_average', @season, @league, 5)
-        @leaderboard[:fgpct] = get_records('fgpct', 'season_average', @season, @league, 5)
-        @leaderboard[:threepct] = get_records('threepct', 'season_average', @season, @league, 5)
-        @leaderboard[:ftpct] = get_records('ftpct', 'season_average', @season, @league, 5)
-        @leaderboard[:ftm] = get_records('ftm', 'season_average', @season, @league, 5)
+        @leaderboard[:points] = get_records('points', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:rebounds] = get_records('trb', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:assists] = get_records('ast', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:blocks] = get_records('blk', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:steals] = get_records('stl', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:fgpct] = get_records('fgpct', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:threepct] = get_records('threepct', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:ftpct] = get_records('ftpct', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard[:ftm] = get_records('ftm', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
       end
     end
   end
@@ -165,31 +168,35 @@ class StatsController < ApplicationController
     @career_averages[:threem] = get_records('threem * 3', 'career_per_game_average')
     
     @season_totals_season = params[:stotals] ? Season.find(params[:stotals]) : Season.current
+    season_game_count = Season.find(@season_totals_season).played_games.map(&:date).map(&:at_beginning_of_week).uniq.count
+    min_games = season_game_count / 2
     @season_totals = {}
-    @season_totals[:points] = get_records('points', 'season_total', @season_totals_season)
-    @season_totals[:rebounds] = get_records('trb', 'season_total', @season_totals_season)
-    @season_totals[:assists] = get_records('ast', 'season_total', @season_totals_season)
-    @season_totals[:blocks] = get_records('blk', 'season_total', @season_totals_season)
-    @season_totals[:steals] = get_records('stl', 'season_total', @season_totals_season)
-    @season_totals[:fgpct] = get_records('fgpct', 'season_total', @season_totals_season)
-    @season_totals[:threepct] = get_records('threepct', 'season_total', @season_totals_season)
-    @season_totals[:ftpct] = get_records('ftpct', 'season_total', @season_totals_season)
-    @season_totals[:ftm] = get_records('ftm', 'season_total', @season_totals_season)
-    @season_totals[:threem] = get_records('threem * 3', 'season_total', @season_totals_season)
-    @season_totals[:doubles] = get_records('double_double', 'season_total', @season_totals_season)
+    @season_totals[:points] = get_records('points', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:rebounds] = get_records('trb', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:assists] = get_records('ast', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:blocks] = get_records('blk', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:steals] = get_records('stl', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:fgpct] = get_records('fgpct', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:threepct] = get_records('threepct', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:ftpct] = get_records('ftpct', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:ftm] = get_records('ftm', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:threem] = get_records('threem * 3', 'season_total', season_id: @season_totals_season, min_games: min_games)
+    @season_totals[:doubles] = get_records('double_double', 'season_total', season_id: @season_totals_season, min_games: min_games)
     
     @season_averages_season = params[:spergame] ? Season.find(params[:spergame]) : Season.current
+    season_game_count = Season.find(@season_averages_season).played_games.map(&:date).map(&:at_beginning_of_week).uniq.count
+    min_games = season_game_count / 2
     @season_averages = {}
-    @season_averages[:points] = get_records('points', 'season_average', @season_averages_season)
-    @season_averages[:rebounds] = get_records('trb', 'season_average', @season_averages_season)
-    @season_averages[:assists] = get_records('ast', 'season_average', @season_averages_season)
-    @season_averages[:blocks] = get_records('blk', 'season_average', @season_averages_season)
-    @season_averages[:steals] = get_records('stl', 'season_average', @season_averages_season)
-    @season_averages[:fgpct] = get_records('fgpct', 'season_average', @season_averages_season)
-    @season_averages[:threepct] = get_records('threepct', 'season_average', @season_averages_season)
-    @season_averages[:ftpct] = get_records('ftpct', 'season_average', @season_averages_season)
-    @season_averages[:ftm] = get_records('ftm', 'season_average', @season_averages_season)
-    @season_averages[:threem] = get_records('threem * 3', 'season_average', @season_averages_season)
+    @season_averages[:points] = get_records('points', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:rebounds] = get_records('trb', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:assists] = get_records('ast', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:blocks] = get_records('blk', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:steals] = get_records('stl', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:fgpct] = get_records('fgpct', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:threepct] = get_records('threepct', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:ftpct] = get_records('ftpct', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:ftm] = get_records('ftm', 'season_average', season_id: @season_averages_season, min_games: min_games)
+    @season_averages[:threem] = get_records('threem * 3', 'season_average', season_id: @season_averages_season, min_games: min_games)
   end
   
   private
@@ -198,8 +205,9 @@ class StatsController < ApplicationController
     @current_season = Season.current
   end
 
-  def get_records(stat_field, stat_type, season_id = nil, league_id = nil, count = 10)
-    minimum = "game_count >= #{stat_type.start_with?('season') ? 0 : 16}"
+  def get_records(stat_field, stat_type, options={})
+    options = {season_id: nil, league_id: nil, count: 10, min_games: 16}.merge(options)
+    minimum = "game_count >= #{options[:min_games]}"
     is_total = stat_type.end_with? 'total'
     case stat_field
     when "fgpct"
@@ -211,11 +219,11 @@ class StatsController < ApplicationController
     end
     
     query = PlayerStat.joins(:player).joins(:team)
-                      .where(stat_type: stat_type).where(season_id: season_id).where("player_stats.team_id <> -1")
+                      .where(stat_type: stat_type).where(season_id: options[:season_id]).where("player_stats.team_id <> -1")
     query = query.where("#{minimum}")
-    query = query.where(league_id: league_id) if league_id
+    query = query.where(league_id: options[:league_id]) if options[:league_id]
     
     query.select("player_id, players.first_name, players.last_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
-         .order("#{stat_field} desc").limit(count)
+         .order("#{stat_field} desc").limit(options[:count])
   end
 end

@@ -21,4 +21,8 @@ class Season < ActiveRecord::Base
       rs.player.calc_season_stats(self)
     end
   end
+  
+  def played_games
+    self.games.where("winner is not null")
+  end
 end
