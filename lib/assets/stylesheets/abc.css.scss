@@ -725,6 +725,7 @@ ul#playerprof1 li a:visited {
 	margin: 0px;
 	padding-bottom: 2px;
 	border-bottom: dashed 1px #C0C0C0;
+  white-space: nowrap;
 }
 .playername2 {
 	font-size: 48px;
@@ -735,6 +736,7 @@ ul#playerprof1 li a:visited {
 	margin: 0px;
 	padding-bottom: 2px;
 	border-bottom: dashed 1px #C0C0C0;
+  white-space: nowrap;
 }
 .noplayerpic {
 	background:url('/assets/playerprof_nopic_halfball.png') no-repeat;
