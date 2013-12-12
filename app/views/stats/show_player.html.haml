@@ -320,7 +320,7 @@
                 %td.lline= stat.points.round
           %tfooter
             %tr.stattotal
-              -per_game_stats = @career_season_averages.select{|sl| sl.season_id == @log_season.id && sl.team_id == team_id}.first
+              -per_game_stats = @career_season_averages.select{|sl| sl.season_id == @log_season.id && sl.team_id == team_id}.first || PlayerStat.new
               %td Per Gm
               %td.lline #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: false)}
               %td= number_with_precision((per_game_stats.fgpct ? per_game_stats.fgpct : 0), precision: 3)
