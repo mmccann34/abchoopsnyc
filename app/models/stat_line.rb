@@ -1,13 +1,14 @@
 class StatLine < ActiveRecord::Base
-  attr_accessible :game_id, :player_id, :team_id, :fgm, :fga, :twom, :twoa, :threem, :threea, :ftm, :fta, :orb, :drb, :ast, :stl, :blk, :fl, :to, :dnp, :jersey_number, :double_double
+  attr_accessible :season_id, :game_id, :player_id, :team_id, :fgm, :fga, :twom, :twoa, :threem, :threea, :ftm, :fta, :orb, :drb, :ast, :stl, :blk, :fl, :to, :dnp, :jersey_number, :double_double
   validates :game_id, :player_id, :team_id, presence: true
 
   belongs_to :player
   belongs_to :game
+  belongs_to :season
   belongs_to :team
 
   after_initialize :set_defaults
-#  after_save { self.player.calc_stats }
+  before_save { self.season_id = self.game.season_id if self.game }
 
   def set_defaults
     self.points ||= 0

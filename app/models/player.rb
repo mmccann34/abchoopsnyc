@@ -56,6 +56,10 @@ class Player < ActiveRecord::Base
     self.stat_lines.joins(:game).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").order("games.date desc").limit(1).pluck("games.season_id")
   end
   
+  def season_stats(season = nil)
+    self.stat_lines.where(season_id: season || Season.current)
+  end
+  
   #def per_game_stats(season)
   #  StatLine.find_by_sql('SELECT AVG(fgm) as fgm, AVG(fga) as fga, AVG(coalesce(fgm/nullif(fga, 0), 0)) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(coalesce(twom/nullif(twoa, 0), 0)) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(coalesce(threem/nullif(threea, 0), 0)) as threepct,' \
   #                      'AVG(ftm) as ftm, AVG(fta) as fta, AVG(coalesce(ftm/nullif(fta, 0), 0)) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
@@ -181,14 +185,14 @@ class Player < ActiveRecord::Base
     set_player_splits('splits_by_time', self.splits_by_time(-1))
     set_player_splits('splits_by_opponent', self.splits_by_opponent(-1))
     
-    set_career_high('points', :points)
-    set_career_high('rebounds', :trb)
-    set_career_high('assists', :ast)
-    set_career_high('steals', :stl)
-    set_career_high('blocks', :blk)
-    set_career_high('fouls', :fl)
-    set_career_high('threem', :threem)
-    set_career_high('ftm', :ftm)
+    #set_career_high('points', :points)
+    #set_career_high('rebounds', :trb)
+    #set_career_high('assists', :ast)
+    #set_career_high('steals', :stl)
+    #set_career_high('blocks', :blk)
+    #set_career_high('fouls', :fl)
+    #set_career_high('threem', :threem)
+    #set_career_high('ftm', :ftm)
   end
   
   def set_player_stats(stat_type, stats)
