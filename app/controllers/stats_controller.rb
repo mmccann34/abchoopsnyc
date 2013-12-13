@@ -212,9 +212,11 @@ class StatsController < ApplicationController
     player_stats = season ? player.season_stats(season) : player.stat_lines
     stat_fields.each do |stat_field|
       stat = player_stats.order("#{stat_field[0]} DESC").first
-      value = stat.send(stat_field[0])
-      game = value == 0 ? "N/A" : "#{season ? stat.game.boxscore_week_name : stat.game.season.name} vs. #{stat.game.home_team_id == stat.team_id ? stat.game.away_team.name : stat.game.home_team.name}"
-      results[stat_field[1]] = CareerHigh.new(value: value, game: game, game_id: stat.game.id)
+      if stat
+        value = stat.send(stat_field[0])
+        game = value == 0 ? "N/A" : "#{season ? stat.game.boxscore_week_name : stat.game.season.name} vs. #{stat.game.home_team_id == stat.team_id ? stat.game.away_team.name : stat.game.home_team.name}"
+        results[stat_field[1]] = CareerHigh.new(value: value, game: game, game_id: stat.game.id)
+      end
     end
     results
   end
