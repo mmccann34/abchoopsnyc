@@ -103,6 +103,7 @@ class StatsController < ApplicationController
     @log_season = params[:log] ? Season.find(params[:log]) : @seasons.first
     @game_log = @player.game_log(@log_season)
     @per_game_stats = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @log_season.id }.sort_by{|ps| ps.team_id}.first #@player.per_game_stats(@log_season)
+    @season_highs = get_highs([[:points, 'Points'], [:trb, 'Rebounds'], [:ast, 'Assists'], [:stl, 'Steals'], [:blk, 'Blocks'], [:threem, '3PT Made'], [:ftm, 'FTM']], @player, @log_season)
 
     @career_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.team_id != -1  }.sort_by{ |ps| ps.season_number }.reverse! #@player.career_season_averages
     @career_averages = player_stats.select{ |ps| ps.stat_type == 'career_per_game_average' }.first || StatLine.new #@player.career_averages
@@ -111,7 +112,8 @@ class StatsController < ApplicationController
     @current_season_averages = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == Season.current.id }.sort_by{|ps| ps.team_id}.first || StatLine.new #@player.season_averages(Season.current)
     @career_totals = player_stats.select{ |ps| ps.stat_type == 'career_total' }.first
     
-    @career_highs = Hash[@player.career_highs.map{ |ch| [ch.stat_type, ch] }]
+#    @career_highs = Hash[@player.career_highs.map{ |ch| [ch.stat_type, ch] }]
+    @career_highs = get_highs([[:points, 'Points'], [:trb, 'Rebounds'], [:ast, 'Assists'], [:stl, 'Steals'], [:blk, 'Blocks'], [:threem, '3PT Made'], [:ftm, 'FTM']], @player)
 
     career_splits = Season.new(name: "Career")
     career_splits.id = -1
@@ -204,6 +206,18 @@ class StatsController < ApplicationController
     @divisions = Season.current.divisions
     @current_season = Season.current
   end
+  
+  def get_highs(stat_fields, player, season = nil)
+    results = {}
+    player_stats = season ? player.season_stats(season) : player.stat_lines
+    stat_fields.each do |stat_field|
+      stat = player_stats.order("#{stat_field[0]} DESC").first
+      value = stat.send(stat_field[0])
+      game = value == 0 ? "N/A" : "#{season ? stat.game.boxscore_week_name : stat.game.season.name} vs. #{stat.game.home_team_id == stat.team_id ? stat.game.away_team.name : stat.game.home_team.name}"
+      results[stat_field[1]] = CareerHigh.new(value: value, game: game, game_id: stat.game.id)
+    end
+    results
+  end
 
   def get_records(stat_field, stat_type, options={})
     options = {season_id: nil, league_id: nil, count: 10, min_games: 16}.merge(options)
@@ -223,7 +237,7 @@ class StatsController < ApplicationController
     query = query.where("#{minimum}")
     query = query.where(league_id: options[:league_id]) if options[:league_id]
     
-  query.select("player_id, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
+    query.select("player_id, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
          .order("#{stat_field} desc").limit(options[:count])
   end
 end

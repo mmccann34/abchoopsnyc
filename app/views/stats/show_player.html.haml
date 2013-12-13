@@ -149,6 +149,7 @@
           %tr.statthead
             %td{ style:"text-align:left;" }= split
             %td{ colspan:"15" } &nbsp;
+          - reset_cycle
           - stats.each do |stat|
             %tr{class: "#{cycle('even2', 'odd2')}"}
               %td{ style:"text-align:left;" }= stat.split_name
@@ -300,6 +301,7 @@
               %th F
               %th P
           %tbody
+            -reset_cycle
             - game_log.each do |stat|
               %tr{class: "#{cycle('even2', 'odd2')}"}
                 %td
@@ -354,6 +356,20 @@
               %td.lline= totals.fl.round
               %td.lline= totals.points.round
       %br
+    %h1 Season Highs
+    %p.sep
+    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+      %thead.statthead
+        %tr
+          %th.text-left Stat
+          %th Season High
+          %th Game
+      %tbody
+        -reset_cycle
+        -@season_highs.each do |stat_name, stat|
+          %tr{class: "#{cycle('even2', 'odd2')}"}
+            =render "career_high", name: stat_name, career_high: stat
+    %br
     =render "glossary"
 %div.profstats#careerstats
   %p.sep
@@ -424,6 +440,7 @@
           %th F
           %th P
       %tbody
+        - reset_cycle
         - @career_season_averages.each do |stat|
           %tr{class: "#{cycle('even2', 'odd2')}"}
             %td= stat.season_number
@@ -527,6 +544,7 @@
           %th F
           %th P
       %tbody
+        - reset_cycle
         - @career_season_totals.each do |stat|
           //- stat.calc_percentages
           %tr{class: "#{cycle('even2', 'odd2')}"}
@@ -581,31 +599,20 @@
           %td.lline= number_with_precision(average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: false)
           %td.lline= number_with_precision(average_per_season_totals.points, precision: 1, strip_insignificant_zeros: false)
   %br
-  - unless @career_highs.empty?
-    %h1 Career Highs
-    %p.sep
-    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
-      %thead.statthead
-        %tr
-          %th.text-left Stat
-          %th Career High
-          %th Game
-      %tbody
-        %tr.odd2
-          =render "career_high", name: 'Points', career_high: @career_highs['points']
-        %tr.even2
-          =render "career_high", name: 'Rebounds', career_high: @career_highs['rebounds']
-        %tr.odd2
-          =render "career_high", name: 'Assists', career_high: @career_highs['assists']
-        %tr.even2
-          =render "career_high", name: 'Steals', career_high: @career_highs['steals']
-        %tr.odd2
-          =render "career_high", name: 'Blocks', career_high: @career_highs['blocks']
-        %tr.even2
-          =render "career_high", name: '3PT Made', career_high: @career_highs['threem']
-        %tr.odd2
-          =render "career_high", name: 'FT Made', career_high: @career_highs['ftm']
-    %br
+  %h1 Career Highs
+  %p.sep
+  %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+    %thead.statthead
+      %tr
+        %th.text-left Stat
+        %th Career High
+        %th Game
+    %tbody
+      -reset_cycle
+      -@career_highs.each do |stat_name, stat|
+        %tr{class: "#{cycle('even2', 'odd2')}"}
+          =render "career_high", name: stat_name, career_high: stat
+  %br
   %p &nbsp;
 = javascript_include_tag "activatables"
 %script{type: "text/javascript"}
