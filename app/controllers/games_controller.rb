@@ -23,7 +23,7 @@ class GamesController < ApplicationController
     @seasons = Season.order("id DESC").all
     
     @games = []
-    10.times { @games.append(Game.new) }
+    11.times { @games.append(Game.new) }
     @times = get_times("AM")
     @times.concat get_times("PM")
   end
