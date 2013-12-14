@@ -60,7 +60,7 @@
 %div.profstats#splits
   %form{action: "#{stats_player_path(@player)}#splits", method: "get", style: 'font-weight:bold;'}
     Season:
-    =select_tag "splits", options_from_collection_for_select(@seasons_splits, "id", "name", @splits_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+    =select_tag "splits", options_from_collection_for_select(@seasons, "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %br
   -@all_splits.each do |team_id, splits|
     -splits_totals = splits['Totals'] || PlayerStat.new
@@ -234,39 +234,11 @@
   -if @show_stats
     %form{action: "#{stats_player_path(@player)}#gamelog", method: "get", style: 'font-weight:bold;'}
       Season:
-      =select_tag "log", options_from_collection_for_select(@seasons, "id", "name", @log_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+      =select_tag "log", options_from_collection_for_select(@seasons, "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
     %br
-    -@game_log.group_by{|sl| sl.team_id}.each do |team_id, game_log|
-      %table{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
-        %colgroup
-          %col{ span:"1", style:"width: 110px;" }
-          %col{ span:"1", style:"width: 60px;" }
-          %col{ span:"1", style:"width: 40px;" }
-          %col{ span:"1", style:"width: 60px;" }
-          %col{ span:"1", style:"width: 40px;" }
-          %col{ span:"1", style:"width: 60px;" }
-          %col{ span:"1", style:"width: 40px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-          %col{ span:"1", style:"width: 30px;" }
-        %tbody
-          %tr.statthead
-            %td= Team.find_by_id(team_id).try(:name)
-            %td{ colspan:"2" } Field Goals
-            %td{ colspan:"2" } 3PT
-            %td{ colspan:"2" } FT
-            %td{ colspan:"3" } Rebounds
-            %td &nbsp;
-            %td &nbsp;
-            %td &nbsp;
-            %td &nbsp;
-            %td &nbsp;
-        %table#teamstats.sortable{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+    -@game_log.group_by{|sl| sl.season}.each do |season, season_log|
+      -season_log.group_by{|sl| sl.team_id}.each do |team_id, game_log|
+        %table{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
           %colgroup
             %col{ span:"1", style:"width: 110px;" }
             %col{ span:"1", style:"width: 60px;" }
@@ -283,92 +255,122 @@
             %col{ span:"1", style:"width: 30px;" }
             %col{ span:"1", style:"width: 30px;" }
             %col{ span:"1", style:"width: 30px;" }
-          %thead.statthead
-            %tr
-              %th.sorttable_nosort= @log_season.name
-              %th M-A
-              %th %
-              %th M-A
-              %th %
-              %th M-A
-              %th %
-              %th O
-              %th D
-              %th T
-              %th A
-              %th S
-              %th B
-              %th F
-              %th P
           %tbody
-            -reset_cycle
-            - game_log.each do |stat|
-              %tr{class: "#{cycle('even2', 'odd2')}"}
-                %td
-                  %a{href: stats_boxscore_path(stat.game)}= stat.game.week_name ? stat.game.week_name : "N/A"
-                %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
-                %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
-                %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
-                %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
-                %td.lline= "#{stat.ftm.round}-#{stat.fta.round}"
-                %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
-                %td.lline= stat.orb.round
-                %td= stat.drb.round
-                %td= stat.trb.round
-                %td.lline= stat.ast.round
-                %td.lline= stat.stl.round
-                %td.lline= stat.blk.round
-                %td.lline= stat.fl.round
-                %td.lline= stat.points.round
-          %tfooter
-            %tr.stattotal
-              -per_game_stats = @career_season_averages.select{|sl| sl.season_id == @log_season.id && sl.team_id == team_id}.first || PlayerStat.new
-              %td Per Gm
-              %td.lline #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: false)}
-              %td= number_with_precision((per_game_stats.fgpct ? per_game_stats.fgpct : 0), precision: 3)
-              %td.lline #{number_with_precision(per_game_stats.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.threea, precision: 1, strip_insignificant_zeros: false)}
-              %td= number_with_precision((per_game_stats.threepct ? per_game_stats.threepct : 0), precision: 3)
-              %td.lline #{number_with_precision(per_game_stats.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fta, precision: 1, strip_insignificant_zeros: false)}
-              %td= number_with_precision((per_game_stats.ftpct ? per_game_stats.ftpct : 0), precision: 3)
-              %td.lline= number_with_precision(per_game_stats.orb, precision: 1, strip_insignificant_zeros: false)
-              %td= number_with_precision(per_game_stats.drb, precision: 1, strip_insignificant_zeros: false)
-              %td= number_with_precision(per_game_stats.trb, precision: 1, strip_insignificant_zeros: false)
-              %td.lline= number_with_precision(per_game_stats.ast, precision: 1, strip_insignificant_zeros: false)
-              %td.lline= number_with_precision(per_game_stats.stl, precision: 1, strip_insignificant_zeros: false)
-              %td.lline= number_with_precision(per_game_stats.blk, precision: 1, strip_insignificant_zeros: false)
-              %td.lline= number_with_precision(per_game_stats.fl, precision: 1, strip_insignificant_zeros: false)
-              %td.lline= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: false)
-            %tr.stattotal
-              %td Total
-              - totals = total_stat_lines(game_log)
-              %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
-              %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
-              %td.lline= "#{totals.threem.round}-#{totals.threea.round}"
-              %td= number_with_precision((totals.threepct ? totals.threepct : 0), precision: 3) 
-              %td.lline= "#{totals.ftm.round}-#{totals.fta.round}"
-              %td= number_with_precision((totals.ftpct ? totals.ftpct : 0), precision: 3) 
-              %td.lline= totals.orb.round
-              %td= totals.drb.round
-              %td= totals.trb.round
-              %td.lline= totals.ast.round
-              %td.lline= totals.stl.round
-              %td.lline= totals.blk.round
-              %td.lline= totals.fl.round
-              %td.lline= totals.points.round
-      %br
-    %h1 Season Highs
-    %p.sep
-    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
-      %thead.statthead
-        %tr
-          %th.text-left Stat
-          %th Season High
-          %th Game
-      %tbody
-        -reset_cycle
-        -@season_highs.each do |stat_name, stat|
-          %tr{class: "#{cycle('even2', 'odd2')}"}
-            =render "career_high", name: stat_name, career_high: stat
+            %tr.statthead
+              %td= season.name
+              %td{ colspan:"2" } Field Goals
+              %td{ colspan:"2" } 3PT
+              %td{ colspan:"2" } FT
+              %td{ colspan:"3" } Rebounds
+              %td &nbsp;
+              %td &nbsp;
+              %td &nbsp;
+              %td &nbsp;
+              %td &nbsp;
+          %table#teamstats.sortable{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+            %colgroup
+              %col{ span:"1", style:"width: 110px;" }
+              %col{ span:"1", style:"width: 60px;" }
+              %col{ span:"1", style:"width: 40px;" }
+              %col{ span:"1", style:"width: 60px;" }
+              %col{ span:"1", style:"width: 40px;" }
+              %col{ span:"1", style:"width: 60px;" }
+              %col{ span:"1", style:"width: 40px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+              %col{ span:"1", style:"width: 30px;" }
+            %thead.statthead
+              %tr
+                %th= Team.find_by_id(team_id).try(:name)
+                %th M-A
+                %th %
+                %th M-A
+                %th %
+                %th M-A
+                %th %
+                %th O
+                %th D
+                %th T
+                %th A
+                %th S
+                %th B
+                %th F
+                %th P
+            %tbody
+              -reset_cycle
+              - game_log.each do |stat|
+                %tr{class: "#{cycle('even2', 'odd2')}"}
+                  %td
+                    %a{href: stats_boxscore_path(stat.game)}= stat.game.week_name ? stat.game.week_name : "N/A"
+                  %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
+                  %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
+                  %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
+                  %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
+                  %td.lline= "#{stat.ftm.round}-#{stat.fta.round}"
+                  %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
+                  %td.lline= stat.orb.round
+                  %td= stat.drb.round
+                  %td= stat.trb.round
+                  %td.lline= stat.ast.round
+                  %td.lline= stat.stl.round
+                  %td.lline= stat.blk.round
+                  %td.lline= stat.fl.round
+                  %td.lline= stat.points.round
+            %tfooter
+              %tr.stattotal
+                -per_game_stats = @career_season_averages.select{|sl| sl.season_id == season.id && sl.team_id == team_id}.first || PlayerStat.new
+                %td Per Gm
+                %td.lline #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: false)}
+                %td= number_with_precision((per_game_stats.fgpct ? per_game_stats.fgpct : 0), precision: 3)
+                %td.lline #{number_with_precision(per_game_stats.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.threea, precision: 1, strip_insignificant_zeros: false)}
+                %td= number_with_precision((per_game_stats.threepct ? per_game_stats.threepct : 0), precision: 3)
+                %td.lline #{number_with_precision(per_game_stats.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fta, precision: 1, strip_insignificant_zeros: false)}
+                %td= number_with_precision((per_game_stats.ftpct ? per_game_stats.ftpct : 0), precision: 3)
+                %td.lline= number_with_precision(per_game_stats.orb, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(per_game_stats.drb, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(per_game_stats.trb, precision: 1, strip_insignificant_zeros: false)
+                %td.lline= number_with_precision(per_game_stats.ast, precision: 1, strip_insignificant_zeros: false)
+                %td.lline= number_with_precision(per_game_stats.stl, precision: 1, strip_insignificant_zeros: false)
+                %td.lline= number_with_precision(per_game_stats.blk, precision: 1, strip_insignificant_zeros: false)
+                %td.lline= number_with_precision(per_game_stats.fl, precision: 1, strip_insignificant_zeros: false)
+                %td.lline= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: false)
+              %tr.stattotal
+                %td Total
+                - totals = total_stat_lines(game_log)
+                %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
+                %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
+                %td.lline= "#{totals.threem.round}-#{totals.threea.round}"
+                %td= number_with_precision((totals.threepct ? totals.threepct : 0), precision: 3) 
+                %td.lline= "#{totals.ftm.round}-#{totals.fta.round}"
+                %td= number_with_precision((totals.ftpct ? totals.ftpct : 0), precision: 3) 
+                %td.lline= totals.orb.round
+                %td= totals.drb.round
+                %td= totals.trb.round
+                %td.lline= totals.ast.round
+                %td.lline= totals.stl.round
+                %td.lline= totals.blk.round
+                %td.lline= totals.fl.round
+                %td.lline= totals.points.round
+        %br
+    -if @season_highs  
+      %h1 Season Highs
+      %p.sep
+      %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+        %thead.statthead
+          %tr
+            %th.text-left Stat
+            %th Season High
+            %th Game
+        %tbody
+          -reset_cycle
+          -@season_highs.each do |stat_name, stat|
+            %tr{class: "#{cycle('even2', 'odd2')}"}
+              =render "career_high", name: stat_name, career_high: stat
     %br
     =render "glossary"
 %div.profstats#careerstats
