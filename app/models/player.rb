@@ -49,7 +49,7 @@ class Player < ActiveRecord::Base
   end
   
   def game_log(season)
-    self.stat_lines.where("dnp is null OR not dnp").joins(:game).where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").where("games.season_id" => season).order("games.date")
+    self.stat_lines.joins(:game).joins(:season).where("seasons.id = #{season.id == -1 ? 'seasons.id' : season.id}").where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").order("seasons.number DESC, games.date")
   end
   
   def last_active_season
