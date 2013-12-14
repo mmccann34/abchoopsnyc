@@ -103,7 +103,6 @@ class StatsController < ApplicationController
     
     career_season = Season.new(name: "Career")
     career_season.id = -1
-    @seasons = [career_season].concat(@seasons)
     
     param_season = params[:splits] || params[:log]
     if param_season
@@ -115,6 +114,8 @@ class StatsController < ApplicationController
     else
       @season = @seasons.any? ? @seasons.first : career_season
     end
+    
+    @seasons = [career_season].concat(@seasons)
     
     @game_log = @player.game_log(@season)
     #@per_game_stats = player_stats.select{ |ps| ps.stat_type == 'season_average' && ps.season_id == @season.id }.sort_by{|ps| ps.team_id}.first #@player.per_game_stats(@log_season)
