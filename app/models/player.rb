@@ -146,6 +146,13 @@ class Player < ActiveRecord::Base
         .where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("split_name#{season_id == -1 ? "": ", team_id, games.league_id"}")
   end
   
+  def splits_by_location(season_id)
+    StatLine.joins(game: [:season, :location]).select('AVG(fgm) as fgm, AVG(fga) as fga, AVG(fgpct) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, AVG(twopct) as twopct, AVG(threem) as threem, AVG(threea) as threea, AVG(threepct) as threepct,' \
+                                 'AVG(ftm) as ftm, AVG(fta) as fta, AVG(ftpct) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
+        "AVG(points) as points, #{season_id} as season_id, COUNT(*) as game_count, #{season_id == -1 ? "-1 as team_id, -1 as league_id" : "team_id, games.league_id"}, locations.name as split_name").where(player_id: self.id).where("seasons.id = #{season_id != -1 ? season_id : "seasons.id"}").where("dnp is null OR not dnp")
+        .where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").group("split_name#{season_id == -1 ? "": ", team_id, games.league_id"}")
+  end
+  
   def abc_plus(season = nil)
     abc_plus = self.abc_plus_scores.where(season_id: season || self.last_active_season).first
     abc_plus.try(:score) || 0
@@ -173,6 +180,7 @@ class Player < ActiveRecord::Base
     set_player_splits('splits_by_month', self.splits_by_month(season.id))
     set_player_splits('splits_by_time', self.splits_by_time(season.id))
     set_player_splits('splits_by_opponent', self.splits_by_opponent(season.id))
+    set_player_splits('splits_by_location', self.splits_by_location(season.id))
   end
   
   def calc_career_stats
@@ -184,6 +192,7 @@ class Player < ActiveRecord::Base
     set_player_splits('splits_by_month', self.splits_by_month(-1))
     set_player_splits('splits_by_time', self.splits_by_time(-1))
     set_player_splits('splits_by_opponent', self.splits_by_opponent(-1))
+    set_player_splits('splits_by_location', self.splits_by_location(-1))
     
     #set_career_high('points', :points)
     #set_career_high('rebounds', :trb)
