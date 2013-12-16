@@ -11,23 +11,25 @@ class StatLine < ActiveRecord::Base
   before_save { self.season_id = self.game.season_id if self.game }
 
   def set_defaults
-    self.points ||= 0
-    self.fgm ||= 0
-    self.fga ||= 0
-    self.twom ||= 0
-    self.twoa ||= 0
-    self.threem ||= 0
-    self.threea ||= 0
-    self.ftm ||= 0
-    self.fta ||= 0
-    self.orb ||= 0
-    self.drb ||= 0
-    self.trb ||= 0
-    self.ast ||= 0
-    self.stl ||= 0
-    self.blk ||= 0
-    self.fl ||= 0
-    self.to ||= 0
+    if self.has_attribute?(:points)
+      self.points ||= 0
+      self.fgm ||= 0
+      self.fga ||= 0
+      self.twom ||= 0
+      self.twoa ||= 0
+      self.threem ||= 0
+      self.threea ||= 0
+      self.ftm ||= 0
+      self.fta ||= 0
+      self.orb ||= 0
+      self.drb ||= 0
+      self.trb ||= 0
+      self.ast ||= 0
+      self.stl ||= 0
+      self.blk ||= 0
+      self.fl ||= 0
+      self.to ||= 0
+    end
   end
 
   before_save do

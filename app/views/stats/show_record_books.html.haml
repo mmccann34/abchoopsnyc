@@ -2,86 +2,102 @@
 %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
 %ul#playerprof1
   %li.stat_types
-    %a.profbutton{href:"#ctotals"} Career Totals
+    %a.profbutton{href:"#highs"} Single-Game Highs
   %li.stat_types
-    %a.profbutton{href:"#cpergame"} Career Per Game
+    %a.profbutton{href:"#career"} Career Leaders
   %li.stat_types
-    %a.profbutton{href:"#stotals"} Season Totals
-  %li.stat_types
-    %a.profbutton{href:"#spergame"} Season Per Game
-.profstats#ctotals
-  =render "record_book_entry", stat_name: "Points", entries: @career_totals[:points]
-  =render "record_book_entry", stat_name: "Rebounds", entries: @career_totals[:rebounds]
+    %a.profbutton{href:"#season"} Season Leaders
+.profstats#highs
+  =render "record_book_entry", stat_name: "Points", entries: @highs[:points], single_game: true
+  =render "record_book_entry", stat_name: "Rebounds", entries: @highs[:rebounds], single_game: true
   %br
-  =render "record_book_entry", stat_name: "Assists", entries: @career_totals[:assists]
-  =render "record_book_entry", stat_name: "Blocks", entries: @career_totals[:blocks]
+  =render "record_book_entry", stat_name: "Assists", entries: @highs[:assists], single_game: true
+  =render "record_book_entry", stat_name: "Blocks", entries: @highs[:blocks], single_game: true
   %br
-  =render "record_book_entry", stat_name: "Steals", entries: @career_totals[:steals]
-  =render "record_book_entry", stat_name: "Field Goal %", entries: @career_totals[:fgpct], use_percentage: true, percision: 3
+  =render "record_book_entry", stat_name: "Steals", entries: @highs[:steals], single_game: true
+  =render "record_book_entry", stat_name: "Field Goals Made", entries: @highs[:fgm], single_game: true
   %br
-  =render "record_book_entry", stat_name: "3-Point %", entries: @career_totals[:threepct], use_percentage: true, percision: 3
-  =render "record_book_entry", stat_name: "Free Throw %", entries: @career_totals[:ftpct], use_percentage: true, percision: 3
+  =render "record_book_entry", stat_name: "3-Pointers Made", entries: @highs[:threem], single_game: true
+  =render "record_book_entry", stat_name: "Free Throws Made", entries: @highs[:ftm], single_game: true
   %br
-  =render "record_book_entry", stat_name: "Free Throws Made", entries: @career_totals[:ftm]
-  =render "record_book_entry", stat_name: "Points from 3's", entries: @career_totals[:threem]
-  %br
-  =render "record_book_entry", stat_name: "Double Doubles", entries: @career_totals[:doubles]
-  =render "record_book_entry", stat_name: "Games Played", entries: @career_totals[:games]
-.profstats#cpergame
-  =render "record_book_entry", stat_name: "Points", entries: @career_averages[:points], use_percentage: true
-  =render "record_book_entry", stat_name: "Rebounds", entries: @career_averages[:rebounds], use_percentage: true
-  %br
-  =render "record_book_entry", stat_name: "Assists", entries: @career_averages[:assists], use_percentage: true
-  =render "record_book_entry", stat_name: "Blocks", entries: @career_averages[:blocks], use_percentage: true
-  %br
-  =render "record_book_entry", stat_name: "Steals", entries: @career_averages[:steals], use_percentage: true
-  =render "record_book_entry", stat_name: "Field Goal %", entries: @career_averages[:fgpct], use_percentage: true, percision: 3
-  %br
-  =render "record_book_entry", stat_name: "3-Point %", entries: @career_averages[:threepct], use_percentage: true, percision: 3
-  =render "record_book_entry", stat_name: "Free Throw %", entries: @career_averages[:ftpct], use_percentage: true, percision: 3
-  %br
-  =render "record_book_entry", stat_name: "Free Throws Made", entries: @career_averages[:ftm], use_percentage: true
-  =render "record_book_entry", stat_name: "Points from 3's", entries: @career_averages[:threem], use_percentage: true
-.profstats#stotals
-  %form{action: "#{record_books_path}#stotals", method: "get", style: 'font-weight:bold;'}
+.profstats#career
+  %p{style:"margin-top:0px;"}
+    %span#ctotals_link.record_link.active Totals
+    %span{style: "font-size:18px;"}= "|"
+    %span#cpergame_link.record_link Per Game
+  #ctotals.records
+    =render "record_book_entry", stat_name: "Points", entries: @career_totals[:points]
+    =render "record_book_entry", stat_name: "Rebounds", entries: @career_totals[:rebounds]
+    %br
+    =render "record_book_entry", stat_name: "Assists", entries: @career_totals[:assists]
+    =render "record_book_entry", stat_name: "Blocks", entries: @career_totals[:blocks]
+    %br
+    =render "record_book_entry", stat_name: "Steals", entries: @career_totals[:steals]
+    =render "record_book_entry", stat_name: "Field Goal %", entries: @career_totals[:fgpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "3-Point %", entries: @career_totals[:threepct], use_percentage: true, percision: 3
+    =render "record_book_entry", stat_name: "Free Throw %", entries: @career_totals[:ftpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "Free Throws Made", entries: @career_totals[:ftm]
+    =render "record_book_entry", stat_name: "Points from 3's", entries: @career_totals[:threem]
+    %br
+    =render "record_book_entry", stat_name: "Double Doubles", entries: @career_totals[:doubles]
+    =render "record_book_entry", stat_name: "Games Played", entries: @career_totals[:games]
+  #cpergame.records.inactive
+    =render "record_book_entry", stat_name: "Points", entries: @career_averages[:points], use_percentage: true
+    =render "record_book_entry", stat_name: "Rebounds", entries: @career_averages[:rebounds], use_percentage: true
+    %br
+    =render "record_book_entry", stat_name: "Assists", entries: @career_averages[:assists], use_percentage: true
+    =render "record_book_entry", stat_name: "Blocks", entries: @career_averages[:blocks], use_percentage: true
+    %br
+    =render "record_book_entry", stat_name: "Steals", entries: @career_averages[:steals], use_percentage: true
+    =render "record_book_entry", stat_name: "Field Goal %", entries: @career_averages[:fgpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "3-Point %", entries: @career_averages[:threepct], use_percentage: true, percision: 3
+    =render "record_book_entry", stat_name: "Free Throw %", entries: @career_averages[:ftpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "Free Throws Made", entries: @career_averages[:ftm], use_percentage: true
+    =render "record_book_entry", stat_name: "Points from 3's", entries: @career_averages[:threem], use_percentage: true
+.profstats#season
+  %form{action: "#{record_books_path}#season", method: "get", style: 'font-weight:bold;'}
     Season:
-    =select_tag "stotals", options_from_collection_for_select(Season.order("id DESC").all, "id", "name", @season_totals_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-  %br
-  =render "record_book_entry", stat_name: "Points", entries: @season_totals[:points]
-  =render "record_book_entry", stat_name: "Rebounds", entries: @season_totals[:rebounds]
-  %br
-  =render "record_book_entry", stat_name: "Assists", entries: @season_totals[:assists]
-  =render "record_book_entry", stat_name: "Blocks", entries: @season_totals[:blocks]
-  %br
-  =render "record_book_entry", stat_name: "Steals", entries: @season_totals[:steals]
-  =render "record_book_entry", stat_name: "Field Goal %", entries: @season_totals[:fgpct], use_percentage: true, percision: 3
-  %br
-  =render "record_book_entry", stat_name: "3-Point %", entries: @season_totals[:threepct], use_percentage: true, percision: 3
-  =render "record_book_entry", stat_name: "Free Throw %", entries: @season_totals[:ftpct], use_percentage: true, percision: 3
-  %br
-  =render "record_book_entry", stat_name: "Free Throws Made", entries: @season_totals[:ftm]
-  =render "record_book_entry", stat_name: "Points from 3's", entries: @season_totals[:threem]
-  %br
-  =render "record_book_entry", stat_name: "Double Doubles", entries: @season_totals[:doubles]
-.profstats#spergame
-  %form{action: "#{record_books_path}#spergame", method: "get", style: 'font-weight:bold;'}
-    Season:
-    =select_tag "spergame", options_from_collection_for_select(Season.order("id DESC").all, "id", "name", @season_averages_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-  %br
-  =render "record_book_entry", stat_name: "Points", entries: @season_averages[:points], use_percentage: true
-  =render "record_book_entry", stat_name: "Rebounds", entries: @season_averages[:rebounds], use_percentage: true
-  %br
-  =render "record_book_entry", stat_name: "Assists", entries: @season_averages[:assists], use_percentage: true
-  =render "record_book_entry", stat_name: "Blocks", entries: @season_averages[:blocks], use_percentage: true
-  %br
-  =render "record_book_entry", stat_name: "Steals", entries: @season_averages[:steals], use_percentage: true
-  =render "record_book_entry", stat_name: "Field Goal %", entries: @season_averages[:fgpct], use_percentage: true, percision: 3
-  %br
-  =render "record_book_entry", stat_name: "3-Point %", entries: @season_averages[:threepct], use_percentage: true, percision: 3
-  =render "record_book_entry", stat_name: "Free Throw %", entries: @season_averages[:ftpct], use_percentage: true, percision: 3
-  %br
-  =render "record_book_entry", stat_name: "Free Throws Made", entries: @season_averages[:ftm], use_percentage: true
-  =render "record_book_entry", stat_name: "Points from 3's", entries: @season_averages[:threem], use_percentage: true
+    =select_tag "season", options_from_collection_for_select(Season.order("id DESC").all, "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+  %p
+    %span#stotals_link.record_link.active Totals
+    %span{style: "font-size:18px;"}= "|"
+    %span#spergame_link.record_link Per Game
+  #stotals.records
+    =render "record_book_entry", stat_name: "Points", entries: @season_totals[:points]
+    =render "record_book_entry", stat_name: "Rebounds", entries: @season_totals[:rebounds]
+    %br
+    =render "record_book_entry", stat_name: "Assists", entries: @season_totals[:assists]
+    =render "record_book_entry", stat_name: "Blocks", entries: @season_totals[:blocks]
+    %br
+    =render "record_book_entry", stat_name: "Steals", entries: @season_totals[:steals]
+    =render "record_book_entry", stat_name: "Field Goal %", entries: @season_totals[:fgpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "3-Point %", entries: @season_totals[:threepct], use_percentage: true, percision: 3
+    =render "record_book_entry", stat_name: "Free Throw %", entries: @season_totals[:ftpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "Free Throws Made", entries: @season_totals[:ftm]
+    =render "record_book_entry", stat_name: "Points from 3's", entries: @season_totals[:threem]
+    %br
+    =render "record_book_entry", stat_name: "Double Doubles", entries: @season_totals[:doubles]
+  #spergame.records.inactive
+    =render "record_book_entry", stat_name: "Points", entries: @season_averages[:points], use_percentage: true
+    =render "record_book_entry", stat_name: "Rebounds", entries: @season_averages[:rebounds], use_percentage: true
+    %br
+    =render "record_book_entry", stat_name: "Assists", entries: @season_averages[:assists], use_percentage: true
+    =render "record_book_entry", stat_name: "Blocks", entries: @season_averages[:blocks], use_percentage: true
+    %br
+    =render "record_book_entry", stat_name: "Steals", entries: @season_averages[:steals], use_percentage: true
+    =render "record_book_entry", stat_name: "Field Goal %", entries: @season_averages[:fgpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "3-Point %", entries: @season_averages[:threepct], use_percentage: true, percision: 3
+    =render "record_book_entry", stat_name: "Free Throw %", entries: @season_averages[:ftpct], use_percentage: true, percision: 3
+    %br
+    =render "record_book_entry", stat_name: "Free Throws Made", entries: @season_averages[:ftm], use_percentage: true
+    =render "record_book_entry", stat_name: "Points from 3's", entries: @season_averages[:threem], use_percentage: true
 = javascript_include_tag "activatables"
 %script{type: "text/javascript"}
-  activatables('page', ['ctotals', 'cpergame', 'stotals', 'spergame']);
+  activatables('page', ['highs', 'career', 'season']);

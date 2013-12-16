@@ -2,6 +2,7 @@ class Game < ActiveRecord::Base
   attr_accessible :away_team_id, :home_team_id, :season_id, :home_score_first, :home_score_second, :home_score_ot_one, :home_score_ot_two, :home_score_ot_three, 
   :away_score_first, :away_score_second, :away_score_ot_one, :away_score_ot_two, :away_score_ot_three, :date, :time, :location_id, :forfeit, :winner, :league_id,
   :playoff_round
+  serialize :photo_urls
   validates :away_team_id, :home_team_id, :season_id, presence: true
 
   belongs_to :home_team, class_name: 'Team', foreign_key: 'home_team_id'

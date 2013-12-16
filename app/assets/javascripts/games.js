@@ -8,4 +8,18 @@ $(function() {
       count++;
     }
   });
+  
+  $('#add_photo_url').click(addPhotoUrl);
 });
+
+function addPhotoUrl() {
+  var i = 1;
+  while ($('#photo_urls_' + i).length) {
+    i++;
+  }
+  
+  $('#photo_urls_1').clone().attr({
+    id: "photo_urls_" + i,
+    name: "photo_urls[" + i + "]"
+  }).val('').appendTo('#photo_urls');
+}
