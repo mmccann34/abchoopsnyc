@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131215020214) do
+ActiveRecord::Schema.define(:version => 20131216035259) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20131215020214) do
     t.integer  "jersey_number"
     t.boolean  "double_double"
     t.integer  "season_id"
+    t.integer  "vs_team_id"
   end
 
   add_index "stat_lines", ["game_id"], :name => "index_stat_lines_on_game_id"
