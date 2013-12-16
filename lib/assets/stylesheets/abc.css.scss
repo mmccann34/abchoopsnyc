@@ -631,11 +631,13 @@ margin-right:7px;
 	display: none;
 }
 ul#playerprof1 {
-	//margin-left:-7px;
-  margin:0 auto;
-  width:606px;
+	margin-left:-7px;
 	padding:0px;
 	position:relative;
+  &.records {
+    margin:0 auto;
+    width:606px;
+  }
 }
 ul#playerprof1 li {
 	display:inline;

@@ -8,7 +8,6 @@ class StatLine < ActiveRecord::Base
   belongs_to :team
 
   after_initialize :set_defaults
-  before_save { self.season_id = self.game.season_id if self.game }
 
   def set_defaults
     if self.has_attribute?(:points)
@@ -33,20 +32,27 @@ class StatLine < ActiveRecord::Base
   end
 
   before_save do
-    set_defaults
-    self.fgm = twom + threem
-    self.fga = twoa + threea
+#    set_defaults    
     calc_percentages
+
+    self.double_double = [points, trb, ast, stl, blk].select{|s| s >= 10}.count >= 2
+    
+    if self.game
+      self.season_id = self.game.season_id
+      self.vs_team_id = self.team_id == self.game.home_team_id ? self.game.away_team_id : self.game.home_team_id
+    end
+    
+    nil
   end
 
   def calc_percentages
+    self.fgm = twom + threem
+    self.fga = twoa + threea
     self.fgpct = fga != 0 ? fgm / fga : 0
     self.twopct = twoa != 0 ? twom / twoa : 0
     self.threepct = threea != 0 ? threem / threea : 0
     self.ftpct = fta != 0 ? ftm / fta : 0
     self.trb = orb + drb
     self.points = (twom * 2) + (threem * 3) + (ftm * 1)
-    self.double_double = [points, trb, ast, stl, blk].select{|s| s >= 10}.count >= 2
-    nil
   end
 end 

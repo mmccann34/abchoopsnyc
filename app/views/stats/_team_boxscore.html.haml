@@ -91,7 +91,8 @@
         %td.lline= stat.points.round
   %tfoot
     %tr.stattotal
-      %td{colspan:"2"} Total
+      %td &nbsp;
+      %td Total
       - totals = total_stat_lines(stat_lines)
       %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
       %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 
