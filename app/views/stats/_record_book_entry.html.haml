@@ -19,7 +19,7 @@
           %a{href:stats_player_path(entry.player_id)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
         -if local_assigns.fetch(:single_game, false)
           %td
-            %a{href:stats_boxscore_path(entry.game_id)}= entry.game_desc
+            %a{href:stats_boxscore_path(entry.game_id)}= entry.game.date.strftime("%-m/%-d/%y") + " vs. " + (entry.game.home_team_id == entry.team_id ? entry.game.away_team.abbreviation : entry.game.home_team.abbreviation)
         -else
           %td
             %a{href:stats_team_path(entry.team_id)}= entry.team_name

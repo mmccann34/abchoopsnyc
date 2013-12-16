@@ -243,9 +243,9 @@ class StatsController < ApplicationController
   end
 
   def get_all_time_highs(stat_field)
-    StatLine.joins(:player).joins(:team).joins(:game).select("players.id as player_id, players.first_name, players.last_name, 
-players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, stat_lines.team_id, teams.abbreviation as team_name,
-stat_lines.game_id, 'test' as game_desc")
+    StatLine.joins(:player).select("players.id as player_id, players.first_name, players.last_name, 
+players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, stat_lines.team_id,
+stat_lines.game_id")
             .order("#{stat_field} desc").limit(10)
   end
 
