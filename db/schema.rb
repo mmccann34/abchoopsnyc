@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216035259) do
+ActiveRecord::Schema.define(:version => 20131216045126) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20131216035259) do
   end
 
   add_index "player_stats", ["player_id", "stat_type", "season_id"], :name => "index_player_stats_on_player_id_and_stat_type_and_season_id"
+  add_index "player_stats", ["stat_type", "season_id"], :name => "index_player_stats_on_stat_type_and_season_id"
   add_index "player_stats", ["team_id", "stat_type", "season_id"], :name => "index_player_stats_on_team_id_and_stat_type_and_season_id"
 
   create_table "players", :force => true do |t|
