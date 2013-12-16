@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216045126) do
+ActiveRecord::Schema.define(:version => 20131216050852) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -219,9 +219,17 @@ ActiveRecord::Schema.define(:version => 20131216045126) do
     t.integer  "vs_team_id"
   end
 
+  add_index "stat_lines", ["ast"], :name => "index_stat_lines_on_ast"
+  add_index "stat_lines", ["blk"], :name => "index_stat_lines_on_blk"
+  add_index "stat_lines", ["fgm"], :name => "index_stat_lines_on_fgm"
+  add_index "stat_lines", ["ftm"], :name => "index_stat_lines_on_ftm"
   add_index "stat_lines", ["game_id"], :name => "index_stat_lines_on_game_id"
   add_index "stat_lines", ["player_id", "season_id"], :name => "index_stat_lines_on_player_id_and_season_id"
+  add_index "stat_lines", ["points"], :name => "index_stat_lines_on_points"
+  add_index "stat_lines", ["stl"], :name => "index_stat_lines_on_stl"
   add_index "stat_lines", ["team_id", "season_id"], :name => "index_stat_lines_on_team_id_and_season_id"
+  add_index "stat_lines", ["threem"], :name => "index_stat_lines_on_threem"
+  add_index "stat_lines", ["trb"], :name => "index_stat_lines_on_trb"
 
   create_table "team_spots", :force => true do |t|
     t.integer  "team_id"
