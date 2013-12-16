@@ -245,7 +245,7 @@ class StatsController < ApplicationController
   def get_all_time_highs(stat_field)
     StatLine.joins(:player).joins(:team).joins(:game).select("players.id as player_id, players.first_name, players.last_name, 
 players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, stat_lines.team_id, teams.abbreviation as team_name,
-stat_lines.game_id, to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || (SELECT abbreviation FROM teams WHERE id = (case when games.home_team_id = stat_lines.team_id THEN games.away_team_id ELSE games.home_team_id END)) as game_desc")
+stat_lines.game_id, 'test' as game_desc")
             .order("#{stat_field} desc").limit(10)
   end
 
