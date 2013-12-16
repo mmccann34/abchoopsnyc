@@ -28,7 +28,7 @@
           %br>
           %span vs.
           %br>
-          %span= next_game.home_team.abbreviation
+          %span= next_game.away_team.abbreviation
     %td{rowspan:"4", width:"50"}
       -if next_game
         %span.scoreArrow        
@@ -47,6 +47,29 @@
 %p
 =render "boxscore_summary", game: @game, show_week: false
 %p
+-if (not @game.photo_urls.nil?) && @game.photo_urls.any?
+  :javascript
+    $(document).ready(function(){
+      $('#slides1').bxGallery({
+        maxwidth: '',
+        maxheight: '',
+        thumbwidth: #{@thumb_width},
+        thumbcrop: false,
+        croppercent: .35,
+        thumbplacement: 'top',
+        thumbcontainer: '',
+        opacity: .7,
+        load_text: '',
+        load_image: 'http://abchoopsnyc.com/images/spinner.gif',
+        wrapperclass: 'outer' 
+      });
+    });
+  
+  %ul#slides1
+    -@game.photo_urls.each do |url|
+      %li
+        %img{src: url, title:"&nbsp;"}
+  .horizline
 %a#fullboxscore{name:"fullboxscore"}
 = render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
 %p{style:"line-height:50%; margin:5px;"} &nbsp;

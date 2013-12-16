@@ -631,7 +631,9 @@ margin-right:7px;
 	display: none;
 }
 ul#playerprof1 {
-	margin-left:-7px;
+	//margin-left:-7px;
+  margin:0 auto;
+  width:606px;
 	padding:0px;
 	position:relative;
 }
@@ -1297,4 +1299,25 @@ table.record-book-entry + table.record-book-entry {
 
 .playerteam a:link, .playerteam2 a:link {
 	font-weight:normal;
+}
+
+.record_link {
+  font-size: 18px;
+  cursor: pointer;
+  &:hover {
+    font-weight: bold;
+  }
+  &:active {
+    color: #e07000;
+  }
+  &.active {
+    color: #e07000;
+    font-weight: bold;
+  }
+}
+
+.records {
+  &.inactive {
+    display: none;
+  }
 }

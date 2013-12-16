@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131213172726) do
+ActiveRecord::Schema.define(:version => 20131215020214) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20131213172726) do
     t.integer  "league_id"
     t.integer  "division_id"
     t.string   "playoff_round"
+    t.text     "photo_urls"
   end
 
   add_index "games", ["season_id"], :name => "index_games_on_season_id"

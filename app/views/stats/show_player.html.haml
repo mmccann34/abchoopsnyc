@@ -307,7 +307,7 @@
               - game_log.each do |stat|
                 %tr{class: "#{cycle('even2', 'odd2')}"}
                   %td
-                    %a{href: stats_boxscore_path(stat.game)}= stat.game.week_name ? stat.game.week_name : "N/A"
+                    %a{href: stats_boxscore_path(stat.game)}= stat.game.boxscore_week_name ? stat.game.boxscore_week_name : "N/A"
                   %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
                   %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
                   %td.lline= "#{stat.threem.round}-#{stat.threea.round}"

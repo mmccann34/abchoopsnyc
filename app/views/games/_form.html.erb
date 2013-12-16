@@ -9,6 +9,19 @@
   <%= f.association :away_team, prompt: 'Away Team', collection: Team.order(:name) %>
   <%= f.association :league, prompt: 'League', collection: League.order(:id) %>
   <%= f.input :playoff_round, placeholder: 'Playoff Round' %>
+  <p style="font-weight:bold;">Photo URLs</p>
+  <div id="photo_urls">
+  <% if (not @game.photo_urls.nil?) && @game.photo_urls.any? %>
+    <% @game.photo_urls.each_with_index do |url, i| %>
+      <%= text_field_tag "photo_urls[#{i+1}]", url, class: 'input-block-level' %>
+    <% end %>
+  <% else %>
+    <% 5.times do |i| %>       
+      <%= text_field_tag "photo_urls[#{i+1}]", "", placeholder: 'Photo URL', class: 'input-block-level' %>
+    <% end %>
+  <% end %>
+  </div>
+  <button id="add_photo_url" type="button" class="btn btn-info" style="margin-bottom:20px;">Add Photo URL</button>
   <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
 </fieldset>
 <% end %>

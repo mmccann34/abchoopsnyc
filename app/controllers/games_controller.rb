@@ -65,11 +65,25 @@ class GamesController < ApplicationController
     else
       game_update[:date] = date
     end
-
+    set_photo_urls
     if @game.update_attributes(game_update)
       redirect_to edit_game_url(@game), notice: "Game has successfully been updated."
     else
       render action: "edit", flash: { error: "An error occurred while updating Game." }
+    end
+  end
+  
+  def set_photo_urls
+    if not @game.photo_urls
+      @game.photo_urls = []
+    else
+      @game.photo_urls.clear
+    end
+    
+    params[:photo_urls].each do |index, value|
+      if not value.blank?
+        @game.photo_urls << value
+      end
     end
   end
 
