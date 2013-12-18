@@ -3,7 +3,10 @@ Abchoops::Application.routes.draw do
 
   root to: "stats#index"
   
+  get '/admin' => "games#index", as: "users_root"
   scope '/admin' do    
+    get '' => "games#index", as: "admin_root"
+    
     resources :players do
       collection do
         get 'datatables' => "players#datatables", as: "datatables"
@@ -63,6 +66,7 @@ Abchoops::Application.routes.draw do
   get 'schedules' => "stats#show_schedules", as: "schedules"
   get 'results' => "stats#show_results", as: "results"
   get 'record-books' => "stats#show_record_books", as: "record_books"
+  get 'api/standings' => "stats#get_standings"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -6,6 +6,7 @@ class StatLine < ActiveRecord::Base
   belongs_to :game
   belongs_to :season
   belongs_to :team
+  belongs_to :vs_team, class_name: "Team"
 
   after_initialize :set_defaults
 

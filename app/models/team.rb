@@ -65,7 +65,7 @@ class Team < ActiveRecord::Base
   end
   
   def season_count
-    self.team_spots.count("DISTINCT season_id").en.ordinate
+    self.team_spots.count("DISTINCT season_id") #.en.ordinate
   end
   
   #could use existing playerstats to create average

@@ -3,17 +3,10 @@
   %form{action: "#{stats_team_path(@team)}", method: "get", style: 'font-weight:bold;'}
     Season:
     =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-%p This is #{@team.name}'s #{@team.season_count} season. See below for the following:
-%ul
-  %li
-    %a{ href: "#schedule" }> #{@team.name}'s schedule with results
-    ,
-  %li
-    %a{ href: "#stats" }> Per game and cumulative stats for each player
-    \.
+%p Seasons: #{@team.season_count}
 -if not @team_spot.team_photo_url.blank?
   %img.teampic{alt:"", src:"#{@team_spot.team_photo_url}"}
-%p &nbsp;  
+  %p &nbsp;  
 %a#schedule{ name: "schedule" }
 %h1 Schedule
 %p.hl
