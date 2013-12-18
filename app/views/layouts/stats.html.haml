@@ -17,7 +17,8 @@
             .mainContent
               = yield
             .sidebarContent
-              = render "sidebar"
+              .sidebarscrollpane
+                = render "sidebar"
               = render "sidebar_bottom"
         .wholeDivider
         .footerContainer

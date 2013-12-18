@@ -18,8 +18,9 @@ class StatsController < ActionController::Base
   end
   
   def get_standings
-     respond_to do |format|
-       format.js { render inline: "myData({ 'title':'test'})" }
+    @is_index = params[:index] == "true"
+    respond_to do |format|
+      format.js { render partial: "get_standings" }
     end
   end
   
