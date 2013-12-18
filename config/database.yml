@@ -33,7 +33,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: abchoops_production
   pool: 5
-  timeout: 5000
-  username: matt
+  database: df1bci0lmh2r62
+  username: hrdylkuegvdtnu 
+  password: -zViFKAl_risUgvfJDv7G4u0MH 
+  host: ec2-54-221-236-4.compute-1.amazonaws.com
+  port: 5432
