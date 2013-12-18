@@ -9,7 +9,7 @@
 - teams.sort.each_with_index.map do |(league, team_spots), index|
   %div.section{ id: "#{league.try(:short_name)}", style: league.id != 1 ? "display: none;" : "" }
     %div{class:@is_index ? "scroll-pane" : "scroll-paneNS"}
-      %table.standingsTableSun{cellpadding:"3", cellspacing:"2"}
+      %table{class:"standingsTable#{@is_index ? league.short_name : 'Sun'}", cellpadding:"3", cellspacing:"2"}
         - team_spots.group_by { |ts| ts.division }.each do |division, division_team_spots|
           - if division
             %tr
