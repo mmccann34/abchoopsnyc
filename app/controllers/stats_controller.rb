@@ -26,7 +26,7 @@ class StatsController < ActionController::Base
   
   def get_players
     respond_to do |f|
-      f.json { render json: Player.all.sort_by {|p| p.name}.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id}} }
+      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id}} }
     end
   end
   
@@ -39,12 +39,13 @@ class StatsController < ActionController::Base
   
   def show_boxscore
     @game = Game.find_by_id(params[:id])
-    @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
-    @ot_two = @game.home_score_ot_two != 0 || @game.away_score_ot_two != 0
-    @ot_three = @game.home_score_ot_three != 0 || @game.away_score_ot_three != 0
     if !@game
       redirect_to 'http://www.abchoopsnyc.com'
     end
+    
+    @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
+    @ot_two = @game.home_score_ot_two != 0 || @game.away_score_ot_two != 0
+    @ot_three = @game.home_score_ot_three != 0 || @game.away_score_ot_three != 0
     @divisions = @game.season.divisions
     @current_season = @game.season
     @thumb_width = 149
