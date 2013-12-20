@@ -1,3 +1,6 @@
 %h1 Search Results
--@results.each do |result|
-  %p= result.name
+-if @results.any?
+  -@results.each do |result|
+    %p= result.name-
+-else
+  %p No players found
