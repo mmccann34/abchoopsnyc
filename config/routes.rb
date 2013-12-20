@@ -66,7 +66,9 @@ Abchoops::Application.routes.draw do
   get 'schedules' => "stats#show_schedules", as: "schedules"
   get 'results' => "stats#show_results", as: "results"
   get 'record-books' => "stats#show_record_books", as: "record_books"
+  get 'player-search' => "stats#player_search"
   get 'api/standings' => "stats#get_standings"
+  get 'api/players' => "stats#get_players"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
