@@ -40,7 +40,7 @@ class StatsController < ActionController::Base
   def show_boxscore
     @game = Game.find_by_id(params[:id])
     if !@game
-      redirect_to 'http://www.abchoopsnyc.com'
+      redirect_to 'http://www.abchoopsnyc.com' and return
     end
     
     @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
