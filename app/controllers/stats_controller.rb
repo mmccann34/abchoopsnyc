@@ -26,12 +26,12 @@ class StatsController < ActionController::Base
   
   def get_players
     respond_to do |f|
-      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id}} }
+      f.json { render json: Player.all.sort_by {|p| p.name}.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id}} }
     end
   end
   
   def player_search
-    @results = Player.where("first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search", search: "%#{params[:player]}%")
+    @results = Player.where("(display_name <> '' and display_name ILIKE :search) or (first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search)", search: "%#{params[:player]}%")
     if @results.count == 1
       redirect_to stats_player_url(@results.first)
     end
