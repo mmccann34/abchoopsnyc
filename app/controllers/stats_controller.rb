@@ -26,6 +26,7 @@ class StatsController < ActionController::Base
   
   def get_players
     respond_to do |f|
+      headers['Access-Control-Allow-Origin'] = '*'
       f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id, pic_url: p.profile_pic_thumb_url, number: p.last_number, team: p.last_team.try(:name)}} }
     end
   end
