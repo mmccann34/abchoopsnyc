@@ -26,12 +26,15 @@ class StatsController < ActionController::Base
   
   def get_players
     respond_to do |f|
-      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), url: stats_player_url(p.id)}} }
+      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id}} }
     end
   end
   
   def player_search
     @results = Player.where("first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search", search: "%#{params[:player]}%")
+    if @results.count == 1
+      redirect_to stats_player_url(@results.first)
+    end
   end
   
   def show_boxscore
@@ -40,7 +43,7 @@ class StatsController < ActionController::Base
     @ot_two = @game.home_score_ot_two != 0 || @game.away_score_ot_two != 0
     @ot_three = @game.home_score_ot_three != 0 || @game.away_score_ot_three != 0
     if !@game
-      redirect_to games_url, flash: { error: "Game does not exist." }
+      redirect_to 'http://www.abchoopsnyc.com'
     end
     @divisions = @game.season.divisions
     @current_season = @game.season
