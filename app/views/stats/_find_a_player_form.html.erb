@@ -1,11 +1,11 @@
-<form action="http://abchoopsnyc-7118.use1.actionbox.io/player-search" method="get" name="input" style="margin-top:1px;">
+<form action="http://stats.abchoopsnyc.com/player-search" method="get" name="input" style="margin-top:1px;">
   <input id="playerSearch" class="findPlayerField" type="text" name="player" />
   <input class="findPlayer" type="submit" value="Submit" />
 </form>
 
 <script type="text/javascript">
   $(function() {
-    $('input#playerSearch').typeahead({name: "players", prefetch: "http://abchoopsnyc-7118.use1.actionbox.io/api/players.json"});
+    $('input#playerSearch').typeahead({name: "players", prefetch: "http://stats.abchoopsnyc.com/api/players.json"});
     
     $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = datum.url; });
     $('input#playerSearch').on('typeahead:initialized', function() { console.log('typeahead init'); });
