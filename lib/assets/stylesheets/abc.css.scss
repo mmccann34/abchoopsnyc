@@ -762,6 +762,29 @@ ul#playerprof1 li a:visited {
 	text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
 	line-height:160px;
 }
+.playernumbernopicthumb {
+  font-family:BebasRegular, Verdana, Geneva, sans-serif;
+  font-size: 35px;
+  //margin-left: -5px;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
+}
+.headshotThumbOuter {
+  background: white; 
+  width:52px; 
+  height:52px;
+}
+.headshotThumbContainer {
+  margin: 0;
+  display: block;
+  border: 1px solid gray;
+  height: 50px;
+  width: 50px;
+  text-decoration: none !important;
+  text-align: center;
+  &.noborder { border: none; }
+  &.halfball { background: url('/assets/abchalfball50x50.png') no-repeat; }
+  &.fullball { background: url('/assets/abcfullball50x50.png') no-repeat; }
+}
 .playerteam {
 	font-size: 20px;
 	font-family: BebasRegular, Verdana, Geneva, sans-serif;

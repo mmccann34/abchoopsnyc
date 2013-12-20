@@ -26,7 +26,7 @@ class StatsController < ActionController::Base
   
   def get_players
     respond_to do |f|
-      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id}} }
+      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), id: p.id, pic_url: p.profile_pic_thumb_url, number: p.last_number, team: p.last_team.try(:name)}} }
     end
   end
   
@@ -127,6 +127,8 @@ class StatsController < ActionController::Base
   
   def show_player 
     @player = Player.find_by_id(params[:id])
+    (redirect_to 'http://www.abchoopsnyc.com' and return) unless @player
+    
     player_stats = @player.player_stats.where("stat_type not like 'splits_%'")
     
     @seasons = @player.roster_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
