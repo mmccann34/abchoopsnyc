@@ -1,4 +1,4 @@
-<form action="http://abchoopsnyc-7118.use1.actionbox.io/player-search" method="get" name="input" style="margin-top:1px;">
+<form action="http://stats.abchoopsnyc.com/player-search" method="get" name="input" style="margin-top:1px;">
   <input id="playerSearch" class="findPlayerField" type="text" name="player" />
   <input class="findPlayer" type="submit" value="Submit" />
 </form>
@@ -7,7 +7,7 @@
   $(function() {
     $('input#playerSearch').typeahead({
       name: "players", 
-      prefetch: "http://abchoopsnyc-7118.use1.actionbox.io/api/players.json",
+      prefetch: "http://stats.abchoopsnyc.com/api/players.json",
       template: [
         '<div style="height:52px; margin: 0; text-indent: 4px; line-height: 18px;">',
         '<p style="padding-top: 8px;">{{value}}</p>',
