@@ -23,9 +23,7 @@
           %span{style: "display:none;"} Instagram
   .findaplayer
     %b Find A Player
-    %form{name: "input", style:"margin-top:1px;"}
-      %input.findPlayerField{type: "text", name: "user"}
-      %input.findPlayer{type: "submit", value: "Submit"}
+    =render "find_a_player_form"
 .navbarBG
   %ul#navbar
     %li

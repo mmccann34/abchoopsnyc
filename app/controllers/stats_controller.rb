@@ -24,6 +24,16 @@ class StatsController < ActionController::Base
     end
   end
   
+  def get_players
+    respond_to do |f|
+      f.json { render json: Player.all.map {|p| {value: p.name, tokens: p.name.split(' '), url: stats_player_url(p.id)}} }
+    end
+  end
+  
+  def player_search
+    @results = Player.where("first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search", search: "%#{params[:player]}%")
+  end
+  
   def show_boxscore
     @game = Game.find_by_id(params[:id])
     @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
