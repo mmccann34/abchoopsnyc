@@ -1,7 +1,0 @@
-%div{style:"float:left; margin-top: 6px;"}
-  =render "headshot_thumb", player: player
-%div{style:"float:left; font-family:BebasRegular, Verdana, Geneva, sans-serif; line-height:20px; margin-left:10px; margin-top:11px; width: 150px;"}
-  %a{style:"font-size:18px; font-weight:normal;", href:stats_player_path(player)}= player.name
-  -if player.last_team
-    %br
-    %a{style:"font-size:14px; font-weight:normal;", href:stats_team_path(player.last_team)}= player.last_team.name

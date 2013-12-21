@@ -32,7 +32,7 @@ class StatsController < ActionController::Base
   end
   
   def player_search
-    @results = Player.where("(display_name <> '' and display_name ILIKE :search) or ((display_name = '' or display_name is null) and (first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search))", search: "%#{params[:player]}%")
+    @results = Player.where("(display_name <> '' and display_name ILIKE :search) or ((display_name = '' or display_name is null) and (first_name ILIKE :search or last_name ILIKE :search or (trim(first_name) || ' ' || last_name) ILIKE :search))", search: "%#{params[:player]}%").page(params[:page])
     if @results.count == 1
       redirect_to stats_player_url(@results.first)
     end
