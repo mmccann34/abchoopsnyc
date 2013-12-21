@@ -36,7 +36,6 @@ class StatsController < ActionController::Base
     if @results.count == 1
       redirect_to stats_player_url(@results.first)
     end
-  @stats = PlayerStat.where(player_id: @results.map(&:id)).where("stat_type = 'career_per_game_average' or (stat_type = 'season_average' and season_id = #{Season.current.id} and team_id = -1)").group_by{|ps| ps.player_id}
   end
   
   def show_boxscore
