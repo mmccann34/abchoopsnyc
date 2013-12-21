@@ -1304,6 +1304,12 @@ ul#weekscores li a.active {
 	height:28px;
 }
 
+table.record-book-entry {
+  table-layout: fixed;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 table.record-book-entry + table.record-book-entry {
   margin-left: 15px;
 }

@@ -22,4 +22,13 @@ input.tt-hint {
   border-bottom: 1px solid gray;
 }
 
+.tt-suggestion.tt-is-under-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion.tt-is-under-cursor .playernumbernopicthumb {
+  color: #444444 !important;
+}
+
 .tt-suggestion p { margin: 0; }

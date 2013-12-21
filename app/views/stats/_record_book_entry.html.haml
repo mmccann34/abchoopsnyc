@@ -1,11 +1,23 @@
 %table.record-book-entry{cellpadding:"5", cellspacing:"0", style:"display:inline-table; border: 1px solid #e7e7e7; margin-bottom:20px;", width:"390px"}
+  -if local_assigns.fetch(:single_game, false)
+    %colgroup
+      %col{ span:"1", style:"width: 59px;" }
+      %col{ span:"1", style:"width: 164px;" }
+      %col{ span:"1", style:"width: 130px;" }
+      %col{ span:"1", style:"width: 35px;" }
+  -else
+    %colgroup
+      %col{ span:"1", style:"width: 25px;" }
+      %col{ span:"1", style:"width: 130px;" }
+      %col{ span:"1", style:"width: 45px;" }
+      %col{ span:"1", style:"width: 40px;" }
   %thead.statthead
     %tr
       %th{colspan:"4", style:"font-size:14px; font-weight:bold;"}= stat_name
     %tr
       %th{colspan:"2"} Player
       %th #{local_assigns.fetch(:single_game, false) ? "Game" : "Team"}
-      %th Total
+      %th{style:"padding-left: 2px;"} Total
   %tbody
     -entries.each_with_index do |entry, i|
       %tr{class: "#{cycle('odd2', 'even2')}"}
