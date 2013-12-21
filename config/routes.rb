@@ -1,7 +1,7 @@
 Abchoops::Application.routes.draw do
   devise_for :users
 
-  root to: "stats#index"
+  root to: redirect("http://www.abchoopsnyc.com") #"stats#index"
   
   get '/admin' => "games#index", as: "users_root"
   scope '/admin' do    
@@ -55,11 +55,11 @@ Abchoops::Application.routes.draw do
     end
   end
   
-  get 'index' => "stats#index", as: "index"
-  get 'the-league' => "stats#info"
-  get 'news' => "stats#news"
-  get 'media' => "stats#media"
-  get 'store' => "stats#store"
+  #get 'index' => "stats#index", as: "index"
+  #get 'the-league' => "stats#info"
+  #get 'news' => "stats#news"
+  #get 'media' => "stats#media"
+  #get 'store' => "stats#store"
   get 'games/:id/boxscore' => "stats#show_boxscore", as: "stats_boxscore"
   get 'teams/:id' => "stats#show_team", as: "stats_team"
   get 'players/:id' => "stats#show_player", as: "stats_player"
@@ -69,6 +69,8 @@ Abchoops::Application.routes.draw do
   get 'player-search' => "stats#player_search"
   get 'api/standings' => "stats#get_standings"
   get 'api/players' => "stats#get_players"
+  
+  get '*path' => redirect("http://www.abchoopsnyc.com")
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
