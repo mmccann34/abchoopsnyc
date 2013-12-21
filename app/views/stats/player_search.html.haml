@@ -4,7 +4,7 @@
     %div{style: "padding-top:20px; padding-bottom:20px; padding-left:5px;"}
       %div{style:"float:left;"}
         =render "headshot_thumb", player: player
-      %div{style:"float:left; font-family:BebasRegular, Verdana, Geneva, sans-serif; line-height:20px; margin-left:10px; margin-top:5px; width: 150px;"}
+      %div{style:"float:left; font-family:BebasRegular, Verdana, Geneva, sans-serif; line-height:20px; margin-left:10px; margin-top:5px; word-spacing:3px;"}
         %a{style:"font-size:18px; font-weight:normal;", href:stats_player_path(player)}= player.name
         -if player.last_team
           %br
