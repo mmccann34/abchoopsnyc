@@ -1,0 +1,34 @@
+%div{style:"float:left; margin-top: 6px;"}
+  =render "headshot_thumb", player: player
+%div{style:"float:left; font-family:BebasRegular, Verdana, Geneva, sans-serif; line-height:20px; margin-left:10px; margin-top:11px; width: 150px;"}
+  %a{style:"font-size:18px; font-weight:normal;", href:stats_player_path(player)}= player.name
+  -if player.last_team
+    %br
+    %a{style:"font-size:14px; font-weight:normal;", href:stats_team_path(player.last_team)}= player.last_team.name
+%div{style:"float:left;"}
+  %table{cellpadding:"3", cellspacing:"0", border:"0", style:"margin-left: 20px;"}
+    %thead.statthead{style:"font-size:12px; outline:1px solid #2e3b56;"}
+      %tr
+        %td &nbsp;
+        %td PPG
+        %td RPG
+        %td APG
+        %td SPG
+        %td BPG
+    %tr.odd2{ style:"font-size:14px; outline:1px solid #000000;" }
+      %td{ style:"font-size:10px;"} CAREER
+      -career_averages = stats.select{|ps| ps.stat_type == "career_per_game_average"}.first || PlayerStat.new
+      %td.lline= number_with_precision(career_averages.points, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(career_averages.trb, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(career_averages.ast, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(career_averages.stl, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(career_averages.blk, precision: 1, strip_insignificant_zeros: true)  
+    %tr.even2{ style:"font-size:14px; outline:1px solid #000000;" }
+      %td{ style:"font-size:10px;"} SEASON
+      -current_season_averages = stats.select{|ps| ps.stat_type == "season_average"}.first || PlayerStat.new
+      %td.lline= number_with_precision(current_season_averages.points, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(current_season_averages.trb, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(current_season_averages.ast, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(current_season_averages.stl, precision: 1, strip_insignificant_zeros: true)
+      %td.lline= number_with_precision(current_season_averages.blk, precision: 1, strip_insignificant_zeros: true)
+%div{style:"clear:both;"}

@@ -36,6 +36,7 @@ class StatsController < ActionController::Base
     if @results.count == 1
       redirect_to stats_player_url(@results.first)
     end
+  @stats = PlayerStat.where(player_id: @results.map(&:id)).where("stat_type = 'career_per_game_average' or (stat_type = 'season_average' and season_id = #{Season.current.id} and team_id = -1)").group_by{|ps| ps.player_id}
   end
   
   def show_boxscore
@@ -267,7 +268,7 @@ class StatsController < ActionController::Base
   end
 
   def get_all_time_highs(stat_field)
-    StatLine.joins(:player).joins(:game).joins("JOIN teams t ON vs_team_id = t.id").select("players.id as player_id, players.first_name, players.last_name, 
+    StatLine.joins(:player).joins(:game).joins("JOIN teams t ON vs_team_id = t.id").select("players.id as id, players.first_name, players.last_name, 
 players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, stat_lines.team_id, stat_lines.game_id,
 to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
             .order("#{stat_field} desc").limit(10)
@@ -291,7 +292,7 @@ to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
     query = query.where("#{minimum}")
     query = query.where(league_id: options[:league_id]) if options[:league_id]
     
-    query.select("player_id, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
+query.select("player_id as id, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name")
          .order("#{stat_field} desc").limit(options[:count])
   end
 end
