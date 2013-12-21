@@ -27,7 +27,7 @@
           -else
             &nbsp;
         %td.text-left
-          %a{href:stats_player_path(entry.player_id)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
+          %a{href:stats_player_path(entry.id)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
         -if local_assigns.fetch(:single_game, false)
           %td
             %a{href:stats_boxscore_path(entry.game_id)}= entry.game_desc

@@ -1,6 +1,8 @@
 %h1 Search Results
 -if @results.any?
-  -@results.sort_by{|r| r.name}.each do |result|
-    %p= result.name
+  -@results.each do |result|
+    %div{style: "padding-top:20px; padding-bottom:20px;"}
+      =render "player_search_result", player: result, stats: @stats[result.id]
+    %hr
 -else
   %p No players found
