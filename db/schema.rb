@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216050852) do
+ActiveRecord::Schema.define(:version => 20131222082548) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -165,7 +165,10 @@ ActiveRecord::Schema.define(:version => 20131216050852) do
     t.text     "social_media_urls"
     t.string   "profile_pic_thumb_url"
     t.string   "display_name"
+    t.string   "slug"
   end
+
+  add_index "players", ["slug"], :name => "index_players_on_slug"
 
   create_table "roster_spots", :force => true do |t|
     t.integer  "player_id"
@@ -254,7 +257,10 @@ ActiveRecord::Schema.define(:version => 20131216050852) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "abbreviation"
+    t.string   "slug"
   end
+
+  add_index "teams", ["slug"], :name => "index_teams_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

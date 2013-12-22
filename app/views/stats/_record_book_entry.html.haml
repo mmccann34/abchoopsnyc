@@ -27,12 +27,12 @@
           -else
             &nbsp;
         %td.text-left
-          %a{href:stats_player_path(entry.id)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
+          %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
         -if local_assigns.fetch(:single_game, false)
           %td
             %a{href:stats_boxscore_path(entry.game_id)}= entry.game_desc
         -else
           %td
-            %a{href:stats_team_path(entry.team_id)}= entry.team_name
+            %a{href:stats_team_path(entry.team_slug)}= entry.team_name
         %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:percision, 1))) : number_with_delimiter(entry.total)
     -reset_cycle
