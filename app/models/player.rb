@@ -32,7 +32,11 @@ class Player < ActiveRecord::Base
   end
   
   def last_team
-    roster_spots.sort_by{|rs| rs.season_id}[-1].try(:team)
+    self.roster_spots.joins(:season).order("seasons.number desc").first.try(:team)
+  end
+  
+  def main_team
+    self.roster_spots.joins(:season).select("team_id").group("team_id").order("count(*) desc, max(seasons.number) desc").first.try(:team)
   end
   
   def team_by_season(season)
@@ -219,7 +223,7 @@ class Player < ActiveRecord::Base
     return if not s
     
     player_stat = self.player_stats.where(stat_type: stat_type).first_or_initialize
-    player_stat.attributes = {game_count: s.game_count, points: s.points, team_id: self.last_team.try(:id), fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to, double_double: s.doubles}
+    player_stat.attributes = {game_count: s.game_count, points: s.points, team_id: self.main_team.try(:id), fgm: s.fgm, fga: s.fga, fgpct: s.fgpct, twom: s.twom, twoa: s.twoa, twopct: s.twopct, threem: s.threem, threea: s.threea, threepct: s.threepct, ftm: s.ftm, fta: s.fta, ftpct: s.ftpct, orb: s.orb, drb: s.drb, trb: s.trb, ast: s.ast, stl: s.stl, blk: s.blk, fl: s.fl, to: s.to, double_double: s.doubles}
     player_stat.save
   end
   
