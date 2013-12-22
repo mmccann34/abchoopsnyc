@@ -44,7 +44,7 @@ class Player < ActiveRecord::Base
   end
   
   def last_number
-    roster_spots.sort_by{|rs| rs.season_id}[-1].try(:jersey_number)
+    self.roster_spots.joins(:season).order("seasons.number desc").first.try(:jersey_number)
   end
   
   def season_count
