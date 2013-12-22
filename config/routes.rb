@@ -1,7 +1,7 @@
 Abchoops::Application.routes.draw do
   devise_for :users
 
-  root to: redirect("http://www.abchoopsnyc.com") #"stats#index"
+  root to: "stats#show_results"
   
   get '/admin' => "games#index", as: "users_root"
   scope '/admin' do    

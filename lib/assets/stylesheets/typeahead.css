@@ -5,6 +5,7 @@ input.tt-hint {
   height: 28px;
   width: 193px;
   text-indent: 2px;
+  color: #999;
 }
 
 .tt-dropdown-menu {
