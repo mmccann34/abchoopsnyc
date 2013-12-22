@@ -29,6 +29,6 @@
       engine: Hogan
     });
     
-    $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoopsnyc.com/players/' + datum.id; });
+    $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoopsnyc.com/players/' + datum.slug; });
   });
 </script>
