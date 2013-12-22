@@ -15,6 +15,7 @@ gem "koala", "~> 1.6.0"
 gem 'bootstrap-sass', '~> 2.2.2.0'
 gem "awesome_print"
 gem "jquery-rails"
+gem 'jquery-rails-cdn'
 gem "jquery-datatables-rails", "~> 1.11.2"
 gem 'twitter-typeahead-rails'
 gem "bootstrap-datepicker-rails"

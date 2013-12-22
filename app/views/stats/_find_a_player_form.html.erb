@@ -1,5 +1,5 @@
 <form action="http://stats.abchoopsnyc.com/player-search" method="get" name="input" style="margin-top:1px;">
-  <input id="playerSearch" class="findPlayerField" type="text" name="player" />
+  <input id="playerSearch" class="findPlayerField" type="text" name="player" autocomplete="off" spellcheck="false" />
   <input class="findPlayer" type="submit" value="Submit" />
 </form>
 
@@ -9,18 +9,18 @@
       name: "players", 
       prefetch: "http://stats.abchoopsnyc.com/api/players.json",
       template: [
-        '<div style="height:52px; margin: 0; text-indent: 4px; line-height: 18px;">',
-        '<p style="padding-top: 8px;">{{value}}</p>',
-        '<p style="font-size: 12px; font-style: italic;">{{team}}</p>',
+        '<div class="details">',
+        '<p class="name">{{value}}</p>',
+        '<p class="team">{{team}}</p>',
         '</div>',
-        '<div style="position:absolute; right:0; top:0; background: transparent;" class="headshotThumbOuter">',
+        '<div class="headshotThumbOuter">',
         '{{#pic_url}}',
         '<div class="headshotThumbContainer noborder">',
         '<img src="{{pic_url}}" height="50px" width="50px" />',
         '</div>',
         '{{/pic_url}}',
         '{{^pic_url}}',
-        '<div class="headshotThumbContainer noborder halfball" style="position: absolute; right: 0;">',
+        '<div class="headshotThumbContainer noborder halfball">',
         '<span class="playernumbernopicthumb">{{number}}</span>',
         '</div>',
         '{{/pic_url}}',

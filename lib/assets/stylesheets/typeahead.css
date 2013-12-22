@@ -33,3 +33,31 @@ input.tt-hint {
 }
 
 .tt-suggestion p { margin: 0; }
+
+.tt-suggestion .details {
+  height:52px; 
+  margin: 0; 
+  text-indent: 4px; 
+  line-height: 18px;
+}
+
+.tt-suggestion .name {
+  padding-top: 8px;
+}
+
+.tt-suggestion .team {
+  font-size: 12px; 
+  font-style: italic;
+}
+
+.tt-suggestion .headshotThumbOuter {
+  position:absolute; 
+  right:0; 
+  top:0; 
+  background: transparent;
+}
+
+.tt-suggestion .headshotThumbContainer.halfball {
+  position: absolute; 
+  right: 0;
+}
