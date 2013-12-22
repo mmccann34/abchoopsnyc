@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 %html
   %head
-    %title Abc Hoops NYC
+    %title ABC Hoops NYC
+    %meta{name:"description", content:"ABC Hoops NYC is a recreational basketball league for young professionals in New York City.  The goal of ABCHoopsNYC is to provide a fun and competitive environment to play basketball.  All games are played at full sized gyms in Manhattan and the cost to join is very affordable."}
+    %meta{name:"keywords", content:"basketball, basketball league, basketball league new york, basketball league nyc, basketball league manhattan, recreational basketball league, basketball league signup"}
     = stylesheet_link_tag  "stats", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
     %link(rel="shortcut icon" type="image/ico" href="/assets/favicon.ico")
-    %script{src: "//cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"}
+    =render "layouts/ga" if Rails.env.production?
   %body
     .outerContainer
       %div
@@ -25,3 +27,5 @@
         .footerContainer
           = render "footer"
       %div{style:"clear:both;"}
+    %div.js-container
+      %script{src: "//cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"}
