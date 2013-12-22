@@ -1,6 +1,8 @@
 -if @show_all
+  -title "Scores & Schedules"
   = render "schedules_and_results", mode: 'schedules'
 -else
+  -title "#{@season.name} - #{@league.name} Schedule & Scores"
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
   %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
     Season:
