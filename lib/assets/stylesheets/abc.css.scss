@@ -1385,3 +1385,9 @@ table.record-book-entry + table.record-book-entry {
     color: black; }
     .apple_pagination a:hover, .apple_pagination a:focus {
       text-decoration: underline; }
+
+table.leaderboard {
+  table-layout: fixed;
+  white-space: nowrap;
+  overflow: hidden;
+}
