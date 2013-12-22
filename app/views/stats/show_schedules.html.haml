@@ -48,9 +48,4 @@
           = render "boxscore_summary", game: game, show_week: true
   = javascript_include_tag "activatables"
   %script{type: "text/javascript"}
-    activatables('page', [
-    - (1..@games.count).each do |i|
-      - if i == @games.count
-        = "'wk#{(i + 64).chr}']);"
-      -else
-        = "'wk#{(i + 64).chr}',"
+    activatables('page', #{@week_links.to_s.html_safe})

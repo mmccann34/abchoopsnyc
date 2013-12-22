@@ -89,8 +89,18 @@ class StatsController < ActionController::Base
       @league = League.find_by_id(params[:league])
       if @season && @league
         @show_all = false
-          @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
-          @teams = @league.teams(@season)
+        @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
+        @teams = @league.teams(@season)
+        
+        default_week = @games.keys.select{|week| week.start_date >= 3.days.ago.to_datetime()}.first || @games.keys.last
+        @week_links = []
+        @games.keys.each_with_index do |week, i|
+          if week == default_week
+            @week_links.unshift('wk' + (i + 65).chr)
+          else
+            @week_links << ('wk' + (i + 65).chr)
+          end
+        end
       end
     end
   end
