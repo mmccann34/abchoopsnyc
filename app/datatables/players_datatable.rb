@@ -22,6 +22,7 @@ private
         player_add_form(player),
         player.first_name,
         player.last_name,
+        player.display_name,
         player.last_team.try(:name),
         player.number,
         player.position,
