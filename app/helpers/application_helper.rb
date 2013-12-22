@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def title(page_title)
+    content_for(:title) { "#{page_title} - " }
+  end
+  
   def total_stat_lines(stat_lines)
     stat_totals = stat_lines.inject(StatLine.new) do |total, stat_line|
       total.fgm += stat_line.fgm
