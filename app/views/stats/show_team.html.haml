@@ -4,7 +4,7 @@
   %form{action: "#{stats_team_path(@team)}", method: "get", style: 'font-weight:bold;'}
     Season:
     =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-%p Seasons: #{@team.season_count}
+//%p Seasons: #{@team.season_count}
 -if not @team_spot.team_photo_url.blank?
   %img.teampic{alt:"", src:"#{@team_spot.team_photo_url}"}
   %p &nbsp;
