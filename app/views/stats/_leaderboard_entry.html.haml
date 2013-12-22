@@ -8,9 +8,9 @@
     -entries.each_with_index do |entry, i|
       -if not entry[row].nil?
         %td
-          %a{href:stats_player_path(entry[row].id)} #{entry[row].first_name} #{entry[row].last_name[0] + '.' if not entry[row].last_name.blank?}
+          %a{href:stats_player_path(entry[row].slug)} #{entry[row].first_name} #{entry[row].last_name[0] + '.' if not entry[row].last_name.blank?}
         %td
-          %a{href:stats_team_path(entry[row].team_id)}= entry[row].team_name
+          %a{href:stats_team_path(entry[row].team_slug)}= entry[row].team_name
         %td= number_with_precision(entry[row].total, precision: precisions[i])
       -else
         %td &nbsp;

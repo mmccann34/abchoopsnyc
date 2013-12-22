@@ -1,4 +1,7 @@
 class Player < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job, :about, :birthday
   store :social_media_urls, accessors: [ "facebook", "twitter" ]
   validate :first_or_last
