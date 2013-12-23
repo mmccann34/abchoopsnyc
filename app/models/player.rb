@@ -2,7 +2,7 @@ class Player < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job, :about, :birthday
+  attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job, :about, :birthday, :main_team_id, :last_number
   store :social_media_urls, accessors: [ "facebook", "twitter" ]
   validate :first_or_last
 
@@ -14,6 +14,7 @@ class Player < ActiveRecord::Base
   has_many :career_highs
   has_many :player_stats
   has_many :abc_plus_scores
+  belongs_to :main_team, class_name: "Team", foreign_key: "main_team_id"
 
   before_validation do
     self.key = key.strip if key
@@ -40,16 +41,14 @@ class Player < ActiveRecord::Base
     spots ? spots.map(&:team) : []
   end
   
-  def main_team
-    self.roster_spots.joins(:season).select("team_id").group("team_id").order("count(*) desc, max(seasons.number) desc").first.try(:team)
-  end
-  
   def team_by_season(season)
     roster_spots.where(season_id: season).first.try(:team)
   end
   
-  def last_number
-    self.roster_spots.joins(:season).order("seasons.number desc").first.try(:jersey_number)
+  def update_roster_info
+    main_id = self.roster_spots.joins(:season).select("team_id").group("team_id").order("count(*) desc, max(seasons.number) desc").first.try(:team_id) 
+    last_num = self.roster_spots.joins(:season).order("seasons.number desc").first.try(:jersey_number)
+    self.update_attributes(main_team_id: main_id, last_number: last_num)
   end
   
   def season_count

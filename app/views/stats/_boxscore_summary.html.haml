@@ -21,28 +21,34 @@
     %td{width:"1"} #{"&#8226;".html_safe if game.home_team.id == game.winner}
     %td.team
       %a{href: stats_team_path(game.home_team)} #{game.home_team.name}
-    %td.half= game.home_score_first
-    %td.half= game.home_score_second
-    - if ot_one
-      %td.half= game.home_score_ot_one
-    - if ot_two
-      %td.half= game.home_score_ot_two
-    - if ot_three
-      %td.half= game.home_score_ot_three
-    %td.total= game.home_score
+    -if not game.forfeit
+      %td.half= game.home_score_first
+      %td.half= game.home_score_second
+      - if ot_one
+        %td.half= game.home_score_ot_one
+      - if ot_two
+        %td.half= game.home_score_ot_two
+      - if ot_three
+        %td.half= game.home_score_ot_three
+      %td.total= game.home_score
+    -else
+      %td{colspan: "3", style:"text-align:center;"} --- FORFEIT ---
   %tr
     %td{width:"1"} #{"&#8226;".html_safe if game.away_team.id == game.winner}
     %td.team 
       %a{href: stats_team_path(game.away_team)} #{game.away_team.name}
-    %td.half= game.away_score_first
-    %td.half= game.away_score_second
-    - if ot_one
-      %td.half= game.away_score_ot_one
-    - if ot_two
-      %td.half= game.away_score_ot_two
-    - if ot_three
-      %td.half= game.away_score_ot_three
-    %td.total= game.away_score
+    -if not game.forfeit
+      %td.half= game.away_score_first
+      %td.half= game.away_score_second
+      - if ot_one
+        %td.half= game.away_score_ot_one
+      - if ot_two
+        %td.half= game.away_score_ot_two
+      - if ot_three
+        %td.half= game.away_score_ot_three
+      %td.total= game.away_score
+    -else
+      %td{colspan: "3", style: "text-align:center; font-style:italic"}= game.home_team.id == game.winner ? "#{game.away_team.name} forfeits to #{game.home_team.name}" : "#{game.home_team.name} forfeits to #{game.away_team.name}"
   %tr
     %td &nbsp;
     %td.team(style="font-weight:normal;font-size:12px;")= "Played at the #{game.location.try(:name)}"

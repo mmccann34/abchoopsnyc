@@ -4,4 +4,6 @@ class RosterSpot < ActiveRecord::Base
   belongs_to :player
   belongs_to :team
   belongs_to :season
+  
+  after_save { self.player.update_roster_info }
 end

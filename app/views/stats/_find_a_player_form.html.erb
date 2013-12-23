@@ -30,5 +30,6 @@
     });
     
     $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoopsnyc.com/players/' + datum.slug; });
+    $('input#playerSearch').on('typeahead:initialized', function() { console.log("players init"); });
   });
 </script>
