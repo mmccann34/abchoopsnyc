@@ -34,7 +34,11 @@
           %td{ style:"padding: 5px", align:"right" }
             %h2 Team:
           %td{ style:"padding: 5px" }
-            %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_team) }= @player.last_team.name
+            -if @player.last_teams.any?
+              %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_teams[0]) }= @player.last_teams[0].name 
+              -if @player.last_teams.count == 2
+                \/
+                %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_teams[1]) }= @player.last_teams[1].name
       -if not @player.hometown.blank?
         %tr
           %td{ style:"padding: 5px", align:"right" }

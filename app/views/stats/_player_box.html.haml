@@ -11,10 +11,10 @@
   .playerteamContainer
     %p.playerteam
       -if @player.last_teams.any?
-        %a{class: "no_underline", href: stats_team_path(@player.last_teams[0])}= @player.last_teams[0].name
+        %a{class: "no_underline", href: stats_team_path(@player.last_teams[0])}>= @player.last_teams[0].name
         -if @player.last_teams.count == 2
           \/
-          %a{class: "no_underline", href: stats_team_path(@player.last_teams[1])}= @player.last_teams[1].name
+          %a{class: "no_underline", href: stats_team_path(@player.last_teams[1])}>= @player.last_teams[1].name
   .bioInfoContainer
     %table{cellpadding:"1", cellspacing:"0", border:"0", style:"padding:0px; margin-top:6px; margin-left:5px;"}
       -if not @player.hometown.blank?
