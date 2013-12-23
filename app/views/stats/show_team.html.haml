@@ -33,10 +33,12 @@
         - if game.winner
           %td{ class: game.winner == @team.id ? "win" : "loss" }= game.winner == @team.id ? "W" : "L"
           - if !game.forfeit
-            %td= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+            %td
+              %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
           - else
             %td
-              %em Forfeit
+              %a{href: stats_boxscore_path(game)}
+                %em Forfeit
         - else
           %td
           %td
