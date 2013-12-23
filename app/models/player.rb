@@ -38,7 +38,7 @@ class Player < ActiveRecord::Base
   
   def last_teams
     spots = self.roster_spots.joins(:season).order("seasons.number desc").group_by{|rs| rs.season_id}.first.try(:[], 1)
-    spots ? spots.map(&:team) : []
+    spots ? spots.map(&:team).sort_by{|t| t.name} : []
   end
   
   def team_by_season(season)
