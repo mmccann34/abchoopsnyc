@@ -76,7 +76,17 @@
               overall value in ABC Hoops NYC.
               %a{href:"http://www.abchoopsnyc.com/ABCplus.pdf", target:"_blank"} Read More
         %td.lline{colspan:"5", style:"font-size:18px; line-height:18px;"}
-          %b= number_with_precision(@player.abc_plus, precision: 2, strip_insignificant_zeros: true)
+          %p.tooltip.n.abc{style:"margin:0px;"}
+            %b= number_with_precision(@player.abc_plus, precision: 2, strip_insignificant_zeros: true)
+            %span
+              %img{src:""}
+              "Rookie" : 0.00 - 2.99
+              %br
+              "All-star" : 3.00 - 5.99
+              %br
+              "Superstar" : 6.00 - 10.99
+              %br
+              "Hall of Fame" : 11:00 - infinity
   %div
     -@player.social_media_urls.take(4).each_with_index do |(type, value), i|
       %div{class: i == 0 ? "socmedfirst2" : "socmednext2"}
