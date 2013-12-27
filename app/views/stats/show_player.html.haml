@@ -57,6 +57,30 @@
             %h2 Day Job:
           %td{ style:"padding: 5px" }
             %span{ style:"line-height:130%;font-size:13px;" }= @player.day_job
+      -if not @player.league_love.blank?
+        %tr
+          %td{ align:"right", style:"padding: 5px" }
+            %h2 What you love about the league:
+          %td{ style:"padding: 5px" }
+            %span{ style:"line-height:130%;font-size:13px;" }= @player.league_love
+      -if not @player.little_known_fact.blank?
+        %tr
+          %td{ align:"right", style:"padding: 5px" }
+            %h2 Little known fact:
+          %td{ style:"padding: 5px" }
+            %span{ style:"line-height:130%;font-size:13px;" }= @player.little_known_fact
+      -if not @player.did_you_know.blank?
+        %tr
+          %td{ align:"right", style:"padding: 5px" }
+            %h2 Did you know:
+          %td{ style:"padding: 5px" }
+            %span{ style:"line-height:130%;font-size:13px;" }= @player.did_you_know
+      -if not @player.one_last_thing.blank?
+        %tr
+          %td{ align:"right", style:"padding: 5px" }
+            %h2 One last thing:
+          %td{ style:"padding: 5px" }
+            %span{ style:"line-height:130%;font-size:13px;" }= @player.one_last_thing
       -if not @player.about.blank?
         %tr
           %td{ align:"right", style:"padding: 5px" }

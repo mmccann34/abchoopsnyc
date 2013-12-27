@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131223065551) do
+ActiveRecord::Schema.define(:version => 20131227015312) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -168,6 +168,10 @@ ActiveRecord::Schema.define(:version => 20131223065551) do
     t.string   "slug"
     t.integer  "main_team_id"
     t.integer  "last_number"
+    t.string   "league_love"
+    t.string   "little_known_fact"
+    t.string   "did_you_know"
+    t.string   "one_last_thing"
   end
 
   add_index "players", ["slug"], :name => "index_players_on_slug"

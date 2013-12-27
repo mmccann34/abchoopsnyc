@@ -14,6 +14,10 @@
     <%= f.text_field :hometown, placeholder: 'Hometown' %>
     <input name="player[birthday]" type="text" data-behavior="datepicker" placeholder="Birthday" value="<%= @new_player.birthday.strftime('%m/%d/%Y') if @new_player.birthday %>">
     <%= f.text_field :day_job, placeholder: 'Day Job' %>
+    <%= f.text_field :league_love, placeholder: 'What you love about the league' %>
+    <%= f.text_field :little_known_fact, placeholder: 'Little Known Fact' %>
+    <%= f.text_field :did_you_know, placeholder: 'Did You Know' %>
+    <%= f.text_field :one_last_thing, placeholder: 'One Last Thing' %>
     <%= f.text_area :about, placeholder: 'More About', rows: 3 %>
     <%= f.text_field :profile_pic_url, placeholder: 'Profile Pic URL' %>
     <%= f.text_field :profile_pic_thumb_url, placeholder: 'Profile Pic Thumb URL' %>
