@@ -4,10 +4,10 @@
   .headshotContainer2
     -if not @player.profile_pic_url.blank?
       .headshotBG2
-        .headshot2{style:"background: url('#{@player.profile_pic_url}') no-repeat;"}
+        .headshot2{style:"background: url('#{@player.profile_pic_url}') no-repeat center 0;"}
     -else
       .numbersBG2
-        %span.playernumbernopic2{style:"margin-left:#{@player.last_number.to_s.length == 1 ? 35 : -40}px;"}= @player.last_number
+        %span.playernumbernopic2{style:"margin-left:#{@player.last_number.to_s.length == 1 ? 120 : 45}px;"}= @player.last_number
   %div{style:"position:relative; float:left; width:200px;"}
     %p.playerteam{style:@player.last_teams.count == 2 ? "font-size:18px;" : ""}
       -if @player.last_teams.any?
