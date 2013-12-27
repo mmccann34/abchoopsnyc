@@ -1187,7 +1187,12 @@ ul.activeSeasonList li {display:list-item !important;margin:0;padding:0;line-hei
   //margin-left: 50px;
 }
 
-.numbersBG {background: url('/assets/playerprof_nopic_halfball.png') no-repeat;margin-top: 0px;height:200px;margin-left: 50px;}
+.numbersBG {
+  background: url('/assets/playerprof_nopic_halfball.png') no-repeat;
+  background-position: right;
+  margin-top: 0px;
+  height:200px;
+}
 
 .headshot {
   margin-top: 0px;
@@ -1205,17 +1210,23 @@ ul.activeSeasonList li {display:list-item !important;margin:0;padding:0;line-hei
 .headshotBG2 {
   background: url('/assets/playerprof_nopic_halfball23.png') no-repeat;
   margin-top:0px;
-  background-position: -40px;
+  background-position: right;
   height:175px;
-  margin-left: 90px;}
+  //margin-left: 90px;
+}
 .numbersBG2 {
   background: url('/assets/playerprof_nopic_halfball.png') no-repeat;
+  background-position: right;
   margin-top:0px;
-  background-position: -40px;
   height:175px;
-  margin-left: 90px;}
+//  margin-left: 90px;
+}
 .highlightContainer2 {position:relative;float:left;width:250px;margin-top:10px;margin-left:65px;}
-.headshot2 {margin-top: 0px;height:175px;margin-left: -90px;}
+.headshot2 {
+  margin-top: 0px;
+  height:175px;
+  margin-left: -30px;
+}
 
 .newsContainer {width:730px;position:relative;float:left;margin-left:20px;margin-right:20px;margin-top:20px;}
 
