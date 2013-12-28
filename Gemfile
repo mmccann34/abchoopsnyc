@@ -23,7 +23,7 @@ gem "haml"
 gem "linguistics", "~> 2.0.2"
 gem "time_diff", "~> 0.3.0"
 gem "will_paginate", "~> 3.0.5"
-gem "gon"
+gem "gon", "~> 4.1.1"
 gem 'newrelic_rpm'
 gem 'will_paginate', '~> 3.0.5'
 gem 'friendly_id'
