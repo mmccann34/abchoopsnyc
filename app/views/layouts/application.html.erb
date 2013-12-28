@@ -14,7 +14,7 @@
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= jquery_include_tag :google %>
     <%= csrf_meta_tags %>
-    <%= include_gon %>
+    <%= include_gon(init: true) %>
     <%= javascript_include_tag "application" %>
   </head>
   <body style="padding-top:40px;">
