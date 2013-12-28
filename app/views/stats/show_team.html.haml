@@ -20,28 +20,34 @@
       %td Opponent
       %td Location
       %td{ colspan: "2" } Result
-    - @schedule.sort_by {|g| g.date}.each do |game|
+    -@weeks.each do |week|
+      -game = @games[week.id]
       %tr{class: "#{cycle('odd2', 'even2')}"}
-        %td
-          %a{href: stats_boxscore_path(game)}= game.week_name ? game.week_name : "N/A"
-        %td= game.date.to_s(:short_ordinal)
-        %td= game.time.strftime("%l:%M%p")
-        %td
-          -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
-          %a{href: stats_team_path(opponent)}= opponent.name
-        %td= game.location.name
-        - if game.winner
-          %td{ class: game.winner == @team.id ? "win" : "loss" }= game.winner == @team.id ? "W" : "L"
-          - if !game.forfeit
-            %td
-              %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+        -if not game
+          %td= week.name.blank? ? "N/A" : week.name
+          %td{colspan:"6"}
+            %em BYE
+        -else
+          %td
+            %a{href: stats_boxscore_path(game)}= week.name.blank? ? "N/A" : week.name
+          %td= game.date.to_s(:short_ordinal)
+          %td= game.time.strftime("%l:%M%p")
+          %td
+            -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
+            %a{href: stats_team_path(opponent)}= opponent.name
+          %td= game.location.name
+          - if game.winner
+            %td{ class: game.winner == @team.id ? "win" : "loss" }= game.winner == @team.id ? "W" : "L"
+            - if !game.forfeit
+              %td
+                %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+            - else
+              %td
+                %a{href: stats_boxscore_path(game)}
+                  %em Forfeit
           - else
             %td
-              %a{href: stats_boxscore_path(game)}
-                %em Forfeit
-        - else
-          %td
-          %td
+            %td
 %p.ls &nbsp;
 %a#stats{name: "stats"}
 %h1 Team Stats

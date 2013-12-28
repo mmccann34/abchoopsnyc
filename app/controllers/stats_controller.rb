@@ -73,7 +73,8 @@ class StatsController < ActionController::Base
     @current_season = params[:season] ? Season.find(params[:season]) : @seasons.first
     @team_spot = @team.team_spots.where(season_id: @current_season).first
     
-    @schedule = @team.games(@current_season)
+    @weeks = DateRange.where(season_id: @current_season).where(league_id: @team_spot.league_id).order(:start_date)
+    @games = @team.games(@current_season).index_by{|g|g.week.try(:id) || -1}
     @roster = @team.roster(@current_season)
     
     @per_game_player_stats = @team.player_stats.where(stat_type: 'season_average').where(season_id: @current_season).index_by(&:player_id) #@team.per_game_player_stats(@current_season)
