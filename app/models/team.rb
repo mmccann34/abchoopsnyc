@@ -52,7 +52,7 @@ class Team < ActiveRecord::Base
           type = "Won"
           wins += 1
         elsif game.winner == -1
-          type = "Tie"
+          type = "Tied"
           ties += 1
         else
           type = "Lost"
