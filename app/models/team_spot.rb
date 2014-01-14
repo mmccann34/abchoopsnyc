@@ -1,5 +1,5 @@
 class TeamSpot < ActiveRecord::Base
-  attr_accessible :season_id, :team_id, :division_id, :league_id, :team_photo_url, :wins, :losses, :points_for, :points_against, :streak
+  attr_accessible :season_id, :team_id, :division_id, :league_id, :team_photo_url, :wins, :ties, :losses, :points_for, :points_against, :streak
   
   belongs_to :team
   belongs_to :division
@@ -21,7 +21,7 @@ class TeamSpot < ActiveRecord::Base
   end
   
   def record
-    "#{self.wins}-#{self.losses}"
+    "#{self.wins}-#{self.losses}" + (ties && ties != 0 ? "-#{self.ties}" : "")
   end
   
   def point_diff
