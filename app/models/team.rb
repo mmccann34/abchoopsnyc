@@ -44,13 +44,16 @@ class Team < ActiveRecord::Base
   
   def update_record(season)
     self.team_spots.where(season_id: season).each do |ts|
-      wins, losses, points_for, points_against, streak = 0, 0, 0, 0, 0
+      wins, losses, ties, points_for, points_against, streak = 0, 0, 0, 0, 0, 0
       type = nil
       last_type = nil
       self.played_games(season).where(league_id: ts.league_id).order("date").each do |game|
         if game.winner == self.id
           type = "Won"
           wins += 1
+        elsif game.winner == -1
+          type = "Tie"
+          ties += 1
         else
           type = "Lost"
           losses += 1
@@ -63,7 +66,7 @@ class Team < ActiveRecord::Base
         last_type = type
       end
       
-      ts.update_attributes({wins: wins, losses: losses, points_for: points_for, points_against: points_against, streak: "#{type} #{streak}"})
+      ts.update_attributes({wins: wins, ties: ties, losses: losses, points_for: points_for, points_against: points_against, streak: "#{type} #{streak}"})
     end
   end
   

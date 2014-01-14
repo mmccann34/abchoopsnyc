@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131227015312) do
+ActiveRecord::Schema.define(:version => 20140114060659) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(:version => 20131227015312) do
     t.integer  "points_for"
     t.integer  "points_against"
     t.string   "streak"
+    t.integer  "ties"
   end
 
   add_index "team_spots", ["season_id"], :name => "index_team_spots_on_season_id"
