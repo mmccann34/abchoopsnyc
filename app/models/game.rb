@@ -32,6 +32,11 @@ class Game < ActiveRecord::Base
       end
     end
     
+    if !self.new_record? && (self.home_team_id_changed? || self.away_team_id_changed?)
+      self.stat_lines.where('team_id not in (?)', [home_team_id, away_team_id]).destroy_all
+    end
+      
+    
     #Figure out league/division
     #home_team_spot = self.home_team.team_spots.where(season_id: self.season_id).first
     #away_team_spot = self.away_team.team_spots.where(season_id: self.season_id).first

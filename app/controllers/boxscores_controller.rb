@@ -30,7 +30,7 @@ class BoxscoresController < ApplicationController
         params[:stat_lines].each do |stat_line_id, stat_line_params|
           if !stat_line_id.starts_with?'sub'
             stat = StatLine.find_by_id(stat_line_id)
-            if stat.player_id != -1 && stat_line_params[:dnp] == "0"
+            if stat.player_id != -1 && (stat_line_params[:dnp] == "0" || !stat.dnp)
               stats_players << stat.player
             end
           else
