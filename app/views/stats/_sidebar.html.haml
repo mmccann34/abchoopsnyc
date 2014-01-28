@@ -14,7 +14,7 @@
           - if division
             %tr
               %td.divisionName{ colspan: "3" } #{division.name} 
-          - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), -ts.point_diff]}.reverse!.each do |ts|
+          - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
             %tr
               %td{width:"1px"} &nbsp;
               %td
