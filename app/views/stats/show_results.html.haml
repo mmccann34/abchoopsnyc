@@ -31,7 +31,7 @@
         -if not division.nil?
           %tr.even2
             %td.team{colspan:"7"}= division.name
-        -team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -ts.losses]}.reverse!.each do |ts|
+        -team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -ts.losses, -ts.point_diff]}.reverse!.each do |ts|
           %tr{class: "#{cycle('odd2', 'even2')}"}
             %td.team
               %a{href:stats_team_path(ts.team)}= ts.team.name
