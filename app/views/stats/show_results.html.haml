@@ -12,6 +12,8 @@
     At ABC Hoops NYC, stats are very important to us.  We have three dedicated stat keepers at each game to make sure everything is recorded as accurately as possible.  For the each weeks' scores, go to the 
     %a{href:schedules_path(season:@season.id, league:@league.id)} Schedule Page
   %h3 &nbsp;
+  -if lookup_context.template_exists?("bracket_#{@league.name.downcase}_#{@season.id}", "stats", true)
+    =render "bracket_#{@league.name.downcase}_#{@season.id}"
   %h1
     %a#standings{name:"standings"}
     Standings
