@@ -10,6 +10,8 @@ Abchoops::Application.routes.draw do
     resources :players do
       collection do
         get 'datatables' => "players#datatables", as: "datatables"
+        get 'merge' => "players#merge", as: "merge"
+        put 'merge' => "players#merge_players"
       end
     end
     

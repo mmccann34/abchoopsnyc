@@ -44,11 +44,13 @@ class PlayersController < ApplicationController
   
   def set_social_media
     @player.social_media_urls.clear
-   
-    params[:social_media_values].each do |index, value|
-      if not value.blank?
-        type = params[:social_media][index]
-        @player.social_media_urls[type] = value
+
+    if params[:social_media_values]
+      params[:social_media_values].each do |index, value|
+        if not value.blank?
+          type = params[:social_media][index]
+          @player.social_media_urls[type] = value
+        end
       end
     end
   end
@@ -67,5 +69,19 @@ class PlayersController < ApplicationController
     if !@player
       redirect_to players_url, flash: { error: "Player does not exist." }
     end
+  end
+  
+  def merge
+    @players = Player.order("last_name, first_name").all
+  end
+  
+  def merge_players
+    @player = Player.find(params[:player])
+    @duplicate = Player.find(params[:duplicate])
+    @duplicate.stat_lines.update_all(player_id: @player.id)
+    @duplicate.roster_spots.update_all(player_id: @player.id)
+    @duplicate.destroy
+    
+    redirect_to merge_players_url, notice: "Duplicate has been successfully merged into Player."
   end
 end
