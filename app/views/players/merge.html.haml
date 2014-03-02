@@ -1,10 +1,10 @@
 =form_tag("#{merge_players_path}", method: :put, style: "margin: 20px auto 0 auto; width: 350px;") do |f|
   .player
     %span Player:
-    =select_tag "player", options_from_collection_for_select(@players, "id", "merge_name"), class: 'input-block-level'
+    =select_tag "player", options_from_collection_for_select(@players, "id", "name"), class: 'input-block-level'
   .dupe
     %span Duplicate:
-    =select_tag "duplicate", options_from_collection_for_select(@players, "id", "merge_name"), class: 'input-block-level'
+    =select_tag "duplicate", options_from_collection_for_select(@players, "id", "name"), class: 'input-block-level'
   %br
   .info{style:"font-size: 12px;"} Clicking Merge will assign all stat lines and roster spots from the Duplicate to the Player, and delete the Duplicate.
   %br
