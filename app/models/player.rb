@@ -28,7 +28,7 @@ class Player < ActiveRecord::Base
   end
   
   def merge_name
-    "#{name} (#{last_team.try(:name)})"
+    "#{display_name.blank? ? "#{last_name}, #{first_name}" : display_name} (#{last_team.try(:name)})"
   end
 
   def height
