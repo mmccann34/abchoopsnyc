@@ -69,12 +69,12 @@ class StatsController < ActionController::Base
       redirect_to 'http://www.abchoopsnyc.com' and return
     end
 
-    @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
+    @seasons = @team.team_spots.joins(:season).where("seasons.id <= ?", Season.current.id).order("seasons.number desc").map(&:season).uniq
     @current_season = params[:season] ? Season.find(params[:season]) : @seasons.first
     @team_spot = @team.team_spots.where(season_id: @current_season).first
     
     latest_game = Game.where(season_id: @current_season).where(league_id: @team_spot.league_id).order("date desc").first
-    @weeks = DateRange.where(season_id: @current_season).where(league_id: @team_spot.league_id).where("start_date <= ?", latest_game.date).order(:start_date)
+    @weeks = DateRange.where(season_id: @current_season).where(league_id: @team_spot.league_id).where("start_date <= ?", latest_game.try(:date)).order(:start_date)
     @games = @team.games(@current_season).index_by{|g|g.week.try(:id) || -1}
     @roster = @team.roster(@current_season)
     
