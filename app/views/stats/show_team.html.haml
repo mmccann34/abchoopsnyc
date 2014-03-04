@@ -21,34 +21,34 @@
       %td Location
       %td{ colspan: "2" } Result
     -@weeks.each do |week|
-      -game = @games[week.id]
-      %tr{class: "#{cycle('odd2', 'even2')}"}
-        -if not game
-          %td= week.name.blank? ? "N/A" : week.name
-          %td{colspan:"6"}
-            %em BYE
-        -else
-          %td
-            %a{href: stats_boxscore_path(game)}= week.name.blank? ? "N/A" : week.name
-          %td= game.date.to_s(:short_ordinal)
-          %td= game.time.strftime("%l:%M%p")
-          %td
-            -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
-            %a{href: stats_team_path(opponent)}= opponent.name
-          %td= game.location.name
-          - if game.winner
-            - result = game.winner == -1 ? "T" : (game.winner == @team.id ? "W" : "L")
-            %td{ class: result == "T" ? "" : (result == "W" ? "win" : "loss") }= result
-            - if !game.forfeit
-              %td
-                %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+      -@games.select{|g| g.week.id == week.id}.each do |game|
+        %tr{class: "#{cycle('odd2', 'even2')}"}
+          -if not game
+            %td= week.name.blank? ? "N/A" : week.name
+            %td{colspan:"6"}
+              %em BYE
+          -else
+            %td
+              %a{href: stats_boxscore_path(game)}= week.name.blank? ? "N/A" : week.name
+            %td= game.date.to_s(:short_ordinal)
+            %td= game.time.strftime("%l:%M%p")
+            %td
+              -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
+              %a{href: stats_team_path(opponent)}= opponent.name
+            %td= game.location.name
+            - if game.winner
+              - result = game.winner == -1 ? "T" : (game.winner == @team.id ? "W" : "L")
+              %td{ class: result == "T" ? "" : (result == "W" ? "win" : "loss") }= result
+              - if !game.forfeit
+                %td
+                  %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+              - else
+                %td
+                  %a{href: stats_boxscore_path(game)}
+                    %em Forfeit
             - else
               %td
-                %a{href: stats_boxscore_path(game)}
-                  %em Forfeit
-          - else
-            %td
-            %td
+              %td
 %p.ls &nbsp;
 %a#stats{name: "stats"}
 %h1 Team Stats
