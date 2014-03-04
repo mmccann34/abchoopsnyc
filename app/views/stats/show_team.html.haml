@@ -21,13 +21,15 @@
       %td Location
       %td{ colspan: "2" } Result
     -@weeks.each do |week|
-      -@games.select{|g| g.week.id == week.id}.each do |game|
+      -games = @games.select{|g| g.week.id == week.id}
+      -if games.empty?
         %tr{class: "#{cycle('odd2', 'even2')}"}
-          -if not game
-            %td= week.name.blank? ? "N/A" : week.name
-            %td{colspan:"6"}
-              %em BYE
-          -else
+          %td= week.name.blank? ? "N/A" : week.name
+          %td{colspan:"6"}
+            %em BYE
+      -else
+        -games.sort_by{|g| g.date}.each do |game|
+          %tr{class: "#{cycle('odd2', 'even2')}"}
             %td
               %a{href: stats_boxscore_path(game)}= week.name.blank? ? "N/A" : week.name
             %td= game.date.to_s(:short_ordinal)
