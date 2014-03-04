@@ -18,7 +18,7 @@
           %br>
           %span= prev_game.away_team.abbreviation
     %td
-      %i #{@game.week_name} - #{@game.date.strftime("%A %-m/%-d/%y")} - #{@game.time.strftime("%l:%M%p")}
+      %i #{@game.boxscore_week_name} - #{@game.date.strftime("%A %-m/%-d/%y")} - #{@game.time.strftime("%l:%M%p")}
     -next_game = @game.next_game
     %td{rowspan:"4", width:"50"}
       -if next_game
