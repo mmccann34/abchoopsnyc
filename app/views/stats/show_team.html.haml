@@ -31,7 +31,7 @@
         -games.sort_by{|g| g.date}.each do |game|
           %tr{class: "#{cycle('odd2', 'even2')}"}
             %td
-              %a{href: stats_boxscore_path(game)}= game.boxscore_week_name
+              %a{href: stats_boxscore_path(game)}= @team_spot.division ? game.boxscore_week_name.gsub("#{@team_spot.division.name} - ", "") : game.boxscore_week_name
             %td= game.date.to_s(:short_ordinal)
             %td= game.time.strftime("%l:%M%p")
             %td
