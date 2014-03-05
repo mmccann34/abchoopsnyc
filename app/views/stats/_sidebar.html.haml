@@ -1,4 +1,4 @@
-- teams = Season.current.team_spots.group_by { |ts| ts.league }
+- teams = Season.current.team_spots.where("league_id is not null").group_by { |ts| ts.league }
 %p.standingsHead
   Standings:
   - if teams.count > 1
