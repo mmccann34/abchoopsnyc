@@ -1,9 +1,9 @@
 <h1><%="Active Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
 <br />
-<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter13.png');">
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring14.png');">
   <ul id="threedaysched">
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=16&league=3"%> style="height:144px;">
-      <% if mode == "schedule" %>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=17&league=3"%> style="height:144px;">
+      <% if mode == "schedules" %>
         <p class="activeSeason">Weekday</p>
       <% else %>
         <p class="activeSeasonResults">Weekday</p>
@@ -14,8 +14,8 @@
         </ul>
       <% end %>
       </a></li>
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=16&league=2"%> style="height:144px;">
-      <% if mode == "schedule" %>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=17&league=2"%> style="height:144px;">
+      <% if mode == "schedules" %>
         <p class="activeSeason">Saturday</p>
       <% else %>
         <p class="activeSeasonResults">Saturday</p>
@@ -26,8 +26,8 @@
         </ul>
       <% end %>
       </a></li>
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=16&league=1"%> style="height:144px;">
-      <% if mode == "schedule" %>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=17&league=1"%> style="height:144px;">
+      <% if mode == "schedules" %>
         <p class="activeSeason">Sunday</p>
       <% else %>
         <p class="activeSeasonResults">Sunday</p>
@@ -42,6 +42,37 @@
 </div>
 <p>&nbsp;</p>
 <p class="priorSeasonBar"><%="Prior Seasons' " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></p>
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter13b.png');">
+  <ul id="threedaysched">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=16&league=3"%> style="height:144px;">
+      <% if mode == "schedules" %>
+        <p class="activeSeason">Weekday</p>
+      <% else %>
+        <p class="activeSeasonResults">Weekday</p>
+        <ul class="activeSeasonList">
+          <li>Full Standings</li>
+          <li>Stat Leaderboard</li>
+          <li>Team Stats</li>
+        </ul>
+      <% end %>
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=16&league=2"%> style="height:144px;"> Saturday
+      <p class="champs"><b><i>Bad Boys Champ</i></b><br />
+        For the Love of Buckets<br />
+        <br />
+        <b><i>Showtime Champ</i></b><br />
+        Holy Day Detox</p>
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=16&league=1"%> style="height:144px;"> Sunday
+      <p class="champs"><b><i>Black Mamba Champ</i></b><br />
+        Grand Life<br />
+        <b><i>Larry Legend Champ</i></b><br />
+        Wrecking Ballers<br />
+        <b><i>Uncle Drew Champ</i></b><br />
+        TLC Deez</p>
+      </a></li>
+  </ul>
+</div>
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall13.png');">
   <ul id="twodaysched">
     <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=15&league=2"%> style="height:144px;"> Saturday
