@@ -82,6 +82,8 @@ class PlayersController < ApplicationController
     @duplicate.roster_spots.update_all(player_id: @player.id)
     @duplicate.destroy
     
+    @player.recalc_all_stats
+    
     redirect_to merge_players_url, notice: "Duplicate has been successfully merged into Player."
   end
 end
