@@ -21,7 +21,7 @@
       %td Location
       %td{ colspan: "2" } Result
     -@weeks.each do |week|
-      -games = @games.select{|g| g.week.id == week.id}
+      -games = @games.select{|g| g.week.try(:id) == week.id}
       -if games.empty? && !week.playoffs
         %tr{class: "#{cycle('odd2', 'even2')}"}
           %td= week.name.blank? ? "N/A" : week.name
