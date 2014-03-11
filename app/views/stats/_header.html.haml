@@ -49,14 +49,14 @@
         %li
           %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
     %li
-      %a{href:results_path} Stats
+      %a{href:results_url} Stats
       %ul.statsmenu
         %li
-          %a{href:results_path(season: Season.current.id, league: 3)} Weekdays
+          %a{href:results_url(season: Season.current.id, league: 3)} Weekdays
         %li
-          %a{href:results_path(season: Season.current.id, league: 2)} Saturday
+          %a{href:results_url(season: Season.current.id, league: 2)} Saturday
         %li
-          %a{href:results_path(season: Season.current.id, league: 1)} Sunday
+          %a{href:results_url(season: Season.current.id, league: 1)} Sunday
     %li
       %a{href:"/record-books"} Record Books
 #signupblock
