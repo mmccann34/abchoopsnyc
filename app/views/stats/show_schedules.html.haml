@@ -41,11 +41,14 @@
       %li
         %a.weekscores_wklink{href: "#wk#{(i + 65).chr}"}
           %h1.weekscores_wkname= week_name
-  - @games.each_with_index do |(week, games), i|
+  - @games.each_with_index do |(week, week_games), i|
     .scores{id: "wk#{(i + 65).chr}"}
-      - games.each do |game|
-        %p.sep
-          = render "boxscore_summary", game: game, show_week: true
+      - games_by_location = week_games.group_by {|g| g.location.name}
+      - games_by_location.each do |location, games|
+        %h1= location
+        - games.each do |game|
+          %p.sep
+            = render "boxscore_summary", game: game, show_week: true
   = javascript_include_tag "activatables"
   %script{type: "text/javascript"}
     activatables('page', #{@week_links.to_s.html_safe})
