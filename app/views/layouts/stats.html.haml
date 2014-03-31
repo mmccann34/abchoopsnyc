@@ -6,7 +6,8 @@
     %meta{name:"keywords", content:"basketball, basketball league, basketball league new york, basketball league nyc, basketball league manhattan, recreational basketball league, basketball league signup"}
     = stylesheet_link_tag  "stats", :media => "all"
     = jquery_include_tag :google
-    = javascript_include_tag "application"
+    //= javascript_include_tag "application"
+    = javascript_include_tag "stats"
     = csrf_meta_tags
     %link(rel="shortcut icon" type="image/ico" href="/assets/favicon.ico")
     =render "layouts/ga" if Rails.env.production?
