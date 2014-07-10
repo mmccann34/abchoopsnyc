@@ -22,7 +22,16 @@
       %th{ style: 'width:40px;' }
       %th{ style: 'width:70px;' }
       %th Name
+      %th # of Teams
+      %th # of Games
   %tbody
+    %tr
+      %td
+      %td
+      %td
+      %td{ style: 'font-weight: bold;' } Totals
+      %td{ style: 'font-weight: bold;' }= TeamSpot.count
+      %td{ style: 'font-weight: bold;' }= Game.count
     - for season in @seasons
       %tr
         %td= link_to 'Edit', edit_season_path(season), class: 'btn btn-primary btn-mini'
@@ -32,3 +41,5 @@
           %td= "#{season.number} - #{season.name} (Current)"
         - else
           %td= "#{season.number} - #{season.name}"
+        %td= season.teams.count
+        %td= season.games.count
