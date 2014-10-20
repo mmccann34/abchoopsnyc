@@ -72,7 +72,7 @@ class PlayersController < ApplicationController
   end
   
   def merge
-    @players = Player.all.sort_by {|p| p.name }
+    @players = Player.first(10).sort_by {|p| p.name }
   end
   
   def merge_players
