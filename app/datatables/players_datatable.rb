@@ -1,5 +1,5 @@
 class PlayersDatatable
-  delegate :params, :form_tag, :hidden_field_tag, :submit_tag, :text_field_tag, :button_to, :link_to, to: :@view
+  delegate :params, :form_tag, :hidden_field_tag, :submit_tag, :text_field_tag, :button_to, :link_to, :radio_button_tag, to: :@view
 
   def initialize(view)
     @view = view
@@ -41,6 +41,10 @@ private
         hidden_field_tag(:season_id, params[:season_id]) +
         submit_tag("Add to Roster", class: "btn btn-mini btn-primary")
       end
+    elsif params[:merge]
+      radio_button_tag(:player, player.id)
+    elsif params[:merge_duplicates]
+      radio_button_tag(:duplicate, player.id)
     else
       link_to('Edit', Rails.application.routes.url_helpers.edit_player_path(player), class: 'btn btn-primary btn-mini') +
       button_to('Delete', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini')

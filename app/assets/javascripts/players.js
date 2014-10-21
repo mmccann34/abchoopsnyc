@@ -4,13 +4,43 @@ $(function() {
     "sPaginationType": "bootstrap",
     "iDisplayLength": 25,
  //   "bLengthChange": false,
-    "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0, 1 ] } ],
+    "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0 ] } ],
     "aaSorting": [[2,'asc']],
     "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" },
     "bServerSide": true,
     "sAjaxSource": $('#players').data('source'),
     "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-      $(nRow).attr("onclick", "document.location = '/admin/players/" + aData[9] + "';");
+      $(nRow).attr("onclick", "document.location = '/admin/players/" + aData[10] + "';");
+    }
+  });
+  
+  $('#merge-players').dataTable({
+    "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap",
+    "iDisplayLength": 25,
+ //   "bLengthChange": false,
+    "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0 ] } ],
+    "aaSorting": [[2,'asc']],
+    "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" },
+    "bServerSide": true,
+    "sAjaxSource": $('#merge-players').data('source'),
+    "fnServerParams": function ( aoData ) {
+      aoData.push({ name: "merge", value: true });
+    }
+  });
+  
+  $('#merge-duplicates').dataTable({
+    "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap",
+    "iDisplayLength": 25,
+ //   "bLengthChange": false,
+    "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0 ] } ],
+    "aaSorting": [[2,'asc']],
+    "oLanguage": { "sInfo": "Showing _START_ to _END_ of _TOTAL_ Players" },
+    "bServerSide": true,
+    "sAjaxSource": $('#merge-duplicates').data('source'),
+    "fnServerParams": function ( aoData ) {
+      aoData.push({ name: "merge_duplicates", value: true });
     }
   });
   
