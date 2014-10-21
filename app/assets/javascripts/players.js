@@ -17,7 +17,7 @@ $(function() {
   $('#merge-players').dataTable({
     "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
     "sPaginationType": "bootstrap",
-    "iDisplayLength": 25,
+    "iDisplayLength": 10,
  //   "bLengthChange": false,
     "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0 ] } ],
     "aaSorting": [[2,'asc']],
@@ -32,7 +32,7 @@ $(function() {
   $('#merge-duplicates').dataTable({
     "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
     "sPaginationType": "bootstrap",
-    "iDisplayLength": 25,
+    "iDisplayLength": 10,
  //   "bLengthChange": false,
     "aoColumnDefs": [ { "bSortable": false, "bSearchable": false, "aTargets": [ 0 ] } ],
     "aaSorting": [[2,'asc']],
