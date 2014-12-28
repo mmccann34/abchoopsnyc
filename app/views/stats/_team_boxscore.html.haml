@@ -1,4 +1,4 @@
-%table.statthead{cellspacing: "0", cellpadding: "3", style:"table-layout:fixed;" }
+%table.statTableUpper{cellspacing: "0", cellpadding: "3", style:"table-layout:fixed;" }
   %colgroup
     %col{ span:"1", style:"width: 25px;" }
     %col{ span:"1", style:"width: 130px;" }
@@ -30,7 +30,7 @@
       %td &nbsp;
       %td &nbsp;
       %td &nbsp;
-%table#teamstats.sortable{cellspacing: "0", cellpadding:"3", style:"width:800px; table-layout:fixed;"}
+%table.statTableTeamStats.sortable{cellspacing: "0", cellpadding:"3", style:"width:800px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 25px;" }
     %col{ span:"1", style:"width: 130px;" }
@@ -48,7 +48,7 @@
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
-  %thead.statthead
+  %thead.statTableHead
     %tr
       %th No.
       %th.sorttable_nosort Name
@@ -68,7 +68,7 @@
       %th P
   %tbody
     - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| !stat.dnp }.each do |stat|
-      %tr{class: "#{cycle('odd2', 'even2')}"}
+      %tr{class: "#{cycle('odd', 'even')}"}
         %td= stat.jersey_number
         %td
           - if stat.player 
