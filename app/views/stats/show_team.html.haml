@@ -167,7 +167,7 @@
       %td.lline= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: false)
 %br
 %p Cumulative stats for #{@team.name}:
-%table.statthead{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
+%table.statTableUpper{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -199,7 +199,7 @@
       %td &nbsp;
       %td &nbsp;
       %td &nbsp;
-%table#teamstats.sortable{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
+%table#teamstats.sortable.statTableTeamStats{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
