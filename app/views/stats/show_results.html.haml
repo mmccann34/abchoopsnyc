@@ -18,8 +18,8 @@
     %a#standings{name:"standings"}
     Standings
   %p.hl
-  %table.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"550", style:"margin: 0 auto;"}
-    %thead.statthead
+  %table.statTableTeamStats.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"550", style:"margin: 0 auto;"}
+    %thead.statTableHead
       %tr
         %th Team
         %th{width:"50"} W
@@ -31,10 +31,10 @@
     %tbody
       -@team_spots.group_by{|ts| ts.division}.each do |division, team_spots|
         -if not division.nil?
-          %tr.even2
+          %tr.even.divisionName
             %td.team{colspan:"7"}= division.name
         -team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -ts.losses, ts.point_diff]}.reverse!.each do |ts|
-          %tr{class: "#{cycle('odd2', 'even2')}"}
+          %tr{class: "#{cycle('odd', 'even')}"}
             %td.team
               %a{href:stats_team_path(ts.team)}= ts.team.name
             %td= ts.wins
@@ -49,7 +49,7 @@
     %a#leaderboard{name:"leaderboard"}
     Leaderboard
   %p.hl
-  %table.leaderboard.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"800"}
+  %table.statTableTeamStats.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"800"}
     %colgroup
       %col{ span:"1", style:"width: 170px;" }
       %col{ span:"1", style:"width: 50px;" }
@@ -71,8 +71,8 @@
   %h3 &nbsp;
   %h1 Team Stats
   %p.hl
-  %table#teamstats.sortable.maintablelr{border:"0", width:"800", cellpadding:"3", cellspacing:"0"}
-    %thead.statthead
+  %table.statTableTeamStats.sortable{border:"0", width:"800", cellpadding:"3", cellspacing:"0"}
+    %thead.statTableHead
       %tr
         %th Team
         %th PPG
@@ -91,7 +91,7 @@
         %th FPG
     %tbody
       -@team_stats.each do |stat|
-        %tr{class: "#{cycle('odd2', 'even2')}"}
+        %tr{class: "#{cycle('odd', 'even')}"}
           %td{width:"65"}
             %strong
             %a{href:stats_team_path(stat.team)}= stat.team.abbreviation
@@ -111,7 +111,7 @@
           %td.lline= number_with_precision(stat.fl, precision: 1)
     %tfoot
       -stat = average_stat_lines(@team_stats)
-      %tr{style:"background-color:#FFF; text-align:center; outline:thin solid black;"}
+      %tr.stattotal
         %td.team &nbsp;&nbsp;Lg Avg
         %td.lline= number_with_precision(stat.points, precision: 1)
         %td.lline #{number_with_precision(stat.fgm, precision: 1)}-#{number_with_precision(stat.fga, precision: 1)}
