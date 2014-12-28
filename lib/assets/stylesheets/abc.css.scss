@@ -1479,3 +1479,65 @@ tr td.bteam {
 tr td.champ {
 	text-align:center;
 }
+//12/28/14
+table.statTableUpper {
+	font-weight:bold;
+	color:#FFF;
+	background-color:#2e3b56;
+	text-align:center;
+	margin:10px auto 0;
+	border:0;
+	font-size:12px;
+	width:800px;
+}
+table.statTableTeamStats {
+	border-collapse:collapse;
+	margin:0 auto 10px;
+}
+thead.statTableHead {
+	font-weight:bold;
+	color:#FFF;
+	background-color:#2e3b56;
+	text-align:center;
+	margin:10px auto 0;
+	border:0;
+	font-size:12px;
+	width:800px;
+	border-right: 1px solid #2e3b56;
+}
+table.statTableTeamStats tr.odd {
+	border-left: 1px solid #c0c0c0;
+	border-right: 1px solid #c0c0c0;
+	background-color:#e7e7e7;
+	text-align:center;
+}
+table.statTableTeamStats tr.odd:hover {
+	background-color:#c0c0c0;
+}
+table.statTableTeamStats tr.even {
+	border-left: 1px solid #c0c0c0;
+	border-right: 1px solid #c0c0c0;
+	background-color:#ffffff;
+	text-align:center;
+}
+table.statTableTeamStats tr.even:hover {
+	background-color:#c0c0c0;
+}
+.maintablestand {
+	border-bottom: 1px solid #c0c0c0;
+}
+.playerHighs {
+	border: 1px solid #c0c0c0;
+	border-top:0;
+}
+table.leaderboard tbody {
+	border-left: 1px solid #c0c0c0;
+	border-right: 1px solid #c0c0c0;
+}
+.statTableTeamStats td.team {
+	font-weight:bold;
+	text-align:center;
+}
+.statTableTeamStats tr.divisionName {
+	border-top: 1px solid #c0c0c0;
+}
