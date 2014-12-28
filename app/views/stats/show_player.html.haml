@@ -181,7 +181,7 @@
             %td{ colspan:"15" } &nbsp;
           - reset_cycle
           - stats.each do |stat|
-            %tr{class: "#{cycle('even', 'odd')}"}
+            %tr{class: "#{cycle('even2', 'odd2')}"}
               %td{ style:"text-align:left;" }= stat.split_name
               %td.lline= stat.game_count
               %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: false)}
@@ -334,7 +334,7 @@
             %tbody
               -reset_cycle
               - game_log.each do |stat|
-                %tr{class: "#{cycle('even', 'odd')}"}
+                %tr{class: "#{cycle('even2', 'odd2')}"}
                   %td
                     %a{href: stats_boxscore_path(stat.game)}= stat.game.boxscore_week_name ? stat.game.boxscore_week_name : "N/A"
                   %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
@@ -399,7 +399,7 @@
         %tbody
           -reset_cycle
           -@season_highs.each do |stat_name, stat|
-            %tr{class: "#{cycle('even', 'odd')}"}
+            %tr{class: "#{cycle('even2', 'odd2')}"}
               =render "career_high", name: stat_name, career_high: stat
     %br
     =render "glossary"
@@ -474,7 +474,7 @@
       %tbody
         - reset_cycle
         - @career_season_averages.each do |stat|
-          %tr{class: "#{cycle('even', 'odd')}"}
+          %tr{class: "#{cycle('even2', 'odd2')}"}
             %td= stat.season_number
             %td= link_to stat.team.abbreviation, stats_team_path(stat.team, season: stat.season_id)
             %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: false)}
@@ -579,7 +579,7 @@
         - reset_cycle
         - @career_season_totals.each do |stat|
           //- stat.calc_percentages
-          %tr{class: "#{cycle('even', 'odd')}"}
+          %tr{class: "#{cycle('even2', 'odd2')}"}
             %td= stat.season_number
             %td= link_to stat.team.abbreviation, stats_team_path(stat.team, season: stat.season_id)
             %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
@@ -642,7 +642,7 @@
     %tbody
       -reset_cycle
       -@career_highs.each do |stat_name, stat|
-        %tr{class: "#{cycle('even', 'odd')}"}
+        %tr{class: "#{cycle('even2', 'odd2')}"}
           =render "career_high", name: stat_name, career_high: stat
   %br
   %p &nbsp;

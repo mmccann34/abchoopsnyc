@@ -531,19 +531,33 @@ text-align:center;
 border:1px solid #c0c0c0;
 }
 
-tbody tr.even2 td {
-background-color:#FFF;
-text-align:center;
+table#teamstats tr.even2 {
+	background-color:#FFF;
+	text-align:center;
+	border-left: 1px solid #c0c0c0;
+	border-right: 1px solid #c0c0c0;
 }
-
-tbody tr.odd2 td {
-background-color:#e7e7e7;
-text-align:center;
+table#teamstats tr.even2:hover {
+	background-color:#c0c0c0;
 }
-
+tbody tr.odd2 {
+	background-color:#e7e7e7;
+	text-align:center;
+	border-left: 1px solid #c0c0c0 !important;
+	border-right: 1px solid #c0c0c0 !important;
+}
+tbody tr.even2 {
+	background-color:#ffffff;
+	text-align:center;
+	border-left: 1px solid #c0c0c0 !important;
+	border-right: 1px solid #c0c0c0 !important;
+}
+table#teamstats tr.odd2:hover {
+	background-color:#c0c0c0;
+}
 #teamstats {
-border-collapse:collapse;
-margin:0 auto 10px;
+	border-collapse:collapse;
+	margin:0 auto 10px
 }
 
 .horizline {
