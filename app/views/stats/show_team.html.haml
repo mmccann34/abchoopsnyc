@@ -11,25 +11,26 @@
 %a#schedule{ name: "schedule" }
 %h1 Schedule
 %p.hl
-%table.maintablestand{ border: "0", width: "800", cellpadding:"5", cellspacing:"0" }
-  %tbody
-    %tr.statthead
+%table.statTableTeamStats.maintablestand{ border: "0", width: "800", cellpadding:"5", cellspacing:"0" }
+  %thead
+    %tr.statTableHead
       %td Week
       %td Date
       %td Time
       %td Opponent
       %td Location
       %td{ colspan: "2" } Result
+  %tbody
     -@weeks.each do |week|
       -games = @games.select{|g| g.week.try(:id) == week.id}
       -if games.empty? && !week.playoffs && week != @weeks[-1]
-        %tr{class: "#{cycle('odd2', 'even2')}"}
+        %tr{class: "#{cycle('odd', 'even')}"}
           %td= week.name.blank? ? "N/A" : week.name
           %td{colspan:"6"}
             %em BYE
       -else
         -games.sort_by{|g| g.date}.each do |game|
-          %tr{class: "#{cycle('odd2', 'even2')}"}
+          %tr{class: "#{cycle('odd', 'even')}"}
             %td
               %a{href: stats_boxscore_path(game)}= @team_spot.division ? game.boxscore_week_name.gsub("#{@team_spot.division.name} - ", "") : game.boxscore_week_name
             %td= game.date.to_s(:short_ordinal)
@@ -55,7 +56,7 @@
 %a#stats{name: "stats"}
 %h1 Team Stats
 %p Per game stats for #{@team.name}:
-%table.statthead{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
+%table.statTableUpper{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -87,7 +88,7 @@
       %td &nbsp;
       %td &nbsp;
       %td &nbsp;
-%table#teamstats.sortable{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
+%table.statTableTeamStats.sortable{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
   %colgroup
     %col{ span:"1", style:"width: 20px;" }
     %col{ span:"1", style:"width: 105px;" }
@@ -105,7 +106,7 @@
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
     %col{ span:"1", style:"width: 30px;" }
-  %thead.statthead
+  %thead.statTableHead
     %tr
       %th No.
       %th.sorttable_nosort Name
@@ -238,7 +239,7 @@
     - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @cumulative_player_stats.has_key?(roster_spot.player_id)
         - stats = @cumulative_player_stats[roster_spot.player_id]
-        %tr{class: "#{cycle('odd2', 'even2')}"}
+        %tr{class: "#{cycle('odd', 'even')}"}
           %td= roster_spot.jersey_number
           %td
             %a{href: stats_player_path(roster_spot.player)}= roster_spot.player.name

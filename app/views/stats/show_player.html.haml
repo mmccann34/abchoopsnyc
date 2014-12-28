@@ -94,7 +94,7 @@
   %br
   -@all_splits.each do |team_id, splits|
     -splits_totals = splits['Totals'] || PlayerStat.new
-    %table{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+    %table.statTableUpper{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
       %colgroup
         %col{ span:"1", style:"width: 105px;" }
         %col{ span:"1", style:"width: 20px;" }
@@ -121,7 +121,7 @@
           %td{ colspan:"2" } FT
           %td{ colspan:"3" } Rebounds
           %td{ colspan:"5" } &nbsp;
-    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+    %table#teamstats.sortable.statTableTeamStats{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
       %colgroup
         %col{ span:"1", style:"width: 105px;" }
         %col{ span:"1", style:"width: 20px;" }
@@ -139,7 +139,7 @@
         %col{ span:"1", style:"width: 30px;" }
         %col{ span:"1", style:"width: 30px;" }
         %col{ span:"1", style:"width: 30px;" }
-      %thead.statthead
+      %thead.statTableHead
         %tr
           %th.sorttable_nosort{ style:"text-align:left;" } Split
           %th.sorttable_nosort GP
@@ -297,7 +297,7 @@
               %td &nbsp;
               %td &nbsp;
               %td &nbsp;
-          %table#teamstats.sortable{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+          %table#teamstats.sortable.statTableTeamStats{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
             %colgroup
               %col{ span:"1", style:"width: 110px;" }
               %col{ span:"1", style:"width: 60px;" }
@@ -390,7 +390,7 @@
     -if @season_highs  
       %h1 Season Highs
       %p.sep
-      %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+      %table#teamstats.sortable.playerHighs{ cellspacing:"0", cellpadding:"5" }
         %thead.statthead
           %tr
             %th.text-left Stat
@@ -435,7 +435,7 @@
           %td &nbsp;
           %td &nbsp;
           %td &nbsp;
-    %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+    %table#teamstats.sortable.statTableTeamStats{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
       %colgroup
         %col{ span:"1", style:"width: 50px;" }
         %col{ span:"1", style:"width: 60px;" }
@@ -539,7 +539,7 @@
           %td &nbsp;
           %td &nbsp;
           %td &nbsp;
-    %table#teamstats.sortable{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
+    %table#teamstats.sortable.statTableTeamStats{ cellspacing:"0", cellpadding:"2", style:"width:800px; table-layout:fixed;" }
       %colgroup
         %col{ span:"1", style:"width: 50px;" }
         %col{ span:"1", style:"width: 60px;" }
@@ -633,7 +633,7 @@
   %br
   %h1 Career Highs
   %p.sep
-  %table#teamstats.sortable.maintablelr{ cellspacing:"0", cellpadding:"5" }
+  %table#teamstats.sortable.maintablelr.playerHighs{ cellspacing:"0", cellpadding:"5" }
     %thead.statthead
       %tr
         %th.text-left Stat
