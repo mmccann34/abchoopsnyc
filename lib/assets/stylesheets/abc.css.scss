@@ -1457,14 +1457,15 @@ table.leaderboard {
 
 //****Playoff Brackets****//
 tr td.bline {
-	border-bottom: 1px dotted #333;
+	border-bottom:1px solid #c0c0c0
 }
 tr td.tline {
-	border-top: 1px dotted #333;
+	border-top:1px solid #c0c0c0
 }
 tr td.rline {
-	border-right: 1px dotted #333;
+	border-right:1px solid #c0c0c0
 }
+
 tr td.time2 {
 	font-size:10px;
 	text-align:center;
