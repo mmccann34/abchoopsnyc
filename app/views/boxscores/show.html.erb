@@ -49,3 +49,73 @@
   <h3><%= @game.home_team.name %></h3>
   <%= render "team_stats", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id) %>
 </div>
+
+<div class="clearfix left">
+<table id="scores" class="table table-nonfluid">
+  <thead>
+    <tr>
+      <th>Top Performers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left; font-weight:bold;"><%= @game.top_scorer[:name] %></td>
+      <% if @game.top_scorer[:team] %>
+        <td><%= @game.top_scorer[:team] %></td>
+      <% end %>
+      <td><%= @game.top_scorer[:points]%> Points</td>
+    </tr>
+    <tr>
+      <td style="text-align:left; font-weight:bold;"><%= @game.second_top_performer[:name]%></td>
+      <% if @game.second_top_performer[:team] %>
+        <td><%= @game.second_top_performer[:team]%></td>
+      <% end %>
+      <td><%= @game.second_top_performer[:stat_value] %> <%= @game.second_top_performer[:stat_name] %></td>
+    </tr>
+    <% if @game.third_top_performer %>
+      <tr>
+        <td style="text-align:left; font-weight:bold;"><%= @game.third_top_performer[:name]%></td>
+        <% if @game.third_top_performer[:team] %>
+          <td><%= @game.third_top_performer[:team]%></td>
+        <% end %>
+        <td><%= @game.third_top_performer[:stat_value] %> <%= @game.third_top_performer[:stat_name] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left"><p></p></div>
+<div class="clearfix left">
+<table id="scores" class="table table-nonfluid">
+  <thead>
+    <tr>
+      <th>Player of the Game</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left; font-weight:bold;"><%= @game.player_of_the_game[:name]%></td>
+      <td><%=@game.player_of_the_game[:team]%></td>
+      <td><%= @game.player_of_the_game[:Points] %> Points</td>
+      <td><%= @game.player_of_the_game[:Rebounds] %> Rebounds</td>
+      <td><%= @game.player_of_the_game[:Assists] %> Assists</td>
+      <td><%= @game.player_of_the_game[:Steals] %> Steals</td>
+    </tr>
+  </tbody>
+</table>
+</div>
