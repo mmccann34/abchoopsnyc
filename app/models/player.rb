@@ -40,6 +40,9 @@ class Player < ActiveRecord::Base
     elsif (!self.first_name || self.first_name == '') && self.last_name
       first_name_last_int = "#{self.last_name}"
     end
+    if first_name_last_int.length >= 13
+      first_name_last_int = first_name_last_int[0..12]
+    end
     first_name_last_int
   end
 
