@@ -4,7 +4,6 @@ class BoxscoresController < ApplicationController
     @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
     @ot_two = @game.home_score_ot_two != 0 || @game.away_score_ot_two != 0
     @ot_three = @game.home_score_ot_three != 0 || @game.away_score_ot_three != 0
-    # binding.pry
     if !@game
       redirect_to games_url, flash: { error: "Game does not exist." }
     end

@@ -106,6 +106,7 @@ class Game < ActiveRecord::Base
     top_points = 0
     top_scorer = []
     self.stat_lines.each do |stats|
+      next if stats.player.nil?
       if stats.points > top_points
         top_points = stats.points
         top_scorer = [stats]
@@ -120,13 +121,16 @@ class Game < ActiveRecord::Base
     top_scorer = {}
     top_scorer[:stat_value] = top_scorer_array.first.points
     if top_scorer_array.length == 1
-      top_scorer[:name] = top_scorer_array.first.player.name
-      top_scorer[:team] = top_scorer_array.first.team.name
-      top_scorer[:points] = top_scorer_array.first.points
+      top_scorer[:player] = top_scorer_array.first.player
+      if !top_scorer[:player]
+      end
+      top_scorer[:name] = top_scorer_array.first.player.first_name_last_int
+      top_scorer[:team] = top_scorer_array.first.team.abbreviation
+      top_scorer[:points] = top_scorer_array.first.points.round
     else
       top_scorer[:name] = "#{top_scorer_array.length} Players"
       top_scorer[:team] = false
-      top_scorer[:points] = top_scorer_array.first.points
+      top_scorer[:points] = "#{top_scorer_array.first.points.round}"
     end 
     top_scorer
   end
@@ -135,22 +139,27 @@ class Game < ActiveRecord::Base
     second_stats = 0
     ties = []
     self.stat_lines.each do |stats|
+      next if stats.player.nil?
       max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
       if max_weighted_stat[1] >= second_stats
+        if max_weighted_stat[1] > second_stats
+          ties.clear
+        end
         second_stats = max_weighted_stat[1]
         stp = {}
-        stp[:player] = stats.player.name
+        stp[:name] = stats.player.first_name_last_int
         stp[:stat_name] = max_weighted_stat[0]
-        stp[:team] = stats.team.name
+        stp[:team] = stats.team.abbreviation
+        stp[:player] = stats.player
         get_unweighted_stat_value(stp, stats)
         ties << stp
       end
     end
-    # binding.pry
     if ties.length > 1
       decide_ties(ties)
     else
-      second
+      ties.first[:ties] = false
+      return ties.first
     end
   end
 
@@ -160,29 +169,29 @@ class Game < ActiveRecord::Base
 #blocks
 
   def decide_ties(ties_array)
-    second_top_performer = {}
+    top_performer = {}
     ties_array.map do |stat|
       determine_stat_priority(stat)
     end
     ties_array = ties_array.sort_by { |stat| stat[:priority_num] }
-    # binding.pry
     count = Hash.new(0)
     ties_array.each do |stat|
       count[stat[:stat_name]] += 1
     end
-    # binding.pry
     if count[ties_array.first[:stat_name]] == 1
-      second_top_performer[:name] = ties_array.first[:player]
-      second_top_performer[:stat_name] = ties_array.first[:stat_name]
-      second_top_performer[:team] = ties_array.first[:team]
-      second_top_performer[:stat_value] = ties_array.first[:stat_value]
+      top_performer[:ties] = true
+      top_performer[:name] = ties_array.first[:name]
+      top_performer[:team] = ties_array.first[:team]
+      top_performer[:stat] = ties_array.first[:stat]
+      top_performer[:stat_name] = ties_array.first[:stat_name]
     else
-      second_top_performer[:name] = "#{count[ties_array.first[:stat_name]]} Players"
-      second_top_performer[:team] = false
-      second_top_performer[:stat_value] = ties_array.first[:stat_value]
-      second_top_performer[:stat_name] = ties_array.first[:stat_name]
+      top_performer[:ties] = true
+      top_performer[:name] = "#{count[ties_array.first[:stat_name]]} Players"
+      top_performer[:team] = false
+      top_performer[:stat] = ties_array.first[:stat]
+      top_performer[:stat_name] = ties_array.first[:stat_name]
     end
-    second_top_performer
+    top_performer
   end
 
   def determine_stat_priority(stat)
@@ -202,15 +211,21 @@ class Game < ActiveRecord::Base
   def third_top_performer
     third_stats = 0
     ties = []
+    thir = {}
     self.stat_lines.each do |stats|
+      next if stats.player.nil?
       max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
       # can't be from same category as second_top_performer
-      if max_weighted_stat[0] != self.second_top_performer[:stat_name] && max_weighted_stat[1] > third_stats
+      if max_weighted_stat[0] != self.second_top_performer[:stat_name] && max_weighted_stat[1] >= third_stats
+        if max_weighted_stat[1] > third_stats
+          ties.clear
+        end
         third_stats = max_weighted_stat[1]
         third = {}
-        third[:player] = stats.player.name
+        third[:name] = stats.player.first_name_last_int
         third[:stat_name] = max_weighted_stat[0]
-        third[:team] = stats.team.name
+        third[:team] = stats.team.abbreviation
+        third[:player] = stats.player
         get_unweighted_stat_value(third, stats)
         ties << third
       end
@@ -225,13 +240,13 @@ class Game < ActiveRecord::Base
   def get_unweighted_stat_value(second, stats)
     case second[:stat_name]
     when :Rebounds
-      second[:stat_value] = stats.trb
+      second[:stat] = "#{stats.trb.round} #{second[:stat_name]}"
     when :Assists
-      second[:stat_value] = stats.ast
+      second[:stat] = "#{stats.ast.round} #{second[:stat_name]}"
     when :Steals
-      second[:stat_value] = stats.stl
+      second[:stat] = "#{stats.stl.round} #{second[:stat_name]}"
     when :Blocks
-      second[:stat_value] = stats.blk
+      second[:stat] = "#{stats.blk.round} #{second[:stat_name]}"
     end
   end
 
@@ -240,26 +255,50 @@ class Game < ActiveRecord::Base
     top_wpa = 0
     player_stats = ''
     self.stat_lines.each do |stats|
+      next if stats.player.nil?
       if stats.team_id == self.winner
         weighted_stats = stats.weighted_stats
         weighted_stats[:Points] = (stats.points * 0.1)
         wpa = weighted_stats.values.inject{|sum, x| sum + x}
+        # binding.pry
         if wpa > top_wpa
           top_wpa = wpa
           player_stats = stats
         end
       end
     end
-    player_of_game[:wpa] = top_wpa
-    player_of_game[:name] = player_stats.player.name
-    player_of_game[:team] = Team.find_by_id(self.winner).name
-    player_of_game[:Rebounds] = player_stats.trb
-    player_of_game[:Assists] = player_stats.ast
-    player_of_game[:Steals] = player_stats.stl
-    player_of_game[:Blocks] = player_stats.blk
-    player_of_game[:Points] = player_stats.points
+    if player_stats != ''
+      player_of_game[:wpa] = top_wpa.round(1)
+      player_of_game[:name] = player_stats.player.first_name_last_int
+      player_of_game[:player] = player_stats.player
+      player_of_game[:team] = Team.find_by_id(self.winner)
+      player_of_game[:Rebounds] = player_stats.trb > 0 ? "#{player_stats.trb.round} Rbs" : nil
+      player_of_game[:Assists] = player_stats.ast > 0 ? "#{player_stats.ast.round} Ast" : nil
+      player_of_game[:Steals] = player_stats.stl > 0 ? "#{player_stats.stl.round} Stl" : nil
+      player_of_game[:Blocks] = player_stats.blk > 0 ? "#{player_stats.blk.round} Blk" : nil
+      player_of_game[:Points] = player_stats.points > 0 ? "#{player_stats.points.round} Pts" : nil
+      player_of_game[:stats_1] = player_of_the_game_stats([player_of_game[:Points], player_of_game[:Rebounds]])
+      player_of_game[:stats_2] = player_of_the_game_stats([player_of_game[:Assists], player_of_game[:Blocks], player_of_game[:Steals]])
+    else
+      player_of_game = false
+    end
     player_of_game
   end
+
+  def player_of_the_game_stats(stats)
+    stats_string = ''
+    stats = stats.compact
+    stats.each_with_index do |stat, i|
+      # binding.pry
+      if i == stats.length - 1
+        stats_string += stat
+      else
+        stats_string += "#{stat}, "
+      end
+    end
+    stats_string
+  end
+
 
   private
   def surrounding_games(game)
