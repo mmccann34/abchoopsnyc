@@ -260,7 +260,6 @@ class Game < ActiveRecord::Base
         weighted_stats = stats.weighted_stats
         weighted_stats[:Points] = (stats.points * 0.1)
         wpa = weighted_stats.values.inject{|sum, x| sum + x}
-        # binding.pry
         if wpa > top_wpa
           top_wpa = wpa
           player_stats = stats
@@ -289,7 +288,6 @@ class Game < ActiveRecord::Base
     stats_string = ''
     stats = stats.compact
     stats.each_with_index do |stat, i|
-      # binding.pry
       if i == stats.length - 1
         stats_string += stat
       else
