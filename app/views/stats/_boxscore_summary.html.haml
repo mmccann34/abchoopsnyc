@@ -8,15 +8,15 @@
         %a(href="/games/#{game.id}/boxscore") #{game.boxscore_week_name + " -" if game.boxscore_week_name} #{game.date.strftime("%A %-m/%-d")} - #{game.time.strftime("%l:%M%p")}
       -else
         &nbsp;
-    %td.half(width="90") 1st Half
-    %td.half(width="90") 2nd Half
+    %td.half(width="60") 1st Half
+    %td.half(width="60") 2nd Half
     - if ot_one
       %td.half(width="10") OT
     - if ot_two
       %td.half(width="10") 2OT
     - if ot_three
       %td.half(width="10") 3OT
-    %td.total(width="90") Total
+    %td.total(width="60") Total
   %tr
     %td{width:"1"} #{"&#8226;".html_safe if game.home_team.id == game.winner}
     %td.team
@@ -35,7 +35,7 @@
       %td{colspan: "3", style:"text-align:center;"} --- FORFEIT ---
   %tr
     %td{width:"1"} #{"&#8226;".html_safe if game.away_team.id == game.winner}
-    %td.team 
+    %td.team
       %a{href: stats_team_path(game.away_team)} #{game.away_team.name}
     -if not game.forfeit
       %td.half= game.away_score_first
@@ -62,4 +62,3 @@
     %td.total(colspan="2")
       %a(href="/games/#{game.id}/boxscore#fullboxscore") Full Box Score&#187;
       &nbsp;
-%div.horizline
