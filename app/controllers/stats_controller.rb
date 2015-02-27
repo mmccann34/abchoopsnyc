@@ -125,7 +125,7 @@ class StatsController < ActionController::Base
         @team_spots = TeamSpot.where(season_id: @season).where(league_id: @league)
         @team_stats = PlayerStat.where(stat_type: 'team_per_game_average').where(season_id: @season).where(league_id: @league)
         
-        season_game_count = Season.find(@season).played_games.map(&:date).map(&:at_beginning_of_week).uniq.count
+        season_game_count = Season.find(@season).played_games.where(league_id: @league).map(&:date).map(&:at_beginning_of_week).uniq.count
         min_games = season_game_count / 2
         
         #leaderboard
