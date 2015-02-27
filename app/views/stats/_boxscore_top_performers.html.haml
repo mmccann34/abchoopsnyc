@@ -1,0 +1,38 @@
+- if !game.forfeit && !game.date.future?
+  %div{:style=>"width:220px;display:block;float:left;margin: 5px 0 0 25px;"}
+    %div{:style=>"width:100%;height:100%;"}
+      %table{:width=>"220", :class=>"statTableTeamStats", :style=>"text-align:center;margin: 0 auto;", :cellspacing=>"0", :cellpadding=>"3"}
+        %thead{:class=>"statTableHead"}
+          %tr
+            %td{:colspan=>"4", :style=>"font-size:14px;"}Top Performers
+        %tr{:class=>"odd"}
+          - if game.top_scorer[:player]
+            %td
+              %a{href:stats_player_path(game.top_scorer[:player])}=game.top_scorer[:name]
+            %td=game.top_scorer[:team]
+          -else
+            %td{:colspan=>"2"}
+              %a{:href=>"#", :class=>"not-active"}=game.top_scorer[:name]
+          %td{:class=>"lline rline"}="#{game.top_scorer[:points]} Points"
+        %tr{:class=>"even"}
+          -if game.second_top_performer
+            - if game.second_top_performer[:player]
+              %td
+                %a{href:stats_player_path(game.second_top_performer[:player])}=game.second_top_performer[:name]
+                %td=game.second_top_performer[:team]
+            -else
+              %td{:colspan=>"2"}
+                %a{:href=>"#", :class=>"not-active"}=game.second_top_performer[:name]
+            %td{:class=>"lline rline"}=game.second_top_performer[:stat]
+          %tr{:class=>"odd"}
+            - if game.third_top_performer
+              - if game.third_top_performer[:player]
+                %td{:class=>"bline"}
+                  %a{href:stats_player_path(game.third_top_performer[:player])}=game.third_top_performer[:name]
+                  %td{:class=>"bline"}=game.third_top_performer[:team]
+              - else 
+                %td{:class=>"bline", :colspan=>"2"}
+                  %a{:href=>"#", :class=>"not-active"}=game.third_top_performer[:name]
+              %td{:class=>"bline lline rline"}=game.third_top_performer[:stat]
+%div{:style=>"clear:both;"}
+%div.horizsched
