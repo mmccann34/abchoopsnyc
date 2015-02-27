@@ -41,7 +41,7 @@ class Player < ActiveRecord::Base
       first_name_last_int = "#{self.last_name}"
     end
     if first_name_last_int.length >= 13
-      first_name_last_int = first_name_last_int[0..12]
+      first_name_last_int = first_name_last_int[0..10]
     end
     first_name_last_int
   end
