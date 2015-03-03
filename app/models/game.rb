@@ -163,11 +163,6 @@ class Game < ActiveRecord::Base
     end
   end
 
-#rebounds
-#assists
-#steals
-#blocks
-
   def decide_ties(ties_array)
     top_performer = {}
     ties_array.map do |stat|
