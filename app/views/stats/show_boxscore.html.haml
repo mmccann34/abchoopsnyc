@@ -100,7 +100,7 @@
               %div{:style=>"margin-left:8px;"}
                 -if @game.player_of_the_game[:player].profile_pic_thumb_url && @game.player_of_the_game[:player].profile_pic_thumb_url != ""
                   %a{:class=>"headshotThumbContainer", :href=>"#"}
-                    %img{:src=>"#{@game.player_of_the_game[:player].profile_pic_thumb_url}", :width=> "52px"}
+                    %img{:src=>"#{@game.player_of_the_game[:player].profile_pic_thumb_url}", :width=> "50px"}
                 - else
                   %a{:class=>"headshotThumbContainer halfball", :href=>"#"}
                     %span{:class=>"playernumbernopicthumb"}=@game.player_of_the_game[:player].last_number
@@ -159,32 +159,6 @@
       %li
         %img{src: url, title:"&nbsp;"}
   .horizonline
-  / -if (not @game.photo_urls.nil?) && @game.photo_urls.any?
-  / :javascript
-  /   ang(document).ready(function() {
-  /     ang("a.fancybox").fancybox({
-  /       prevEffect:'none',
-  /       nextEffect:'none',
-  /       padding:5
-  /     });
-  /   });
-  / %div{:id=>"content"}
-  /   %ul{:class=>"thumbs"}
-  /     %li
-  /       %a{:class=>"fancybox", :rel=>"group", :href=>"http://stats.abchoopsnyc.com/assets/abcplus50.png"}
-  /         %img{:src=>"http://stats.abchoopsnyc.com/assets/abcplus50.png"}
-  /     %li
-  /       %a{:class=>"fancybox", :rel=>"group", :href=>"img/gmpic3.jpg"}
-  /         %img{:src=>"img/gmpic3.jpg"}
-  /     %li
-  /       %a{:class=>"fancybox", :rel=>"group", :href=>"img/gmpic4.jpg"}
-  /         %img{:src=>"img/gmpic4.jpg"}
-  /     %li
-  /       %a{:class=>"fancybox", :rel=>"group", :href=>"img/gmpic6.jpg"}
-  /         %img{:src=>"img/gmpic6.jpg"}
-  /     %li
-  /       %a{:class=>"fancybox", :rel=>"group", :href=>"img/gmpic5.jpg"}
-  /         %img{:class=>"last", :src=>"img/gmpic5.jpg"}
 %a#fullboxscore{name:"fullboxscore"}
 = render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
 %p{style:"line-height:50%; margin:5px;"} &nbsp;
