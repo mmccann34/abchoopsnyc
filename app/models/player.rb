@@ -31,6 +31,21 @@ class Player < ActiveRecord::Base
     "#{name} (#{last_team.try(:name)})"
   end
 
+  def first_name_last_int
+    first_name_last_int = ""
+    if self.first_name && self.first_name != '' && self.last_name && self.last_name != ''
+      first_name_last_int = "#{self.first_name} #{self.last_name[0]}."
+    elsif self.first_name && (!self.last_name || self.last_name == '')
+      first_name_last_int = "#{self.first_name}"
+    elsif (!self.first_name || self.first_name == '') && self.last_name
+      first_name_last_int = "#{self.last_name}"
+    end
+    if first_name_last_int.length >= 13
+      first_name_last_int = first_name_last_int[0..10]
+    end
+    first_name_last_int
+  end
+
   def height
     "#{height_feet}-#{height_inches}"
   end
