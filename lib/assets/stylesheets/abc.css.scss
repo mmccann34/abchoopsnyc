@@ -491,14 +491,20 @@ padding:8px;
 margin-bottom:20px;
 width:280px;
 }
-
 .boxscore {
-margin-left:auto;
-margin-right:auto;
-width:750px;
-border:none;
+    margin-left:auto;
+    margin-right:auto;
+    width:525px;
+    border:none
 }
-
+.horizsched {
+    width:772px;
+    height:1px;
+    float:center;
+    border-bottom:dashed 1px silver;
+    margin-bottom:10px;
+    margin-top:10px
+}
 .team {
 text-align:left;
 font-weight:bold;
@@ -1075,6 +1081,10 @@ ul.thumbs {
 	margin:0px;
 	padding:0px;
 }
+ul.thumbs li img {
+    width:149px;
+    height:111.75px;
+}
 ul#slides1 {
 	margin:0px;
 	padding:0px;
@@ -1555,4 +1565,9 @@ table.leaderboard tbody {
 }
 .statTableTeamStats tr.divisionName {
 	border-top: 1px solid #c0c0c0;
+}
+.not-active {
+   pointer-events: none;
+   cursor: default;
+   text-align:center;
 }

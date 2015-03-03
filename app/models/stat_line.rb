@@ -13,7 +13,7 @@ class StatLine < ActiveRecord::Base
   def set_defaults
     if self.has_attribute?(:points)
       self.points ||= 0
-      self.fgm ||= 0
+      self.fgm ||= 0 
       self.fga ||= 0
       self.twom ||= 0
       self.twoa ||= 0
@@ -55,5 +55,14 @@ class StatLine < ActiveRecord::Base
     self.ftpct = fta != 0 ? ftm / fta : 0
     self.trb = orb + drb
     self.points = (twom * 2) + (threem * 3) + (ftm * 1)
+  end
+
+  def weighted_stats
+    weighted_stats ||= {}
+    weighted_stats[:Rebounds] = (self.trb * 0.12)
+    weighted_stats[:Assists] = (self.ast * 0.27)
+    weighted_stats[:Steals] = (self.stl * 0.17)
+    weighted_stats[:Blocks] = (self.blk * 0.34)
+    return weighted_stats
   end
 end 

@@ -44,7 +44,9 @@
         %h1= location
         - games.each do |game|
           %p.sep
-            = render "boxscore_summary", game: game, show_week: true
+            %div{:style=>"display:block;float:left;", :class=>"boxscore"}
+              = render "boxscore_summary", game: game, show_week: true
+            = render "boxscore_top_performers", game: game, show_week: true
   = javascript_include_tag "activatables"
   %script{type: "text/javascript"}
     activatables('page', #{@week_links.to_s.html_safe})
