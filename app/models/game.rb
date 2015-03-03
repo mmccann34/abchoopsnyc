@@ -158,7 +158,7 @@ class Game < ActiveRecord::Base
     if ties.length > 1
       decide_ties(ties)
     else
-      ties.first[:ties] = false
+      # ties.first[:ties] = false
       return ties.first
     end
   end
@@ -179,13 +179,13 @@ class Game < ActiveRecord::Base
       count[stat[:stat_name]] += 1
     end
     if count[ties_array.first[:stat_name]] == 1
-      top_performer[:ties] = true
+      # top_performer[:ties] = true
       top_performer[:name] = ties_array.first[:name]
       top_performer[:team] = ties_array.first[:team]
       top_performer[:stat] = ties_array.first[:stat]
       top_performer[:stat_name] = ties_array.first[:stat_name]
     else
-      top_performer[:ties] = true
+      # top_performer[:ties] = true
       top_performer[:name] = "#{count[ties_array.first[:stat_name]]} Players"
       top_performer[:team] = false
       top_performer[:stat] = ties_array.first[:stat]
@@ -211,7 +211,6 @@ class Game < ActiveRecord::Base
   def third_top_performer
     third_stats = 0
     ties = []
-    thir = {}
     self.stat_lines.each do |stats|
       next if stats.player.nil?
       max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
@@ -235,7 +234,7 @@ class Game < ActiveRecord::Base
     else
       ties.first
     end
-  end 
+  end
 
   def get_unweighted_stat_value(second, stats)
     case second[:stat_name]
@@ -267,7 +266,7 @@ class Game < ActiveRecord::Base
       end
     end
     if player_stats != ''
-      player_of_game[:wpa] = top_wpa.round(1)
+      player_of_game[:wpa] = ((top_wpa/self.team_wpa)*100).round(1)
       player_of_game[:name] = player_stats.player.first_name_last_int
       player_of_game[:player] = player_stats.player
       player_of_game[:team] = Team.find_by_id(self.winner)
@@ -282,6 +281,19 @@ class Game < ActiveRecord::Base
       player_of_game = false
     end
     player_of_game
+  end
+
+  def team_wpa
+    team_wpa = 0
+    self.stat_lines.each do |stats|
+      next if stats.player.nil?
+      if stats.team_id == self.winner
+        weighted_stats = stats.weighted_stats
+        weighted_stats[:Points] = (stats.points * 0.1)
+        team_wpa += weighted_stats.values.inject{|sum, x| sum + x}
+      end
+    end
+    team_wpa
   end
 
   def player_of_the_game_stats(stats)
