@@ -24,12 +24,12 @@
       %th Name
       %th # of Teams
       %th # of Games
-      %th Sun Reg Games
-      %th Sun Playoff Games
-      %th Sat Reg Games
-      %th Sat Playoff Games
-      %th Wk Reg Games
-      %th Wk Playoff Games
+      //%th Sun Reg Games
+      //%th Sun Playoff Games
+      //%th Sat Reg Games
+      //%th Sat Playoff Games
+      //%th Wk Reg Games
+      //%th Wk Playoff Games
   %tbody
     %tr
       %td
@@ -38,12 +38,12 @@
       %td{ style: 'font-weight: bold;' } Totals
       %td{ style: 'font-weight: bold;' }= TeamSpot.count
       %td{ style: 'font-weight: bold;' }= Game.count
-      %td{ style: 'font-weight: bold;' }= Game.where(league_id: 1).select{|g| !g.week.try(:playoffs) }.count
-      %td{ style: 'font-weight: bold;' }= Game.where(league_id: 1).select{|g| g.week.try(:playoffs) }.count
-      %td{ style: 'font-weight: bold;' }= Game.where(league_id: 2).select{|g| !g.week.try(:playoffs) }.count
-      %td{ style: 'font-weight: bold;' }= Game.where(league_id: 2).select{|g| g.week.try(:playoffs) }.count       
-      %td{ style: 'font-weight: bold;' }= Game.where(league_id: 3).select{|g| !g.week.try(:playoffs) }.count       
-      %td{ style: 'font-weight: bold;' }= Game.where(league_id: 3).select{|g| g.week.try(:playoffs) }.count             
+      //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 1).select{|g| !g.week.try(:playoffs) }.count
+      //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 1).select{|g| g.week.try(:playoffs) }.count
+      //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 2).select{|g| !g.week.try(:playoffs) }.count
+      //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 2).select{|g| g.week.try(:playoffs) }.count       
+      //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 3).select{|g| !g.week.try(:playoffs) }.count       
+      //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 3).select{|g| g.week.try(:playoffs) }.count             
     - for season in @seasons
       %tr
         %td= link_to 'Edit', edit_season_path(season), class: 'btn btn-primary btn-mini'
@@ -55,9 +55,9 @@
           %td= "#{season.number} - #{season.name}"
         %td= season.teams.count
         %td= season.games.count
-        %td= season.games.where(league_id: 1).select{|g| !g.week.try(:playoffs) }.count
-        %td= season.games.where(league_id: 1).select{|g| g.week.try(:playoffs) }.count
-        %td= season.games.where(league_id: 2).select{|g| !g.week.try(:playoffs) }.count
-        %td= season.games.where(league_id: 2).select{|g| g.week.try(:playoffs) }.count       
-        %td= season.games.where(league_id: 3).select{|g| !g.week.try(:playoffs) }.count       
-        %td= season.games.where(league_id: 3).select{|g| g.week.try(:playoffs) }.count             
+        //%td= season.games.where(league_id: 1).select{|g| !g.week.try(:playoffs) }.count
+        //%td= season.games.where(league_id: 1).select{|g| g.week.try(:playoffs) }.count
+        //%td= season.games.where(league_id: 2).select{|g| !g.week.try(:playoffs) }.count
+        //%td= season.games.where(league_id: 2).select{|g| g.week.try(:playoffs) }.count       
+        //%td= season.games.where(league_id: 3).select{|g| !g.week.try(:playoffs) }.count       
+        //%td= season.games.where(league_id: 3).select{|g| g.week.try(:playoffs) }.count             
