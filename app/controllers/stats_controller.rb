@@ -125,8 +125,9 @@ class StatsController < ActionController::Base
         @team_spots = TeamSpot.where(season_id: @season).where(league_id: @league)
         @team_stats = PlayerStat.where(stat_type: 'team_per_game_average').where(season_id: @season).where(league_id: @league)
         
-        season_game_count = Season.find(@season).played_games.where(league_id: @league).map(&:date).map(&:at_beginning_of_week).uniq.count
-        min_games = season_game_count / 2
+        season_games_by_team = Season.find(@season).played_games.where(league_id: @league).inject(Hash.new(0)){|h,g| h[g.home_team_id] += 1; h[g.away_team_id] +=1; h} 
+        avg_games_played = season_games_by_team.values.sum / season_games_by_team.values.length
+        min_games = avg_games_played / 2
         
         #leaderboard
         @leaderboard = {}
@@ -238,8 +239,11 @@ class StatsController < ActionController::Base
     @career_averages[:threem] = get_records('threem * 3', 'career_per_game_average')
     
     @season = params[:season] ? Season.find(params[:season]) : Season.current
-    season_game_count = Season.find(@season).played_games.map(&:date).map(&:at_beginning_of_week).uniq.count
-    min_games = season_game_count / 2
+    
+    season_games_by_team = Season.find(@season).played_games.inject(Hash.new(0)){|h,g| h[g.home_team_id] += 1; h[g.away_team_id] +=1; h} 
+    avg_games_played = season_games_by_team.values.sum / season_games_by_team.values.length
+    min_games = avg_games_played / 2
+    
     @season_totals = {}
     @season_totals[:points] = get_records('points', 'season_total', season_id: @season, min_games: min_games)
     @season_totals[:rebounds] = get_records('trb', 'season_total', season_id: @season, min_games: min_games)
