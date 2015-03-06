@@ -49,6 +49,8 @@ class BoxscoresController < ApplicationController
         stats_players.each do |player|
           player.calc_stats(game.season)
         end
+
+        game.save_top_performers
       else
         game.home_team.update_record(game.season)
         game.away_team.update_record(game.season)

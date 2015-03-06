@@ -282,9 +282,9 @@ ActiveRecord::Schema.define(:version => 20150306004541) do
     t.string   "name"
     t.string   "team"
     t.string   "stat"
-    t.integer  "type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "performer_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "top_performers", ["game_id"], :name => "index_top_performers_on_game_id"
