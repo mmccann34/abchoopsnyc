@@ -205,7 +205,7 @@ class Game < ActiveRecord::Base
     else
       # top_performer[:ties] = true
       top_performer[:name] = "#{count[ties_array.first[:stat_name]]} Players"
-      top_performer[:team] = false
+      top_performer[:team] = nil
       top_performer[:stat] = ties_array.first[:stat]
       top_performer[:stat_name] = ties_array.first[:stat_name]
     end

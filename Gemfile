@@ -25,8 +25,8 @@ gem "time_diff", "~> 0.3.0"
 gem "will_paginate", "~> 3.0.5"
 gem "gon", "~> 4.1.1"
 gem 'newrelic_rpm'
-gem 'will_paginate', '~> 3.0.5'
 gem 'friendly_id'
+gem 'rails_12factor' #To skip heroku plugin injection
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -50,7 +50,7 @@ group :test, :development do
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
   gem 'launchy'
-  gem 'better_errors'
+  gem 'better_errors', '1.1.0'
   gem 'binding_of_caller'
 end
 
