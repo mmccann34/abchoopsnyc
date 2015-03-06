@@ -6,7 +6,7 @@ class CreateTopPerformers < ActiveRecord::Migration
       t.string :name
       t.string :team
       t.string :stat
-      t.integer :type
+      t.integer :performer_type
 
       t.timestamps
     end

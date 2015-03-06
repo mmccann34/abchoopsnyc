@@ -13,6 +13,7 @@ class Game < ActiveRecord::Base
   belongs_to :league
 
   has_many :stat_lines, dependent: :destroy
+  has_many :top_performers, dependent: :destroy
 
   after_initialize :set_defaults
 
@@ -102,10 +103,32 @@ class Game < ActiveRecord::Base
     "#{self.time.strftime("%l%p")}: #{self.home_team.abbreviation} vs #{self.away_team.abbreviation}"
   end
 
+  def save_top_performers
+    top_performers = self.top_performers.order(:performer_type)
+
+    #Top Scorer
+    top_scorer = top_performers[0] || self.top_performers.new(performer_type: 1)
+    ts = self.top_scorer
+    top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team: ts[:team], stat: "#{ts[:points]} Points"}
+    top_scorer.save
+
+    #Second Top Perfomer
+    second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
+    stp = self.second_top_performer
+    second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team: stp[:team], stat: stp[:stat]}
+    second_peformer.save
+
+    #Third Top Perfomer
+    third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
+    ttp = self.third_top_performer(stp[:stat_name])
+    third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team: ttp[:team], stat: ttp[:stat]}
+    third_peformer.save
+  end
+
   def top_scorer
     top_points = 0
     top_scorer = []
-    self.stat_lines.each do |stats|
+    self.stat_lines.includes(:player).each do |stats|
       next if stats.player.nil?
       if stats.points > top_points
         top_points = stats.points
@@ -129,7 +152,7 @@ class Game < ActiveRecord::Base
       top_scorer[:points] = top_scorer_array.first.points.round
     else
       top_scorer[:name] = "#{top_scorer_array.length} Players"
-      top_scorer[:team] = false
+      top_scorer[:team] = nil
       top_scorer[:points] = "#{top_scorer_array.first.points.round}"
     end 
     top_scorer
@@ -138,7 +161,7 @@ class Game < ActiveRecord::Base
   def second_top_performer
     second_stats = 0
     ties = []
-    self.stat_lines.each do |stats|
+    self.stat_lines.includes(:player).each do |stats|
       next if stats.player.nil?
       max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
       if max_weighted_stat[1] >= second_stats
@@ -203,14 +226,14 @@ class Game < ActiveRecord::Base
   end
 
 
-  def third_top_performer
+  def third_top_performer(second_top_perfomer_stat_name = self.second_top_performer[:stat_name])
     third_stats = 0
     ties = []
-    self.stat_lines.each do |stats|
+    self.stat_lines.includes(:player).each do |stats|
       next if stats.player.nil?
       max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
       # can't be from same category as second_top_performer
-      if max_weighted_stat[0] != self.second_top_performer[:stat_name] && max_weighted_stat[1] >= third_stats
+      if max_weighted_stat[0] != second_top_perfomer_stat_name && max_weighted_stat[1] >= third_stats
         if max_weighted_stat[1] > third_stats
           ties.clear
         end
