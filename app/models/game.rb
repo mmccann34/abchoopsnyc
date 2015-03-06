@@ -113,16 +113,20 @@ class Game < ActiveRecord::Base
     top_scorer.save
 
     #Second Top Perfomer
-    second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
     stp = self.second_top_performer
-    second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team: stp[:team], stat: stp[:stat]}
-    second_peformer.save
+    if stp
+      second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
+      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team: stp[:team], stat: stp[:stat]}
+      second_peformer.save
+    end
 
     #Third Top Perfomer
-    third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
     ttp = self.third_top_performer(stp[:stat_name])
-    third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team: ttp[:team], stat: ttp[:stat]}
-    third_peformer.save
+    if ttp
+      third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
+      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team: ttp[:team], stat: ttp[:stat]}
+      third_peformer.save
+    end
   end
 
   def top_scorer
