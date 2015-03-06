@@ -106,6 +106,7 @@ class Game < ActiveRecord::Base
   def save_top_performers
     top_performers = self.top_performers.order(:performer_type)
 
+    #Could probably combine these more
     #Top Scorer
     top_scorer = top_performers[0] || self.top_performers.new(performer_type: 1)
     ts = self.top_scorer
