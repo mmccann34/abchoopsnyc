@@ -50,7 +50,7 @@
 %p
 =render "boxscore_summary", game: @game, show_week: false
 %p
-- if !@game.forfeit && !@game.date.future?
+- if !@game.forfeit && @game.winner?
   %div{:class=>"horizonline"}
   %div{style:"width:360px;display:block;float:left;margin: 0 10px 0 30px;" }
     %div{style:"width:100%;height:100%;"}
