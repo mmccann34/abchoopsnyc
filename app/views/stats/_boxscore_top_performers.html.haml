@@ -1,4 +1,4 @@
-- if !game.forfeit && !game.date.future?
+- if game.winner && !game.forfeit
   %div{:style=>"width:220px;display:block;float:left;margin: 5px 0 0 25px;"}
     %div{:style=>"width:100%;height:100%;"}
       %table{:width=>"220", :class=>"statTableTeamStats", :style=>"text-align:center;margin: 0 auto;", :cellspacing=>"0", :cellpadding=>"3"}
