@@ -13,7 +13,7 @@
               %td{class: last_class}
                 %a{href:stats_player_path(top_performer.player_id)}=top_performer.name
               %td{class: last_class}
-                %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
+                / %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
             -else
               %td{:colspan=>"2", class: last_class}
                 %a{:href=>"#", :class=>"not-active"}=top_performer.name
