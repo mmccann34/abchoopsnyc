@@ -37,7 +37,6 @@ class Game < ActiveRecord::Base
       self.stat_lines.where('team_id not in (?)', [home_team_id, away_team_id]).destroy_all
     end
       
-    
     #Figure out league/division
     #home_team_spot = self.home_team.team_spots.where(season_id: self.season_id).first
     #away_team_spot = self.away_team.team_spots.where(season_id: self.season_id).first
@@ -110,14 +109,14 @@ class Game < ActiveRecord::Base
     #Top Scorer
     top_scorer = top_performers[0] || self.top_performers.new(performer_type: 1)
     ts = self.top_scorer
-    top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team: ts[:team], stat: "#{ts[:points]} Points"}
+    top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team_id: ts[:team].try(:id), stat: "#{ts[:points]} Points"}
     top_scorer.save
 
     #Second Top Perfomer
     stp = self.second_top_performer
     if stp
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
-      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team: stp[:team], stat: stp[:stat]}
+      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
       second_peformer.save
     end
 
@@ -125,7 +124,7 @@ class Game < ActiveRecord::Base
     ttp = self.third_top_performer(stp[:stat_name])
     if ttp
       third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
-      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team: ttp[:team], stat: ttp[:stat]}
+      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
       third_peformer.save
     end
   end
@@ -153,7 +152,7 @@ class Game < ActiveRecord::Base
       if !top_scorer[:player]
       end
       top_scorer[:name] = top_scorer_array.first.player.first_name_last_int
-      top_scorer[:team] = top_scorer_array.first.team.abbreviation
+      top_scorer[:team] = top_scorer_array.first.team
       top_scorer[:points] = top_scorer_array.first.points.round
     else
       top_scorer[:name] = "#{top_scorer_array.length} Players"
@@ -177,7 +176,7 @@ class Game < ActiveRecord::Base
         stp = {}
         stp[:name] = stats.player.first_name_last_int
         stp[:stat_name] = max_weighted_stat[0]
-        stp[:team] = stats.team.abbreviation
+        stp[:team] = stats.team
         stp[:player] = stats.player
         get_unweighted_stat_value(stp, stats)
         ties << stp
@@ -246,7 +245,7 @@ class Game < ActiveRecord::Base
         third = {}
         third[:name] = stats.player.first_name_last_int
         third[:stat_name] = max_weighted_stat[0]
-        third[:team] = stats.team.abbreviation
+        third[:team] = stats.team
         third[:player] = stats.player
         get_unweighted_stat_value(third, stats)
         ties << third

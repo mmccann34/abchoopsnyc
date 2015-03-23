@@ -11,6 +11,7 @@ class Team < ActiveRecord::Base
   has_many :team_spots, dependent: :destroy
   has_many :stat_lines
   has_many :player_stats
+  has_many :top_performers, dependent: :destroy
   #has_many :players, through: :roster_spots, order: 'last_name'
   
   def roster(season_id = nil)
