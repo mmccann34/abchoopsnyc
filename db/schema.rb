@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150306004541) do
+ActiveRecord::Schema.define(:version => 20150322215038) do
 
   create_table "abc_plus_scores", :force => true do |t|
     t.integer  "player_id"
@@ -123,8 +123,8 @@ ActiveRecord::Schema.define(:version => 20150306004541) do
     t.float    "twom"
     t.float    "twoa"
     t.float    "twopct"
-    t.integer  "game_count"
     t.string   "stat_type"
+    t.integer  "game_count"
     t.string   "split_name"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
@@ -280,11 +280,11 @@ ActiveRecord::Schema.define(:version => 20150306004541) do
     t.integer  "game_id"
     t.integer  "player_id"
     t.string   "name"
-    t.string   "team"
     t.string   "stat"
     t.integer  "performer_type"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "team_id"
   end
 
   add_index "top_performers", ["game_id"], :name => "index_top_performers_on_game_id"
