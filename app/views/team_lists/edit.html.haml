@@ -6,6 +6,7 @@
     %h3 Create a Team
     = form_for @new_team, url: team_list_edit_season_path(@season) do |f|
       = f.text_field :name, placeholder: 'Name'
+      = f.text_field :abbreviation, placeholder: 'Abbreviation'
       = f.submit 'Create and Add to Teams', class: 'btn btn-primary', style: 'width:220px;'
   .span9
     %h3 Find a Team
