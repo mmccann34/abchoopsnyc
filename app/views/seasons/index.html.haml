@@ -46,7 +46,8 @@
       //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 3).select{|g| g.week.try(:playoffs) }.count             
     - for season in @seasons
       %tr
-        %td= link_to 'Edit Season', edit_season_path(season), class: 'btn btn-primary btn-mini'
+        %td= link_to 'Edit', edit_season_path(season), class: 'btn btn-primary btn-mini'
+        %td
         / %td= button_to 'Delete', season, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini'
         %td= link_to 'Edit Teams', team_list_edit_season_path(season), class: 'btn btn-info btn-mini'
         - if season.current
