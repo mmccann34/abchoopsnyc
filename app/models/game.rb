@@ -279,7 +279,7 @@ class Game < ActiveRecord::Base
       next if stats.player.nil?
       if stats.team_id == self.winner
         weighted_stats = stats.weighted_stats
-        weighted_stats[:Points] = (stats.points * 0.1)
+        weighted_stats[:Points] = (stats.points * 0.15)
         wpa = weighted_stats.values.inject{|sum, x| sum + x}
         if wpa > top_wpa
           top_wpa = wpa
@@ -311,7 +311,7 @@ class Game < ActiveRecord::Base
       next if stats.player.nil?
       if stats.team_id == self.winner
         weighted_stats = stats.weighted_stats
-        weighted_stats[:Points] = (stats.points * 0.1)
+        weighted_stats[:Points] = (stats.points * 0.15)
         team_wpa += weighted_stats.values.inject{|sum, x| sum + x}
       end
     end
