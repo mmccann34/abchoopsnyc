@@ -60,7 +60,7 @@ class StatLine < ActiveRecord::Base
   def weighted_stats
     weighted_stats ||= {}
     weighted_stats[:Rebounds] = (self.trb * 0.12)
-    weighted_stats[:Assists] = (self.ast * 0.27)
+    weighted_stats[:Assists] = (self.ast * 0.22)
     weighted_stats[:Steals] = (self.stl * 0.17)
     weighted_stats[:Blocks] = (self.blk * 0.34)
     return weighted_stats
