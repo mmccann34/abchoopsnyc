@@ -1,8 +1,8 @@
 <h1><%="Active Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
 <br />
-<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer15.png');">
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall15.png');">
   <ul id="threedaysched">
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=23&league=3"%> style="height:144px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=24&league=3"%> style="height:144px;">
       <% if mode == "schedules" %>
         <p class="activeSeason">Weekday</p>
       <% else %>
@@ -14,7 +14,7 @@
         </ul>
       <% end %>
     </a></li>
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=23&league=2"%> style="height:144px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=24&league=2"%> style="height:144px;">
       <% if mode == "schedules" %>
         <p class="activeSeason">Saturday</p>
       <% else %>
@@ -26,7 +26,7 @@
         </ul>
       <% end %>
     </a></li>
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=23&league=1"%> style="height:144px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=24&league=1"%> style="height:144px;">
       <% if mode == "schedules" %>
         <p class="activeSeason">Sunday</p>
       <% else %>
@@ -42,6 +42,25 @@
 </div>
 <p>&nbsp;</p>
 <p class="priorSeasonBar"><%="Prior Seasons' " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></p>
+
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer15.png');">
+  <ul id="twodaysched">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=23&league=3"%> style="height:144px;"> Weekday
+      <p class="champs" style="margin:-3px;"><b><i>LES Champ</i></b><br />
+        Get Buckets<br /><br />
+        <b><i>YMCA Champ</i></b><br />
+        Renegades</p>
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=23&league=1"%> style="height:144px;"> Sunday
+      <p class="champs" style="margin:-3px;"><b><i>Manna-Hata Champ</i></b><br />
+        Max's All Stars<br />
+        <b><i>New Amsterdam Champ</i></b><br />
+        TBD<br />
+        <b><i>New York Champ</i></b><br />
+        Pick &amp; Roll a J</p>
+      </a></li>
+  </ul>
+</div>
 
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring15.png');">
   <ul id="threedaysched">
