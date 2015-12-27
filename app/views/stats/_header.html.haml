@@ -45,6 +45,8 @@
       %a{href:schedules_path} Scores &amp; Sched
       %ul.schedulemenu
         %li
+          %a{href:schedules_path(season: Season.current.id, league: 4)} IBL
+        %li
           %a{href:schedules_path(season: Season.current.id, league: 3)} Weekdays
         %li
           %a{href:schedules_path(season: Season.current.id, league: 2)} Saturday
@@ -53,6 +55,8 @@
     %li
       %a{href:results_url} Stats
       %ul.statsmenu
+        %li
+          %a{href:results_url(season: Season.current.id, league: 4)} IBL
         %li
           %a{href:results_url(season: Season.current.id, league: 3)} Weekdays
         %li
