@@ -1,3 +1,13 @@
+/ Display standings of current league
+- if @league.present?
+  - league_short_name = @league.short_name
+- else
+  - league_short_name = "Sun"
+
+= javascript_tag do
+  window.leagueDay = '#{j league_short_name}';
+
+/ Sidebar
 - teams = Season.current.team_spots.where("league_id is not null").group_by { |ts| ts.league }
 %p.standingsHead
   Standings:
