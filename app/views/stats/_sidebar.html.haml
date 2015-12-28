@@ -1,13 +1,13 @@
-/ Display standings of current league
 - if @league.present?
   - league_short_name = @league.short_name
+  - current_league_id = @league.id
 - else
   - league_short_name = "Sun"
+  - current_league_id = 1
 
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
 
-/ Sidebar
 - teams = Season.current.team_spots.where("league_id is not null").group_by { |ts| ts.league }
 %p.standingsHead
   Standings:
@@ -17,7 +17,7 @@
         = index != 0 ? "/" : ""
         %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
 - teams.sort.each_with_index.map do |(league, team_spots), index|
-  %div.section{ id: "#{league.try(:short_name)}", style: league.id != 1 ? "display: none;" : "" }
+  %div.section{ id: "#{league.try(:short_name)}", style: league.id != current_league_id ? "display: none;" : "" }
     %div{class:@is_index ? "scroll-pane" : "scroll-paneNS"}
       %table{class:"standingsTable#{@is_index ? league.short_name : 'Sun'}", cellpadding:"3", cellspacing:"2"}
         - team_spots.group_by { |ts| ts.division }.each do |division, division_team_spots|
