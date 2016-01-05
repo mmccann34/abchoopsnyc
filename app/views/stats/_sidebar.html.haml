@@ -1,12 +1,16 @@
 - if @league.present?
   - league_short_name = @league.short_name
   - current_league_id = @league.id
+- elsif @team_spot.present?
+  - league_short_name = @team_spot.league.short_name
+  - current_league_id = @team_spot.league.id
 - else
   - league_short_name = "Sun"
   - current_league_id = 1
 
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
+
 
 - teams = Season.current.team_spots.where("league_id is not null").group_by { |ts| ts.league }
 %p.standingsHead
