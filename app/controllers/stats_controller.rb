@@ -140,6 +140,18 @@ class StatsController < ActionController::Base
         @leaderboard[:threepct] = get_records('threepct', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
         @leaderboard[:ftpct] = get_records('ftpct', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
         @leaderboard[:ftm] = get_records('ftm', 'season_average', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+
+        #leaderboard_totals
+        @leaderboard_totals = {}
+        @leaderboard_totals[:points] = get_records('points', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:rebounds] = get_records('trb', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:assists] = get_records('ast', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:blocks] = get_records('blk', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:steals] = get_records('stl', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:fgpct] = get_records('fgpct', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:threepct] = get_records('threepct', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:ftpct] = get_records('ftpct', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
+        @leaderboard_totals[:ftm] = get_records('ftm', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
       end
     end
   end

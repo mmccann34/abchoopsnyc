@@ -53,23 +53,47 @@
     %a#leaderboard{name:"leaderboard"}
     Leaderboard
   %p.hl
-  %table.statTableTeamStats.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"800"}
-    %colgroup
-      %col{ span:"1", style:"width: 170px;" }
-      %col{ span:"1", style:"width: 50px;" }
-      %col{ span:"1", style:"width: 35px;" }
-      %col{ span:"1", style:"width: 15px;" }
-      %col{ span:"1", style:"width: 170px;" }
-      %col{ span:"1", style:"width: 50px;" }
-      %col{ span:"1", style:"width: 35px;" }
-      %col{ span:"1", style:"width: 15px;" }
-      %col{ span:"1", style:"width: 170px;" }
-      %col{ span:"1", style:"width: 50px;" }
-      %col{ span:"1", style:"width: 35px;" }
-    %tbody
-      =render "leaderboard_entry", headers: ['Points Per Game', 'Rebounds Per Game', 'Assists Per Game'], entries: [@leaderboard[:points], @leaderboard[:rebounds], @leaderboard[:assists]], precisions: [1, 1, 1]
-      =render "leaderboard_entry", headers: ['Blocks Per Game', 'FG%', 'Steals Per Game'], entries: [@leaderboard[:blocks], @leaderboard[:fgpct], @leaderboard[:steals]], precisions: [1, 3, 1]
-      =render "leaderboard_entry", headers: ['3P%', 'FT%', 'Free Throws Per Game'], entries: [@leaderboard[:threepct], @leaderboard[:ftpct], @leaderboard[:ftm]], precisions: [3, 3, 1]
+  %ul#playerprof1
+    %li.stat_types
+      %a{class:"profbutton", href:"#leaderboard_pergame" } Per Game
+    %li.stat_types
+      %a{class:"profbutton", href:"#leaderboard_totals" } Totals
+  #leaderboard_pergame.profstats
+    %table.statTableTeamStats.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"800"}
+      %colgroup
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 15px;" }
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 15px;" }
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+      %tbody
+        =render "leaderboard_entry", headers: ['Points Per Game', 'Rebounds Per Game', 'Assists Per Game'], entries: [@leaderboard[:points], @leaderboard[:rebounds], @leaderboard[:assists]], precisions: [1, 1, 1]
+        =render "leaderboard_entry", headers: ['Blocks Per Game', 'FG%', 'Steals Per Game'], entries: [@leaderboard[:blocks], @leaderboard[:fgpct], @leaderboard[:steals]], precisions: [1, 3, 1]
+        =render "leaderboard_entry", headers: ['3P%', 'FT%', 'Free Throws Per Game'], entries: [@leaderboard[:threepct], @leaderboard[:ftpct], @leaderboard[:ftm]], precisions: [3, 3, 1]
+  #leaderboard_totals.profstats
+    %table.statTableTeamStats.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"800"}
+      %colgroup
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 15px;" }
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+        %col{ span:"1", style:"width: 15px;" }
+        %col{ span:"1", style:"width: 170px;" }
+        %col{ span:"1", style:"width: 50px;" }
+        %col{ span:"1", style:"width: 35px;" }
+      %tbody
+        =render "leaderboard_entry", headers: ['Points', 'Rebounds', 'Assists'], entries: [@leaderboard_totals[:points], @leaderboard_totals[:rebounds], @leaderboard_totals[:assists]], precisions: [1, 1, 1]
+        =render "leaderboard_entry", headers: ['Blocks', 'FG%', 'Steals'], entries: [@leaderboard_totals[:blocks], @leaderboard_totals[:fgpct], @leaderboard_totals[:steals]], precisions: [1, 3, 1]
+        =render "leaderboard_entry", headers: ['3P%', 'FT%', 'Free Throws'], entries: [@leaderboard_totals[:threepct], @leaderboard_totals[:ftpct], @leaderboard_totals[:ftm]], precisions: [3, 3, 1]
   %br
   %p.terms Minimum 4 GP for all stats.  Minimum 8 FGA per game for FG%, 3 3PA per game for 3P%, and 4 FTA per game for FT%.
   %h3 &nbsp;
@@ -131,3 +155,7 @@
         %td.lline= number_with_precision(stat.stl, precision: 1)
         %td.lline= number_with_precision(stat.blk, precision: 1)
         %td.lline= number_with_precision(stat.fl, precision: 1)
+
+= javascript_include_tag "activatables"
+%script{type: "text/javascript"}
+  activatables('page', ['leaderboard_pergame', 'leaderboard_totals']);
