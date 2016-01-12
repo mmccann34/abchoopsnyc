@@ -64,6 +64,12 @@ end
 # Use unicorn as the app server
 # gem 'unicorn'
 
+# Use Puma as the app server
+gem 'puma'
+
+# Heroku Rack Timeout
+gem "rack-timeout"
+
 # Deploy with Capistrano
 # gem 'capistrano'
 
