@@ -95,7 +95,7 @@ class StatsController < ActionController::Base
         @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
         @teams = @league.teams(@season)
         
-        default_week = @games.keys.select{|week| week.start_date >= 3.days.ago.to_datetime()}.first || @games.keys.last
+        default_week = @games.keys.select{|week| week.end_date >= 2.days.ago.to_datetime()}.first || @games.keys.last
         @week_links = []
         @games.keys.each_with_index do |week, i|
           if week == default_week
