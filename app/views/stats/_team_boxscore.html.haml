@@ -67,7 +67,7 @@
       %th F
       %th P
   %tbody
-    - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| !stat.dnp }.each do |stat|
+    - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| ( !stat.dnp ) && ( stat.no_stats == false ) }.each do |stat|
       %tr{class: "#{cycle('odd', 'even')}"}
         %td= stat.jersey_number
         %td
