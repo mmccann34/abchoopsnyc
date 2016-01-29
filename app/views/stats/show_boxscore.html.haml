@@ -89,7 +89,8 @@
                   %a{:class=>"headshotThumbContainer halfball", :href=>"#"}
                     %span{:class=>"playernumbernopicthumb"}=@game.player_of_the_game[:player].last_number
             %td{:class=>"bline", :style=>"background-color: #e7e7e7;"}
-              %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]} - "
+              %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
+              &ndash;
               %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
             %td{:width=>"70", :class=>"rline lline"}
               %img{:src=>"http://stats.abchoopsnyc.com/assets/abcplus50.png"}
