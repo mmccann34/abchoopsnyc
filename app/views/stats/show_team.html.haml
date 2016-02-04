@@ -5,9 +5,13 @@
     Season:
     =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
 //%p Seasons: #{@team.season_count}
--if not @team_spot.team_photo_url.blank?
+-if @team_spot.team_photo_url.present?
   %img.teampic{alt:"", src:"#{@team_spot.team_photo_url}"}
-  %p &nbsp;
+-elsif
+  - @old_team_url.present?
+  %img.teampic{alt:"#{@old_team_season.name}", src:"#{@old_team_url.team_photo_url}"}
+  %p{:style => "font-size:10px;font-weight:bold;text-align:center"} #{@old_team_season.name}
+%p &nbsp;
 %a#schedule{ name: "schedule" }
 %h1 Schedule
 %p.hl

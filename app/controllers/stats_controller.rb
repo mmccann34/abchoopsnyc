@@ -83,6 +83,11 @@ class StatsController < ActionController::Base
     @per_game_stats = @team.player_stats.where(stat_type: 'team_per_game_average').where(season_id: @current_season).first #@team.per_game_stats(@current_season)
     @cumulative_player_stats = @team.player_stats.where(stat_type: 'season_total').where(season_id: @current_season).index_by(&:player_id) #@team.cumulative_player_stats(@current_season)
     @cumulative_team_stats = @team.player_stats.where(stat_type: 'team_season_total').where(season_id: @current_season).first
+    # require 'pry'; binding.pry
+    @old_team_url = @team.team_spots.where("team_photo_url <> ''").last
+    if @old_team_url
+      @old_team_season = Season.where(id: @old_team_url.season_id).first
+    end
   end
   
   def show_schedules
