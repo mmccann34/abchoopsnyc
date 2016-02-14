@@ -41,7 +41,7 @@ class StatsController < ActionController::Base
   def show_boxscore
     @game = Game.find_by_id(params[:id])
     if !@game
-      redirect_to 'http://www.abchoopsnyc.com' and return
+      redirect_to 'http://www.abchoops.com' and return
     end
     
     @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
@@ -66,7 +66,7 @@ class StatsController < ActionController::Base
     begin
       @team = Team.find(params[:id])
     rescue
-      redirect_to 'http://www.abchoopsnyc.com' and return
+      redirect_to 'http://www.abchoops.com' and return
     end
     
 #.where("seasons.id <= ?", Season.current.id)
@@ -83,6 +83,11 @@ class StatsController < ActionController::Base
     @per_game_stats = @team.player_stats.where(stat_type: 'team_per_game_average').where(season_id: @current_season).first #@team.per_game_stats(@current_season)
     @cumulative_player_stats = @team.player_stats.where(stat_type: 'season_total').where(season_id: @current_season).index_by(&:player_id) #@team.cumulative_player_stats(@current_season)
     @cumulative_team_stats = @team.player_stats.where(stat_type: 'team_season_total').where(season_id: @current_season).first
+    # require 'pry'; binding.pry
+    @old_team_url = @team.team_spots.where("team_photo_url <> ''").last
+    if @old_team_url
+      @old_team_season = Season.where(id: @old_team_url.season_id).first
+    end
   end
   
   def show_schedules
@@ -95,7 +100,7 @@ class StatsController < ActionController::Base
         @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
         @teams = @league.teams(@season)
         
-        default_week = @games.keys.select{|week| week.start_date >= 3.days.ago.to_datetime()}.first || @games.keys.last
+        default_week = @games.keys.select{|week| week.end_date >= 2.days.ago.to_datetime()}.first || @games.keys.last
         @week_links = []
         @games.keys.each_with_index do |week, i|
           if week == default_week
@@ -160,7 +165,7 @@ class StatsController < ActionController::Base
     begin
       @player = Player.find(params[:id])
     rescue
-      redirect_to 'http://www.abchoopsnyc.com' and return
+      redirect_to 'http://www.abchoops.com' and return
     end
     
     player_stats = @player.player_stats.where("stat_type not like 'splits_%'")

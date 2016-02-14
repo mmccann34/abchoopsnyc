@@ -42,6 +42,12 @@ class StatLine < ActiveRecord::Base
       self.season_id = self.game.season_id
       self.vs_team_id = self.team_id == self.game.home_team_id ? self.game.away_team_id : self.game.home_team_id
     end
+
+    if (self.points == 0) && (self.fgm == 0) && (self.fga == 0) && (self.twom == 0) && (self.twoa == 0) && (self.threem == 0) && (self.threea == 0) && (self.ftm == 0) && (self.fta == 0) && (self.orb == 0) && (self.drb == 0) && (self.trb == 0) && (self.ast == 0) & (self.stl == 0) && (self.blk == 0) && (self.fl == 0) && (self.to == 0)
+      self.dnp = true
+    else
+      self.dnp = false
+    end
     
     nil
   end
@@ -65,4 +71,14 @@ class StatLine < ActiveRecord::Base
     weighted_stats[:Blocks] = (self.blk * 0.34)
     return weighted_stats
   end
+
+  def dnp_future_game
+    future_result = self.game.date.future?
+    if ( ( self.dnp == true ) && ( future_result == true ) ) || (self.dnp == false)
+      return true
+    else
+      return false
+    end
+  end
+  
 end 

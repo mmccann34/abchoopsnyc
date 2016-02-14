@@ -28,11 +28,22 @@
   %div.section{ id: "#{league.try(:short_name)}", style: league.id != current_league_id ? "display: none;" : "" }
     %div{class:@is_index ? "scroll-pane" : "scroll-paneNS"}
       %table{class:"standingsTable#{@is_index ? league.short_name : 'Sun'}", cellpadding:"3", cellspacing:"2"}
-        - team_spots.group_by { |ts| ts.division }.each do |division, division_team_spots|
-          - if division
-            %tr
-              %td.divisionName{ colspan: "3" } #{division.name} 
+        - divisions = team_spots.group_by { |ts| ts.division }
+        - no_division = divisions.extract!(nil)
+        - divisions.keys.sort.each_with_index do |division|
+          %tr
+            %td.divisionName{ colspan: "3" } #{division.name}
+          - division_team_spots = division.team_spots
           - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
+            %tr
+              %td{width:"1px"} &nbsp;
+              %td
+                %b
+                  %a{href: stats_team_url(ts.team)}= ts.team.name
+              %td.text-right= ts.record
+        - team_spot_no_division = no_division[nil]
+        - if team_spot_no_division
+          - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
             %tr
               %td{width:"1px"} &nbsp;
               %td

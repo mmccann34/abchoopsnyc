@@ -20,7 +20,11 @@
       %tr.even2
         %td{style: "font-weight: bold;"} Date
         - @games.keys.each do |week|
-          %td{style: "border-left: 1px dotted #999"}= week.start_date.strftime("%-m/%-d")
+          %td{style: "border-left: 1px dotted #999"} 
+            = week.start_date.strftime("%-m/%-d") 
+            - if [3,4].include?(@league.id)
+              &ndash;
+              = week.end_date.strftime("%-m/%-d")
       %tr.odd2
         %td{style: "font-weight: bold;"} Bye
         - @games.each do |week, games|

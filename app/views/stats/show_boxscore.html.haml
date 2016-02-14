@@ -1,5 +1,3 @@
-%link{:rel=>"stylesheet", :href=>"gal/jquery.fancybox.css", :type=>"text/css",:media=>"screen"}
-%script{:type=>"text/html", :src =>"gal/jquery.fancybox.pack.js"}
 -title "#{@game.home_team.name} vs. #{@game.away_team.name} - #{@game.week_name} - #{@game.season.name}"
 %h1 #{@game.season.name} - #{@game.league.name} Results
 %table{width:"800", cellspacing:"0", cellpadding:"2", style:"text-align:center;"}
@@ -89,7 +87,8 @@
                   %a{:class=>"headshotThumbContainer halfball", :href=>"#"}
                     %span{:class=>"playernumbernopicthumb"}=@game.player_of_the_game[:player].last_number
             %td{:class=>"bline", :style=>"background-color: #e7e7e7;"}
-              %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]} - "
+              %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
+              &ndash;
               %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
             %td{:width=>"70", :class=>"rline lline"}
               %img{:src=>"http://stats.abchoopsnyc.com/assets/abcplus50.png"}
@@ -122,26 +121,27 @@
 
 -if (not @game.photo_urls.nil?) && @game.photo_urls.any?
   :javascript
-    $(document).ready(function(){
-      $('#slides1').bxGallery({
-        maxwidth: '',
-        maxheight: '',
-        thumbwidth: #{@thumb_width},
-        thumbcrop: false,
-        croppercent: .35,
-        thumbplacement: 'top',
-        thumbcontainer: '',
-        opacity: .7,
-        load_text: '',
-        load_image: 'http://abchoopsnyc.com/images/spinner.gif',
-        wrapperclass: 'outer' 
+    $(document).ready(function() {
+      $(".fancybox").fancybox({
+      prevEffect  : 'none',
+      nextEffect  : 'none',
+      padding:5
       });
     });
-    
-  %ul#slides1
-    -@game.photo_urls.each do |url|
+
+  %ul.thumbsFB
+    - pic_count = @game.photo_urls.count
+    - if pic_count > 5
+      - pic_count = pic_count/2
+    - @game.photo_urls.each do |url|
       %li
-        %img{src: url, title:"&nbsp;"}
+        %a.fancybox{:href => url, :rel => "group"}
+          %img{:class => 'count' + pic_count.to_s + 'thumbs', :src => url }/
+
+  %div{:style=>"clear:both;"}
+  %div{:class=>"horizline"}
+
+
   .horizonline
 %a#fullboxscore{name:"fullboxscore"}
 = render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
