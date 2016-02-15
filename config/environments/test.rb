@@ -34,4 +34,7 @@ Abchoops::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Rails 4.2.5.1 upgrade
+  config.eager_load = false
 end

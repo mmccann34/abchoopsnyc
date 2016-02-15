@@ -30,7 +30,7 @@ Abchoops::Application.configure do
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
   config.assets.compress = false
@@ -40,4 +40,7 @@ Abchoops::Application.configure do
 
   # Paperclip on Windows
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.8.1-Q16'
+
+  # Rails 4.2.5.1 upgrade
+  config.eager_load = false
 end
