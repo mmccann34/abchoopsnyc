@@ -1,6 +1,6 @@
 class Player < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
   
   attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, 
                   :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, 
