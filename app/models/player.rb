@@ -115,7 +115,7 @@ class Player < ActiveRecord::Base
   def career_averages
     StatLine.joins(:game).select('AVG(fgm) as fgm, AVG(fga) as fga, coalesce(AVG(fgm)/nullif(AVG(fga), 0), 0) as fgpct, AVG(twom) as twom, AVG(twoa) as twoa, coalesce(AVG(twom)/nullif(AVG(twoa), 0), 0) as twopct, AVG(threem) as threem, AVG(threea) as threea, coalesce(AVG(threem)/nullif(AVG(threea), 0), 0) as threepct,' \
                                  'AVG(ftm) as ftm, AVG(fta) as fta, coalesce(AVG(ftm)/nullif(AVG(fta), 0), 0) as ftpct, AVG(orb) as orb, AVG(drb) as drb, AVG(trb) as trb, AVG(ast) as ast, AVG(stl) as stl, AVG(blk) as blk, AVG(fl) as fl, AVG("to") as to,' \
-        'AVG(points) as points, -1 as doubles, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").first
+        'AVG(points) as points, -1 as doubles, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")[0]
   end
   
   def season_totals(season)
@@ -127,7 +127,7 @@ class Player < ActiveRecord::Base
   def career_totals
     StatLine.joins(:game).select('SUM(fgm) as fgm, SUM(fga) as fga, coalesce(SUM(fgm)/nullif(SUM(fga), 0), 0) as fgpct, SUM(twom) as twom, SUM(twoa) as twoa, coalesce(SUM(twom)/nullif(SUM(twoa), 0), 0) as twopct, SUM(threem) as threem, SUM(threea) as threea, coalesce(SUM(threem)/nullif(SUM(threea), 0), 0) as threepct,' \
                     'SUM(ftm) as ftm, SUM(fta) as fta, coalesce(SUM(ftm)/nullif(SUM(fta), 0), 0) as ftpct, SUM(orb) as orb, SUM(drb) as drb, SUM(trb) as trb, SUM(ast) as ast, SUM(stl) as stl, SUM(blk) as blk, SUM(fl) as fl, SUM("to") as to,' \
-        'SUM(points) as points, SUM(CASE WHEN double_double = true THEN 1 ELSE 0 END) as doubles, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null").first
+        'SUM(points) as points, SUM(CASE WHEN double_double = true THEN 1 ELSE 0 END) as doubles, COUNT(*) as game_count').where(player_id: self.id).where("dnp is null OR not dnp").where("games.forfeit is null OR not games.forfeit").where("games.winner is not null")[0]
   end
   
   #def average_per_season_totals
