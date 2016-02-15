@@ -15,7 +15,7 @@ class Team < ActiveRecord::Base
   #has_many :players, through: :roster_spots, order: 'last_name'
   
   def roster(season_id = nil)
-    self.roster_spots.find_all_by_season_id(season_id ? season_id : Season.current)
+    self.roster_spots.where(season_id: season_id ? season_id : Season.current)
   end
   
   def games(season_id = nil)

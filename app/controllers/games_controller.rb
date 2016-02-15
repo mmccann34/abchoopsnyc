@@ -7,7 +7,7 @@ class GamesController < ApplicationController
       @selected_season = Season.current
     end
 
-    @games = Game.find_all_by_season_id(@selected_season.id).order("date DESC") if @selected_season
+    @games = Game.order("date DESC").where(season_id: @selected_season.id) if @selected_season
     @seasons = Season.order("id DESC").all
   end
 
