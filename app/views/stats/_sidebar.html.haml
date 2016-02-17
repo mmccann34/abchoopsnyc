@@ -16,7 +16,7 @@
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
 
-- teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").order("(wins / nullif(wins + losses, 0)) DESC, wins DESC, losses ASC, (points_for - points_against) DESC").group_by { |ts| ts.league }
+- teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").order("coalesce(wins / nullif(wins + losses, 0), 0) DESC, wins DESC, losses ASC, (points_for - points_against) DESC").group_by { |ts| ts.league }
 %p.standingsHead
   Standings:
   - if teams.count > 1
