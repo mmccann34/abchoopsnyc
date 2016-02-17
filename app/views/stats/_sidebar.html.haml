@@ -16,12 +16,12 @@
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
 
-- teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").order("coalesce(wins / nullif(wins + losses, 0), 0) DESC, wins DESC, losses ASC, (points_for - points_against) DESC").group_by { |ts| ts.league }
+- teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").group_by { |ts| ts.league }
 %p.standingsHead
   Standings:
   - if teams.count > 1
     %span.rightSatSun
-      - teams.keys.sort.reverse!.each_with_index do |league, index|
+      - teams.keys.sort.reverse!.each_with_index do |league_id, index|
         = index != 0 ? "/" : ""
         %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
 - teams.sort.each_with_index.map do |(league, team_spots), index|
@@ -33,7 +33,8 @@
         - divisions.keys.sort.each_with_index do |division|
           %tr
             %td.divisionName{ colspan: "3" } #{division.name}
-          - division.team_spots.each do |ts|
+          - division_team_spots = division.team_spots
+          - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
             %tr
               %td{width:"1px"} &nbsp;
               %td
@@ -42,7 +43,7 @@
               %td.text-right= ts.record
         - team_spot_no_division = no_division[nil]
         - if team_spot_no_division
-          - team_spot_no_division.each do |ts|
+          - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
             %tr
               %td{width:"1px"} &nbsp;
               %td
