@@ -21,7 +21,7 @@
   Standings:
   - if teams.count > 1
     %span.rightSatSun
-      - teams.keys.sort.reverse!.each_with_index do |league_id, index|
+      - teams.keys.sort.reverse!.each_with_index do |league, index|
         = index != 0 ? "/" : ""
         %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
 - teams.sort.each_with_index.map do |(league, team_spots), index|
