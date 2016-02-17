@@ -1,6 +1,6 @@
 class StatsController < ActionController::Base
   layout "stats"
-  # before_filter :load_sidebar
+  before_filter :load_sidebar
 
   def index
   end
