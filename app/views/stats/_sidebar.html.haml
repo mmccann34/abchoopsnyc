@@ -1,17 +1,20 @@
 / display appropriate standings
 / check on schedule and result page, team, boxscore
-- if @league.present?
-  - league_short_name = @league.short_name
-  - current_league_id = @league.id
-- elsif @team_spot.present?
-  - league_short_name = @team_spot.league.short_name
-  - current_league_id = @team_spot.league.id
-- elsif @game.present?
-  - league_short_name = @game.league.short_name
-  - current_league_id = @game.league.id
+- if @current_league_id
+  - current_league_id = @current_league_id
 - else
-  - league_short_name = "Sun"
-  - current_league_id = 1
+  - if @league.present?
+    - league_short_name = @league.short_name
+    - current_league_id = @league.id
+  - elsif @team_spot.present?
+    - league_short_name = @team_spot.league.short_name
+    - current_league_id = @team_spot.league.id
+  - elsif @game.present?
+    - league_short_name = @game.league.short_name
+    - current_league_id = @game.league.id
+  - else
+    - league_short_name = "Sun"
+    - current_league_id = 1
 
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
@@ -23,7 +26,7 @@
     %span.rightSatSun
       - teams.keys.sort.reverse!.each_with_index do |league, index|
         = index != 0 ? "/" : ""
-        %a.showlink{ id: "show_#{league.short_name}", style: "text-decoration: none;" } #{league.short_name}
+        %a.showlink{ id: "show_#{league.short_name}", style: league.id != current_league_id ? "" : "text-decoration: underline" } #{league.short_name}
 - teams.sort.each_with_index.map do |(league, team_spots), index|
   %div.section{ id: "#{league.try(:short_name)}", style: league.id != current_league_id ? "display: none;" : "" }
     %div{class:@is_index ? "scroll-pane" : "scroll-paneNS"}

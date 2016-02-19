@@ -1,3 +1,12 @@
+- if @league.present?
+  - current_league_id = @league.id
+- elsif @team_spot.present?
+  - current_league_id = @team_spot.league.id
+- elsif @game.present?
+  - current_league_id = @game.league.id
+- else
+  - current_league_id = 1
+
 <!DOCTYPE html>
 %html
   %head
@@ -22,12 +31,14 @@
             .mainContent
               = yield
             .sidebarContent
-              #standings.sidebarscrollpane
+              #sidebarStandings.sidebarscrollpane
               = render "sidebar_bottom"
         .wholeDivider
         .footerContainer
           = render "footer"
       %div{style:"clear:both;"}
     .js-container
+      = javascript_tag do
+        window.currentLeagueId = '#{j current_league_id.to_s}';
       %script{src: "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"}
       %script{src: "//cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"}
