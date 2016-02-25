@@ -26,6 +26,8 @@ class GamesController < ApplicationController
     11.times { @games.append(Game.new) }
     @times = get_times("AM")
     @times.concat get_times("PM")
+
+
   end
 
   def create
@@ -53,6 +55,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @times = get_times("AM")
     @times.concat get_times("PM")
+    require 'pry'; binding.pry
   end
 
   def update

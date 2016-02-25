@@ -18,7 +18,7 @@
         <%= select_tag "games[game#{index}[time]]", options_for_select(@times, @times[48 + (index * 4)]), style: 'float:left; margin-bottom:0px; margin-right:10px;' %>
         <%= f.association :home_team, prompt: 'Home Team', collection: @teams, required: false, input_html: { name: "games[game#{index}[home_team_id]]" } %>
         <%= f.association :away_team, prompt: 'Away Team', collection: @teams, required: false, input_html: { name: "games[game#{index}[away_team_id]]" } %>
-        <%= f.input :playoff_round, placeholder: 'Playoff Round' %>
+        <%= f.input :playoff_round, placeholder: 'Playoff Round', input_html: { name: "games[game#{index}[playoff_round]]" } %>
         <% end %>
       </td>
     </tr>
