@@ -326,7 +326,7 @@ to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
     when "threepct"
       minimum += is_total ? " and threea/game_count >= 3" : " and threea >= 3"
     when "ftpct"
-      minimum += is_total ? " and fta/game_count >= 4" : " and fta >= 4"
+      minimum += is_total ? " and fta/game_count >= 3" : " and fta >= 3"
     end
     
     query = PlayerStat.joins(:player).joins(:team)
