@@ -55,7 +55,6 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @times = get_times("AM")
     @times.concat get_times("PM")
-    require 'pry'; binding.pry
   end
 
   def update
