@@ -1,0 +1,9 @@
+<%= simple_form_for Player.new, html: { multipart: true }, defaults: { input_html: { class: 'input-block-level' }, label_html: { class: 'hide' } } do |f| %>
+  <fieldset>
+    <%= f.input :first_name, placeholder: 'First', input_html: { autofocus: 'autofocus' } %>
+    <%= f.input :last_name, placeholder: 'Last' %>
+    <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
+    </div>
+    <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
+  </fieldset>
+<% end %>
