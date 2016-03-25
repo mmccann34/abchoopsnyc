@@ -16,6 +16,7 @@ class BoxscoresController < ApplicationController
     else
       @game.create_stat_lines
     end
+    @new_player = Player.new
   end
 
   def update

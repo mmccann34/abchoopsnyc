@@ -22,7 +22,14 @@ $(function() {
   calcTotalScore("home");
   sumTotalScore("away");
   sumTotalScore("home");
+
+$(".new_player_show").click(function() {
+    var num = this.id.match(/\d+/)[0];
+    $(".new_player_forms").hide();
+    $("#new_player_form_" + num).show();
 });
+});
+
 
 function checkTotals(team) {
   if (parseInt($('#'+team+'_score_total_sum').html()) != parseInt($('#'+team+'_score_total').html())) {

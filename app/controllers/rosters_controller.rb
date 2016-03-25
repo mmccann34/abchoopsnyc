@@ -22,10 +22,14 @@ class RostersController < ApplicationController
     player_id = params[:player_id]
     season_id = params[:season_id]
     player = player_id ? Player.find(player_id) : Player.create(params[:player])
-   
+
     if player.id
       team.roster_spots << RosterSpot.create(player_id: player.id, season_id: season_id)
-      redirect_to roster_edit_team_url(team, season: season_id)
+      if URI(request.referer).path.end_with?("boxscore/edit")
+        redirect_to :back
+      else
+        redirect_to roster_edit_team_url(team, season: season_id)
+      end
     else
       error = player.errors[:base].any? ? player.errors[:base][0] : "An error occurred while adding Player."
       redirect_to roster_edit_team_url(team, season: season_id), flash: { error: error }

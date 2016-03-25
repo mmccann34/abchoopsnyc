@@ -3,6 +3,7 @@
     <%= f.input :first_name, placeholder: 'First', input_html: { autofocus: 'autofocus' } %>
     <%= f.input :last_name, placeholder: 'Last' %>
     <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
+    <%= hidden_field_tag :season_id, @selected_season.id %>
     </div>
     <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
   </fieldset>

@@ -1,0 +1,7 @@
+<%= form_for @new_player, url: roster_edit_team_path(team) do |f| %>
+<%= f.text_field :first_name, placeholder: 'First' %>
+<%= f.text_field :last_name, placeholder: 'Last' %>
+<%= hidden_field_tag :season_id, @game.season_id %>
+<%= hidden_field_tag :team_id, team.id %>
+<%= f.submit 'Create and Add to ' + team.name, class: 'btn btn-primary', style: 'margin: 0 0 10px 0' %>
+<% end %>

@@ -37,7 +37,7 @@ class StatLine < ActiveRecord::Base
     calc_percentages
 
     self.double_double = [points, trb, ast, stl, blk].select{|s| s >= 10}.count >= 2
-    
+
     if self.game
       self.season_id = self.game.season_id
       self.vs_team_id = self.team_id == self.game.home_team_id ? self.game.away_team_id : self.game.home_team_id

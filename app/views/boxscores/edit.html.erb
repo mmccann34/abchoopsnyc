@@ -1,24 +1,36 @@
-<div class="page-header" style="text-align:center;">
+<div class="page-header" style="text-align:center;margin-bottom:10px;">
   <h2>Box Score</h2>
   <h3><%= "#{@game.away_team.name} @ #{@game.home_team.name}" %></h3>
   <%= link_to "View Box Score", boxscore_game_path(@game), class: "btn btn-primary" %>
 </div>
+
 <div id="edit_boxscore">
+<h4>Add a new player to:</h4>
+ <% game_teams = [@game.away_team, @game.home_team] %>
+  <% game_teams.each_with_index do |team, index| %>
+    <div class="row" style="margin:5px 0 5px 0;height:40px;">
+      <button type="button" class="btn btn-info new_player_show" id="new_player_show_<%= index %>" style="float:left;position:relative;margin:0 2px 0 2px;"><%= team.name %></button>
+      <div id="new_player_form_<%= index %>" class="new_player_forms" style="display:none;float:left;position:relative">
+        <%= render 'rosters/short_form', team: team %>
+      </div>
+    </div>
+  <% end %>
+
   <%= form_tag(boxscore_edit_game_path(@game), { method: :put , onSubmit: 'return validateInputs();' }) do %>
-  <div class="form-inline" style="margin-bottom:10px;">
-    <label class="checkbox" style="font-weight:bold; font-size:18px;">
+    <div style="margin-top:10px;border-bottom:1px solid #eee;border-top:1px solid #eee;padding:10px 0 10px 0">
+      <label class="checkbox" style="font-weight:bold; font-size:18px;">
       <input name="game[forfeit]" type="hidden" value="0">
-      <%= check_box_tag 'game[forfeit]', "1", @game.forfeit %> Forfeit
-    </label>
-    <%= label_tag 'game[winner]', 'Winner', name: 'game[winner]', style: 'margin-left:10px;' %>
-    <%= select_tag 'game[winner]', options_for_select({@game.away_team.name => @game.away_team.id, @game.home_team.name => @game.home_team.id}, @game.winner), include_blank: true %>
-  </div>
+        <%= check_box_tag 'game[forfeit]', "1", @game.forfeit %> Forfeit
+      </label>
+      <%= label_tag 'game[winner]', 'Winner', name: 'game[winner]', style: 'margin-left:10px;' %>
+      <%= select_tag 'game[winner]', options_for_select({@game.away_team.name => @game.away_team.id, @game.home_team.name => @game.home_team.id}, @game.winner), include_blank: true %>
+    </div>
+  <h3>
+    <%= @game.away_team.name %>
+  </h3>
   <div id="team_stats">
     <div id="away_stats">
-      <h3>
-        <%= @game.away_team.name %>
-      </h3>
-      <div class="form-inline">
+      <div class="form-inline" style="margin:10px 0 10px 0">
         <%= label_tag 'game[away_score_first]', '1st Half', class: '' %>
         <%= number_field_tag 'game[away_score_first]', @game.away_score_first, min: 0, class: 'half_score' %>
         <%= label_tag 'game[away_score_second]', '2nd Half', class: '' %>
@@ -42,7 +54,7 @@
       <h3>
         <%= @game.home_team.name %> 
       </h3>
-      <div class="form-inline">
+      <div class="form-inline" style="margin:10px 0 10px 0">
         <%= label_tag 'game[home_score_first]', '1st Half', class: '' %>
         <%= number_field_tag 'game[home_score_first]', @game.home_score_first, min: 0, class: 'half_score' %>
         <%= label_tag 'game[home_score_second]', '2nd Half', class: '' %>
