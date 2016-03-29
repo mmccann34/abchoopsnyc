@@ -43,7 +43,7 @@
               %td
                 %b
                   %a{href: stats_team_url(ts.team)}= ts.team.name
-              %td.text-right= ts.record
+              %td.standingsRecord.text-right= ts.record
         - team_spot_no_division = no_division[nil]
         - if team_spot_no_division
           - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
@@ -52,4 +52,4 @@
               %td
                 %b
                   %a{href: stats_team_url(ts.team)}= ts.team.name
-              %td.text-right= ts.record
+              %td.standingsRecord.text-right= ts.record
