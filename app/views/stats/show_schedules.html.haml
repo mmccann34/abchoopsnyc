@@ -6,7 +6,7 @@
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
   %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
     Season:
-    =select_tag "season", options_from_collection_for_select(Season.order("number desc"), "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
     =hidden_field_tag "league", @league.id
   %br
   %table.sortable.maintablestand{border: "0", width: "800", cellpadding: "3", cellspacing: "0"}
