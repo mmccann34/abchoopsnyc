@@ -259,9 +259,8 @@ class StatsController < ActionController::Base
     @career_averages[:threem] = get_records('threem * 3', 'career_per_game_average')
     
     @season = params[:season] ? Season.find(params[:season]) : Season.current
-    
     season_games_by_team = Season.find(@season).played_games.inject(Hash.new(0)){|h,g| h[g.home_team_id] += 1; h[g.away_team_id] +=1; h} 
-    avg_games_played = season_games_by_team.values.sum / season_games_by_team.values.length
+    avg_games_played = season_games_by_team.length == 0 ? 0 : (season_games_by_team.values.sum / season_games_by_team.length)
     min_games = avg_games_played / 2
     
     @season_totals = {}
