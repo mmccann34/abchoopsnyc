@@ -10,11 +10,12 @@
     %h1 #{@season.name} - #{@league.name} Stats
   %form{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
     Season:
-    =select_tag "season", options_from_collection_for_select(Season.order("number desc"), "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
     =hidden_field_tag "league", @league.id
   %p 
-    At ABC Hoops NYC, stats are very important to us.  We have three dedicated stat keepers at each game to make sure everything is recorded as accurately as possible.  For the each weeks' scores, go to the 
-    %a{href:schedules_path(season:@season.id, league:@league.id)} Schedule Page
+    At ABC Hoops NYC, stats are very important to us.  We have three dedicated stat keepers at each game to make sure everything is recorded as accurately as possible.  For the week's scores, go to the 
+    = succeed "." do
+      %a{href:schedules_path(season:@season.id, league:@league.id)} Schedule Page
   %h3 &nbsp;
   -if lookup_context.template_exists?("bracket_#{@league.name.downcase}_#{@season.id}", "stats", true)
     =render "bracket_#{@league.name.downcase}_#{@season.id}"
