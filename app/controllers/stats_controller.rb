@@ -96,7 +96,7 @@ class StatsController < ActionController::Base
     if params[:season] && params[:league]
       @season = Season.find_by_id(params[:season])
       @league = League.find_by_id(params[:league])
-      @seasons = TeamSpot.where(league_id: @league.id).map(&:season).uniq
+      @seasons = TeamSpot.where(league_id: @league.id).map(&:season).uniq.sort_by{|season| season[:number]}
       if @season && @league
         @show_all = false
         @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
@@ -127,7 +127,7 @@ class StatsController < ActionController::Base
     if params[:season] && params[:league]
       @season = Season.find_by_id(params[:season])
       @league = League.find_by_id(params[:league])
-      @seasons = TeamSpot.where(league_id: @league.id).map(&:season).uniq
+      @seasons = TeamSpot.where(league_id: @league.id).map(&:season).uniq.sort_by{|season| season[:number]}
       if @season && @league
         @show_all = false
         @team_spots = TeamSpot.where(season_id: @season).where(league_id: @league)
