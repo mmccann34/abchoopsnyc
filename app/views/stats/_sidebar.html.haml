@@ -20,6 +20,8 @@
   window.leagueDay = '#{j league_short_name}';
 
 - teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").group_by { |ts| ts.league }
+- if teams.keys.collect(&:id).exclude?(current_league_id)
+  - current_league_id = 1
 %p.standingsHead
   Standings:
   - if teams.count > 1
