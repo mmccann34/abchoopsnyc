@@ -1,8 +1,8 @@
 <h1><%="Active Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
 <br />
-<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter15.png');">
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring16.png');">
   <ul id="threedaysched">
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=4"%> style="height:144px;width:125px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=26&league=4"%> style="height:144px;width:125px;">
       <% if mode == "schedules" %>
         <p class="activeSeason">IBL</p>
       <% else %>
@@ -14,7 +14,7 @@
         </ul>
       <% end %>
     </a></li>
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=3"%> style="height:144px;width:125px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=26&league=3"%> style="height:144px;width:125px;">
       <% if mode == "schedules" %>
         <p class="activeSeason" style="letter-spacing: -1px;">Weekday</p>
       <% else %>
@@ -26,7 +26,7 @@
         </ul>
       <% end %>
     </a></li>
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=2"%>  style="height:144px;width:127px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=26&league=2"%>  style="height:144px;width:127px;">
       <% if mode == "schedules" %>
         <p class="activeSeason" style="letter-spacing: -1px;">Saturday</p>
       <% else %>
@@ -55,11 +55,39 @@
 <p>&nbsp;</p>
 <p class="priorSeasonBar"><%="Prior Seasons' " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></p>
 
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter15.png');">
+  <ul id="threedaysched">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=3"%> style="height:144px;"> Weekday
+      <p class="champs" style="margin:-3px;"><b><i>South Carolina Champ</i></b><br />
+        Good D<br />
+        <br />
+        <b><i>Louisiana Champ</i></b><br />
+        Heat Check</p>
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=2"%> style="height:144px;"> Saturday
+      <p class="champs" style="margin:-3px;"><b><i>New Hampshire Champ</i></b><br />
+        Mambas<br />
+        <br />
+        <b><i>Nevada Champ</i></b><br />
+        Indie 500
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=1"%> style="height:144px;"> Sunday
+      <p class="champs" style="margin:-3px;"><b><i>Iowa Champ</i></b><br />
+        The Come Up<br />
+        <b><i>Super Tuesday Champ</i></b><br />
+        bAll Stars<br />
+        <b><i>Nebraska Champ</i></b><br />
+        Hodor</p>
+      </a></li>
+  </ul>
+</div>
+
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall15.png');">
   <ul id="threedaysched">
     <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=24&league=3"%> style="height:144px;"> Weekday
       <p class="champs" style="margin:-3px;"><b><i>Nader Champ</i></b><br />
         Ball-Playaz<br />
+        <br />
         <b><i>Perot Champ</i></b><br />
         Indie 2</p>
       </a></li>
@@ -95,7 +123,7 @@
       <p class="champs" style="margin:-3px;"><b><i>Manna-Hata Champ</i></b><br />
         Max's All Stars<br />
         <b><i>New Amsterdam Champ</i></b><br />
-        TBD<br />
+        Weil<br />
         <b><i>New York Champ</i></b><br />
         Pick &amp; Roll a J</p>
       </a></li>
@@ -115,7 +143,7 @@
       </a></li>
     <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=21&league=2"%> style="height:144px;"> Saturday
       <p class="champs" style="margin:-3px;"><b><i>LaGuardia Champ</i></b><br />
-        TBD<br />
+        Shut 'Em<br />
         <b><i>Van Wych Champ</i></b><br />
         Occupy John Wall St
         <br />
