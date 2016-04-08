@@ -18,40 +18,45 @@
 
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
-
-- teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").group_by { |ts| ts.league }
-- if teams.keys.collect(&:id).exclude?(current_league_id)
-  - current_league_id = 1
+- if current_league_id == 4
+  - teams = TeamSpot.where(league_id: 4).group_by { |ts| ts.league }
+- else
+  - teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").group_by { |ts| ts.league }
+  - if teams.keys.collect(&:id).exclude?(current_league_id)
+    - current_league_id = 1
 %p.standingsHead
-  Standings:
-  - if teams.count > 1
-    %span.rightSatSun
-      - teams.keys.sort.reverse!.each_with_index do |league, index|
-        = index != 0 ? "/" : ""
-        %a.showlink{ id: "show_#{league.short_name}", style: league.id != current_league_id ? "" : "text-decoration: underline" } #{league.short_name}
-- teams.sort.each_with_index.map do |(league, team_spots), index|
-  %div.section{ id: "#{league.try(:short_name)}", style: league.id != current_league_id ? "display: none;" : "" }
-    %div{class:@is_index ? "scroll-pane" : "scroll-paneNS"}
-      %table{class:"standingsTable#{@is_index ? league.short_name : 'Sun'}", cellpadding:"3", cellspacing:"2"}
-        - divisions = team_spots.group_by { |ts| ts.division }
-        - no_division = divisions.extract!(nil)
-        - divisions.keys.sort.each_with_index do |division|
-          %tr
-            %td.divisionName{ colspan: "3" } #{division.name}
-          - division_team_spots = division.team_spots
-          - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
+  - if current_league_id == 4
+    IBL Standings:
+  - else
+    Standings:
+    - if teams.count > 1
+      %span.rightSatSun
+        - teams.keys.sort.reverse!.each_with_index do |league, index|
+          = index != 0 ? "/" : ""
+          %a.showlink{ id: "show_#{league.short_name}", style: league.id != current_league_id ? "" : "text-decoration: underline" } #{league.short_name}
+  - teams.sort.each_with_index.map do |(league, team_spots), index|
+    %div.section{ id: "#{league.try(:short_name)}", style: league.id != current_league_id ? "display: none;" : "" }
+      %div{class:@is_index ? "scroll-pane" : "scroll-paneNS"}
+        %table{class:"standingsTable#{@is_index ? league.short_name : 'Sun'}", cellpadding:"3", cellspacing:"2"}
+          - divisions = team_spots.group_by { |ts| ts.division }
+          - no_division = divisions.extract!(nil)
+          - divisions.keys.sort.each_with_index do |division|
             %tr
-              %td{width:"1px"} &nbsp;
-              %td
-                %b
-                  %a{href: stats_team_url(ts.team)}= ts.team.name
-              %td.standingsRecord.text-right= ts.record
-        - team_spot_no_division = no_division[nil]
-        - if team_spot_no_division
-          - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
-            %tr
-              %td{width:"1px"} &nbsp;
-              %td
-                %b
-                  %a{href: stats_team_url(ts.team)}= ts.team.name
-              %td.standingsRecord.text-right= ts.record
+              %td.divisionName{ colspan: "3" } #{division.name}
+            - division_team_spots = division.team_spots
+            - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
+              %tr
+                %td{width:"1px"} &nbsp;
+                %td
+                  %b
+                    %a{href: stats_team_url(ts.team)}= ts.team.name
+                %td.standingsRecord.text-right= ts.record
+          - team_spot_no_division = no_division[nil]
+          - if team_spot_no_division
+            - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
+              %tr
+                %td{width:"1px"} &nbsp;
+                %td
+                  %b
+                    %a{href: stats_team_url(ts.team)}= ts.team.name
+                %td.standingsRecord.text-right= ts.record
