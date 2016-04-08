@@ -28,8 +28,12 @@
       %tr.odd2
         %td{style: "font-weight: bold;"} Bye
         - @games.each do |week, games|
-          - bye_teams = @teams.select{|team| !games.any? {|game| game.home_team == team || game.away_team == team}}.map(&:abbreviation)
-          %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
+          - if week.playoffs == false
+            - bye_teams = @teams.select{|team| !games.any? {|game| game.home_team == team || game.away_team == team}}.map(&:abbreviation)
+            %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
+          - else
+            %td{style: "border-left: 1px dotted #999"}= "N/A"
+            / - require 'pry'; binding.pry
   %p{style:"font-size:12px; font-weight:bold;"}
   %h3 &nbsp;
   %ul#weekscores
