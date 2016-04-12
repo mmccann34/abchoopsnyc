@@ -34,5 +34,5 @@
         -else
           %td
             %a{href:stats_team_path(entry.team_slug)}= entry.team_name
-        %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:percision, 1))) : number_with_delimiter(entry.total)
+        %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:precision, 1))) : number_with_precision(entry.total, precision: 0)
     -reset_cycle
