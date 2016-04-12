@@ -12,7 +12,7 @@
   %li.stat_types
     %a.profbutton{href:"#season"} Season Leaders
 .profstats#highs
-  =render "record_book_entry", stat_name: "Points", entries: @highs[:points], single_game: true, precision: 3
+  =render "record_book_entry", stat_name: "Points", entries: @highs[:points], single_game: true
   =render "record_book_entry", stat_name: "Rebounds", entries: @highs[:rebounds], single_game: true
   %br
   =render "record_book_entry", stat_name: "Assists", entries: @highs[:assists], single_game: true
