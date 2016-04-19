@@ -52,6 +52,8 @@
           %a{href:schedules_path(season: Season.current.id, league: 2)} Saturday
         %li
           %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
+        %li
+          %a{href:schedules_path(season: Season.current.id, league: 5)} Junior
     %li
       %a{href:results_url} Stats
       %ul.statsmenu
@@ -63,6 +65,8 @@
           %a{href:results_url(season: Season.current.id, league: 2)} Saturday
         %li
           %a{href:results_url(season: Season.current.id, league: 1)} Sunday
+        %li
+          %a{href:results_url(season: Season.current.id, league: 5)} Junior
     %li
       %a{href:"/record-books"} Record Books
 #signupblock
