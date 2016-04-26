@@ -2,11 +2,11 @@
 <br />
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring16.png');">
   <ul id="threedaysched">
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=4"%> style="height:144px;width:125px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=26&league=5"%> style="height:144px;width:125px;">
       <% if mode == "schedules" %>
-        <p class="activeSeason">IBL</p>
+        <p class="activeSeason">Junior</p>
       <% else %>
-        <p class="activeSeasonResults">IBL</p>
+        <p class="activeSeasonResults">Junior</p>
         <ul class="activeSeasonList" style="margin:0px;padding:2px 0 0 10px;">
           <li>Full Standings</li>
           <li>Stat Leaderboard</li>
@@ -54,7 +54,17 @@
 </div>
 <p>&nbsp;</p>
 <p class="priorSeasonBar"><%="Prior Seasons' " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></p>
-
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_ibl15.png');">
+  <ul id="twodaysched" style="margin-left:444px;">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=4"%> style="width:348px;height:144px;"> IBL
+      <p class="champs"><b><i>Champion</i></b><br />
+        XL Catlin<br />
+        <br />
+        <b><i>Runner Up</i></b><br />
+        Zurich</p>
+      </a></li>
+  </ul>
+</div>
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter15.png');">
   <ul id="threedaysched">
     <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=25&league=3"%> style="height:144px;"> Weekday
