@@ -9,7 +9,7 @@
   <% for location in @locations %>
   <li id="location_<%= location.id %>">
     <%= location.name %><%= " - #{location.address}" if location.address %>
-    | <%= link_to 'Edit', edit_location_path(location) %>
+    | <%= link_to "Map URL", location.map_url, :target => "_blank" if location.map_url %> | <%= link_to 'Edit', edit_location_path(location) %>
     | <%= link_to 'Delete', location, method: 'delete', data: { confirm: 'Are you sure?' } %>
   </li>
   <% end %>

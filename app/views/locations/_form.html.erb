@@ -3,6 +3,7 @@
   <% if header %><legend><%= header %></legend><% end %>
   <%= f.input :name, placeholder: 'Name', input_html: { autofocus: 'autofocus', required: 'required' } %>
   <%= f.input :address, placeholder: 'Address' %>
+  <%= f.input :map_url, placeholder: 'Google Map URL' %>
   <%= f.button :submit, class: 'btn-primary btn-large btn-block' %>
 </fieldset>
 <% end %>

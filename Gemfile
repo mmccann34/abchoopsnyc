@@ -28,6 +28,7 @@ gem "gon", "~> 4.1.1"
 gem 'newrelic_rpm'
 gem 'friendly_id'
 gem 'rails_12factor' #To skip heroku plugin injection
+gem 'font-awesome-rails'
 
 # Rails 4.2.5.1 upgrade
 gem 'protected_attributes'

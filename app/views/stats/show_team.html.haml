@@ -44,7 +44,11 @@
             %td
               -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
               %a{href: stats_team_path(opponent)}= opponent.name
-            %td= game.location.name
+            %td
+              = game.location.name
+              - if game.location.map_url.present?
+                %a{:href => game.location.map_url, :target => "_blank"}
+                  = fa_icon "map-marker"
             - if game.winner
               - result = game.winner == -1 ? "T" : (game.winner == @team.id ? "W" : "L")
               %td{ class: result == "T" ? "" : (result == "W" ? "win" : "loss") }= result

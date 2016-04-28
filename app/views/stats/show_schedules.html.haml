@@ -33,7 +33,6 @@
             %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
           - else
             %td{style: "border-left: 1px dotted #999"}= "N/A"
-            / - require 'pry'; binding.pry
   %p{style:"font-size:12px; font-weight:bold;"}
   %h3 &nbsp;
   %ul#weekscores
@@ -47,9 +46,13 @@
           %h1.weekscores_wkname= week_name
   - @games.each_with_index do |(week, week_games), i|
     .scores{id: "wk#{(i + 65).chr}"}
-      - games_by_location = week_games.group_by {|g| g.location.name}
+      - games_by_location = week_games.group_by {|g| g.location}
       - games_by_location.each do |location, games|
-        %h1= location
+        %h1
+          = location.name
+          - if location.map_url.present?
+            %a{:href => location.map_url, :target => "_blank"}
+              = fa_icon "map-marker"
         - games.each do |game|
           %p.sep
             %div{:style=>"display:block;float:left;", :class=>"boxscore"}
