@@ -3,4 +3,14 @@ class DateRange < ActiveRecord::Base
   
   belongs_to :season
   belongs_to :league
+
+  validate :prevent_old_dates
+
+  private
+
+  def prevent_old_dates
+    if start_date || end_date < Time.parse("2010-12-31 22:00:00 -0400") 
+      errors[:base] << "Date must be after 2010."
+    end
+  end
 end
