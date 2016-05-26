@@ -6,18 +6,25 @@
   <%= select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();'} %>
 </form>
 <% if @games %>
-<% @games.group_by{ |g| g.date.to_date }.each do |date, games| %>
-<ul class="unstyled">
-  <h3><%= date.strftime('%m/%d/%Y') %></h3>
-  <% games.sort_by{ |g| g.date }.each do |game| %>
-  <li id="game_<%= game.id %>">
-    <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name}" %><%= " (#{game.location.name})" if game.location %>
-    | <%= link_to 'Edit', edit_game_path(game) %>
-    | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
-    | <%= link_to 'View Box Score', boxscore_game_path(game) %>
-    | <%= link_to 'Edit Box Score', boxscore_edit_game_path(game) %>
-  </li>
+
+  <% @games.group_by{ |g| g.date.to_date }.each do |date, games| %>
+    <ul class="unstyled">
+      <hr />
+      <h3><%= date.strftime('%m/%d/%Y') %></h3>
+      <% games.group_by{ |g| g.league }.each do |league, games| %> 
+          <% games.group_by{ |g| g.location }.each do |location, games| %> 
+            <h5><%= league.name %> - <%= location.name %></h5>
+            <% games.sort_by{ |g| g.date }.each do |game| %>
+              <li id="game_<%= game.id %>">
+                <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name}" %>
+                | <%= link_to 'Edit', edit_game_path(game) %>
+                | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
+                | <%= link_to 'View Box Score', boxscore_game_path(game) %>
+                | <%= link_to 'Edit Box Score', boxscore_edit_game_path(game) %>
+              </li>
+            <% end %>
+          <% end %>
+      <% end %>
+    </ul>
   <% end %>
-</ul>
-<% end %>
 <% end %>

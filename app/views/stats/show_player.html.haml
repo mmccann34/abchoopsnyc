@@ -598,21 +598,22 @@
             %td.lline= stat.points.round
       %tfoot
         %tr.stattotal
-          %td{ colspan:"2" } Total
-          %td.lline= "#{@career_totals.fgm.round}-#{@career_totals.fga.round}"
-          %td= number_with_precision((@career_totals.fgpct ? @career_totals.fgpct : 0), precision: 3) 
-          %td.lline= "#{@career_totals.threem.round}-#{@career_totals.threea.round}"
-          %td= number_with_precision((@career_totals.threepct ? @career_totals.threepct : 0), precision: 3) 
-          %td.lline= "#{@career_totals.ftm.round}-#{@career_totals.fta.round}"
-          %td= number_with_precision((@career_totals.ftpct ? @career_totals.ftpct : 0), precision: 3) 
-          %td.lline= @career_totals.orb.round
-          %td= @career_totals.drb.round
-          %td= @career_totals.trb.round
-          %td.lline= @career_totals.ast.round
-          %td.lline= @career_totals.stl.round
-          %td.lline= @career_totals.blk.round
-          %td.lline= @career_totals.fl.round
-          %td.lline= number_with_delimiter(@career_totals.points.round)
+          - if @career_totals
+            %td{ colspan:"2" } Total
+            %td.lline= "#{@career_totals.fgm.round}-#{@career_totals.fga.round}"
+            %td= number_with_precision((@career_totals.fgpct ? @career_totals.fgpct : 0), precision: 3) 
+            %td.lline= "#{@career_totals.threem.round}-#{@career_totals.threea.round}"
+            %td= number_with_precision((@career_totals.threepct ? @career_totals.threepct : 0), precision: 3) 
+            %td.lline= "#{@career_totals.ftm.round}-#{@career_totals.fta.round}"
+            %td= number_with_precision((@career_totals.ftpct ? @career_totals.ftpct : 0), precision: 3) 
+            %td.lline= @career_totals.orb.round
+            %td= @career_totals.drb.round
+            %td= @career_totals.trb.round
+            %td.lline= @career_totals.ast.round
+            %td.lline= @career_totals.stl.round
+            %td.lline= @career_totals.blk.round
+            %td.lline= @career_totals.fl.round
+            %td.lline= number_with_delimiter(@career_totals.points.round)
         %tr.stattotal
           -average_per_season_totals = average_stat_lines(@career_season_totals)
           %td{ colspan:"2" } Avg/Season
