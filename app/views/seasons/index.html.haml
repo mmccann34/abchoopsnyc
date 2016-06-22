@@ -22,8 +22,12 @@
       %th{ style: 'width:40px;' }
       %th{ style: 'width:70px;' }
       %th Name
-      %th # of Teams
       %th # of Games
+      %th # of Teams
+      %th # of Sun Teams
+      %th # of Sat Teams
+      %th # of Wkd Teams
+      %th # of Other Teams
       //%th Sun Reg Games
       //%th Sun Playoff Games
       //%th Sat Reg Games
@@ -36,8 +40,12 @@
       %td
       %td
       %td{ style: 'font-weight: bold;' } Totals
-      %td{ style: 'font-weight: bold;' }= TeamSpot.count
       %td{ style: 'font-weight: bold;' }= Game.count
+      %td{ style: 'font-weight: bold;' }= TeamSpot.count
+      %td{ style: 'font-weight: bold;' }= TeamSpot.where(league_id: 1).count
+      %td{ style: 'font-weight: bold;' }= TeamSpot.where(league_id: 2).count
+      %td{ style: 'font-weight: bold;' }= TeamSpot.where(league_id: 3).count
+      %td{ style: 'font-weight: bold;' }= TeamSpot.where(league_id: [4,5]).count
       //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 1).select{|g| !g.week.try(:playoffs) }.count
       //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 1).select{|g| g.week.try(:playoffs) }.count
       //%td{ style: 'font-weight: bold;' }= Game.where(league_id: 2).select{|g| !g.week.try(:playoffs) }.count
@@ -54,8 +62,12 @@
           %td= "#{season.number} - #{season.name} (Current)"
         - else
           %td= "#{season.number} - #{season.name}"
-        %td= season.teams.count
         %td= season.games.count
+        %td= season.teams.count
+        %td= TeamSpot.where(season_id: season.id).where(league_id: 1).count
+        %td= TeamSpot.where(season_id: season.id).where(league_id: 2).count
+        %td= TeamSpot.where(season_id: season.id).where(league_id: 3).count
+        %td= TeamSpot.where(season_id: season.id).where(league_id: [4,5]).count
         //%td= season.games.where(league_id: 1).select{|g| !g.week.try(:playoffs) }.count
         //%td= season.games.where(league_id: 1).select{|g| g.week.try(:playoffs) }.count
         //%td= season.games.where(league_id: 2).select{|g| !g.week.try(:playoffs) }.count
