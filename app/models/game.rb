@@ -349,10 +349,7 @@ class Game < ActiveRecord::Base
       stat_line = self.stat_lines.where(player_id: player.id, team_id: team.id).first
       if !stat_line
         self.stat_lines << StatLine.create(team_id: team.id, player_id: player.id, jersey_number: roster_spot.jersey_number)
-      else
-        if !roster_spot.jersey_number
-          roster_spot.update_attribute(:jersey_number, stat_line.jersey_number)
-        end
+        roster_spot.update_attribute(:jersey_number, stat_line.jersey_number)
       end
     end
   end
