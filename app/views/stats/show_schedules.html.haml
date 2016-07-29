@@ -4,10 +4,10 @@
 -else
   -title "#{@season.name} - #{@league.name} Schedule & Scores"
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
-  / %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
-  /   Season:
-  /   =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-  /   =hidden_field_tag "league", @league.id
+  %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
+    Season:
+    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+    =hidden_field_tag "league", @league.id
   %br
   %table.sortable.maintablestand{border: "0", width: "800", cellpadding: "3", cellspacing: "0"}
     %thead.statthead
