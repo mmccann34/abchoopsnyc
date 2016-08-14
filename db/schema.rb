@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428192406) do
+ActiveRecord::Schema.define(version: 20160814040218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,22 @@ ActiveRecord::Schema.define(version: 20160428192406) do
     t.string   "short_name", limit: 255
     t.integer  "league_id"
   end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "divisions", force: :cascade do |t|
     t.datetime "created_at",             null: false
@@ -142,40 +158,41 @@ ActiveRecord::Schema.define(version: 20160428192406) do
   add_index "player_stats", ["team_id", "stat_type", "season_id"], name: "index_player_stats_on_team_id_and_stat_type_and_season_id", using: :btree
 
   create_table "players", force: :cascade do |t|
-    t.string   "first_name",               limit: 255
-    t.string   "last_name",                limit: 255
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "height",                   limit: 255
+    t.string   "first_name",                        limit: 255
+    t.string   "last_name",                         limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "height",                            limit: 255
     t.integer  "weight"
     t.integer  "age"
-    t.string   "key",                      limit: 255
-    t.string   "profile_pic_file_name",    limit: 255
-    t.string   "profile_pic_content_type", limit: 255
+    t.string   "key",                               limit: 255
+    t.string   "profile_pic_file_name",             limit: 255
+    t.string   "profile_pic_content_type",          limit: 255
     t.integer  "profile_pic_file_size"
     t.datetime "profile_pic_updated_at"
     t.integer  "team_id"
     t.integer  "number"
     t.integer  "height_feet"
     t.integer  "height_inches"
-    t.string   "school",                   limit: 255
-    t.string   "position",                 limit: 255
-    t.string   "hometown",                 limit: 255
+    t.string   "school",                            limit: 255
+    t.string   "position",                          limit: 255
+    t.string   "hometown",                          limit: 255
     t.text     "about"
-    t.string   "day_job",                  limit: 255
+    t.string   "day_job",                           limit: 255
     t.date     "birthday"
-    t.string   "profile_pic_url",          limit: 255
-    t.string   "profile_pic_flickr_url",   limit: 255
+    t.string   "profile_pic_url",                   limit: 255
+    t.string   "profile_pic_flickr_url",            limit: 255
     t.text     "social_media_urls"
-    t.string   "profile_pic_thumb_url",    limit: 255
-    t.string   "display_name",             limit: 255
-    t.string   "slug",                     limit: 255
+    t.string   "profile_pic_thumb_url",             limit: 255
+    t.string   "display_name",                      limit: 255
+    t.string   "slug",                              limit: 255
     t.integer  "main_team_id"
     t.integer  "last_number"
-    t.string   "league_love",              limit: 255
-    t.string   "little_known_fact",        limit: 255
-    t.string   "did_you_know",             limit: 255
-    t.string   "one_last_thing",           limit: 255
+    t.string   "league_love",                       limit: 255
+    t.string   "little_known_fact",                 limit: 255
+    t.string   "did_you_know",                      limit: 255
+    t.string   "one_last_thing",                    limit: 255
+    t.integer  "needs_to_calc_stats_for_season_id"
   end
 
   add_index "players", ["slug"], name: "index_players_on_slug", using: :btree
@@ -264,11 +281,12 @@ ActiveRecord::Schema.define(version: 20160428192406) do
   add_index "team_spots", ["team_id"], name: "index_team_spots_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "abbreviation", limit: 255
-    t.string   "slug",         limit: 255
+    t.string   "name",                              limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "abbreviation",                      limit: 255
+    t.string   "slug",                              limit: 255
+    t.integer  "needs_to_calc_stats_for_season_id"
   end
 
   add_index "teams", ["slug"], name: "index_teams_on_slug", using: :btree
