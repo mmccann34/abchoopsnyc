@@ -51,6 +51,7 @@
       %tr
         %th{ style: 'width:50px;' }
         %th Name
+        %th Games
         %th{style:"text-align:center;"} League
         %th{style:"text-align:center;"} Division
         %th{style:"text-align:center;"} Team Photo URL
@@ -62,6 +63,8 @@
               = hidden_field_tag :team_id, team_spot.team.id
               = submit_tag "Remove", class: "btn btn-mini btn-danger"
           %td= team_spot.team.name
+          %td
+            = Game.where(season_id: @season.id).where(league_id: team_spot.league_id).where(home_team_id: team_spot.team_id).count + Game.where(season_id: @season.id).where(league_id: team_spot.league_id).where(away_team_id: team_spot.team_id).count
           %td
             = select_tag "team_spots[#{team_spot.id}[league_id]]", options_from_collection_for_select(League.all, "id", "name", team_spot.league_id), form: 'form_save_changes', include_blank: true
           %td

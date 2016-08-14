@@ -1,18 +1,6 @@
 <h1><%="Current Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer16.png');">
-  <ul id="threedaysched">
-    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=26&league=5"%> style="height:144px;">
-      <% if mode == "schedules" %>
-        <p class="activeSeason">Junior</p>
-      <% else %>
-        <p class="activeSeasonResults">Junior</p>
-        <ul class="activeSeasonList" style="margin:0px;padding:2px 0 0 10px;">
-          <li>Full Standings</li>
-          <li>Stat Leaderboard</li>
-          <li>Team Stats</li>
-        </ul>
-      <% end %>
-    </a></li>
+  <ul id="twodaysched">
     <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=27&league=3"%> style="height:144px;">
       <% if mode == "schedules" %>
         <p class="activeSeason" style="letter-spacing: -1px;">Weekday</p>
@@ -40,7 +28,7 @@
   </ul>
 </div>
 <p>&nbsp;</p>
-<!-- <p class="priorSeasonBar"><%="Prior Seasons' " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></p>
+<p class="priorSeasonBar"><%="Prior Seasons' " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></p>
 
 <div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring16.png');">
   <ul id="threedaysched">
@@ -488,4 +476,4 @@
         Real Ready</p>
       </a></li>
   </ul>
-</div> -->
+</div>

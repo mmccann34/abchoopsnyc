@@ -63,9 +63,9 @@
     =render "record_book_entry", stat_name: "Free Throws Made", entries: @career_averages[:ftm], use_percentage: true
     =render "record_book_entry", stat_name: "Points from 3's", entries: @career_averages[:threem], use_percentage: true
 .profstats#season
-  / %form{action: "#{record_books_path}#season", method: "get", style: 'font-weight:bold;'}
-  /   Season:
-  /   =select_tag "season", options_from_collection_for_select(Season.order("id DESC").all, "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+  %form{action: "#{record_books_path}#season", method: "get", style: 'font-weight:bold;'}
+    Season:
+    =select_tag "season", options_from_collection_for_select(Season.order("id DESC").all, "id", "name", @season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
   %p
     %span#stotals_link.record_link.active Totals
     %span{style: "font-size:18px;"}= "|"
