@@ -5,7 +5,8 @@ class Player < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, 
                   :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, 
                   :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job, :about, 
-                  :birthday, :main_team_id, :last_number, :league_love, :little_known_fact, :did_you_know, :one_last_thing
+                  :birthday, :main_team_id, :last_number, :league_love, :little_known_fact, :did_you_know, :one_last_thing,
+                  :needs_to_calc_stats_for_season_id
   store :social_media_urls, accessors: [ "facebook", "twitter" ]
   validate :first_or_last
 
@@ -194,6 +195,7 @@ class Player < ActiveRecord::Base
   def calc_stats(season)
     calc_season_stats(season)
     calc_career_stats
+    self.update_attributes(needs_to_calc_stats_for_season_id: nil)
   end
   
   def recalc_all_stats

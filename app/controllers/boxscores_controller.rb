@@ -43,20 +43,23 @@ class BoxscoresController < ApplicationController
           stat.update_attributes(stat_line_params)
         end
 
-        ###Calculate Stats###        
-        game.home_team.calc_stats(game.season)        
-        game.away_team.calc_stats(game.season)
+        ###Calculate Stats###
+        game.home_team.update_attributes(needs_to_calc_stats_for_season_id: game.season.id)
+        game.home_team.delay.calc_stats(game.season)
+        game.away_team.update_attributes(needs_to_calc_stats_for_season_id: game.season.id)
+        game.away_team.delay.calc_stats(game.season)
 
         ## calc stats for all non-dnp and non-sub lines
         stats_players.each do |player|
-          player.calc_stats(game.season)
+          player.update_attributes(needs_to_calc_stats_for_season_id: game.season.id)
+          player.delay.calc_stats(game.season)
         end
 
         game.save_top_performers
-      else
-        game.home_team.update_record(game.season)
-        game.away_team.update_record(game.season)
       end
+
+      game.home_team.update_record(game.season)
+      game.away_team.update_record(game.season)
     end
 
     redirect_to boxscore_edit_game_url(game), notice: 'Box Score successfully updated.'

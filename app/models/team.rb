@@ -2,7 +2,7 @@ class Team < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   
-  attr_accessible :name, :abbreviation
+  attr_accessible :name, :abbreviation, :needs_to_calc_stats_for_season_id
   validates :name, presence: true
 
   has_many :home_games, class_name: 'Game', foreign_key: 'home_team_id'
@@ -99,7 +99,8 @@ class Team < ActiveRecord::Base
   def calc_stats(season)
     set_team_stats('team_per_game_average', season, self.per_game_stats(season))
     set_team_stats('team_season_total', season, self.season_totals(season))
-    update_record(season)
+    self.update_attributes(needs_to_calc_stats_for_season_id: nil)
+    # update_record(season)
   end
   
   def recalc_all_stats
