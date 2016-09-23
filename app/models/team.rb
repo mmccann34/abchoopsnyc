@@ -21,6 +21,12 @@ class Team < ActiveRecord::Base
   def games(season_id = nil)
     Game.where(season_id: season_id ? season_id : Season.current).where("home_team_id = ? OR away_team_id = ?", self.id, self.id)
   end
+
+  def duplicate_opponents(season)
+    teams_in_games = self.games(season).pluck(:away_team_id) + self.games(season).pluck(:home_team_id)
+    teams_in_games.delete(self.id)
+    teams_in_games.length - teams_in_games.uniq.length
+  end
   
   def played_games(season)
     self.games(season).where("winner is not null")
