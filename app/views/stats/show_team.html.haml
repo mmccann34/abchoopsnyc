@@ -138,7 +138,7 @@
     - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @per_game_player_stats.has_key?(roster_spot.player_id)
         - stats = @per_game_player_stats[roster_spot.player_id]
-        %tr{class: "#{cycle('odd2', 'even2')}"}
+        %tr{class: "#{cycle('odd', 'even')}"}
           %td= roster_spot.jersey_number
           %td
             %a{href: stats_player_path(roster_spot.player)}= roster_spot.player.name
