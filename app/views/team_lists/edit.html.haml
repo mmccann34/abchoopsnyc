@@ -62,7 +62,7 @@
           %td
             = form_tag({}, method: :delete) do
               = hidden_field_tag :team_id, team_spot.team.id
-              = submit_tag "Remove", class: "btn btn-mini btn-danger"
+              = submit_tag "Remove", data: { confirm: 'Are you sure you want to remove this team from this season?' }, class: "btn btn-mini btn-danger"
           %td= team_spot.team.name
           %td
             = team_spot.team.games(@season.id).count
