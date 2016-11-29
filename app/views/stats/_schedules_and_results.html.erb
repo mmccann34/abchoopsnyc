@@ -1,5 +1,5 @@
 <h1><%="Current Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
-<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall16.png');">
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter16.png');">
   <ul id="threedaysched">
     <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=28&league=3"%> style="height:144px;">
       <% if mode == "schedules" %>
@@ -37,6 +37,33 @@
         </ul>
       <% end %>
     </a></li>
+  </ul>
+</div>
+<p>&nbsp;</p>
+<div class="schedBlock" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall16.png');">
+  <ul id="threedaysched">
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=28&league=3"%> style="height:144px;"> Weekday
+      <p class="champs" style="margin:-3px;"><b><i>Jabbar Champ</i></b><br />
+        TBD<br />
+        <b><i>Malone Champ</i></b><br />
+        TBD<br />
+        <b><i>Hearn Champ</i></b><br />
+        TBD</p>
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=28&league=2"%>  style="height:144px;"> Saturday
+      <p class="champs" style="margin:-3px;"><b><i>Erving Champ</i></b><br />
+        Jet Mafia<br /><br />
+        <b><i>Worthy Champ</i></b><br />
+        Hustle &amp; Flower Boys</p>
+      </a></li>
+    <li class="scheddays"><a class="daybutton" href=<%="/#{mode}?season=28&league=1"%>  style="height:144px;"> Sunday
+      <p class="champs" style="margin:-3px;"><b><i>Magic Champ</i></b><br />
+        Paul &amp; Co.<br />
+        <b><i>McAdoo Champ</i></b><br />
+        bAll Stars<br />
+        <b><i>Wikes Champ</i></b><br />
+        The Expendables</p>
+      </a></li>
   </ul>
 </div>
 <p>&nbsp;</p>
