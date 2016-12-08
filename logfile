@@ -1,0 +1,165 @@
+LOG:  database system was shut down at 2016-12-08 11:44:51 EST
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+FATAL:  role "matt" does not exist
+LOG:  database system was interrupted; last known up at 2016-12-08 11:45:01 EST
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  invalid record length at 0/17361F0
+LOG:  redo is not required
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+FATAL:  database "new1208" does not exist
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  relation "players" does not exist at character 13
+STATEMENT:  DELETE FROM "players"
+ERROR:  cannot drop a template database
+STATEMENT:  DROP DATABASE IF EXISTS "template1"
