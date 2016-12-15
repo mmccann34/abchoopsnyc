@@ -22,6 +22,7 @@ class StatsController < ActionController::Base
     @current_league_id = params[:league_id].to_i rescue nil
     respond_to do |format|
       format.js { render partial: "get_standings" }
+      format.html
     end
   end
   
