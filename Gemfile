@@ -51,6 +51,7 @@ group :test, :development do
   # gem 'turn'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'factory_girl_rails', require: false
   gem 'guard-rspec'
   gem 'minitest'
   gem 'rb-inotify', require: false

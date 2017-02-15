@@ -2,7 +2,8 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'factory_girl_rails'
+require 'devise'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -41,4 +42,13 @@ RSpec.configure do |config|
 
   # Import all fixtures
   config.global_fixtures = :all
+
+  # config.include FactoryGirl::Syntax::Methods
+
+  # config.before do
+  #   FactoryGirl.find_definitions
+  # end
+
+  config.include Devise::TestHelpers, :type => :controller
+  config.include ControllerMacros, :type => :controller
 end

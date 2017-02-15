@@ -24,7 +24,7 @@ def index
   def update
     @location = Location.find(params[:id])
     if @location.update_attributes(params[:location])
-      redirect_to edit_location_url(@location), notice: "Location has been updated."
+      redirect_to locations_url, notice: "Location has been updated."
     else
       render action: "edit", flash: { error: "An error occurred while updating Location." }
     end

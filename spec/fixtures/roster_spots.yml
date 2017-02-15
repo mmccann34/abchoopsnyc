@@ -1,0 +1,11 @@
+one:
+  id: 1
+  player_id: 1
+  team_id: 1
+  season_id: 1
+
+two:
+  id: 2
+  player_id: 2
+  team_id: 2
+  season_id: 1

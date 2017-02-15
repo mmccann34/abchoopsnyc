@@ -1,8 +1,11 @@
 gb:
+  id: 1
   name: 'Game, Blouses'
 
 teamx:
+  id: 2
   name: 'Team X'
 
 cb:
+  id: 3
   name: 'Computer Blue'

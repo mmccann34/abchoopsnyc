@@ -1,0 +1,7 @@
+fred:
+  id: 1
+  first_name: fred
+
+bob:
+  id: 2
+  first_name: bob
