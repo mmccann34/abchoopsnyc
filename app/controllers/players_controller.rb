@@ -35,6 +35,9 @@ class PlayersController < ApplicationController
     birthday = params[:player][:birthday]
     params[:player][:birthday] = Date.strptime(birthday, '%m/%d/%Y') if birthday && !birthday.empty?
     set_social_media
+    if @player.name != params[:player][:name]
+      @player.slug = nil
+    end
     if @player.update_attributes(params[:player])
       redirect_to edit_player_url(@player), notice: "Player has successfully been updated."
     else

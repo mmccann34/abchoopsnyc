@@ -1,6 +1,6 @@
 class Player < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
   
   attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, 
                   :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, 
@@ -26,6 +26,13 @@ class Player < ActiveRecord::Base
 
   def name
     display_name.blank? ? "#{first_name} #{last_name}" : display_name
+  end
+
+  def slug_candidates
+    [
+      :name,
+      [:name, :number]
+    ]
   end
   
   def merge_name
