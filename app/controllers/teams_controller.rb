@@ -14,9 +14,6 @@ class TeamsController < ApplicationController
 
   def update
     @team = Team.find(params[:id])
-    if @team.name != params[:id][[:team][:name]]
-      @team.slug = nil
-    end
     if @team.update_attributes(params[:team])
       params[:players].each do |player_id, player_params|
         if player_params[:id] != ""
