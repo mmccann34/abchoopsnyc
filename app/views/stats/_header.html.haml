@@ -1,85 +1,153 @@
-.grid_3.headerItem.logo
-  %a{href: "http://www.abchoops.com"}
-    %img{src: "/assets/logo-280t.png", border: "0"}
-.headerRight
-  .rightContainer
-    %p.slamHeader
-      Read about us in SLAM Online!
-      %a{href: "http://www.slamonline.com/blogs/the-notorious-dnp/abchoopsny-abcs-of-love/", target: "_blank"}
-        %img{src: "/assets/slamlogo25pxh.gif", style: "vertical-align:middle; margin-left:3px;"}
-  .socmedContainer
-    %ul#socmedia
-      %li#facebook
-        %a{href: "https://www.facebook.com/abchoopsnyc", target: "_blank"}
-          %span{style: "display:none;"} Facebook
-      %li#flickr
-        %a{href: "http://www.flickr.com/photos/60289240@N08/", target: "_blank"}
-          %span{style: "display:none;"} Flickr
-      %li#twitter
-        %a{href: "https://www.twitter.com/abchoopsnyc", target: "_blank"}
-          %span{style: "display:none;"} Twitter
-      %li#instagram
-        %a{href: "http://instagram.com/abchoops", target: "_blank"}
-          %span{style: "display:none;"} Instagram
-  .findaplayer
-    %b Find A Player
-    =render "find_a_player_form"
-.navbarBG
-  %ul#navbar
-    %li
-      %a{href:"http://abchoops.com/theleague.shtml"} The League
-      %ul
-        %li
-          %a{href:"http://abchoops.com/theleague.shtml"} Info
-        %li
-          %a{href:"http://abchoops.com/faq.shtml"} FAQ
-        %li
-          %a{href:"http://abchoops.com/theleague.shtml#gyms"} Gyms
-        %li
-          %a{href:"http://abchoops.com/media.shtml"} Media
-        %li
-          %a{href:"http://abchoops.com/theleague.shtml#contact"} Contact
-        %li
-          %a{href:"http://abchoops.com/news-1.shtml"} Updates
-    %li
-      %a{href:schedules_path} Scores &amp; Sched
-      %ul.schedulemenu
-        / %li
-        /   %a{href:schedules_path(season: 29, league: 4)} IBL
-        %li
-          %a{href:schedules_path(season: Season.current.id, league: 3)} Weekdays
-        %li
-          %a{href:schedules_path(season: 30, league: 2)} Saturday
-        %li
-          %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
-    %li
-      %a{href:results_url} Stats
-      %ul.statsmenu
-        / %li
-        /   %a{href:results_url(season: 29, league: 4)} IBL
-        %li
-          %a{href:results_url(season: Season.current.id, league: 3)} Weekdays
-        %li
-          %a{href:results_url(season: 30, league: 2)} Saturday
-        %li
-          %a{href:results_url(season: Season.current.id, league: 1)} Sunday
-    %li
-      %a{href:"/record-books"} Record Books
-#signupblock
-  %p.signuphead
-    %a{href:"http://abchoops.com/signup.shtml"} Sign Up
-  %p.signupheaddays
-    %a{href:"http://abchoops.com/signup.shtml"} Weekdays&nbsp;&nbsp;&amp;&nbsp;&nbsp;Weekends
-.addthisContainer
-  .addthis_toolbox.addthis_default_style.addthisInner
-    %ul
-      %p Share:
-      %li
-        %a.addthis_button_preferred_4
-      %li
-        %a.addthis_button_preferred_1
-      %li
-        %a.addthis_button_preferred_2
-:javascript
-  var addthis_config = {"data_track_addressbar":false};
-%script{:type => "text/javascript", src:"http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4fc4f8b56ea9e91f"}
+.col-md-12.upper-diag-bar.upper-diag-bar-no-score
+  .right-upper-bar-no-score
+    .slam-header-container
+      %a{:href => "http://www.slamonline.com/blogs/the-notorious-dnp/abchoopsny-abcs-of-love/", target: "_blank"}
+    .soc-media-header-container
+      %a{:href => "https://www.facebook.com/abchoopsnyc/", :target => "_blank"}
+        %i.fa.fa-facebook-official
+    .soc-media-header-container
+      %a{:href => "https://www.instagram.com/abchoops/", :target => "_blank"}
+        %i.fa.fa-instagram
+    .soc-media-header-container
+      %a{:href => "https://twitter.com/abchoopsnyc", :target => "_blank"}
+        %i.fa.fa-twitter-square
+    .soc-media-header-container
+      %a{:href => "https://www.flickr.com/photos/abchoopsnyc/", :target => "_blank"}
+        %i.fa.fa-flickr
+    .search-toggle
+      %a.find-a-player-toggle{"data-container" => "body", "data-html" => "true", "data-placement" => "left", "data-toggle" => "popover", :href => "#", :type => "button"}
+        %i.fa.fa-search{"aria-hidden" => "true"}
+  #findaplayer.hide
+    .search-form-container
+      %form#input{:action => "http://stats.abchoops.com/player-search", :method => "get", :name => "input"}
+        %input#playerSearch.findPlayerField{:autocomplete => "off", :name => "player", :placeholder => "Find a Player", :spellcheck => "false", :type => "text"}/
+        %button.findPlayer{:type => "submit"}
+          %i.fa.fa-search
+    :javascript
+      ang(function() {
+                ang('input#playerSearch').typeahead({
+                  name: "players", 
+                  prefetch: "http://stats.abchoops.com/api/players.json",
+                  template: [
+                    '<div class="details">',
+                    '<p class="name">{{value}}<\/p>',
+                    '<p class="team">{{team}}<\/p>',
+                    '<\/div>',
+                    '<div class="headshotThumbOuter">',
+                    '{{#pic_url}}',
+                    '<div class="headshotThumbContainer noborder">',
+                    '<img src="{{pic_url}}" height="50px" width="50px" />',
+                    '<\/div>',
+                    '{{/pic_url}}',
+                    '{{^pic_url}}',
+                    '<div class="headshotThumbContainer noborder halfball">',
+                    '<span class="playernumbernopicthumb">{{number}}<\/span>',
+                    '<\/div>',
+                    '{{/pic_url}}',
+                    '<\/div>'
+                  ].join(''),
+                  engine: Hogan
+                });
+      
+                ang('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoops.com/players/' + datum.slug; });
+            });
+    :javascript
+      ang(".fancybox").fancybox({
+        slideShow  : false,
+      fullScreen : true,
+      thumbs     : false,
+      closeBtn   : true,
+      });
+.navbar
+  .container-fluid.container-fluid-header
+    .navbar-header{:style => "width:100%"}
+      %button.navbar-toggle.collapsed{"data-target" => "#myNavbar", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      #color_logo.header-aside
+        %a{:href => "http://hoops.nyc/d16/rd/index18.html"}
+          %img.header-logo{:src => "assets/whitelogo.png"}/
+      #myNavbar.collapse.navbar-collapse
+        .header_slide_logo_container{:style => "border:none"}
+          %a{:href => "http://hoops.nyc/d16/rd/index18.html"}
+            %img.header-logo.white-header-logo{:src => "assets/whitelogo.png"}/
+        %ul.nav.navbar-nav
+          %li.dropdown-fixed.dropdown-fixed-theleague
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "http://hoops.nyc/d16/rd/n_theleague.html"}
+              The
+              %br.menu-break/
+              League
+              %span.caret
+            %ul.dropdown-menu.dropdown-menu-fixed.dropdown-menu-theleague
+              %li
+                %a{:href => "http://hoops.nyc/d16/rd/n_theleague.html"} Info
+              %li
+                %a{:href => "#"} FAQ
+              %li
+                %a{:href => "http://hoops.nyc/d16/rd/n_theleague.html#gyms"} Gyms
+              %li
+                %a{:href => "#"} Media
+              %li
+                %a{:href => "http://hoops.nyc/d16/rd/n_theleague.html#contact"} Contact
+              %li
+                %a{:href => "#"} Updates
+          %li.dropdown-fixed.dropdown-fixed-scores
+            %a.dropdown-toggle.scores_sched{"data-toggle" => "dropdown", :href => schedules_path}
+              Scores &amp;
+              %br.menu-break/
+              Schedule
+              %span.caret
+            %ul.dropdown-menu.dropdown-menu-fixed
+              %li
+                %a{href:schedules_path(season: Season.current.id, league: 3)} Weekdays
+              %li
+                %a{href:schedules_path(season: Season.current.id, league: 2)} Saturday
+              %li
+                %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
+              %li
+                %a.past_seasons{:href => schedules_path}
+                  Past
+                  = succeed "Seasons" do
+                    %br/
+          %li.dropdown-fixed.dropdown-fixed-stats
+            %a.dropdown-toggle.dropdown-toggle-stats{"data-toggle" => "dropdown", :href => results_url}
+              Stats &amp;
+              %br.menu-break/
+              Standings
+              %span.caret
+            %ul.dropdown-menu.dropdown-menu-fixed
+              %li
+                %a{href:results_url(season: Season.current.id, league: 3)} Weekdays
+              %li
+                %a{href:results_url(season: 30, league: 2)} Saturday
+              %li
+                %a{href:results_url(season: Season.current.id, league: 1)} Sunday
+              %li
+                %a.past_seasons{:href => results_url}
+                  Past
+                  = succeed "Seasons" do
+                    %br/
+          %li.record-books.dropdown-fixed
+            %a{:href => "/record-books"}
+              Record
+              %br.menu-break/
+              Books
+        .sign_up_container
+          %a{:href => "http://hoops.nyc/d16/rd/n_signup.html"} Sign Up
+        .social-media-container-phone
+          %a{href: "https://www.facebook.com/abchoopsnyc", target: "_blank"}
+            .icon-container
+              %i.fa.fa-facebook-official
+          %a{href: "http://instagram.com/abchoops", target: "_blank"}
+            .icon-container
+              %i.fa.fa-instagram
+          %a{href: "https://www.twitter.com/abchoopsnyc", target: "_blank"}
+            .icon-container
+              %i.fa.fa-twitter-square
+          %a{href: "http://www.flickr.com/photos/60289240@N08/", target: "_blank"}
+            .icon-container
+              %i.fa.fa-flickr
+      .nav-bottom-diag
+  .nav-bottom-diag
+.lower-diag-bar
