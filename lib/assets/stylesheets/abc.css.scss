@@ -114,7 +114,7 @@ html, body {
     border: none;
   }
   .headshotThumbContainer.halfball {
-    background: url(../images/ball.png) no-repeat;
+    background: url(/assets/ball.png) no-repeat;
     background-size: 75px 75px;
     background-color: #fff;
   }
@@ -217,7 +217,7 @@ html, body {
   }
   .bottom-diag {
     height: 40px;
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     background-color: #fff;
     position: relative;
     border-bottom: 2px solid #fff;
@@ -505,7 +505,7 @@ html, body {
     width: 20%;
   }
   .wholeDivider {
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     width: 100%;
     height: 20px;
     float: left;
@@ -572,7 +572,7 @@ html, body {
   }
   .bottom-nav-border {
     height: 4px;
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     background-color: #fff;
     width: 100%;
     position: absolute;
@@ -797,7 +797,7 @@ html, body {
     text-align: center
   }
   .upper-diag-bar {
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     background-color: #fff;
     margin: 0;
     padding: 10px;
@@ -810,14 +810,14 @@ html, body {
     margin: 0 auto
   }
   .lower-diag-bar {
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     background-color: #fff;
     width: 100%;
     position: inherit;
     border-top: 2px solid #fff;
   }
   .right-bar-container {
-    background: url(../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     float: right;
   }
   h8 {
@@ -1147,7 +1147,7 @@ html, body {
   }
   .bottom-footer-bar {
     height: 40px;
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     background-color: #fff;
     width: 100%;
     position: relative;
@@ -1155,7 +1155,7 @@ html, body {
   }
   .slide-controls {
     height: 40px;
-    background: url(../../../images/bodydiaglines.png);
+    background: url(/assets/bodydiaglines.png);
     background-color: #fff;
     width: 100%;
     position: relative;
@@ -1986,7 +1986,7 @@ html, body {
       display:none;
     }
     .nav-bottom-diag {
-      background: url(../../../images/bodydiaglines.png);
+      background: url(/assets/bodydiaglines.png);
       background-color: #fff;
       width: 100%;
       position: inherit;
