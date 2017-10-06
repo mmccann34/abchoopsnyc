@@ -1921,12 +1921,130 @@ html, body {
     border-bottom: none;
   }
 
+  /* Sign Up Page */
+.gray-header {
+  background-color: #f0f0f0;
+  display: table;
+  width: 100%;
+  margin-bottom: 40px
+}
+.gray-header div {
+  width: 100%;
+  vertical-align: middle;
+}
+.gray-header>div>img {
+  display: block;
+  margin: auto
+}
+.gray-header>div>h1 {
+  text-align: center;
+  border: none;
+}
+.orange-middle-bar {
+  background-color: #df7325;
+  margin-left: calc(-2.5% - 43px);
+  width: calc(105% + 86px);
+  padding: 30px 2.5%;
+}
+.orange-middle-bar h2 {
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 1px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.sign-up-block-container {
+  padding-top: 40px;
+}
+.sign-up-block-container>.col-md-3>div {
+  width: 100%;
+  flex: 1;
+  border: 4px solid #5a5a5a;
+  height: 100%;
+}
+.sign-up-block-container>.col-md-3>div>h3, .sign-up-block-container>.col-md-3>div>p {
+  text-align: center;
+}
+.sign-up-block-container>.col-md-3>div>p {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+.pricing-table {
+  vertical-align: middle;
+  width: 100%
+}
+.pricing-table td, .pricing-table th {
+  height: 55px;
+  vertical-align: middle!important;
+}
+.pricing-table>tbody>tr>td:nth-child(1) {
+  font-weight: bold;
+}
+.pricing-table>tbody>tr>td:nth-child(2), .pricing-table>tbody>tr>td:nth-child(3), .pricing-table>tbody>tr>td:nth-child(4) {
+  border-left: 1px solid #ddd;
+}
+.pricing-table>tbody>.team-fee>td {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #5a5a5a;
+}
+.pricing-table>tbody>.team-fee>td>span {
+  font-size: 16px;
+  font-weight: normal;
+}
+.sign-up-button a {
+  line-height: 40px;
+  padding-top: 10px;
+}
+.sign-up-button i {
+  font-size: 30px;
+}
+.sign-up-button-container {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 40px 0;
+  margin: 20px 0 40px 0;
+}
+.two-team-deal {
+  width: 100%;
+  background: url(../images/blurred-tipoff.jpg);
+  background-position: center;
+  display: table;
+  background-size: cover
+}
+.two-team-deal>div {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle
+}
+.horiz-line {
+  border-top: 1px solid #c0c0c0;
+  height: 1px;
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 20px
+}
+
   /* SAFARI FIX */
   .flexthis.container:before, .flexthis.container:after, .flexthis.row:before, .flexthis.row:after {
     content: normal;
   }
   .flexthis:before, .flexthis:after {
     display: none;
+  }
+  .aligned-row {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  .aligned-row::before {
+    display: block;
   }
   @media (max-width:375px) {
     .the-league-headline, .why-us-left, .right-offer-outer h1, .our-gyms {
@@ -2117,6 +2235,11 @@ html, body {
   @media (min-width:600px) and (max-width:767px) {
     .player-of-the-week {
       width: 50%;
+    }
+  }
+  @media (min-width:761px) {
+    .pricing-mobile-container {
+      display: none;
     }
   }
   @media (max-width:767px) {
@@ -2443,6 +2566,58 @@ html, body {
     #the-league-ytplayer {
       height: 500px!important;
     }
+    .top-sign-up {
+      padding: 40px 40px 0 40px
+    }
+    .gray-header {
+      padding-bottom: 40px;
+    }
+    .gray-header>div>img {
+      height: 100px;
+    }
+    .gray-header h1 {
+      margin: 0;
+    }
+    .orange-middle-bar h2 {
+      font-size: 26px;
+    }
+    .sign-up-block-container>.col-md-3>div {
+      padding: 10px;
+    }
+    .two-team-deal>div {
+      font-size: 36px;
+    }
+    .two-team-deal {
+      height: 250px;
+    }
+    .sign-up-second-container {
+      padding: 0 30px;
+      width: 100%
+    }
+  }
+  @media (min-width:768px) {
+    .top-sign-up {
+      padding: 40px
+    }
+    .gray-header {
+      height: 300px;
+    }
+    .gray-header>div>img {
+      height: 200px;
+    }
+    .sign-up-block-container>.col-md-3>div {
+      padding: 20px;
+    }
+    .two-team-deal {
+      height: 400px;
+    }
+    .two-team-deal>div {
+      font-size: 56px;
+    }
+    .sign-up-second-container {
+      padding: 40px;
+      width: 100%
+    }
   }
   @media (max-width:786px) {
     .player-box h3 {
@@ -2537,6 +2712,9 @@ html, body {
     }
     .button-container {
       padding: 8px 2.5%;
+    }
+    .sign-up-block-container div {
+      margin-bottom: 20px;
     }
   }
   @media (max-width:787px) {
@@ -2692,6 +2870,88 @@ html, body {
       display: table-row;
     }
   }
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    .pricing-mobile-container {
+      padding: 40px 15px 10px 15px;
+      width: 100%;
+    }
+    .pricing-table {
+      display: none;
+    }
+    /* Force table to not be like tables anymore */
+    
+    table.pricing-mobile, table.pricing-mobile>thead, table.pricing-mobile>tbody, table.pricing-mobile>thead>tr>th, table.pricing-mobile>tbody>tr>td, table.pricing-mobile>tbody>tr, table.pricing-mobile>thead>tr {
+      display: block;
+    }
+    /* Hide table headers (but not display: none;, for accessibility) */
+    
+    table.pricing-mobile>thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    table.pricing-mobile>tbody>tr {
+      border: 1px solid #ccc;
+    }
+    table.pricing-mobile>tbody>tr>td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+    table.pricing-mobile>tbody>tr>td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      font-weight: bold;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+    table.pricing-mobile>tbody>tr>td.day {
+      font-weight: bold;
+      color: #FFF;
+      background-color: #2e3b56;
+      border: 0;
+      font-size: 16px;
+      border-right: 1px solid #2e3b56;
+      padding-left: 0!important;
+    }
+    table.pricing-mobile>tbody>tr>td:before {
+      width: 0%;
+    }
+    /*
+      Label the data
+      */
+    
+    table.pricing-mobile>tbody>tr>td:nth-of-type(2):before {
+      content: "Start Date";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(3):before {
+      content: "Skill Level";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(4):before {
+      content: "Gym Locations";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(5):before {
+      content: "Game Times";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(6):before {
+      content: "Number of Games";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(7):before {
+      content: "Team Fee";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(8):before {
+      content: "Individual Pricing";
+    }
+    table.pricing-mobile>tbody>tr>td:nth-of-type(9):before {
+      content: "Two Team Special";
+    }
+  }
   @media (min-width:787px) {
     .player-box h4 {
       font-size: 24px;
@@ -2736,6 +2996,11 @@ html, body {
     .sched_days li {
       height: 100%;
       display: table;
+    }
+  }
+  @media (min-width:787px) and (max-width:991px) {
+    .sign-up-block-container div:nth-child(1), .sign-up-block-container div:nth-child(2) {
+      margin-bottom: 15px;
     }
   }
   @media (min-width:500px) and (max-width:991px) {
