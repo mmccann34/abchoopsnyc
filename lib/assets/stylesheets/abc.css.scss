@@ -1313,7 +1313,7 @@ html, body {
   .sched_block {
     background-repeat: no-repeat;
     width: 100%;
-    border: solid 5px #5a5a5a;
+    border: solid 3px #5a5a5a;
     margin-bottom: 25px;
   }
   .sched_block h1, .sched_block h3 {
@@ -1369,7 +1369,7 @@ html, body {
     text-transform: uppercase;
     word-spacing: 2px;
     margin: 0px;
-    border-left: 5px solid #5a5a5a;
+    border-left: 3px solid #5a5a5a;
   }
   .sched_days li a:hover>.championship-list>li {
     color: #fff;
@@ -2676,7 +2676,7 @@ html, body {
       height: 33%;
     }
     .three_days li:nth-child(3) {
-      height: calc(34% + 2px);
+      height: calc(34% + 1px);
     }
     .four_days li:nth-child(odd) {
       height: 25%;

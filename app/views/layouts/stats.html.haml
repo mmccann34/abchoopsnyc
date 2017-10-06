@@ -21,22 +21,10 @@
     %link(rel="shortcut icon" type="image/ico" href="/assets/favicon.ico")
     =render "layouts/ga" if Rails.env.production?
   %body
-    .outerContainer
-      %div
-        .headerItem.orangeHeader
-        .headerContainer
-          = render "header"
-        .contentContainer
-          .rightbar
-            .mainContent
-              = yield
-            .sidebarContent
-              #sidebarStandings.sidebarscrollpane
-              = render "sidebar_bottom"
-        .wholeDivider
-        .footerContainer
-          = render "footer"
-      %div{style:"clear:both;"}
+    = render "header"
+    = yield
+    .bottom-diag
+    = render "footer"
     .js-container
       = javascript_tag do
         window.currentLeagueId = '#{j current_league_id.to_s}';

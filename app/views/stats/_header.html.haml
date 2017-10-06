@@ -1,7 +1,7 @@
 .col-md-12.upper-diag-bar.upper-diag-bar-no-score
   .right-upper-bar-no-score
     .slam-header-container
-      %a{:href => "http://www.slamonline.com/blogs/the-notorious-dnp/abchoopsny-abcs-of-love/", target: "_blank"}
+      %a{:href => "#"}
     .soc-media-header-container
       %a{:href => "https://www.facebook.com/abchoopsnyc/", :target => "_blank"}
         %i.fa.fa-facebook-official
@@ -66,86 +66,86 @@
         %span.icon-bar
         %span.icon-bar
       #color_logo.header-aside
-        %a{:href => "http://hoops.nyc/d16/rd/index18.html"}
-          %img.header-logo{:src => "assets/whitelogo.png"}/
+        %a{:href => "index17a.html"}
+          %img.header-logo{:src => "images/whitelogo.png"}/
       #myNavbar.collapse.navbar-collapse
         .header_slide_logo_container{:style => "border:none"}
-          %a{:href => "http://hoops.nyc/d16/rd/index18.html"}
-            %img.header-logo.white-header-logo{:src => "assets/whitelogo.png"}/
+          %a{:href => "index17a.html"}
+            %img.header-logo.white-header-logo{:src => "images/whitelogo.png"}/
         %ul.nav.navbar-nav
           %li.dropdown-fixed.dropdown-fixed-theleague
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "http://hoops.nyc/d16/rd/n_theleague.html"}
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "n_theleague.html"}
               The
               %br.menu-break/
               League
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed.dropdown-menu-theleague
               %li
-                %a{:href => "http://hoops.nyc/d16/rd/n_theleague.html"} Info
+                %a{:href => "n_theleague.html"} Info
               %li
                 %a{:href => "#"} FAQ
               %li
-                %a{:href => "http://hoops.nyc/d16/rd/n_theleague.html#gyms"} Gyms
+                %a{:href => "n_theleague.html#gyms"} Gyms
               %li
                 %a{:href => "#"} Media
               %li
-                %a{:href => "http://hoops.nyc/d16/rd/n_theleague.html#contact"} Contact
+                %a{:href => "n_theleague.html#contact"} Contact
               %li
                 %a{:href => "#"} Updates
           %li.dropdown-fixed.dropdown-fixed-scores
-            %a.dropdown-toggle.scores_sched{"data-toggle" => "dropdown", :href => schedules_path}
+            %a.dropdown-toggle.scores_sched{"data-toggle" => "dropdown", :href => "n_scores_and_schedule.html"}
               Scores &amp;
               %br.menu-break/
               Schedule
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
-                %a{href:schedules_path(season: Season.current.id, league: 3)} Weekdays
+                %a{:href => "n_scores.html"} Weekdays
               %li
-                %a{href:schedules_path(season: Season.current.id, league: 2)} Saturday
+                %a{:href => "n_scores.html"} Saturday
               %li
-                %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
+                %a{:href => "n_scores.html"} Sunday
               %li
-                %a.past_seasons{:href => schedules_path}
+                %a.past_seasons{:href => "n_scores_and_schedule.html"}
                   Past
-                  = succeed "Seasons" do
-                    %br/
+                  %br/
+                  Seasons
           %li.dropdown-fixed.dropdown-fixed-stats
-            %a.dropdown-toggle.dropdown-toggle-stats{"data-toggle" => "dropdown", :href => results_url}
+            %a.dropdown-toggle.dropdown-toggle-stats{"data-toggle" => "dropdown", :href => "scores_and_schedule.html"}
               Stats &amp;
               %br.menu-break/
               Standings
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
-                %a{href:results_url(season: Season.current.id, league: 3)} Weekdays
+                %a{:href => "n_results.html"} Weekdays
               %li
-                %a{href:results_url(season: 30, league: 2)} Saturday
+                %a{:href => "n_results.html"} Saturday
               %li
-                %a{href:results_url(season: Season.current.id, league: 1)} Sunday
+                %a{:href => "n_results.html"} Sunday
               %li
-                %a.past_seasons{:href => results_url}
+                %a.past_seasons{:href => "n_scores_and_schedule.html"}
                   Past
-                  = succeed "Seasons" do
-                    %br/
+                  %br/
+                  Seasons
           %li.record-books.dropdown-fixed
-            %a{:href => "/record-books"}
+            %a{:href => "n_record-books.html"}
               Record
               %br.menu-break/
               Books
         .sign_up_container
-          %a{:href => "http://hoops.nyc/d16/rd/n_signup.html"} Sign Up
+          %a{:href => "n_signup.html"} Sign Up
         .social-media-container-phone
-          %a{href: "https://www.facebook.com/abchoopsnyc", target: "_blank"}
+          %a{:href => "#"}
             .icon-container
               %i.fa.fa-facebook-official
-          %a{href: "http://instagram.com/abchoops", target: "_blank"}
+          %a{:href => "#"}
             .icon-container
               %i.fa.fa-instagram
-          %a{href: "https://www.twitter.com/abchoopsnyc", target: "_blank"}
+          %a{:href => "#"}
             .icon-container
               %i.fa.fa-twitter-square
-          %a{href: "http://www.flickr.com/photos/60289240@N08/", target: "_blank"}
+          %a{:href => "#"}
             .icon-container
               %i.fa.fa-flickr
       .nav-bottom-diag
