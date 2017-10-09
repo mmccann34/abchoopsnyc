@@ -1,36 +1,40 @@
 - ot_three = game.home_score_ot_three != 0 || game.away_score_ot_three != 0
 - ot_two = game.home_score_ot_two != 0 || game.away_score_ot_two != 0 || ot_three
 - ot_one = game.home_score_ot_one != 0 || game.away_score_ot_one != 0 || ot_two
-%table.boxscore{:cellspacing=>"0", :cellpadding=>"5", :style=>('width:750px !important;' unless game.winner && !game.forfeit)}
+/ %table.boxscore{:cellspacing=>"0", :cellpadding=>"5", :style=>('width:750px !important;' unless game.winner && !game.forfeit)}
+%table.boxscore
   %tr
     %td{colspan:"2"}
       -if show_week
         %a(href="/games/#{game.id}/boxscore") #{game.boxscore_week_name + " -" if game.boxscore_week_name} #{game.date.strftime("%A %-m/%-d")} - #{game.time.strftime("%l:%M%p")}
       -else
         &nbsp;
-    %td.half{:width=>(game.winner && !game.forfeit ? "60" : "100" )} 1st Half
-    %td.half{:width=>(game.winner && !game.forfeit ? "60" : "100" )} 2nd Half
+    %td.score 1st Half
+    %td.score 2nd Half
+    / %td.half{:width=>(game.winner && !game.forfeit ? "60" : "100" )} 1st Half
+    / %td.half{:width=>(game.winner && !game.forfeit ? "60" : "100" )} 2nd Half
     - if ot_one
-      %td.half(width="10") OT
+      %td.score(width="10") OT
     - if ot_two
-      %td.half(width="10") 2OT
+      %td.score(width="10") 2OT
     - if ot_three
-      %td.half(width="10") 3OT
-    %td.total{:width=>(game.winner && !game.forfeit ? "60" : "100" )} Total
+      %td.score(width="10") 3OT
+    / %td.total{:width=>(game.winner && !game.forfeit ? "60" : "100" )} Total
+    %td.score.total Total
   %tr
-    %td{width:"1"} #{"&#8226;".html_safe if game.home_team.id == game.winner}
-    %td.team
+    %td #{"&#8226;".html_safe if game.home_team.id == game.winner}
+    %td
       %a{href: stats_team_path(game.home_team)} #{game.home_team.name}
     -if not game.forfeit
-      %td.half= game.home_score_first
-      %td.half= game.home_score_second
+      %td.score= game.home_score_first
+      %td.score= game.home_score_second
       - if ot_one
-        %td.half= game.home_score_ot_one
+        %td.score= game.home_score_ot_one
       - if ot_two
-        %td.half= game.home_score_ot_two
+        %td.score= game.home_score_ot_two
       - if ot_three
-        %td.half= game.home_score_ot_three
-      %td.total= game.home_score
+        %td.score= game.home_score_ot_three
+      %td.score.total= game.home_score
     -else
       %td{colspan: "3", style:"text-align:center;"} --- FORFEIT ---
   %tr
@@ -38,27 +42,27 @@
     %td.team
       %a{href: stats_team_path(game.away_team)} #{game.away_team.name}
     -if not game.forfeit
-      %td.half= game.away_score_first
-      %td.half= game.away_score_second
+      %td.score= game.away_score_first
+      %td.score= game.away_score_second
       - if ot_one
-        %td.half= game.away_score_ot_one
+        %td.score= game.away_score_ot_one
       - if ot_two
-        %td.half= game.away_score_ot_two
+        %td.score= game.away_score_ot_two
       - if ot_three
-        %td.half= game.away_score_ot_three
-      %td.total= game.away_score
+        %td.score= game.away_score_ot_three
+      %td.score.total= game.away_score
     -else
       %td{colspan: "3", style: "text-align:center; font-style:italic"}= game.home_team.id == game.winner ? "#{game.away_team.name} forfeits to #{game.home_team.name}" : "#{game.home_team.name} forfeits to #{game.away_team.name}"
   %tr
     %td &nbsp;
-    %td.team(style="font-weight:normal;font-size:12px;")= "Played at the #{game.location.try(:name)}"
-    %td.half &nbsp;
+    %td.location Played at the #{game.location.try(:name)}
+    %td &nbsp;
     - if ot_one
-      %td.half &nbsp;
+      %td &nbsp;
     - if ot_two
-      %td.half(width="10") &nbsp;
+      %td(width="10") &nbsp;
     - if ot_three
-      %td.half(width="10") &nbsp;
-    %td.total(colspan="2")
+      %td(width="10") &nbsp;
+    %td.full-box(colspan="3")
       %a(href="/games/#{game.id}/boxscore#fullboxscore") Full Box Score&#187;
       &nbsp;
