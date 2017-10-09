@@ -7,6 +7,7 @@ html, body {
     display: none;
     content: url(../images/slam23blue.png);
   }
+  @import "font-awesome";
   @font-face {
     font-family: 'BebasRegular';
     src: url(../../../nd/BEBAS___-webfont.eot);
@@ -1394,6 +1395,22 @@ html, body {
     list-style-type: none;
     padding: 0;
   }
+  .active-season-list {
+    list-style-type:disc;
+    max-width:200px;
+    margin: 30px auto;
+    text-align: left;
+  }
+  .active-season-list li {
+    display:list-item!important;
+    float:none;
+    border: none;
+    height: auto;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: none;
+    line-height: 20px;
+  }
   .championship-list li {
     width: 100%;
     border: none;
@@ -2700,7 +2717,7 @@ html, body {
       letter-spacing: 1px;
       text-align: center;
     }
-    .championship-list {
+    .championship-list,.active-season-list {
       display: none;
     }
     .sched_block {
@@ -2733,7 +2750,8 @@ html, body {
       display: none
     }
     .navbar-collapse {
-      padding: 0 2.5%!important
+      padding: 0 2.5%!important;
+      border-top:2px solid #fff
     }
     li.dropdown-fixed, li.record-books {
       text-align: center
@@ -2776,7 +2794,7 @@ html, body {
       height: 55px;
       display: block;
       float: left;
-      padding-top: 3px;
+      padding-top: 4px;
     }
     .bottom-nav-border {
       top: 60px
@@ -3502,4 +3520,21 @@ html, body {
     .twitter-typeahead:nth-child(2) {
       width: 100%!important
     }
+  }
+
+  @media (min-width:768px) and (max-width:991px) {
+    .upper-score-container {display:none;}
+    .upper-diag-bar-no-score {width:100%;}
+    .right-upper-bar-no-score {width:100%;}
+  }
+  @media (min-width:768px) {
+  .upper-diag-bar {height:23px!important;padding:0;}
+  .score-wrapper {display:none;}
+  .right-upper-bar-no-score {float:right;margin-right:2.5%;height:20px;width:25%;}
+  .right-upper-bar-no-score i.fa {font-size:20px;line-height:20px;padding-top:2px;}
+  .right-upper-bar-no-score .slam-header-container a {height:19px;width:49px;background-size:cover;margin-top:2px;}
+  .popover {height:25px;}
+  .popover-content {padding:0;}
+  .findPlayerField, .tt-hint {height:20px;}
+  .search-form-container {padding-top:2px;}
   }

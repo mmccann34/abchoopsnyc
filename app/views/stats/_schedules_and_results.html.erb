@@ -1,21 +1,51 @@
   <div class="container main-container">
     <div class="row equal">
       <div class="col-md-12 col-sm-12 col-xs-12 main-container-no-sidebar">
-        <h1>Current Season Scores &amp; Schedule</h1>
+        <h1><%="Current Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
         <div class="sched_block" style="background-image:url(images/ball.png);">
           <div class="season_container">
-            <h1>Spring 2017</h1>
-            <h3>Season 25</h3>
+            <h1><%= Season.current.name %></h1>
+            <h3>Season <%= Season.current.number %></h3>
           </div>
           <ul class="sched_days three_days">
             <li class="main-button">
-              <a class="active-season" href="#">Sunday</a>
+              <% if mode == "schedules" %>
+                <a class="active-season" href=<%="/#{mode}?season=31&league=3"%>>Sunday</a>
+              <% else %>
+                <a href=<%="/#{mode}?season=31&league=3"%>>Sunday
+                  <ul class="active-season-list">
+                    <li>Full Standings</li>
+                    <li>Stat Leaderboard</li>
+                    <li>Team Stats</li>
+                  </ul>
+                </a>
+              <% end %>
             </li>
             <li class="main-button">
-              <a class="active-season" href="#">Saturday</a>
+              <% if mode == "schedules" %>
+                <a class="active-season" href="#">Saturday</a>
+              <% else %>
+                <a href="#">Saturday
+                  <ul class="active-season-list">
+                    <li>Full Standings</li>
+                    <li>Stat Leaderboard</li>
+                    <li>Team Stats</li>
+                  </ul>
+                </a>
+              <% end %>
             </li>
             <li class="main-button">
-              <a class="active-season" href="#">Weekday</a>
+              <% if mode == "schedules" %>
+                <a class="active-season" href="#">Weekday</a>
+              <% else %>
+                <a href="#">Weekday
+                  <ul class="active-season-list">
+                    <li>Full Standings</li>
+                    <li>Stat Leaderboard</li>
+                    <li>Team Stats</li>
+                  </ul>
+                </a>
+              <% end %>
             </li>
           </ul>
         </div>
@@ -61,6 +91,835 @@
             </li>
           </ul>
         </div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_ibl16.png');">
+          <div class="season_container">
+            <h1>IBL</h1>
+            <h3>Winter '16-'17</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=29&league=4"%>> IBL
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Zurich<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Guy Carpenter</li>
+      </ul></a>
+  </li>
+</div>
+
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter16.png');">
+          <div class="season_container">
+            <h1>Winter 2016</h1>
+            <h3>Season 24</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=29&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Drexler Champ</li>
+        <li>Essex County</li>
+        <li class="division">Petrovic Champ</li>
+        <li>Team Heat Wave</li>
+        <li class="division">Strom Champ</li>
+        <li>Scumgang</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=29&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Thomas Champ</li>
+        <li>Occupy John Wall St</li>
+        <li class="division">Dumars Champ</li>
+        <li>Los Pollos Hermanos</li>
+        <li class="division">Rodman Champ</li>
+        <li>Toon Squad</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=29&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Daly Champ</li>
+        <li>Death Row</li>
+        <li class="division">Adelman Champ</li>
+        <li>The Expendables</li>
+        <li class="division">Bavetta Champ</li>
+        <li>Easy Money</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall16.png');">
+          <div class="season_container">
+            <h1>Fall 2016</h1>
+            <h3>Season 23</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=28&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Jabbar Champ</li>
+        <li>Cash Only</li>
+        <li class="division">Malone Champ</li>
+        <li>Club Trillion</li>
+        <li class="division">Hearn Champ</li>
+        <li>Nasty Boiz</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=28&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Erving Champ</li>
+        <li>Jet Mafia<br /></li>
+        <li class="division">Worthy Champ</li>
+        <li>Hustle &amp; Flower Boys</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=28&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Magic Champ</li>
+        <li>Paul &amp; Co.</li>
+        <li class="division">McAdoo Champ</li>
+        <li>bAll Stars</li>
+        <li class="division">Wikes Champ</li>
+        <li>The Expendables</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer16.png');">
+          <div class="season_container">
+            <h1>Summer 2016</h1>
+            <h3>Season 22</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=27&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Cousy Champ</li>
+        <li>Cash Only</li>
+        <li class="division">Havlicek Champ</li>
+        <li>Indie 2</li>
+        <li class="division">Jones Champ</li>
+        <li>CPDP</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=27&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Russell Champ</li>
+        <li>Mean Gunther<br />
+        </li>
+        <li class="division">Auerbach Champ</li>
+        <li>bAllstars</li>
+      </ul></a>
+  </li>
+</div>
+
+        <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring16.png');">
+          <div class="season_container">
+            <h1>Spring 2016</h1>
+            <h3>Season 21</h3>
+          </div>
+          <ul class="sched_days four_days">
+            <li class="main-button">
+              <a href=<%="/#{mode}?season=23&league=1"%>>Sunday
+              <ul class="championship-list">
+                <li class="division">Reed Champ</li>
+                <li>City Hoops</li>
+                <li class="division">Holzman Champ</li>
+                <li>Bucketz</li>
+                <li class="division">Jackson Champ</li>
+                <li>Washed Up</li>
+              </ul></a>
+            </li>
+            <li class="main-button">
+              <a href=<%="/#{mode}?season=23&league=2"%>>Saturday
+              <ul class="championship-list">
+                <li class="division">Chamberlain</li>
+                <li>Dynasty</li>
+                <li class="division">Frazier Champ</li>
+                <li>John Wall St</li>
+                <li class="division">DeBusscherre</li>
+                <li>Uncle Mike</li>
+              </ul></a>
+            </li>
+            <li class="main-button">
+              <a href=<%="/#{mode}?season=23&league=3"%>>Weekday
+              <ul class="championship-list">
+                <li class="division">West Champ</li>
+                <li>Manhattan Pride</li>
+                <li class="division">Baylor Champ</li>
+                <li>Team X</li>
+                <li class="division">Bradley Champ</li>
+                <li>Essex County</li>
+              </ul></a>
+            </li>
+            <li class="main-button">
+              <a href=<%="/#{mode}?season=23&league=5"%>>Junior
+              <ul class="championship-list">
+                <li class="division">Champ</li>
+                <li>Team Mega</li>
+              </ul></a>
+            </li>
+          </ul>
+        </div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_ibl15.png');">
+          <div class="season_container">
+            <h1>IBL</h1>
+            <h3>Winter '15-'16</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=25&league=4"%>> IBL
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>XL Catlin<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Zurich</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter15.png');">
+          <div class="season_container">
+            <h1>Winter 2015</h1>
+            <h3>Season 20</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=25&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">South Carolina Champ</li>
+        <li>Good D<br />
+        </li>
+        <li class="division">Louisiana Champ</li>
+        <li>Heat Check</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=25&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">New Hampshire Champ</li>
+        <li>Mambas<br />
+        </li>
+        <li class="division">Nevada Champ</li>
+        <li>Indie 500</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=25&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Iowa Champ</li>
+        <li>The Come Up</li>
+        <li class="division">Super Tuesday Champ</li>
+        <li>bAll Stars</li>
+        <li class="division">Nebraska Champ</li>
+        <li>Hodor</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall15.png');">
+          <div class="season_container">
+            <h1>Fall 2015</h1>
+            <h3>Season 19</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=24&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Nader Champ</li>
+        <li>Ball-Playaz<br />
+        </li>
+        <li class="division">Perot Champ</li>
+        <li>Indie 2</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=24&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Trump Champ</li>
+        <li>Mambas</li>
+        <li class="division">Fiorina Champ</li>
+        <li>Better Late
+        </li>
+        <li class="division">Carson Champ</li>
+        <li>Los Pollos</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=24&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Sanders Champ</li>
+        <li>Paul &amp; Co</li>
+        <li class="division">Clinton Champ</li>
+        <li>Takeover</li>
+        <li class="division">Biden Champ</li>
+        <li>Del Harris</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer15.png');">
+          <div class="season_container">
+            <h1>Summer 2015</h1>
+            <h3>Season 18</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=23&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">LES Champ</li>
+        <li>Get Buckets<br /></li>
+        <li class="division">YMCA Champ</li>
+        <li>Renegades</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=23&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Manna-Hata Champ</li>
+        <li>Max's All Stars</li>
+        <li class="division">New Amsterdam Champ</li>
+        <li>Weil</li>
+        <li class="division">New York Champ</li>
+        <li>Pick &amp; Roll a J</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring15.png');">
+          <div class="season_container">
+            <h1>Spring 2015</h1>
+            <h3>Season 17</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=21&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Boss Tweed Champ</li>
+        <li>Pippen Ain't Easy</li>
+        <li class="division">Lindsay Champ</li>
+        <li>MCC
+        </li>
+        <li class="division">Koch Champ</li>
+        <li>Wet Bandits</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=21&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">LaGuardia Champ</li>
+        <li>Shut 'Em</li>
+        <li class="division">Van Wych Champ</li>
+        <li>Occupy John Wall St
+        </li>
+        <li class="division">Giuliani Champ</li>
+        <li>Boom</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=21&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Dinkins Champ</li>
+        <li>Max's All Stars</li>
+        <li class="division">Wagner Champ</li>
+        <li>Warriors Basketball</li>
+        <li class="division">Bloomberg Champ</li>
+        <li>#BallisLife</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter14.png');">
+          <div class="season_container">
+            <h1>Winter 2014</h1>
+            <h3>Season 16</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=20&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Cinnabon Champ</li>
+        <li>Mud Dogs<br />
+        </li>
+        <li class="division">Sbarro Champ</li>
+        <li>Houlie Hoopers</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=20&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Orange Julius Champ</li>
+        <li>Toon Squad Sat<br />
+        </li>
+        <li class="division">Panda Express Champ</li>
+        <li>EBF</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=20&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Nathan's Champ</li>
+        <li>Wrecking Ballers</li>
+        <li class="division">TCBY Champ</li>
+        <li>Jetlife</li>
+        <li class="division">Auntie Anne Champ</li>
+        <li>Indie Team</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall14.png');">
+          <div class="season_container">
+            <h1>Fall 2014</h1>
+            <h3>Season 15</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=19&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Turcon Dumptrucks<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Houlie Hoopers</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=19&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Frosted Flakes Champ</li>
+        <li>Ray on the Roof<br />
+        </li>
+        <li class="division">Captain Crunch</li>
+        <li>Los Pollos Hermanos</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=19&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Corn Pops Champ</li>
+        <li>bAll Stars</li>
+        <li class="division">Cheerios Champ</li>
+        <li>Asphalt Ninjas</li>
+        <li class="division">Raisin Bran Champ</li>
+        <li>Str8 Skills</li>
+      </ul></a>
+  </li>
+</div>
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer14.png');">
+          <div class="season_container">
+            <h1>Summer 2014</h1>
+            <h3>Season 14</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=18&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Pineapples<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Houlie Hoopers</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=18&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">TF-1000 Champ</li>
+        <li>bAll Stars</li>
+        <li class="division">Evolution Champ</li>
+        <li>Grand Life</li>
+        <li class="division">Infusion Champ</li>
+        <li>Beats by Solange</li>
+      </ul></a>
+  </li>
+</div>
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring14.png');">
+          <div class="season_container">
+            <h1>Spring 2014</h1>
+            <h3>Season 13</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=17&league=3"%>> Weekday
+       <ul class="championship-list">
+        <li class="division">Pennys Champ</li>
+        <li> The Wake<br />
+        </li>
+        <li class="division">Shaqnosis Champ</li>
+        <li> Pho King</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=17&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">FILA Champ</li>
+        <li>Tyrannical Teabaggers<br />
+        </li>
+        <li class="division">LA Gear Champ</li>
+        <li>Mambas</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=17&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">AF-1 Champ</li>
+        <li>bAll Stars</li>
+        <li class="division">Foamposite Champ</li>
+        <li>Jetlife</li>
+        <li class="division">Chuck Taylor Champ</li>
+        <li>Monday</li>
+      </ul></a>
+  </li>
+</div>
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter13b.png');">
+          <div class="season_container">
+            <h1>Winter 2013</h1>
+            <h3>Season 12</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=16&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">The Dream Champ</li>
+        <li>Sons of Men<br />
+        </li>
+        <li class="division">T-Mac Champ</li>
+        <li>Wendell's Poppers</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=16&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Bad Boys Champ</li>
+        <li>For the Love of Buckets<br />
+        </li>
+        <li class="division">Showtime Champ</li>
+        <li>Holy Day Detox</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=16&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Black Mamba Champ</li>
+        <li>Grand Life</li>
+        <li class="division">Larry Legend Champ</li>
+        <li>Wrecking Ballers</li>
+        <li class="division">Uncle Drew Champ</li>
+        <li>TLC Deez</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall13.png');">
+          <div class="season_container">
+            <h1>Fall 2013</h1>
+            <h3>Season 11</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=15&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Big Dipper Champ</li>
+        <li>Dons' Rok<br />
+        </li>
+        <li class="division">Mr. Clutch Champ</li>
+        <li>Ray on the Roof</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=15&league=1"%>>Sunday
+      <ul class="championship-list">
+        <li class="division">Jellybean Champ</li>
+        <li>Jetlife<br />
+        </li>
+        <li class="division">Mailman Champ</li>
+        <li>Red Horsemen</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer13b.png');">
+          <div class="season_container">
+            <h1>Summer 2013</h1>
+            <h3>Season 10</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=14&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Pistol Pete Champ</li>
+        <li>Grand Life</li>
+        <li class="division">Big Country Champ</li>
+        <li>Young Gunnaz</li>
+        <li class="division">The Admiral Champ</li>
+        <li>Titans</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring13b.png');">
+          <div class="season_container">
+            <h1>Spring 2013</h1>
+            <h3>Season 9</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=13&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Dr. J Champ</li>
+        <li>Dons' Rok<br />
+        </li>
+        <li class="division">Bird Champ</li>
+        <li>Thunderbuddies </li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=13&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Benedict Schemers<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Real Ready </li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter12b.png');">
+          <div class="season_container">
+            <h1>Winter 2012</h1>
+            <h3>Season 8</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=12&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">King Champ</li>
+        <li>Holy Day Detox<br />
+        </li>
+        <li class="division">Starks Champ</li>
+        <li>The Monstars</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=12&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>The Come Up<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Benedict Schemers</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall12b.png');">
+          <div class="season_container">
+            <h1>Fall 2012</h1>
+            <h3>Season 7</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=11&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Bandz'll Make Her Dance<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Team X</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=11&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Newport<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Nigel, Mike & TRP</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer12.png');">
+          <div class="season_container">
+            <h1>Summer 2012</h1>
+            <h3>Season 6</h3>
+          </div>
+          <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=10&league=3"%>> Weekday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>The Come Up<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Rack City</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=10&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Team Dynasty<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>TY - Schemers</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=10&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Villains<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>3rd Rock</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring12.png');">
+          <div class="season_container">
+            <h1>Spring 2012</h1>
+            <h3>Season 5</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=9&league=2"%>> Saturday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Team Dynasty<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Team X</li>
+      </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=9&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Newport<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>PF Flyers</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter11.png');">
+          <div class="season_container">
+            <h1>Winter 2011</h1>
+            <h3>Season 4</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=8&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Benedict Schemers<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Very Erratic Play</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall11.png');">
+          <div class="season_container">
+            <h1>Fall 2011</h1>
+            <h3>Season 3</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=7&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Spring Street<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Manhattan Pride</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer11.png');">
+          <div class="season_container">
+            <h1>Summer 2011</h1>
+            <h3>Season 2</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=6&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Team X<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Game, Blouses</li>
+      </ul></a>
+  </li>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring11.png');">
+          <div class="season_container">
+            <h1>Spring 2011</h1>
+            <h3>Season 1</h3>
+          </div>
+          <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=5&league=1"%>> Sunday
+      <ul class="championship-list">
+        <li class="division">Champion</li>
+        <li>Wen Bo<br />
+        </li>
+        <li class="division">Runner Up</li>
+        <li>Real Ready</li>
+      </ul></a>
+  </li>
+</div>
+
+
+
+
         <div class="sched_block" style="background-image:url(images/seasons/season23.png);">
           <div class="season_container">
             <h1>Fall 2016</h1>

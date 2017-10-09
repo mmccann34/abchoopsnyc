@@ -24,8 +24,8 @@
         %button.findPlayer{:type => "submit"}
           %i.fa.fa-search
     :javascript
-      ang(function() {
-                ang('input#playerSearch').typeahead({
+      $(function() {
+                $('input#playerSearch').typeahead({
                   name: "players", 
                   prefetch: "http://stats.abchoops.com/api/players.json",
                   template: [
@@ -49,10 +49,10 @@
                   engine: Hogan
                 });
       
-                ang('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoops.com/players/' + datum.slug; });
+                $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoops.com/players/' + datum.slug; });
             });
     :javascript
-      ang(".fancybox").fancybox({
+      $(".fancybox").fancybox({
         slideShow  : false,
       fullScreen : true,
       thumbs     : false,
@@ -67,11 +67,11 @@
         %span.icon-bar
       #color_logo.header-aside
         %a{:href => "index17a.html"}
-          %img.header-logo{:src => "images/whitelogo.png"}/
+          %img.header-logo{:src => "/assets/whitelogo.png"}/
       #myNavbar.collapse.navbar-collapse
         .header_slide_logo_container{:style => "border:none"}
           %a{:href => "index17a.html"}
-            %img.header-logo.white-header-logo{:src => "images/whitelogo.png"}/
+            %img.header-logo.white-header-logo{:src => "/assets/whitelogo.png"}/
         %ul.nav.navbar-nav
           %li.dropdown-fixed.dropdown-fixed-theleague
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "n_theleague.html"}
@@ -93,48 +93,48 @@
               %li
                 %a{:href => "#"} Updates
           %li.dropdown-fixed.dropdown-fixed-scores
-            %a.dropdown-toggle.scores_sched{"data-toggle" => "dropdown", :href => "n_scores_and_schedule.html"}
+            %a.dropdown-toggle.scores_sched{"data-toggle" => "dropdown", :href => schedules_path}
               Scores &amp;
               %br.menu-break/
               Schedule
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
-                %a{:href => "n_scores.html"} Weekdays
+                %a{href:schedules_path(season: Season.current.id, league: 3)} Weekdays
               %li
-                %a{:href => "n_scores.html"} Saturday
+                %a{href:schedules_path(season: Season.current.id, league: 2)} Saturday
               %li
-                %a{:href => "n_scores.html"} Sunday
+                %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
               %li
-                %a.past_seasons{:href => "n_scores_and_schedule.html"}
+                %a.past_seasons{href:schedules_path}
                   Past
                   %br/
                   Seasons
           %li.dropdown-fixed.dropdown-fixed-stats
-            %a.dropdown-toggle.dropdown-toggle-stats{"data-toggle" => "dropdown", :href => "scores_and_schedule.html"}
+            %a.dropdown-toggle.dropdown-toggle-stats{"data-toggle" => "dropdown", :href => results_url}
               Stats &amp;
               %br.menu-break/
               Standings
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
-                %a{:href => "n_results.html"} Weekdays
+                %a{href:results_url(season: Season.current.id, league: 3)} Weekdays
               %li
-                %a{:href => "n_results.html"} Saturday
+                %a{href:results_url(season: Season.current.id, league: 2)} Saturday
               %li
-                %a{:href => "n_results.html"} Sunday
+                %a{href:results_url(season: Season.current.id, league: 1)} Sunday
               %li
-                %a.past_seasons{:href => "n_scores_and_schedule.html"}
+                %a.past_seasons{href:results_url}
                   Past
                   %br/
                   Seasons
           %li.record-books.dropdown-fixed
-            %a{:href => "n_record-books.html"}
+            %a{:href => "/record-books"}
               Record
               %br.menu-break/
               Books
         .sign_up_container
-          %a{:href => "n_signup.html"} Sign Up
+          %a{:href => "http://abchoops.com/signup.html"} Sign Up
         .social-media-container-phone
           %a{:href => "#"}
             .icon-container
