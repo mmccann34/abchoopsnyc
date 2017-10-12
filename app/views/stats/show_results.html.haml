@@ -8,61 +8,90 @@
   -else
     -title "#{@season.name} - #{@league.name} Stats"
     %h1 #{@season.name} - #{@league.name} Stats
-  %form{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
-    Season:
-    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-    =hidden_field_tag "league", @league.id
+  .col-lg-4.col-md-6.col-xs-12{:style => "padding:15px 0"}
+    %form{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
+      Season:
+      =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+      =hidden_field_tag "league", @league.id
   %p 
     At ABC Hoops, stats are very important to us.  We have three dedicated stat keepers at each game to make sure everything is recorded as accurately as possible.  For the week's scores, go to the 
     = succeed "." do
       %a{href:schedules_path(season:@season.id, league:@league.id)} Schedule Page
-  %h3 &nbsp;
   -if lookup_context.template_exists?("bracket_#{@league.name.downcase}_#{@season.id}", "stats", true)
     =render "bracket_#{@league.name.downcase}_#{@season.id}"
-  %h1
-    %a#standings{name:"standings"}
-    Standings
-  %p.hl
-  %table.statTableTeamStats.maintablestand{cellpadding:"3", cellspacing:"0", border:"0", width:"550", style:"margin: 0 auto;"}
-    %thead.statTableHead
-      %tr
-        %th Team
-        %th{width:"50"} W
-        %th{width:"50"} L
-        %th{width:"50"} PF
-        %th{width:"50"} PA
-        %th{width:"50"} Diff
-        %th{width:"50"} Strk
-    %tbody
-      - divisions = @team_spots.group_by { |ts| ts.division }
-      - no_division = divisions.extract!(nil)
-      - divisions.keys.sort.each_with_index do |division|
-        %tr.even.divisionName
-          %td.team{colspan:"7"}= division.name
-        - division_team_spots = division.team_spots
-        - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
-          %tr{class: "#{cycle('odd', 'even')}"}
-            %td.team
-              %a{href:stats_team_path(ts.team)}= ts.team.name
-            %td= ts.wins
-            %td= ts.losses
-            %td= ts.points_for
-            %td= ts.points_against
-            %td= ts.point_diff
-            %td= ts.streak
-        -reset_cycle
-      - team_spot_no_division = no_division[nil]
-      - if team_spot_no_division
-        - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
-          %tr{class: "#{cycle('odd', 'even')}"}
-            %td.team
-              %a{href:stats_team_path(ts.team)}= ts.team.name
-            %td= ts.wins
-            %td= ts.losses
-            %td= ts.points_for
-            %td= ts.points_against
-            %td= ts.point_diff
-            %td= ts.streak
+  .row
+    .col-md-12.col-lg-12
+      %h1{:style => "margin-top:0px;border-bottom: solid 1px #C0C0C0;padding-bottom:5px;margin-top:15px"} Standings
+      .full-standings-container
+        %table.table.responsive.table-striped.table-stats.sortable.table-hover.full-standings{cellpadding:"3", cellspacing:"0", border:"0", width:"550"}
+          %thead
+            %tr
+              %th Team
+              %th W
+              %th L
+              %th PF
+              %th PA
+              %th Diff
+              %th Strk
+          %tbody
+            - divisions = @team_spots.group_by { |ts| ts.division }
+            - no_division = divisions.extract!(nil)
+            - divisions.keys.sort.each_with_index do |division|
+              %tr.even.divisionName
+                %td.team.r-lock= division.name
+                %td  
+                %td  
+                %td  
+                %td  
+                %td  
+                %td
+              - division_team_spots = division.team_spots
+              - division_team_spots.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
+                %tr
+                  %td.team.r-lock
+                    %a{href:stats_team_path(ts.team)}= ts.team.name
+                  %td= ts.wins
+                  %td= ts.losses
+                  %td= ts.points_for
+                  %td= ts.points_against
+                  %td= ts.point_diff
+                  %td= ts.streak
+              -reset_cycle
+            - team_spot_no_division = no_division[nil]
+            - if team_spot_no_division
+              - team_spot_no_division.sort_by{|ts| [ts.win_pct, ts.wins, -(ts.losses), ts.point_diff]}.reverse!.each do |ts|
+                %tr
+                  %td.team.r-lock
+                    %a{href:stats_team_path(ts.team)}= ts.team.name
+                  %td= ts.wins
+                  %td= ts.losses
+                  %td= ts.points_for
+                  %td= ts.points_against
+                  %td= ts.point_diff
+                  %td= ts.streak
+    .col-md-12.col-lg-12
+      %h1 Leaderboard
+      .row
+        .col-lg-6.button-container
+          .main-button.block
+            %a{:href => "#pergame"} Per Game
+        .col-lg-6.button-container
+          .main-button.block
+            %a{:href => "#totals"} Totals
+      #pergame
+        .row.equal.leaderboard-row
+          .col-md-4.col-sm-6.leaderboard-stat-container
+            %table.table.table-striped.table-stats.table-hover
+              %thead.statTableHead
+                %tr
+                  %th{:colspan => "3"} Points Per Game
+              %tbody
+                =render "leaderboard_entry", headers: ['Points Per Game', 'Rebounds Per Game', 'Assists Per Game'], entries: [@leaderboard[:points], @leaderboard[:rebounds], @leaderboard[:assists]], precisions: [1]
+
+
+
+
+
   %h3 &nbsp;
   %h1
     %a#leaderboard{name:"leaderboard"}

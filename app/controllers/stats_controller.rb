@@ -91,7 +91,7 @@ class StatsController < ActionController::Base
       @old_team_season = Season.where(id: @old_team_url.season_id).first
     end
   end
-  
+
   def show_schedules
     @show_all = true
     if params[:season] && params[:league]
@@ -113,6 +113,8 @@ class StatsController < ActionController::Base
           end
         end
       end
+    else
+      render :layout => 'no_sidebar'
     end
   end
   
@@ -162,6 +164,8 @@ class StatsController < ActionController::Base
         @leaderboard_totals[:ftpct] = get_records('ftpct', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
         @leaderboard_totals[:ftm] = get_records('ftm', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
       end
+    else
+      render :layout => 'no_sidebar'
     end
   end
   

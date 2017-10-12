@@ -23,15 +23,13 @@
   %body
     = render "header"
     .container.main-container
-      .row.equal.flexthis
-        .col-md-9.col-sm-12.col-xs-12.main-inner-container
+      .row.equal
+        .col-md-12.col-sm-12.col-xs-12.main-container-no-sidebar
           = yield
-        .col-md-3.col-sm-12.col-xs-12.right-bar-container
-          = render "sidebar_bottom"
     .bottom-diag
     = render "footer"
-  .js-container
-    = javascript_tag do
-      window.currentLeagueId = '#{j current_league_id.to_s}';
-    %script{src: "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"}
-    %script{src: "//cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"}
+    .js-container
+      = javascript_tag do
+        window.currentLeagueId = '#{j current_league_id.to_s}';
+      %script{src: "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"}
+      %script{src: "//cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"}
