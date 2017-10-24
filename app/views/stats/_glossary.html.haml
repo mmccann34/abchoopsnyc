@@ -1,50 +1,34 @@
-%table.terms{cellpadding:"2", cellspacing:"0", border:"0"}
-  %tbody
-    %tr
-      %td{colspan:"8"} Click each column to sort descending or ascending for each stat.
-    %tr
-      %td{colspan:"8"} &nbsp;
-    %tr
-      %td(colspan="3")
-        %b
-          %em Glossary
-    %tr
-      %td
-        %b 3PT
-      %td(width="205") Three Pointers (Made &amp; Attempted)
-      %td
-        %b O
-      <td width="155">Offensive Rebounds
-      %td
-        %b A
-      %td Assists
-      %td
-        %b F
-      %td Fouls
-    %tr
-      %td
-        %b FT
-      %td(width="205") Free Throws (Made &amp; Attempted)
-      %td
-        %b D
-      %td(width="155") Defensive Rebounds
-      %td
-        %b S
-      %td Steals
-      %td
-        %b P
-      %td Points
-    %tr
-      %td 
-        %b
-          %br
-      %td(width="205")
-        %br
-      %td
-        %b T
-      %td(width="155") Total Rebounds
-      %td
-        %b B
-      %td Blocks
-      %td &nbsp;
-      %td &nbsp;
+.glossary-container
+  %p Click each column to sort descending or ascending for each stat.
+  %h8 Glossary
+  .row.glossary-inner-container
+    .col-md-3.col-sm-6.col-xs-6
+      %b 3PT
+      Three Pointers
+      %br/
+      %b FT
+      Free Throws
+    .col-md-3.col-sm-6.col-xs-6
+      %b O
+      Offensive Rebounds
+      %br/
+      %b D
+      Defensive Rebounds
+      %br/
+      %b T
+      Total Rebounds
+    .col-md-2.col-sm-6.col-xs-6
+      %b A
+      Assists
+      %br/
+      %b S
+      Steals
+      %br/
+      %b B
+      Blocks
+    .col-md-2.col-sm-6.col-xs-6
+      %b F
+      Fouls
+      %br/
+      %b P
+      Points

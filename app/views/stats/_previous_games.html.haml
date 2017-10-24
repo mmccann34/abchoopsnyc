@@ -1,0 +1,25 @@
+%table.stats.table.table-striped.no-hover.top-performers{:cellspacing=>"0", :cellpadding=>"3"}
+  %thead
+    %tr
+      %th{:colspan=>"2"}Recent Form
+  %tbody
+    %tr
+      %td
+        %a{href: stats_team_url(game.home_team)}= game.home_team.name
+      %td
+        -@ag = @all_games.where("home_team_id = ? OR away_team_id = ?", game.home_team.id, game.home_team.id).where("winner IS NOT NULL").order('date ASC' ).last(5)
+        -@ag.each do |ag|
+          - if ag.winner == game.home_team.id
+            %a.win(href="/games/#{ag.id}/boxscore") W
+          - else
+            %a.loss(href="/games/#{ag.id}/boxscore") L
+    %tr
+      %td
+        %a{href: stats_team_url(game.away_team)}= game.away_team.name
+      %td
+        -last_five(game.away_team).each do |ag|
+          - if ag.winner == game.away_team.id
+            %a.win(href="/games/#{ag.id}/boxscore") W
+          - else
+            %a.loss(href="/games/#{ag.id}/boxscore") L
+  -reset_cycle

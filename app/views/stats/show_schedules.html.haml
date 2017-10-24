@@ -22,7 +22,7 @@
         %tr
           %td.r-lock Date
           - @games.keys.each do |week|
-            %td{style: "border-left: 1px dotted #999"} 
+            %td{style: "border-left: 1px dotted #999"}
               = week.start_date.strftime("%-m/%-d") 
               - if [3,4].include?(@league.id)
                 &ndash;
@@ -57,8 +57,12 @@
           .row.game-row
             .col-lg-8
               = render "boxscore_summary", game: game, show_week: true
-            .col-lg-4
-              = render "boxscore_top_performers", game: game, show_week: true
+            - if game.winner && !game.forfeit
+              .col-lg-4
+                = render "boxscore_top_performers", game: game, show_week: true
+            - else
+              .col-lg-4
+                = render "previous_games", game: game
   = javascript_include_tag "activatables"
   %script{type: "text/javascript"}
     activatables('page', #{@week_links.to_s.html_safe})

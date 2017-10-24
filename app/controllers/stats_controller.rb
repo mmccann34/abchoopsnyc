@@ -1,5 +1,6 @@
 class StatsController < ActionController::Base
   layout "stats"
+  include StatsHelper
   before_filter :load_sidebar
 
   def index
@@ -100,7 +101,9 @@ class StatsController < ActionController::Base
       @seasons = TeamSpot.where(league_id: @league.id).map(&:season).uniq.sort_by{|season| season[:number]}
       if @season && @league
         @show_all = false
-        @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
+        @all_games = @league.games(@season).order(:date)
+        @games = @all_games.select{|game| not game.week.nil?}.group_by { |game| game.week }
+        # @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
         @teams = @league.teams(@season)
         
         default_week = @games.keys.select{|week| week.end_date >= 2.days.ago.to_datetime()}.first || @games.keys.last
