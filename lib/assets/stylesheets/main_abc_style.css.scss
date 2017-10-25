@@ -198,7 +198,7 @@ html, body {
   table.full-boxscore {
     margin-bottom: 0px
   }
-  .glossary-container {
+  .glossary-container, .terms {
     font-size: 14px;
     margin-top: 15px;
   }
@@ -614,8 +614,11 @@ html, body {
   .boxscore .location {
     font-size: 14px
   }
-  .boxscore .score {
-    text-align: center
+  .boxscore .score, .boxscore .half, .boxscore .ot {
+    text-align: center;
+  }
+  .boxscore .half {
+    width:80px
   }
   .boxscore .full-box {
     text-align: right
@@ -715,9 +718,9 @@ html, body {
   }
   span.rightSatSun {
     float: right;
-    margin-right: 5px;
     letter-spacing: -1px;
     font-size: 20px;
+    line-height:38px
   }
   .divisionName {
     font-weight: bold;
@@ -745,7 +748,7 @@ html, body {
     font-size: 12px;
     border-right: 1px solid #2e3b56;
   }
-  .table>thead>tr>th, .table-head {
+  .table>thead>tr>th, .table-head, .time2 {
     font-weight: bold;
     color: #FFF;
     background-color: #2e3b56;
@@ -832,7 +835,7 @@ html, body {
     display: block;
   }
   .standingsRecord {
-    width: 35px
+    width: 50px
   }
   .sidebar-item-container {
     background-color: #fff;
@@ -1596,14 +1599,14 @@ html, body {
     border-top: 1px solid #c0c0c0;
   }
   .loss {
-    font-weight: bold;
     color: #900;
-    width: 20px;
   }
   .win {
-    font-weight: bold;
     color: #060;
-    width: 20px;
+  }
+  .tie {
+    padding: 0 2.5px;
+    font-weight: bold;
   }
   span.win, span.loss {
     display: inline-block;
@@ -1613,6 +1616,23 @@ html, body {
   }
   .no-hover tr:nth-of-type(odd) {
     background-color: #e7e7e7!important;
+  }
+  .season-container {
+    padding: 10px 0 15px 0;
+  }
+  .season-dropdown-container select {
+    background-image: linear-gradient(45deg, transparent 50%, #5a5a5a 50%), linear-gradient(135deg, #5a5a5a 50%, transparent 50%);
+    background-position: calc(100% - 20px) 1em, calc(100% - 15px) 1em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+    padding: 5px 1.25em 5px 10px;
+    margin: 0;
+    border: 2px solid #5a5a5a;
+    border-radius: 0px;
+    font-size: 16px;
+    background-color: #fff;
+    -webkit-appearance: none;
+    width:140px;
   }
   .week-outer-container {
     width: 100%;
@@ -2195,10 +2215,15 @@ html, body {
       line-height: 120px;
     }
   }
+  @media (max-width: 500px) {
+.boxscore .hs, .location span, .full-box span {
+    display: none;
+}}
   @media (max-width:599px) {
     .powStats p {
       text-align: center;
     }
+    .boxscore .ot {width:40px;}
   }
   @media (max-width:557px) {
     .player-of-the-week {
@@ -2252,6 +2277,9 @@ html, body {
   @media (min-width:600px) and (max-width:767px) {
     .player-of-the-week {
       width: 50%;
+    }
+    .boxscore .ot {
+      width:50px
     }
   }
   @media (min-width:761px) {
@@ -2836,7 +2864,7 @@ html, body {
       font-size: 32px;
     }
     .week_scores li a {
-      padding: 0 15px;
+      padding: 0 10px;
     }
     .scores h3 {
       font-size: 28px;
@@ -3149,6 +3177,9 @@ html, body {
     }
     .the-league-last>div {
       padding: 30px;
+    }
+    .boxscore .ot {
+      width:60px
     }
   }
   @media (min-width:768px) and (max-width:1473px) {
@@ -3510,6 +3541,11 @@ html, body {
       width: 350px;
     }
   }
+  @media (min-width:1200px) and (max-width:1489px) {
+    .boxscore .ot {
+      width:40px
+    }
+  }
   @media (min-width:1490px) {
     .main-inner-container {
       width: calc(100% - 350px)!important
@@ -3519,6 +3555,12 @@ html, body {
     }
     .twitter-typeahead:nth-child(2) {
       width: 100%!important
+    }
+    .boxscore .half {
+      width:100px
+    }
+    .boxscore .ot {
+      width:60px;
     }
   }
 

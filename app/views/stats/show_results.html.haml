@@ -8,12 +8,13 @@
   -else
     -title "#{@season.name} - #{@league.name} Stats"
     %h1 #{@season.name} - #{@league.name} Stats
-    .col-lg-4.col-md-6.col-xs-12{:style => "padding:15px 0"}
+    .col-lg-4.col-md-6.col-xs-12.season-container
       %form{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
         Season:
-        =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-        =hidden_field_tag "league", @league.id
-    %p 
+        %span.season-dropdown-container
+          =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();'}
+          =hidden_field_tag "league", @league.id
+    %p{:style => "margin-bottom:20px"}
       At ABC Hoops, stats are very important to us.  We have three dedicated stat keepers at each game to make sure everything is recorded as accurately as possible.  For the week's scores, go to the 
       = succeed "." do
         %a{href:schedules_path(season:@season.id, league:@league.id)} Schedule Page
@@ -70,7 +71,7 @@
                     %td= ts.point_diff
                     %td= ts.streak
       .col-md-12.col-lg-12
-        %h1 Leaderboard
+        %h1{style:'padding-top:20px;'} Leaderboard
         .row
           .col-lg-6.button-container
             .main-button.block
@@ -103,7 +104,7 @@
         %p.terms{style:"margin-top:10px"}
           Minimum 4 GP for all stats. Minimum 8 FGA per game for FG%, 3 3PA per game for 3P%, and 3 FTA per game for FT%.
       .col-md-12.col-lg-12
-        %h1 Team Stats
+        %h1{style:'padding-top:20px;'} Team Stats
         .full-team-stats-container
           %table.responsive.table-striped.table-stats.full-boxscore.sortable.table-hover.team-stats
             %thead

@@ -4,11 +4,11 @@
 -else
   -title "#{@season.name} - #{@league.name} Schedule & Scores"
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
-  .col-lg-4.col-md-6.col-xs-12
+  .col-lg-4.col-md-6.col-xs-12.season-container
     %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
       Season:
       %span.season-dropdown-container
-        =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
+        =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();' }
         =hidden_field_tag "league", @league.id
   .bye-week-container.table-responsive
     %table.table.table-striped.no-hover
@@ -54,7 +54,7 @@
             %a{:href => location.map_url, :target => "_blank"}
               = fa_icon "map-marker"
         - games.each do |game|
-          .row.game-row
+          .row.game-row.equal
             .col-lg-8
               = render "boxscore_summary", game: game, show_week: true
             - if game.winner && !game.forfeit
