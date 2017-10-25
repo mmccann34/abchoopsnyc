@@ -16,21 +16,22 @@
       %tr
         %th{colspan:"5"}= stat_name
       %tr
-        %th Rank
+        %th No.
         %th{colspan:"2"} Player
         %th #{local_assigns.fetch(:single_game, false) ? "Game" : "Team"}
         %th{style:"padding-left: 2px;"} Total
     %tbody
       -entries.each_with_index do |entry, i|
-        %tr{class: "#{cycle('odd2', 'even2')}"}
+        %tr
           %td=i+1
-          %td
-            -if i < 3
+          -if i < 3
+            %td
               =render "headshot_thumb", player: entry
-            -else
-              &nbsp;
-          %td.text-left
-            %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
+            %td
+              %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
+          -else
+            %td{colspan:"2"}
+              %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
           -if local_assigns.fetch(:single_game, false)
             %td
               %a{href:stats_boxscore_path(entry.game_id)}= entry.game_desc
@@ -39,3 +40,25 @@
               %a{href:stats_team_path(entry.team_slug)}= entry.team_name
           %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:precision, 1))) : number_with_precision(entry.total, precision: 0)
       -reset_cycle
+
+
+
+    / %tbody
+    /   -entries.each_with_index do |entry, i|
+    /     %tr
+    /       %td=i+1
+    /       %td
+    /         -if i < 3
+    /           =render "headshot_thumb", player: entry
+    /         -else
+    /           &nbsp;
+    /       %td
+    /         %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
+    /       -if local_assigns.fetch(:single_game, false)
+    /         %td
+    /           %a{href:stats_boxscore_path(entry.game_id)}= entry.game_desc
+    /       -else
+    /         %td
+    /           %a{href:stats_team_path(entry.team_slug)}= entry.team_name
+    /       %td= local_assigns.fetch(:use_percentage, false) ? number_with_precision(entry.total, precision: (local_assigns.fetch(:precision, 1))) : number_with_precision(entry.total, precision: 0)
+    /   -reset_cycle

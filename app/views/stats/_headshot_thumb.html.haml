@@ -1,7 +1,6 @@
-%div.headshotThumbOuter
-  -if player.profile_pic_thumb_url.blank?
-    %a.headshotThumbContainer.halfball{href:stats_player_path(player.id)}
+%a.headshot{href:stats_player_path(player.id)}
+  .headshotThumbContainer.halfball
+    -if player.profile_pic_thumb_url.blank?
       %span.playernumbernopicthumb= Player.find(player.id).last_number
-  -else
-    %a.headshotThumbContainer{href:stats_player_path(player.id)}
-      %img{src:"#{player.profile_pic_thumb_url}", height: "50px;", width: "50px"}
+    -else
+      %img{src:"#{player.profile_pic_thumb_url}"}
