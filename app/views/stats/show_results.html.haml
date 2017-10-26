@@ -9,7 +9,7 @@
     -title "#{@season.name} - #{@league.name} Stats"
     %h1 #{@season.name} - #{@league.name} Stats
     .col-lg-4.col-md-6.col-xs-12.season-container
-      %form{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
+      %form.nevis{action: "#{results_path}", method: "get", style:'font-weight:bold;'}
         Season:
         %span.season-dropdown-container
           =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();'}
