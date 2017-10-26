@@ -1693,7 +1693,7 @@ html, body {
     border-right: none;
   }
   .half-ball-background {
-    background: url(../images/half-ball.png) no-repeat;
+    background: url(../assets/half-ball.png) no-repeat;
     background-size: contain;
     background-position: right;
     margin-top: 0px;
@@ -1737,9 +1737,6 @@ html, body {
   }
   .table-head, .table-head:hover {
     background-color: #2e3b56!important;
-  }
-  #splits {
-    padding-top: 30px
   }
   .player-box .name-container {
     padding: 15px 0 0 15px;
