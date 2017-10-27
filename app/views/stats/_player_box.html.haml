@@ -2,13 +2,11 @@
   .col-md-8.col-xs-8.info-container
     .row
       .col-md-12.col-xs-12.name-container
-        %h1=@player.name
-        / <a href="https://www.facebook.com/lew.tse?fref=ts">
-        / <i class="fa fa-facebook-official" aria-hidden="true"></i>
-        / </a>
-        / <a href="http://www.linkedin.com/profile/view?id=6819365&locale=en_US&trk=tyah&trkInfo=tas%3Atse%2Cidx%3A1-1-1">
-        / <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-        / </a>
+        %h1
+          =@player.name
+          -@player.social_media_urls.take(4).each_with_index do |(type, value), i|
+            %a{href:"#{value}", target:"_blank"}
+              %i.fa{:class => ((type == "facebook") ? "fa-facebook-official" : (type == "linkedin") ? "fa-linkedin-square" : (type == "twitter") ? "fa-twitter-square" : (type == "tumblr") ? "fa-tumblr-square" : (type == "instagram") ? "fa-instagram" : (type == "googleplus") ? "fa-google-plus-square" : (type == "youtube") ? "fa-youtube-square" : (type == "vimeo") ? "fa-vimeo-square" : (type == "email") ? "fa-envelope" : (type == "flickr") ? "fa-flickr" : ""), "aria-hidden" => "true"}
     .col-md-12
       .row
         .col-lg-6.col-xs-12.subhead-container{:style => "padding:0"}

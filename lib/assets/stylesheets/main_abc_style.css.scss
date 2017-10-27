@@ -329,7 +329,7 @@ html, body {
     width: 100%;
     z-index: 100;
     margin: auto;
-    background-color: #df7325;
+    background-color: #e07000;
   }
   .navbar-index {
     top: -120px;
@@ -393,7 +393,7 @@ html, body {
     color: #653411 !important;
   }
   .dropdown-fixed.open {
-    color: #df7325 !important;
+    color: #e07000 !important;
     background-color: transparent !important;
   }
   .dropdown-fixed.open>a, .dropdown-fixed>a:focus {
@@ -416,7 +416,7 @@ html, body {
     top: -120px;
   }
   ul.dropdown-menu li>a:hover {
-    color: #df7325;
+    color: #e07000;
   }
   ul.dropdown-menu li {
     display: block!important;
@@ -997,8 +997,8 @@ html, body {
   }
   a.headshot:hover {
     text-decoration: none;
-    color: #df7325;
-    border: solid 2px #df7325;
+    color: #e07000;
+    border: solid 2px #e07000;
   }
   .footer-outer-container {
     width: 100%;
@@ -1077,15 +1077,15 @@ html, body {
     padding: 10px 15px
   }
   .index-menu-item a:active, .nav .open>a, .nav>li>a:focus, .index-menu-item a:hover {
-    color: #df7325 !important;
+    color: #e0700 !important;
     background-color: #fff!important;
   }
   .sign-up-index a:hover {
     color: #fff!important;
-    background-color: #df7325!important;
+    background-color: #e0700!important;
   }
   .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
-    border-color: #df7325 !important;
+    border-color: #e0700 !important;
     background-color:#fff!important;
   }
   .dropdown-menu>li>a {
@@ -1123,7 +1123,7 @@ html, body {
     font-size: 42px;
   }
   .sign-up-index a {
-    color: #df7325 !important;
+    color: #e0700 !important;
   }
   .dropdown-index-two a {
     padding: 15px 0!important;
@@ -1564,7 +1564,7 @@ html, body {
     text-align: center;
   }
   .week_scores li>.active {
-    color: #df7325;
+    color: #e0700;
   }
   .week_scores li>.inactive {
     display: block;
@@ -1757,6 +1757,30 @@ html, body {
   .player-box .fa-linkedin-square {
     color: #0084bf;
   }
+  .player-box .fa-twitter-square {
+    color: #1DA1F2;
+  }
+  .player-box .fa-tumblr-square {
+    color: #35465c;
+  }
+  .player-box .fa-instagram {
+    color: #0084bf;
+  }
+  .player-box .fa-flickr {
+    color: #0063dc;
+  }
+  .player-box .fa-google-plus-square {
+    color: #DB4437;
+  }
+  .player-box .fa-youtube-square {
+    color: #ff0000;
+  }
+  .player-box .fa-vimeo-square {
+    color: #1ab7ea;
+  }
+  .player-box a:hover .fa {
+    color:#e07000;
+  }
   .player-box h4 {
     padding-top: 5px;
   }
@@ -1928,7 +1952,7 @@ html, body {
   }
   .main-button-large {
     font-size: 72px;
-    background-color: #df7325;
+    background-color: #e0700;
     color: #fff;
     text-shadow: -4px 4px #5a5a5a;
     border: 8px solid #5a5a5a
@@ -1976,7 +2000,7 @@ html, body {
   border: none;
 }
 .orange-middle-bar {
-  background-color: #df7325;
+  background-color: #e0700;
   margin-left: calc(-2.5% - 43px);
   width: calc(105% + 86px);
   padding: 30px 2.5%;
@@ -2375,10 +2399,10 @@ html, body {
     }
     .sign_up_container a:hover {
       color: #fff;
-      background-color: #df7325;
+      background-color: #e0700;
     }
     .social-media-container-phone a:hover, .dropdown-toggle:hover, .record-books a:hover {
-      color: #df7325;
+      color: #e0700;
     }
     .dropdown-menu {
       position: static;
@@ -2533,7 +2557,7 @@ html, body {
       width: 150px
     }
     .dropdown-fixed-or.open>a, li.dropdown-fixed-or>a:active, li.record-books-fixed>a:active, li.record-books-fixed>a:hover {
-      color: #df7325!important
+      color: #e0700!important
     }
     .carousel-comprehensive {
       padding-left: 10px;

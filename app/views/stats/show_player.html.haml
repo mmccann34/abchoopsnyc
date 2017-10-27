@@ -4,22 +4,22 @@
   .row.player-button-container
     -if @player.show_about?
       .col-sm-3.col-xs-12.button-container
-        .main-button.block.sign-up-button
+        .main-button.block
           %a{:href => "#about"}
             %i.fa.fa-address-card-o{"aria-hidden" => "true"}
             About
     .col-xs-12.button-container{class: @player.show_about? ? 'col-sm-3' : 'col-sm-4'}
-      .main-button.block.sign-up-button
+      .main-button.block
         %a{:href => "#game-log"}
           %i.fa.fa-list-alt{"aria-hidden" => "true"}
           Game Log
     .col-xs-12.button-container{class: @player.show_about? ? 'col-sm-3' : 'col-sm-4'}
-      .main-button.block.sign-up-button
+      .main-button.block
         %a{:href => "#career"}
           %i.fa.fa-briefcase{"aria-hidden" => "true"}
           Career
     .col-xs-12.button-container{class: @player.show_about? ? 'col-sm-3' : 'col-sm-4'}
-      .main-button.block.sign-up-button
+      .main-button.block
         %a{:href => "#splits"}
           %i.fa.fa-sort-amount-desc{"aria-hidden" => "true"}
           Splits
@@ -136,8 +136,8 @@
             %th F
             %th P
         %tbody
-          %tr.stattotal
-            %td{ style:"text-align:left" } Total
+          %tr
+            %td Total
             %td.lline= splits_totals.game_count
             %td.lline #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.fgpct, precision: 3)
@@ -159,40 +159,41 @@
               %td{ colspan:"15" } &nbsp;
             - reset_cycle
             - stats.each do |stat|
-              %tr{class: "#{cycle('even2', 'odd2')}"}
-                %td{ style:"text-align:left;" }= stat.split_name
-                %td.lline= stat.game_count
-                %td.lline #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: false)}
+              %tr
+                %td= stat.split_name
+                %td=  stat.game_count
+                %td #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: false)}
                 %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
-                %td.lline #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: false)}
+                %td #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: false)}
                 %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
-                %td.lline #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: false)}
+                %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: false)}
                 %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
-                %td.lline= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: false)
                 %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: false)
                 %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: false)
-                %td.lline= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: false)
-                %td.lline= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: false)
-                %td.lline= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: false)
-                %td.lline= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: false)
-                %td.lline= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: false)
-          %tr.stattotal
-            %td{ style:"text-align:left;" } Total
-            %td.lline= splits_totals.game_count
-            %td.lline #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
+                %td= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: false)
+        %tfoot
+          %tr
+            %td.r-lock Total
+            %td= splits_totals.game_count
+            %td #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.fgpct, precision: 3)
-            %td.lline #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.threepct, precision: 3)
-            %td.lline #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.ftpct, precision: 3)
-            %td.lline= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: false)
             %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: false)
             %td= number_with_precision(splits_totals.trb, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
       %br
     = render "glossary"
   %div#game-log
@@ -373,96 +374,96 @@
           %td= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: false)
           %td= number_with_precision(@career_averages.fl, precision: 1, strip_insignificant_zeros: false)
           %td= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: false)
-      %h2 Career Cumulative Stats
-      %table.table.responsive.responsive-2.table-striped.table-stats.sortable.box-score.full-boxscore{:cellpadding => "0", :cellspacing => "0"}
-        %thead
+    %h2 Career Cumulative Stats
+    %table.table.responsive.responsive-2.table-striped.table-stats.sortable.box-score.full-boxscore{:cellpadding => "0", :cellspacing => "0"}
+      %thead
+        %tr
+          %th.r-lock  
+          %th.r-lock  
+          %th{:colspan => "2"} Field Goals
+          %th{:colspan => "2"} 3PT
+          %th{:colspan => "2"} FT
+          %th{:colspan => "3"} Rebounds
+          %th  
+          %th  
+          %th  
+          %th  
+          %th  
+        %tr
+          %th.r-lock Ssn
+          %th.r-lock Team
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th M-A
+          %th %
+          %th O
+          %th D
+          %th T
+          %th A
+          %th S
+          %th B
+          %th F
+          %th P
+      %tbody
+        - reset_cycle
+        - @career_season_totals.each do |stat|
+          //- stat.calc_percentages
           %tr
-            %th.r-lock  
-            %th.r-lock  
-            %th{:colspan => "2"} Field Goals
-            %th{:colspan => "2"} 3PT
-            %th{:colspan => "2"} FT
-            %th{:colspan => "3"} Rebounds
-            %th  
-            %th  
-            %th  
-            %th  
-            %th  
-          %tr
-            %th.r-lock Ssn
-            %th.r-lock Team
-            %th M-A
-            %th %
-            %th M-A
-            %th %
-            %th M-A
-            %th %
-            %th O
-            %th D
-            %th T
-            %th A
-            %th S
-            %th B
-            %th F
-            %th P
-        %tbody
-          - reset_cycle
-          - @career_season_totals.each do |stat|
-            //- stat.calc_percentages
-            %tr
-              %td= stat.season_number
-              %td= link_to stat.team.abbreviation, stats_team_path(stat.team, season: stat.season_id)
-              %td= "#{stat.fgm.round}-#{stat.fga.round}"
-              %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
-              %td= "#{stat.threem.round}-#{stat.threea.round}"
-              %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
-              %td= "#{stat.ftm.round}-#{stat.fta.round}"
-              %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
-              %td= stat.orb.round
-              %td= stat.drb.round
-              %td= stat.trb.round
-              %td= stat.ast.round
-              %td= stat.stl.round
-              %td= stat.blk.round
-              %td= stat.fl.round
-              %td= stat.points.round
-        %tfoot
-          %tr
-            - if @career_totals
-              %td.r-lock Career
-              %td.r-lock Total
-              %td= "#{@career_totals.fgm.round}-#{@career_totals.fga.round}"
-              %td= number_with_precision((@career_totals.fgpct ? @career_totals.fgpct : 0), precision: 3) 
-              %td= "#{@career_totals.threem.round}-#{@career_totals.threea.round}"
-              %td= number_with_precision((@career_totals.threepct ? @career_totals.threepct : 0), precision: 3) 
-              %td= "#{@career_totals.ftm.round}-#{@career_totals.fta.round}"
-              %td= number_with_precision((@career_totals.ftpct ? @career_totals.ftpct : 0), precision: 3) 
-              %td= @career_totals.orb.round
-              %td= @career_totals.drb.round
-              %td= @career_totals.trb.round
-              %td= @career_totals.ast.round
-              %td= @career_totals.stl.round
-              %td= @career_totals.blk.round
-              %td= @career_totals.fl.round
-              %td= number_with_delimiter(@career_totals.points.round)
-          %tr
-            -average_per_season_totals = average_stat_lines(@career_season_totals)
-            %td.r-lock Avg
-            %td.r-lock Ssn
-            %td #{number_with_precision(average_per_season_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fga, precision: 1, strip_insignificant_zeros: false)}
-            %td= number_with_precision(average_per_season_totals.fgpct, precision: 3)
-            %td #{number_with_precision(average_per_season_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.threea, precision: 1, strip_insignificant_zeros: false)}
-            %td= number_with_precision(average_per_season_totals.threepct, precision: 3)
-            %td #{number_with_precision(average_per_season_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fta, precision: 1, strip_insignificant_zeros: false)}
-            %td= number_with_precision(average_per_season_totals.ftpct, precision: 3)
-            %td= number_with_precision(average_per_season_totals.orb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.drb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.trb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.ast, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.stl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.blk, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(average_per_season_totals.points, precision: 1, strip_insignificant_zeros: false)
+            %td= stat.season_number
+            %td= link_to stat.team.abbreviation, stats_team_path(stat.team, season: stat.season_id)
+            %td= "#{stat.fgm.round}-#{stat.fga.round}"
+            %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
+            %td= "#{stat.threem.round}-#{stat.threea.round}"
+            %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
+            %td= "#{stat.ftm.round}-#{stat.fta.round}"
+            %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
+            %td= stat.orb.round
+            %td= stat.drb.round
+            %td= stat.trb.round
+            %td= stat.ast.round
+            %td= stat.stl.round
+            %td= stat.blk.round
+            %td= stat.fl.round
+            %td= stat.points.round
+      %tfoot
+        %tr
+          - if @career_totals
+            %td.r-lock Career
+            %td.r-lock Total
+            %td= "#{@career_totals.fgm.round}-#{@career_totals.fga.round}"
+            %td= number_with_precision((@career_totals.fgpct ? @career_totals.fgpct : 0), precision: 3) 
+            %td= "#{@career_totals.threem.round}-#{@career_totals.threea.round}"
+            %td= number_with_precision((@career_totals.threepct ? @career_totals.threepct : 0), precision: 3) 
+            %td= "#{@career_totals.ftm.round}-#{@career_totals.fta.round}"
+            %td= number_with_precision((@career_totals.ftpct ? @career_totals.ftpct : 0), precision: 3) 
+            %td= @career_totals.orb.round
+            %td= @career_totals.drb.round
+            %td= @career_totals.trb.round
+            %td= @career_totals.ast.round
+            %td= @career_totals.stl.round
+            %td= @career_totals.blk.round
+            %td= @career_totals.fl.round
+            %td= number_with_delimiter(@career_totals.points.round)
+        %tr
+          -average_per_season_totals = average_stat_lines(@career_season_totals)
+          %td.r-lock Avg
+          %td.r-lock Ssn
+          %td #{number_with_precision(average_per_season_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fga, precision: 1, strip_insignificant_zeros: false)}
+          %td= number_with_precision(average_per_season_totals.fgpct, precision: 3)
+          %td #{number_with_precision(average_per_season_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.threea, precision: 1, strip_insignificant_zeros: false)}
+          %td= number_with_precision(average_per_season_totals.threepct, precision: 3)
+          %td #{number_with_precision(average_per_season_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fta, precision: 1, strip_insignificant_zeros: false)}
+          %td= number_with_precision(average_per_season_totals.ftpct, precision: 3)
+          %td= number_with_precision(average_per_season_totals.orb, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.drb, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.trb, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.ast, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.stl, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.blk, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.points, precision: 1, strip_insignificant_zeros: false)
     =render "glossary"
     %h2 Career Highs
     %table.table.table-striped.no-hover.player-highs{:cellpadding => "0", :cellspacing => "0"}
