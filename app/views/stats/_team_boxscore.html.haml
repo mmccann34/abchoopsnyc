@@ -1,57 +1,20 @@
-%table.statTableUpper{cellspacing: "0", cellpadding: "3", style:"table-layout:fixed;" }
-  %colgroup
-    %col{ span:"1", style:"width: 25px;" }
-    %col{ span:"1", style:"width: 130px;" }
-    %col{ span:"1", style:"width: 45px;" }
-    %col{ span:"1", style:"width: 40px;" }
-    %col{ span:"1", style:"width: 45px;" }
-    %col{ span:"1", style:"width: 40px;" }
-    %col{ span:"1", style:"width: 45px;" }
-    %col{ span:"1", style:"width: 40px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-  %tbody
+%table.table.responsive.responsive-2.table-striped.table-stats.full-boxscore.sortable{cellspacing: "0", cellpadding: "3"}
+  %thead
     %tr
-      %td{colspan: "16", style: "font-size: 14px"}= team.name
+      %th.r-lock  
+      %th.r-lock  
+      %th{:colspan => "2"} Field Goals
+      %th{:colspan => "2"} 3PT
+      %th{:colspan => "2"} FT
+      %th{:colspan => "3"} Rebounds
+      %th  
+      %th  
+      %th  
+      %th  
+      %th  
     %tr
-      %td{colspan: "2"} &nbsp;
-      %td{colspan: "2"} Field Goals
-      %td{colspan: "2"} 3PT
-      %td{colspan: "2"} FT
-      %td{colspan: "3"} Rebounds
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-%table.statTableTeamStats.sortable{cellspacing: "0", cellpadding:"3", style:"width:800px; table-layout:fixed;"}
-  %colgroup
-    %col{ span:"1", style:"width: 25px;" }
-    %col{ span:"1", style:"width: 130px;" }
-    %col{ span:"1", style:"width: 45px;" }
-    %col{ span:"1", style:"width: 40px;" }
-    %col{ span:"1", style:"width: 45px;" }
-    %col{ span:"1", style:"width: 40px;" }
-    %col{ span:"1", style:"width: 45px;" }
-    %col{ span:"1", style:"width: 40px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-  %thead.statTableHead
-    %tr
-      %th No.
-      %th.sorttable_nosort Name
+      %th.r-lock No.
+      %th.sorttable_nosort.r-lock Name
       %th M-A
       %th %
       %th M-A
@@ -60,7 +23,7 @@
       %th %
       %th O
       %th D
-      %th T
+      %th{"data-sortable" => "true"} T
       %th A
       %th S
       %th B
@@ -68,31 +31,31 @@
       %th P
   %tbody
     - stat_lines.sort_by {|s| [s.jersey_number ? s.jersey_number : 1000, s.player ? s.player.last_name : 'Sub']}.select { |stat| ( stat.dnp_future_game == true ) }.each do |stat|
-      %tr{class: "#{cycle('odd', 'even')}"}
-        %td= stat.jersey_number
-        %td
+      %tr
+        %td.r-lock= stat.jersey_number
+        %td.r-lock
           - if stat.player 
             %a{href: stats_player_path(stat.player)}= stat.player.name
           - else
             Sub
-        %td.lline= "#{stat.fgm.round}-#{stat.fga.round}"
+        %td= "#{stat.fgm.round}-#{stat.fga.round}"
         %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3) 
-        %td.lline= "#{stat.threem.round}-#{stat.threea.round}"
+        %td= "#{stat.threem.round}-#{stat.threea.round}"
         %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3) 
-        %td.lline= "#{stat.ftm.round}-#{stat.fta.round}"
+        %td= "#{stat.ftm.round}-#{stat.fta.round}"
         %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3) 
-        %td.lline= stat.orb.round
+        %td= stat.orb.round
         %td= stat.drb.round
         %td= stat.trb.round
-        %td.lline= stat.ast.round
-        %td.lline= stat.stl.round
-        %td.lline= stat.blk.round
-        %td.lline= stat.fl.round
-        %td.lline= stat.points.round
+        %td= stat.ast.round
+        %td= stat.stl.round
+        %td= stat.blk.round
+        %td= stat.fl.round
+        %td= stat.points.round
   %tfoot
-    %tr.stattotal
-      %td &nbsp;
-      %td Total
+    %tr
+      %td.r-lock &nbsp;
+      %td.r-lock Total
       - totals = total_stat_lines(stat_lines)
       %td.lline= "#{totals.fgm.round}-#{totals.fga.round}"
       %td= number_with_precision((totals.fgpct ? totals.fgpct : 0), precision: 3) 

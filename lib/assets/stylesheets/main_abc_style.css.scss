@@ -128,6 +128,8 @@ html, body {
     margin: -5px 0;
     -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: #fff;
+    letter-spacing: -2px;
+    margin-left: -2px;
   }
   .odd {
     background-color: #ccc;
@@ -212,6 +214,9 @@ html, body {
   }
   .top-performers thead, .player-of-the-game thead {
     font-size: 14px;
+  }
+  .player-of-the-game {
+  height:121px
   }
   .rightSatSun:hover {
     cursor: pointer
@@ -674,11 +679,6 @@ html, body {
     text-decoration: none !important;
     text-align: center;
   }
-  td.headshot-thumb {
-    background-repeat: no-repeat;
-    background-size: 85px 85px;
-    height: 85px
-  }
   .game-thumbs {
     list-style: none;
     margin: 0;
@@ -847,7 +847,7 @@ html, body {
   .table-striped>tbody>tr:first-child>td {
     border-top: none;
   }
-  .table-striped>tbody, .table-striped>tfoot {
+  .table-striped>tbody, .table-striped>tfoot, .player-of-the-game>tbody td {
     border: 1px solid #c0c0c0;
     border-top: none;
   }
@@ -1487,6 +1487,7 @@ html, body {
   .record-book-entry .headshotThumbContainer.halfball {
     background-size: 50px 50px;
     background-position: 20px;
+    overflow:hidden;
   }
   .record-book-entry .playernumbernopicthumb {
     line-height: 50px;
@@ -1564,13 +1565,16 @@ html, body {
     text-align: center;
   }
   .week_scores li>.active {
-    color: #e0700;
+    color: #e07000;
   }
   .week_scores li>.inactive {
     display: block;
   }
   .r-lock {
     font-weight: bold;
+  }
+  .bye-week-container {
+  padding-top:5px
   }
   .bye-week-container .pinned {
     width: 65px;
@@ -1618,7 +1622,7 @@ html, body {
     background-color: #e7e7e7!important;
   }
   .season-container {
-    padding: 10px 0 15px 0;
+    padding: 15px 0;
   }
   .season-dropdown-container select {
     background-image: linear-gradient(45deg, transparent 50%, #5a5a5a 50%), linear-gradient(135deg, #5a5a5a 50%, transparent 50%);
@@ -1952,7 +1956,7 @@ html, body {
   }
   .main-button-large {
     font-size: 72px;
-    background-color: #e0700;
+    background-color: #e07000;
     color: #fff;
     text-shadow: -4px 4px #5a5a5a;
     border: 8px solid #5a5a5a
@@ -2000,7 +2004,7 @@ html, body {
   border: none;
 }
 .orange-middle-bar {
-  background-color: #e0700;
+  background-color: #e07000;
   margin-left: calc(-2.5% - 43px);
   width: calc(105% + 86px);
   padding: 30px 2.5%;
@@ -2399,10 +2403,10 @@ html, body {
     }
     .sign_up_container a:hover {
       color: #fff;
-      background-color: #e0700;
+      background-color: #e07000;
     }
     .social-media-container-phone a:hover, .dropdown-toggle:hover, .record-books a:hover {
-      color: #e0700;
+      color: #e07000;
     }
     .dropdown-menu {
       position: static;
@@ -3028,7 +3032,7 @@ html, body {
       margin-bottom: 15px;
     }
     #career {
-      padding-top: 20px;
+      padding-top: 15px;
     }
     .season_container {
       width: 33.4%;

@@ -1,151 +1,74 @@
--title "#{@game.home_team.name} vs. #{@game.away_team.name} - #{@game.week_name} - #{@game.season.name}"
-%h1 #{@game.season.name} - #{@game.league.name} Results
-%table{width:"800", cellspacing:"0", cellpadding:"2", style:"text-align:center;"}
-  %tr
-    -prev_game = @game.previous_game
-    %td{rowspan:"4", width:"50"}
-      -if prev_game
-        %span.scoreArrow        
-          =link_to "&#171;".html_safe, stats_boxscore_path(prev_game)
-    %td{rowspan:"4", width:"50"}
-      -if prev_game
-        %a{href:stats_boxscore_path(prev_game)}
-          %span= prev_game.time.strftime("%l%p")
-          %br>
-          %span= prev_game.home_team.abbreviation
-          %br>
-          %span vs.
-          %br>
-          %span= prev_game.away_team.abbreviation
-    %td
-      %i #{@game.boxscore_week_name} - #{@game.date.strftime("%A %-m/%-d/%y")} - #{@game.time.strftime("%l:%M%p")}
-    -next_game = @game.next_game
-    %td{rowspan:"4", width:"50"}
-      -if next_game
-        %a{href:stats_boxscore_path(next_game)}
-          %span= next_game.time.strftime("%l%p")
-          %br>
-          %span= next_game.home_team.abbreviation
-          %br>
-          %span vs.
-          %br>
-          %span= next_game.away_team.abbreviation
-    %td{rowspan:"4", width:"50"}
-      -if next_game
-        %span.scoreArrow        
-          =link_to "&#187;".html_safe, stats_boxscore_path(next_game)
-  %tr
-    %td
-      %b
-        %a{href:stats_team_path(@game.home_team)}= @game.home_team.name
-  %tr
-    %td vs.
-  %tr
-    %td
-      %b
-        %a{href:stats_team_path(@game.away_team)}= @game.away_team.name
-.horizline
-%p
-=render "boxscore_summary", game: @game, show_week: false
-%p
-- if !@game.forfeit && @game.winner?
-  %div{:class=>"horizonline"}
-  %div{style:"width:360px;display:block;float:left;margin: 0 10px 0 30px;" }
-    %div{style:"width:100%;height:100%;"}
-      %table{:width=>"290",:class=>"statTableTeamStats",:style=>"text-align:center;margin:0 auto", :cellspacing=>"0", :cellpadding=>"3"}
-        %thead{:class=>"statTableHead"}
-          %tr
-            %td{:colspan=>"4", :style=>"font-size:14px;"} Top Performers
-        -top_performers = @game.top_performers.order(:performer_type)
-        -top_performers.each_with_index do |top_performer, i|
-          %tr{class: "#{cycle('odd', 'even')}"}
-            -last_class = i == (top_performers.length - 1) ? "bline" : ""
-            -if top_performer.player_id
-              %td{class: last_class}
-                %a{href:stats_player_path(top_performer.player_id)}=top_performer.name
-              %td{class: last_class}
-                %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
-            -else
-              %td{:colspan=>"2", class: last_class}
-                %a{:href=>"#", :class=>"not-active"}=top_performer.name
-            %td{:class=>"lline rline #{last_class}"}=top_performer.stat
-        -reset_cycle
+-title "ABC Hoops | #{@game.home_team.name} vs. #{@game.away_team.name} - #{@game.week_name} - #{@game.season.name}"
+.row.equal.headline-score-container.flexthis
+  .col-md-4.col-md-push-4.col-sm-12.col-xs-12.game-description{:style => "text-align:center"}
+    %div{:style => "margin:auto;"}
+      %p.game-detail 
+        %a{href: schedules_path(season: @game.season.id, league: @game.league.id)} #{@game.season.name} - #{@game.league.name}
+      %p.game-detail
+        %a{href: schedules_path(season: @game.season.id, league: @game.league.id) + '#page=wk' + week_schedule_link(@game)} #{@game.week_name} - #{@game.date.strftime("%A %-m/%-d")}
+      %p.game-detail= @game.time.strftime("%l:%M%p")
+  .col-md-4.col-md-pull-4.col-sm-6.col-xs-6.home-team-score
+    %div{:style => "margin:auto;"}
+      %h3= @game.away_team.name
+      %h3= @game.away_score
+  .col-md-4.col-sm-6.col-xs-6.away-team-score
+    %div{:style => "margin:auto;"}
+      %h3= @game.home_team.name
+      %h3= @game.home_score
+.row
+  .col-md-12
+    =render "boxscore_summary", game: @game, show_week: false
+.row.pog-top-container
+  .col-md-6
+    = render "boxscore_top_performers", game: @game, show_week: true
+  .col-md-6
   -if @game.player_of_the_game
-    %div{:style=>"width:360px;display:block;float:left;margin: 0 10px 0 10px;"}
-      %div{:style=>"width:100%;height:100%;"}
-        %table{:width=>"290", :class=>"statTableTeamStats", :style=>"text-align:center;margin: 0 auto", :cellspacing=>"0", :cellpadding=>"3"}
-          %thead{:class=>"statTableHead"}
-            %tr
-              %td{:colspan=>"3", :style=>"font-size:14px;"}Player of the Game
-          %tr
-            %td{:width=>"70", :rowspan=>"3", :class=>"lline rline bline"}
-              %div{:style=>"margin-left:8px;"}
-                -if @game.player_of_the_game[:player].profile_pic_thumb_url && @game.player_of_the_game[:player].profile_pic_thumb_url != ""
-                  %a{:class=>"headshotThumbContainer", :href=>"#"}
-                    %img{:src=>"#{@game.player_of_the_game[:player].profile_pic_thumb_url}", :width=> "50px"}
-                - else
-                  %a{:class=>"headshotThumbContainer halfball", :href=>"#"}
-                    %span{:class=>"playernumbernopicthumb"}=@game.player_of_the_game[:player].last_number
-            %td{:class=>"bline", :style=>"background-color: #e7e7e7;"}
-              %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
-              &ndash;
-              %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
-            %td{:width=>"70", :class=>"rline lline"}
-              %img{:src=>"http://stats.abchoopsnyc.com/assets/abcplus50.png"}
-          %tr
-            %td{:rowspan=>"2", :class=>"bline"}
-              #{@game.player_of_the_game[:stats_1]}
-              %br
-              #{@game.player_of_the_game[:stats_2]}
-            %td{:class=>"lline rline"}
-              %p{:class=>"tooltip n abc", :style=>"margin:0px;font-size:10px;font-weight:bold;"}
-                WPA
-                %span{:style=>"font-size:12px !important;font-weight:normal;margin:-20px 0 0 0"}
-                  Win Probability Added
-                  %br
-                  Weighs the contribution of each player to see how
-                  %br
-                  much their actions added to the probability that 
-                  %br
-                  their team wins the game.
-          %tr
-            %td{:style=>"padding-top:0px;", :class=>"lline bline rline"}
-              %p{:class=>"tooltip n abc", :style=>"margin:0px;font-size:16px;font-weight:bold;"}
-                #{@game.player_of_the_game[:wpa]} %
-                %span{:style=>"font-size:12px;font-weight:normal;margin:100px 100px 0 0;"}
-                  #{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s
-                  %br
-                  chance of winning the game.
-  %div{:style=>"clear:both;"}
-  %div{:class=>"horizline"}
-
+    %table.stats.player-of-the-game{:cellpadding => "3", :cellspacing => "0"}
+      %thead
+        %tr
+          %td{:colspan => "3"} Player of the Game
+      %tbody
+        %tr
+          %td{:rowspan => "3"}
+            =render "headshot_thumb", player: @game.player_of_the_game[:player]
+          %td
+            %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
+            &ndash;
+            %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
+          %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :rowspan => "3", :title => "<b>Win Probability Added</b><br/>\nWeighs the contribution of each player to see how \nmuch their actions added to the probability that \ntheir team wins the game.<br/><b>#{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s \nchance of winning the game.</b>"}
+            %img{:src => "http://stats.abchoopsnyc.com/assets/abcplus50.png"}/
+            %p{:style => "margin:0px;font-size:10px;font-weight:bold;"} WPA
+            %p{:style => "margin:0px;font-size:16px;font-weight:bold;"}
+              #{@game.player_of_the_game[:wpa]} %
+        %tr
+          %td
+            #{@game.player_of_the_game[:stats_1]}
+            %br
+            #{@game.player_of_the_game[:stats_2]}
 -if (not @game.photo_urls.nil?) && @game.photo_urls.any?
   :javascript
     $(document).ready(function() {
       $(".fancybox").fancybox({
-      prevEffect  : 'none',
-      nextEffect  : 'none',
-      padding:5
+      slideShow  : false,
+        fullScreen : true,
+        thumbs     : false,
+        closeBtn   : true,
       });
     });
-
-  %ul.thumbsFB
+  .dashed-divider
+  %ul.game-thumbs
     - pic_count = @game.photo_urls.count
     - if pic_count > 5
       - pic_count = pic_count/2
     - @game.photo_urls.each do |url|
       %li
-        %a.fancybox{:href => url, :rel => "group"}
-          %img{:class => 'count' + pic_count.to_s + 'thumbs', :src => url }/
-
-  %div{:style=>"clear:both;"}
-  %div{:class=>"horizline"}
-
-
-  .horizonline
-%a#fullboxscore{name:"fullboxscore"}
-= render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
-%p{style:"line-height:50%; margin:5px;"} &nbsp;
+        %a{"data-fancybox" => "group", :href => url, :rel => "group"}
+          %img.img-responsive{:class => 'count' + pic_count.to_s + 'thumbs', :src => url }/
+%div{:style => "clear:both"}
+.dashed-divider
+%a#fullboxscore{:name => "fullboxscore"}
+%h4.space= @game.away_team.name
 = render "team_boxscore", team: @game.away_team, stat_lines: @game.team_stats(@game.away_team.id)
-%br
-= render "glossary"
+%h4.space= @game.home_team.name
+= render "team_boxscore", team: @game.home_team, stat_lines: @game.team_stats(@game.home_team.id)
+=render "glossary"
