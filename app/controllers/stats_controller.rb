@@ -319,7 +319,7 @@ class StatsController < ActionController::Base
 
   def get_all_time_highs(stat_field)
     StatLine.joins(:player).joins(:game).joins("JOIN teams t ON vs_team_id = t.id").select("players.id as id, players.slug, players.first_name, players.last_name, 
-players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, stat_lines.team_id, stat_lines.game_id,
+players.display_name, players.profile_pic_url, #{stat_field} as total, stat_lines.team_id, stat_lines.game_id,
 to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
             .order("#{stat_field} desc").limit(10)
   end
@@ -342,7 +342,7 @@ to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
     query = query.where("#{minimum}")
     query = query.where(league_id: options[:league_id]) if options[:league_id]
     
-query.select("players.id, players.slug, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name, teams.slug as team_slug")
+query.select("players.id, players.slug, players.first_name, players.last_name, players.display_name, players.profile_pic_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name, teams.slug as team_slug")
          .order("#{stat_field} desc").limit(options[:count])
   end
 end

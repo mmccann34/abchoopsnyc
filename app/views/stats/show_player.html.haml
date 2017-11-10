@@ -104,7 +104,7 @@
     %br
     -@all_splits.each do |team_id, splits|
       -splits_totals = splits['Totals'] || PlayerStat.new
-      %table.table.responsive.table-striped.table-stats.sortable.full-boxscore.splits{:cellpadding => "0", :cellspacing => "0"}
+      %table.table.responsive.table-striped.table-stats.sortable.splits{:cellpadding => "0", :cellspacing => "0"}
         %thead
           %tr
             %th.r-lock  
@@ -138,21 +138,21 @@
         %tbody
           %tr
             %td Total
-            %td.lline= splits_totals.game_count
-            %td.lline #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
+            %td= splits_totals.game_count
+            %td #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.fgpct, precision: 3)
-            %td.lline #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.threepct, precision: 3)
-            %td.lline #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.ftpct, precision: 3)
-            %td.lline= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: false)
             %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: false)
             %td= number_with_precision(splits_totals.trb, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
-            %td.lline= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
           - splits.select{|s| s != "Totals"}.each do |split, stats|
             %tr.table-head
               %td{ style:"text-align:left;" }= split
@@ -305,7 +305,7 @@
                 =render "career_high", name: stat_name, career_high: stat
   %div.inactive#career
     %h2 Career Per Game Stats
-    %table.table.responsive.responsive-2.table-striped.table-stats.sortable.box-score.full-boxscore{:cellpadding => "0", :cellspacing => "0"}
+    %table.table.responsive.responsive-2.table-striped.table-stats.sortable.career.box-score{:cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr
           %th.r-lock  
@@ -375,7 +375,7 @@
           %td= number_with_precision(@career_averages.fl, precision: 1, strip_insignificant_zeros: false)
           %td= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: false)
     %h2 Career Cumulative Stats
-    %table.table.responsive.responsive-2.table-striped.table-stats.sortable.box-score.full-boxscore{:cellpadding => "0", :cellspacing => "0"}
+    %table.table.responsive.responsive-2.table-striped.table-stats.sortable.career.box-score{:cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr
           %th.r-lock  

@@ -3197,7 +3197,7 @@ tbody.collapse.in {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: 2px;
+  margin-left: -2px;
   vertical-align: middle;
   border-top: 4px dashed;
   border-top: 4px solid\9;
@@ -5411,7 +5411,6 @@ button.close {
   max-width: 276px;
   padding: 1px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.42857143;

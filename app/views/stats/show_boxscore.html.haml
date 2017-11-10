@@ -29,13 +29,18 @@
           %td{:colspan => "3"} Player of the Game
       %tbody
         %tr
-          %td{:rowspan => "3"}
-            =render "headshot_thumb", player: @game.player_of_the_game[:player]
+          %td.number-container{:rowspan => "2"}
+            %a{href:stats_player_path(@game.player_of_the_game[:player].id)}
+              .halfball
+                -if @game.player_of_the_game[:player].profile_pic_url.blank?
+                  %span.playernumbernopicthumb= Player.find(@game.player_of_the_game[:player].id).last_number
+                -else
+                  %img{src:"#{@game.player_of_the_game[:player].profile_pic_url}"}
           %td
             %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
             &ndash;
             %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
-          %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :rowspan => "3", :title => "<b>Win Probability Added</b><br/>\nWeighs the contribution of each player to see how \nmuch their actions added to the probability that \ntheir team wins the game.<br/><b>#{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s \nchance of winning the game.</b>"}
+          %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :rowspan => "2", :title => "<b>Win Probability Added</b><br/>\nWeighs the contribution of each player to see how \nmuch their actions added to the probability that \ntheir team wins the game.<br/><b>#{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s \nchance of winning the game.</b>"}
             %img{:src => "http://stats.abchoopsnyc.com/assets/abcplus50.png"}/
             %p{:style => "margin:0px;font-size:10px;font-weight:bold;"} WPA
             %p{:style => "margin:0px;font-size:16px;font-weight:bold;"}

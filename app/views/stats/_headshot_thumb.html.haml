@@ -1,6 +1,6 @@
 %a.headshot{href:stats_player_path(player.id)}
   .headshotThumbContainer.halfball
-    -if player.profile_pic_thumb_url.blank?
+    -if player.profile_pic_url.blank?
       %span.playernumbernopicthumb= Player.find(player.id).last_number
     -else
-      %img{src:"#{player.profile_pic_thumb_url}"}
+      %img{src:"#{player.profile_pic_url}"}

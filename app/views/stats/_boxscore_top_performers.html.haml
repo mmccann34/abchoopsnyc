@@ -1,8 +1,8 @@
 - if game.winner && !game.forfeit
-  %table.stats.table.table-striped.top-performers{:cellspacing=>"0", :cellpadding=>"3"}
+  %table.stats.table.table-striped.top-performers.no-hover{:cellspacing=>"0", :cellpadding=>"3"}
     %thead
       %tr
-        %td{:colspan=>"3"}Top Performers
+        %th{:colspan=>"3"}Top Performers
     -top_performers = game.top_performers.order(:performer_type)
     -top_performers.each_with_index do |top_performer, i|
       %tr

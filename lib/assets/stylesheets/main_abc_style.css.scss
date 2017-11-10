@@ -2,6 +2,7 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
     background-color: #2e3b56;
+    height:100%;
   }
   body:after {
     display: none;
@@ -202,7 +203,6 @@ html, body {
   }
   .glossary-container, .terms {
     font-size: 14px;
-    margin-top: 15px;
   }
   .glossary-inner-container {
     max-width: 950px;
@@ -218,6 +218,13 @@ html, body {
   .player-of-the-game {
   height:121px
   }
+  .player-of-the-game {width:325px!important}
+  .player-of-the-game > tbody > tr > td.number-container {padding:0;background: url(/assets/ball.png) no-repeat;background-size:90px;width:90px}
+  td.number-container > a > div {width: 90px;height: 90px;text-align: center;overflow: hidden;}
+  td.number-container > a > div > img {position: relative;left: 50%;transform: translate(-50%,0);height: 90px;}
+  td.number-container > a {display: block;height: 100%;width: 100%;}
+  td.number-container > a:hover {text-decoration:none;color:#d07000}
+  .player-of-the-game .playernumbernopicthumb {font-size:60px}
   .rightSatSun:hover {
     cursor: pointer
   }
@@ -312,7 +319,7 @@ html, body {
     padding: 0 15px 0 15px;
   }
   .main-container-fixed {
-    margin-top: 110px
+    margin-top: 85px
   }
   .main-index-container {
     padding: 20px;
@@ -320,7 +327,7 @@ html, body {
   }
   .lower-diag-bar-fixed {
     position: relative!important;
-    top: 110px;
+    top: 85px;
   }
   .navbar-fixed {
     top: 0;
@@ -610,6 +617,9 @@ html, body {
     max-width: 900px;
     margin: 0 auto
   }
+  .col-md-12 .boxscore {
+    max-width:700px
+  }
   .boxscore td {
     padding: 5px
   }
@@ -798,7 +808,8 @@ html, body {
     text-decoration: none
   }
   .home-team-score, .away-team-score {
-    text-align: center
+    text-align: center;
+    padding:0
   }
   .upper-diag-bar {
     background: url(/assets/bodydiaglines.png);
@@ -992,8 +1003,10 @@ html, body {
     width: 75px;
   }
   .headshot img {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0);
     height: 100%;
-    width: 100%
   }
   a.headshot:hover {
     text-decoration: none;
@@ -1473,6 +1486,7 @@ html, body {
   }
   .record-book-entry {
     table-layout: fixed;
+    margin-bottom:30px
   }
   .record-book-entry>tbody {
     border: 1px solid #c0c0c0;
@@ -1664,10 +1678,7 @@ html, body {
     border: 2px solid #5a5a5a;
     border-radius: 0px;
   }
-  .full-boxscore tr>td:nth-child(odd), .full-boxscore tr>td:nth-child(n+11), .table.splits tr>td:nth-child(2) {
-    border-left: 1px solid #c0c0c0
-  }
-  .game-log tr>td:nth-child(even), .game-log tr>td:nth-child(n+11) {
+  .full-boxscore tr>td:nth-child(odd), .full-boxscore tr>td:nth-child(n+11), .splits tr>td:nth-child(2), .game-log tr>td:nth-child(even), .game-log tr>td:nth-child(n+11), .splits tr>td:nth-child(odd), .splits tr>td:nth-child(n+11), .career tr>td:nth-child(odd), .career tr>td:nth-child(n+11), .team-stats tr>td:nth-child(odd), .team-stats tr>td:nth-child(n+11), .team-stats tr>td:nth-child(2) {
     border-left: 1px solid #c0c0c0
   }
   .team-pic {
@@ -2207,6 +2218,8 @@ html, body {
     }
     .main-container, .main-index-container {
       width: 95%;
+      min-height: calc(100% - 220px);
+      display:flex
     }
   }
   @media (min-width:414px) and (max-width:767px) {
@@ -2319,9 +2332,6 @@ html, body {
     }
     .soc-media-header-container {
       display: none
-    }
-    .upper-diag-bar {
-      height: 100%
     }
     .findPlayer {
       width: 14.5%!important
@@ -3031,9 +3041,6 @@ html, body {
     #career table {
       margin-bottom: 15px;
     }
-    #career {
-      padding-top: 15px;
-    }
     .season_container {
       width: 33.4%;
     }
@@ -3383,6 +3390,9 @@ html, body {
     .we-offer-outer, .right-offer-outer {
       height: 500px;
     }
+    .right-bar-container {
+      height:100%
+    }
   }
   @media (min-width:1079px) {
     .second-break {
@@ -3433,6 +3443,12 @@ html, body {
       transition: all 0s ease 0s;
       -webkit-transition: all 0s ease 0s;
     }
+  }
+  @media (min-width:1150px) and (max-width:1349px) {
+    .full-boxscore {table-layout:fixed}
+    .full-boxscore > thead > tr > th:nth-child(1) {width:40px}
+    .full-boxscore > thead > tr > th:nth-child(2) {width:145px}
+    .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:115px}
   }
   @media (max-width:1199px) {
     .half-ball-background {
@@ -3541,6 +3557,12 @@ html, body {
       margin-bottom: 30px;
     }
   }
+  @media (min-width:1350px) and (max-width:1549px) {
+    .full-boxscore {table-layout:fixed}
+    .full-boxscore > thead > tr > th:nth-child(1) {width:40px}
+    .full-boxscore > thead > tr > th:nth-child(2) {width:175px}
+    .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:135px}
+  }
   @media (min-width:1470px) and (max-width:1480px) {
     .dropdown-index-two a, .dropdown-index-two a>br {
       transition: all 0s ease 0s;
@@ -3588,6 +3610,13 @@ html, body {
     .boxscore .ot {
       width:60px;
     }
+  }
+
+  @media (min-width:1550px) {
+    .full-boxscore {table-layout:fixed}
+    .full-boxscore > thead > tr > th:nth-child(1) {width:40px}
+    .full-boxscore > thead > tr > th:nth-child(2) {width:280px}
+    .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:170px}
   }
 
   @media (min-width:768px) and (max-width:991px) {

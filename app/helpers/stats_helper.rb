@@ -7,7 +7,6 @@ module StatsHelper
     weeks = DateRange.where(league_id: game.league_id, season_id: game.season_id)
     game_week = weeks.where("start_date <= ? AND end_date >= ?", game.date, game.date)
     week_integer = weeks.map(&:id).index(game_week.first.id)
-    require 'pry'; binding.pry 
     return (week_integer +65).chr   
   end
 end
