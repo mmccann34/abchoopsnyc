@@ -4,13 +4,22 @@
 -else
   -title "#{@season.name} - #{@league.name} Schedule & Scores"
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
-  .col-lg-4.col-md-6.col-xs-12.season-container
-    %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
-      Season:
-      %span.season-dropdown-container
-        =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();' }
-        =hidden_field_tag "league", @league.id
-  .bye-week-container.table-responsive
+  .row.sub-body-menu
+    .col-xs-6.season-container{:style => "padding:15px 2.5%"}
+      %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
+        Season:
+        %span.season-dropdown-container
+          =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();' }
+          =hidden_field_tag "league", @league.id
+    .col-xs-6{:style => "padding:15px 2.5%"}
+      %p.record_link_container
+        %a#show_byes{href: "#"}
+          Show Dates &amp; Byes
+          %span.caret
+        %a#hide_byes{href: "#"}
+          Hide Dates &amp; Byes
+          %span.upcaret
+  .bye-week-container.table-responsive.inactive
     %table.table.table-striped.no-hover
       %thead
         %tr
@@ -22,7 +31,7 @@
         %tr
           %td.r-lock Date
           - @games.keys.each do |week|
-            %td{style: "border-left: 1px dotted #999"}
+            %td
               = week.start_date.strftime("%-m/%-d") 
               - if [3,4].include?(@league.id)
                 &ndash;

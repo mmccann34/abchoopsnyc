@@ -10,7 +10,7 @@
       %a{:href => "#highs"} Single-Game Highs
   .col-lg-4.button-container
     .main-button.block
-      %a{:href => "#career"} Career Leaders
+      %a{:href => "#career_leaders"} Career Leaders
   .col-lg-4.button-container
     .main-button.block
       %a{:href => "#season"} Season Leaders
@@ -24,8 +24,7 @@
     =render "record_book_entry", stat_name: "Field Goals Made", entries: @highs[:fgm], single_game: true
     =render "record_book_entry", stat_name: "3-Pointers Made", entries: @highs[:threem], single_game: true
     =render "record_book_entry", stat_name: "Free Throws Made", entries: @highs[:ftm], single_game: true
-  %br
-.profstats#career
+.profstats#career_leaders
   .row.sub-body-menu
     .col-lg-4.col-lg-offset-8.col-md-6.col-xs-6{:style => "padding:15px 2.5%"}
       %p.record_link_container
@@ -97,4 +96,4 @@
       =render "record_book_entry", stat_name: "Points from 3's", entries: @season_averages[:threem], use_percentage: true
 = javascript_include_tag "activatables"
 %script{type: "text/javascript"}
-  activatables('page', ['highs', 'career', 'season']);
+  activatables('page', ['highs', 'career_leaders', 'season']);

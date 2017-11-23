@@ -42,14 +42,14 @@
               %td= number_with_precision(@current_season_averages.stl, precision: 1, strip_insignificant_zeros: true)
               %td= number_with_precision(@current_season_averages.blk, precision: 1, strip_insignificant_zeros: true)
             %tr
-              %td
+              %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", "data-delay" => "{\"hide\":\"1000\"}", :title => "ABC+ is an advanced metric that measures a player's overall value in ABC Hoops NYC.<br/>\n<a href='http://www.abchoopsnyc.com/ABCplus.pdf'>Read More</a>"}
                 %img{:src => "../assets/abcplus50.png", :style => "display:block;"}/
                 %span{:style => "display:none;"}
                   ABC+ is an advanced metric that measures a player's
                   %br/
                   overall value in ABC Hoops NYC.
                   %a{:href => "http://www.abchoops.com/ABCplus.pdf", :target => "_blank"} Read More
-              %td{:colspan => "5"}
+              %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :title => "Rookie: 0.00 - 2.99<br/>\nAll-star: 3.00 - 5.99<br/>\nSuperstar: 6.00 - 10.99<br/>\nHall of Fame: 11.00 - &#8734;", :colspan => "5"}
                 %b 0.98
                 %span{:style => "display:none"}
                   "Rookie" : 0.00 - 2.99

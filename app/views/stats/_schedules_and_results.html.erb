@@ -1,5 +1,5 @@
         <h1><%="Current Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
-        <div class="sched_block" style="background-image:url(images/ball.png);">
+        <div class="sched_block" style="background-image:url(/assets/ball.png);">
           <div class="season_container">
             <h1><%= Season.current.name %></h1>
             <h3>Season <%= Season.current.number %></h3>
@@ -47,49 +47,76 @@
           </ul>
         </div>
         <h1 style="margin-top:15px">Prior Seasons' Scores &amp; Schedule</h1>
-        <div class="sched_block" style="background-image:url(images/seasons/season24.png);">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season26.png');">
           <div class="season_container">
-            <h1>Winter 2016</h1>
-            <h3>Season 24</h3>
+            <h1>Summer 2017</h1>
+            <h3>Season 26</h3>
           </div>
-          <ul class="sched_days three_days">
+          <ul class="sched_days two_days">
             <li class="main-button">
               <a href="#">Sunday
               <ul class="championship-list">
-                <li class="division">Daly Champ</li>
-                <li>Death Row</li>
-                <li class="division">Adelman Champ</li>
-                <li>The Expendables</li>
-                <li class="division">Bavetta Champ</li>
-                <li>Easy Money</li>
-              </ul></a>
-            </li>
-            <li class="main-button">
-              <a href="#">Saturday
-              <ul class="championship-list">
-                <li class="division">Thomas Champ</li>
-                <li>Occupy John Wall St</li>
-                <li class="division">Dumars Champ</li>
-                <li>Los Pollos Hermanos</li>
-                <li class="division">Rodman Champ</li>
-                <li>Toon Squad</li>
+                <li class="division">Robinson Champ</li>
+                <li>The McFlys</li>
+                <li class="division">Kerr Champ</li>
+                <li>bAllstars</li>
               </ul></a>
             </li>
             <li class="main-button">
               <a href="#">Weekday
               <ul class="championship-list">
-                <li class="division">Drexler Champ</li>
-                <li>Essex County</li>
-                <li class="division">Petrovic Champ</li>
-                <li>Team Heat Wave</li>
-                <li class="division">Strom Champ</li>
-                <li>Scumgang</li>
+                <li class="division">Ewing Champ</li>
+                <li>SD Thundering Herd</li>
+                <li class="division">Johnson Champ</li>
+                <li>Lipi's Losers</li>
               </ul></a>
             </li>
           </ul>
         </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_ibl16.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season25.png');">
+          <div class="season_container">
+            <h1>Spring 2017</h1>
+            <h3>Season 25</h3>
+          </div>
+          <ul class="sched_days three_days">
+            <li class="main-button">
+              <a href="#">Sunday
+              <ul class="championship-list">
+                <li class="division">Barkley Champ</li>
+                <li>Death Row</li>
+                <li class="division">Majerle Champ</li>
+                <li>The Expendables</li>
+                <li class="division">Johnson Champ</li>
+                <li>Dirty Sprite 2</li>
+              </ul></a>
+            </li>
+            <li class="main-button">
+              <a href="#">Saturday
+              <ul class="championship-list">
+                <li class="division">Pippen Champ</li>
+                <li>Mambas</li>
+                <li class="division">Winter Champ</li>
+                <li>Health &amp; Science</li>
+                <li class="division">Jackson Champ</li>
+                <li>Trust the Process</li>
+              </ul></a>
+            </li>
+            <li class="main-button">
+              <a href="#">Weekday
+              <ul class="championship-list">
+                <li class="division">Jordan Champ</li>
+                <li>XYZ Hoops</li>
+                <li class="division">Grant Champ</li>
+                <li>310 Bowery Boys</li>
+                <li class="division">Armstrong Champ</li>
+                <li>Tuna on White</li>
+              </ul></a>
+            </li>
+          </ul>
+        </div>
+
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season24i.png');">
         <div class="season_container">
           <h1>IBL</h1>
           <h3>Winter '16-'17</h3>
@@ -108,7 +135,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter16.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season24.png');">
         <div class="season_container">
           <h1>Winter 2016</h1>
           <h3>Season 24</h3>
@@ -151,7 +178,7 @@
           </li>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall16.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season23.png');">
         <div class="season_container">
           <h1>Fall 2016</h1>
           <h3>Season 23</h3>
@@ -192,7 +219,7 @@
         </li>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer16.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season22.png');">
         <div class="season_container">
           <h1>Summer 2016</h1>
           <h3>Season 22</h3>
@@ -222,7 +249,7 @@
         </li>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring16.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season21.png');">
         <div class="season_container">
           <h1>Spring 2016</h1>
           <h3>Season 21</h3>
@@ -271,12 +298,12 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_ibl15.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season20i.png');">
         <div class="season_container">
           <h1>IBL</h1>
           <h3>Winter '15-'16</h3>
         </div>
-        <ul class="sched_days two_days">
+        <ul class="sched_days one_day">
           <li class="main-button">
             <a href=<%="/#{mode}?season=25&league=4"%>> IBL
             <ul class="championship-list">
@@ -289,7 +316,7 @@
         </li>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter15.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season20.png');">
         <div class="season_container">
           <h1>Winter 2015</h1>
           <h3>Season 20</h3>
@@ -331,7 +358,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall15.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season19.png');">
         <div class="season_container">
           <h1>Fall 2015</h1>
           <h3>Season 19</h3>
@@ -375,7 +402,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer15.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season18.png');">
         <div class="season_container">
           <h1>Summer 2015</h1>
           <h3>Season 18</h3>
@@ -405,7 +432,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring15.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season17.png');">
         <div class="season_container">
           <h1>Spring 2015</h1>
           <h3>Season 17</h3>
@@ -451,7 +478,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter14.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season16.png');">
         <div class="season_container">
           <h1>Winter 2014</h1>
           <h3>Season 16</h3>
@@ -493,7 +520,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall14.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season15.png');">
         <div class="season_container">
           <h1>Fall 2014</h1>
           <h3>Season 15</h3>
@@ -534,7 +561,7 @@
           </li>
         </ul>
       </div>
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer14.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season14.png');">
         <div class="season_container">
           <h1>Summer 2014</h1>
           <h3>Season 14</h3>
@@ -564,7 +591,7 @@
           </li>
         </ul>
       </div>
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring14.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season13.png');">
         <div class="season_container">
           <h1>Spring 2014</h1>
           <h3>Season 13</h3>
@@ -605,7 +632,7 @@
           </li>
         </ul>
       </div>
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter13b.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season12.png');">
         <div class="season_container">
           <h1>Winter 2013</h1>
           <h3>Season 12</h3>
@@ -647,7 +674,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall13.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season11.png');">
         <div class="season_container">
           <h1>Fall 2013</h1>
           <h3>Season 11</h3>
@@ -677,7 +704,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer13b.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season10.png');">
         <div class="season_container">
           <h1>Summer 2013</h1>
           <h3>Season 10</h3>
@@ -697,7 +724,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring13b.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season9.png');">
         <div class="season_container">
           <h1>Spring 2013</h1>
           <h3>Season 9</h3>
@@ -727,7 +754,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter12b.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season8.png');">
         <div class="season_container">
           <h1>Winter 2012</h1>
           <h3>Season 8</h3>
@@ -757,7 +784,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall12b.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season7.png');">
         <div class="season_container">
           <h1>Fall 2012</h1>
           <h3>Season 7</h3>
@@ -787,7 +814,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer12.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season6.png');">
         <div class="season_container">
           <h1>Summer 2012</h1>
           <h3>Season 6</h3>
@@ -828,7 +855,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring12.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season5.png');">
         <div class="season_container">
           <h1>Spring 2012</h1>
           <h3>Season 5</h3>
@@ -858,7 +885,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_winter11.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season4.png');">
         <div class="season_container">
           <h1>Winter 2011</h1>
           <h3>Season 4</h3>
@@ -877,7 +904,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_fall11.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season3.png');">
         <div class="season_container">
           <h1>Fall 2011</h1>
           <h3>Season 3</h3>
@@ -896,7 +923,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_summer11.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season2.png');">
         <div class="season_container">
           <h1>Summer 2011</h1>
           <h3>Season 2</h3>
@@ -915,7 +942,7 @@
         </ul>
       </div>
 
-      <div class="sched_block" style="background-image:url('http://www.abchoopsnyc.com/images/schedbar_spring11.png');">
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season1.png');">
         <div class="season_container">
           <h1>Spring 2011</h1>
           <h3>Season 1</h3>

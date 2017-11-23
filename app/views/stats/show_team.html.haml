@@ -50,7 +50,7 @@
                     = fa_icon "map-marker"
               - if game.winner
                 - result = game.winner == -1 ? "T" : (game.winner == @team.id ? "W" : "L")
-                %td{ class: result == "T" ? "" : (result == "W" ? "win" : "loss") }= result
+                %td{ class: result == "T" ? "tie" : (result == "W" ? "win" : "loss") }= result
                 - if !game.forfeit
                   %td
                     %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
@@ -103,39 +103,39 @@
           %td= roster_spot.jersey_number
           %td
             %a{href: stats_player_path(roster_spot.player)}= roster_spot.player.name
-          %td #{number_with_precision(stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stats.fga, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stats.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= stats.fgpct ? number_with_precision(stats.fgpct, precision: 3) : "0.000"
-          %td #{number_with_precision(stats.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stats.threea, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stats.threea, precision: 1, strip_insignificant_zeros: true)}
           %td= stats.threepct ? number_with_precision(stats.threepct, precision: 3) : "0.000"
-          %td #{number_with_precision(stats.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stats.fta, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(stats.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stats.fta, precision: 1, strip_insignificant_zeros: true)}
           %td= stats.ftpct ? number_with_precision(stats.ftpct, precision: 3) : "0.000"
-          %td= number_with_precision(stats.orb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.drb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.trb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.ast, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.stl, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.blk, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.fl, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.points, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(stats.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.trb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.ast, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.stl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.blk, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.fl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.points, precision: 1, strip_insignificant_zeros: true)
   %tfoot
     %tr
       -per_game_stats = @per_game_stats || PlayerStat.new
       %td.r-lock &nbsp;
       %td.r-lock Total
-      %td #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: false)}
+      %td #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: true)}
       %td= number_with_precision(per_game_stats.fgpct, precision: 3)
-      %td #{number_with_precision(per_game_stats.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.threea, precision: 1, strip_insignificant_zeros: false)}
+      %td #{number_with_precision(per_game_stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(per_game_stats.threea, precision: 1, strip_insignificant_zeros: true)}
       %td= number_with_precision(per_game_stats.threepct, precision: 3)
-      %td #{number_with_precision(per_game_stats.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fta, precision: 1, strip_insignificant_zeros: false)}
+      %td #{number_with_precision(per_game_stats.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(per_game_stats.fta, precision: 1, strip_insignificant_zeros: true)}
       %td= number_with_precision(per_game_stats.ftpct, precision: 3)
-      %td= number_with_precision(per_game_stats.orb, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.drb, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.trb, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.ast, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.stl, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.blk, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.fl, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: false)
+      %td= number_with_precision(per_game_stats.orb, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.drb, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.trb, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.ast, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.stl, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.blk, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.fl, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: true)
 %h4.space Cumulative
 %table.table.responsive.responsive-2.table-striped.table-stats.full-boxscore.sortable{cellspacing: "0", cellpadding: "3"}
   %thead

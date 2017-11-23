@@ -7,22 +7,22 @@
       %td
         %a{href: stats_team_url(game.home_team)}= game.home_team.name
       %td
-        -last_five(game.home_team).each do |game|
-          - if game.winner == game.home_team.id
-            %a.win(href="/games/#{game.id}/boxscore") W
-          - elsif game.winner == -1
-            %a.tie(href="/games/#{game.id}/boxscore") T
+        -last_five(game.home_team).each do |pgame|
+          - if pgame.winner == game.home_team.id
+            %a.win(href="/games/#{pgame.id}/boxscore") W
+          - elsif pgame.winner == -1
+            %a.tie(href="/games/#{pgame.id}/boxscore") T
           - else
-            %a.loss(href="/games/#{game.id}/boxscore") L
+            %a.loss(href="/games/#{pgame.id}/boxscore") L
     %tr
       %td
         %a{href: stats_team_url(game.away_team)}= game.away_team.name
       %td
-        -last_five(game.away_team).each do |game|
-          - if game.winner == game.away_team.id
-            %a.win(href="/games/#{game.id}/boxscore") W
-          - elsif game.winner == -1
-            %a.tie(href="/games/#{game.id}/boxscore") T
+        -last_five(game.away_team).each do |pgame|
+          - if pgame.winner == game.away_team.id
+            %a.win(href="/games/#{pgame.id}/boxscore") W
+          - elsif pgame.winner == -1
+            %a.tie(href="/games/#{pgame.id}/boxscore") T
           - else
-            %a.loss(href="/games/#{game.id}/boxscore") L
+            %a.loss(href="/games/#{pgame.id}/boxscore") L
   -reset_cycle

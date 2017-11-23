@@ -1,19 +1,28 @@
 %footer
   .footer-outer-container
-    .container{:style => "color:#fff"}
-      .col-md-3
-        %img.img-responsive.footer-logo{:src => "/assets/whitelogo.png"}/
+    .container{:style => "color:#fff;width:95%;padding:0"}
+      .col-md-3{:style => "padding:0"}
+        %a{:href => "https://abchoops.com"}
+          %img.img-responsive.footer-logo{:src => "/assets/whitelogo.png", :style => "float:left"}
       .col-md-3{:style => "text-align:center;"}
-        %a{:href => "#", :target => "_blank"}
+        %a{:href => "https://www.facebook.com/abchoopsnyc/", :target => "_blank"}
           %i.fa.fa-facebook-official{"aria-hidden" => "true"}
-        %a{:href => "#", :target => "_blank"}
+        %a{:href => "https://www.instagram.com/abchoops/", :target => "_blank"}
           %i.fa.fa-instagram{"aria-hidden" => "true"}
-        %a{:href => "#", :target => "_blank"}
+        %a{:href => "https://twitter.com/abchoopsnyc", :target => "_blank"}
           %i.fa.fa-twitter-square{"aria-hidden" => "true"}
-        %a{:href => "#", :target => "_blank"}
+        %a{:href => "https://www.flickr.com/photos/abchoopsnyc/", :target => "_blank"}
           %i.fa.fa-flickr{"aria-hidden" => "true"}
       .col-md-3{:style => "text-align:center;"}
-        The League | Scores | Stats | Record Books | Sign Up
+        %a{:href => "http://abchoops.com/theleague.shtml"} The League
+        |
+        %a{:href => schedules_path} Scores
+        |
+        %a{:href => results_url} Stats
+        |
+        %a{:href => "/record-books"} Record Books
+        |
+        %a{:href => "http://abchoops.com/signup.html"} Sign Up
       .col-md-3.copyright
         © Copyright 2011-2017 ABC Hoops NYC
         %br/

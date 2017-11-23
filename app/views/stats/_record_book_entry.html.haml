@@ -2,16 +2,15 @@
   %table.record-book-entry.table.table-striped{cellpadding:"5", cellspacing:"0"}
     %colgroup
       %col.col-xs-1/
-      %col.col-xs-3/
-      %col{class: local_assigns.fetch(:single_game, false) ? 'col-xs-2' : 'col-xs-3'}/
+      %col{class: local_assigns.fetch(:single_game, false) ? 'col-xs-3' : 'col-xs-4'}/
       %col{class: local_assigns.fetch(:single_game, false) ? 'col-xs-4' : 'col-xs-2'}/
-      %col{class: local_assigns.fetch(:single_game, false) ? 'col-xs-2' : 'col-xs-3'}/
+      %col{class: local_assigns.fetch(:single_game, false) ? 'col-xs-1' : 'col-xs-2'}/
     %thead
       %tr
-        %th{colspan:"5"}= stat_name
+        %th{colspan:"4"}= stat_name
       %tr
         %th No.
-        %th{colspan:"2"} Player
+        %th Player
         %th #{local_assigns.fetch(:single_game, false) ? "Game" : "Team"}
         %th{style:"padding-left: 2px;"} Total
     %tbody
@@ -20,11 +19,11 @@
           %td=i+1
           -if i < 3
             %td
-              =render "headshot_thumb", player: entry
-            %td
-              %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
+              .outer-number{style:"height: 50px;display: table;"}
+                =render "headshot_thumb", player: entry
+                %a{href:stats_player_path(entry.slug), style:"vertical-align: middle;display: table-cell;width:100%"} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
           -else
-            %td{colspan:"2"}
+            %td
               %a{href:stats_player_path(entry.slug)} #{entry.display_name.blank? ? entry.first_name + " " + entry.last_name : entry.display_name}
           -if local_assigns.fetch(:single_game, false)
             %td

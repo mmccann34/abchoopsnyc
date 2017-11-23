@@ -2,99 +2,21 @@
 =render "player_box"
 -if not @player.roster_spots.empty?
   .row.player-button-container
-    -if @player.show_about?
-      .col-sm-3.col-xs-12.button-container
-        .main-button.block
-          %a{:href => "#about"}
-            %i.fa.fa-address-card-o{"aria-hidden" => "true"}
-            About
-    .col-xs-12.button-container{class: @player.show_about? ? 'col-sm-3' : 'col-sm-4'}
+    .col-xs-12.button-container.col-sm-4
       .main-button.block
         %a{:href => "#game-log"}
           %i.fa.fa-list-alt{"aria-hidden" => "true"}
           Game Log
-    .col-xs-12.button-container{class: @player.show_about? ? 'col-sm-3' : 'col-sm-4'}
+    .col-xs-12.button-container.col-sm-4
       .main-button.block
         %a{:href => "#career"}
           %i.fa.fa-briefcase{"aria-hidden" => "true"}
           Career
-    .col-xs-12.button-container{class: @player.show_about? ? 'col-sm-3' : 'col-sm-4'}
+    .col-xs-12.button-container.col-sm-4
       .main-button.block
         %a{:href => "#splits"}
           %i.fa.fa-sort-amount-desc{"aria-hidden" => "true"}
           Splits
-  %div.inactive#about
-    %table{ width:"800", cellpadding:"0", cellspacing:"0", border:"0"}
-      %tbody
-        %tr
-          %td{ style:"padding: 5px", width:"175", align:"right" }
-            %h2 Name:
-          %td{ style:"padding: 5px" }
-            %span{ style:"line-height:130%;font-size:13px;" }= @player.name
-        -if not @player.birthday.blank?
-          %tr
-            %td{ style:"padding: 5px", align:"right" }
-              %h2 Age:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.calc_age
-        -if @player.last_team  
-          %tr
-            %td{ style:"padding: 5px", align:"right" }
-              %h2 Team:
-            %td{ style:"padding: 5px" }
-              -if @player.last_teams.any?
-                %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_teams[0]) }= @player.last_teams[0].name 
-                -if @player.last_teams.count == 2
-                  \/
-                  %a{ style:"line-height:130%;font-size:13px;", href: stats_team_path(@player.last_teams[1]) }= @player.last_teams[1].name
-        -if not @player.hometown.blank?
-          %tr
-            %td{ style:"padding: 5px", align:"right" }
-              %h2 Hometown:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.hometown
-        -if not @player.school.blank?
-          %tr
-            %td{ style:"padding: 5px", align:"right" }
-              %h2 Education:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.school
-        -if not @player.day_job.blank?
-          %tr
-            %td{ align:"right", style:"padding: 5px" }
-              %h2 Day Job:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.day_job
-        -if not @player.league_love.blank?
-          %tr
-            %td{ align:"right", style:"padding: 5px" }
-              %h2 What you love about the league:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.league_love
-        -if not @player.little_known_fact.blank?
-          %tr
-            %td{ align:"right", style:"padding: 5px" }
-              %h2 Little known fact:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.little_known_fact
-        -if not @player.did_you_know.blank?
-          %tr
-            %td{ align:"right", style:"padding: 5px" }
-              %h2 Did you know:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.did_you_know
-        -if not @player.one_last_thing.blank?
-          %tr
-            %td{ align:"right", style:"padding: 5px" }
-              %h2 One last thing:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.one_last_thing
-        -if not @player.about.blank?
-          %tr
-            %td{ align:"right", style:"padding: 5px" }
-              %h2 More about me:
-            %td{ style:"padding: 5px" }
-              %span{ style:"line-height:130%;font-size:13px;" }= @player.about
   %div.inactive#splits
     .col-lg-4.col-md-6.col-xs-12.season-container
       %form.nevis{action: "#{stats_player_path(@player)}#splits", method: "get", style: 'font-weight:bold;'}
@@ -194,7 +116,6 @@
             %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
             %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
             %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
-      %br
     = render "glossary"
   %div#game-log
     -if @show_stats
@@ -290,6 +211,7 @@
                   %td= totals.fl.round
                   %td= totals.points.round
         =render "glossary"
+        %br
       -if @season_highs  
         %h2 Season Highs
         %table.table.table-striped.no-hover.player-highs{ cellspacing:"0", cellpadding:"5" }
@@ -304,6 +226,7 @@
               %tr
                 =render "career_high", name: stat_name, career_high: stat
   %div.inactive#career
+    %br
     %h2 Career Per Game Stats
     %table.table.responsive.responsive-2.table-striped.table-stats.sortable.career.box-score{:cellpadding => "0", :cellspacing => "0"}
       %thead
@@ -374,6 +297,7 @@
           %td= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: false)
           %td= number_with_precision(@career_averages.fl, precision: 1, strip_insignificant_zeros: false)
           %td= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: false)
+    %br
     %h2 Career Cumulative Stats
     %table.table.responsive.responsive-2.table-striped.table-stats.sortable.career.box-score{:cellpadding => "0", :cellspacing => "0"}
       %thead
@@ -390,7 +314,7 @@
           %th  
           %th  
         %tr
-          %th.r-lock Ssn
+          %th.r-lock Season
           %th.r-lock Team
           %th M-A
           %th %
@@ -449,7 +373,7 @@
         %tr
           -average_per_season_totals = average_stat_lines(@career_season_totals)
           %td.r-lock Avg
-          %td.r-lock Ssn
+          %td.r-lock Season
           %td #{number_with_precision(average_per_season_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fga, precision: 1, strip_insignificant_zeros: false)}
           %td= number_with_precision(average_per_season_totals.fgpct, precision: 3)
           %td #{number_with_precision(average_per_season_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.threea, precision: 1, strip_insignificant_zeros: false)}
@@ -465,6 +389,7 @@
           %td= number_with_precision(average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: false)
           %td= number_with_precision(average_per_season_totals.points, precision: 1, strip_insignificant_zeros: false)
     =render "glossary"
+    %br
     %h2 Career Highs
     %table.table.table-striped.no-hover.player-highs{:cellpadding => "0", :cellspacing => "0"}
       %thead
@@ -477,7 +402,6 @@
         -@career_highs.each do |stat_name, stat|
           %tr
             =render "career_high", name: stat_name, career_high: stat
-    %p &nbsp;
   = javascript_include_tag "activatables"
   %script{type: "text/javascript"}
-    activatables('page', ['game-log', 'career', 'about', 'splits']);
+    activatables('page', ['game-log', 'career', 'splits']);
