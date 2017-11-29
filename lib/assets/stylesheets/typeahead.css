@@ -22,7 +22,7 @@ input.tt-hint {
 
 .tt-suggestion.tt-is-under-cursor {
   color: #fff;
-  background-color: #0097cf;
+  background-color: #2e3b56;
 }
 
 .tt-suggestion.tt-is-under-cursor .playernumbernopicthumb {
@@ -40,6 +40,9 @@ input.tt-hint {
 
 .tt-suggestion .team {
   font-style: italic;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .tt-suggestion .headshotThumbOuter {

@@ -448,7 +448,7 @@ html, body {
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
-    height: 100% !important;
+    /*height: 100% !important;*/
     transform: translate(-50%, -50%) !important;
   }
   div.great-gyms {
@@ -942,6 +942,11 @@ html, body {
     float: right;
     font-weight: bold;
     padding-top: 5px;
+  }
+  .tt-suggestion .team, .tt-suggestion .name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .tt-suggestion .headshotThumbOuter {
     float: left;
@@ -3186,6 +3191,9 @@ html, body {
     }
     .navbar-nav, .dropdown-menu, .dropdown-menu-fixed {
       font-size: 14px!important
+    }
+    .caret {
+      margin-left:-2px
     }
     a.past-seasons::before {
       border-top: 1px solid #fff;
