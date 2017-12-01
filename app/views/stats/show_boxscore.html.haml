@@ -19,37 +19,37 @@
   .col-md-12
     =render "boxscore_summary", game: @game, show_week: false
 .row.pog-top-container
-  .col-md-6
+  .col-md-6.col-sm-6.col-xs-12
     = render "boxscore_top_performers", game: @game, show_week: true
-  .col-md-6
-  -if @game.player_of_the_game
-    %table.stats.player-of-the-game{:cellpadding => "3", :cellspacing => "0"}
-      %thead
-        %tr
-          %td{:colspan => "3"} Player of the Game
-      %tbody
-        %tr
-          %td.number-container{:rowspan => "2"}
-            %a{href:stats_player_path(@game.player_of_the_game[:player].id)}
-              .halfball
-                -if @game.player_of_the_game[:player].profile_pic_url.blank?
-                  %span.playernumbernopicthumb= Player.find(@game.player_of_the_game[:player].id).last_number
-                -else
-                  %img{src:"#{@game.player_of_the_game[:player].profile_pic_url}"}
-          %td
-            %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
-            &ndash;
-            %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
-          %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :rowspan => "2", :title => "<b>Win Probability Added</b><br/>\nWeighs the contribution of each player to see how \nmuch their actions added to the probability that \ntheir team wins the game.<br/><b>#{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s \nchance of winning the game.</b>"}
-            %img{:src => "http://stats.abchoopsnyc.com/assets/abcplus50.png"}/
-            %p{:style => "margin:0px;font-size:10px;font-weight:bold;"} WPA
-            %p{:style => "margin:0px;font-size:16px;font-weight:bold;"}
-              #{@game.player_of_the_game[:wpa]} %
-        %tr
-          %td
-            #{@game.player_of_the_game[:stats_1]}
-            %br
-            #{@game.player_of_the_game[:stats_2]}
+  .col-md-6.col-sm-6.col-xs-12
+    -if @game.player_of_the_game
+      %table.stats.player-of-the-game{:cellpadding => "3", :cellspacing => "0"}
+        %thead
+          %tr
+            %td{:colspan => "3"} Player of the Game
+        %tbody
+          %tr
+            %td.number-container{:rowspan => "2"}
+              %a{href:stats_player_path(@game.player_of_the_game[:player].id)}
+                .halfball
+                  -if @game.player_of_the_game[:player].profile_pic_url.blank?
+                    %span.playernumbernopicthumb= Player.find(@game.player_of_the_game[:player].id).last_number
+                  -else
+                    %img{src:"#{@game.player_of_the_game[:player].profile_pic_url}"}
+            %td
+              %a{href:stats_player_path(@game.player_of_the_game[:player])}="#{@game.player_of_the_game[:name]}"
+              &ndash;
+              %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
+            %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :rowspan => "2", :title => "<b>Win Probability Added</b><br/>\nWeighs the contribution of each player to see how \nmuch their actions added to the probability that \ntheir team wins the game.<br/><b>#{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s \nchance of winning the game.</b>"}
+              %img{:src => "http://stats.abchoopsnyc.com/assets/abcplus50.png"}/
+              %p{:style => "margin:0px;font-size:10px;font-weight:bold;"} WPA
+              %p{:style => "margin:0px;font-size:16px;font-weight:bold;"}
+                #{@game.player_of_the_game[:wpa]} %
+          %tr
+            %td
+              #{@game.player_of_the_game[:stats_1]}
+              %br
+              #{@game.player_of_the_game[:stats_2]}
 -if (not @game.photo_urls.nil?) && @game.photo_urls.any?
   :javascript
     $(document).ready(function() {

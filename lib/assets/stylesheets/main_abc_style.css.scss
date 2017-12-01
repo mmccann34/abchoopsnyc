@@ -524,6 +524,9 @@ html, body {
   li.sign-up-fixed {
     width: 20%;
   }
+  #show_byes > span.caret {
+    display:inline-block
+  }
   .wholeDivider {
     background: url(/assets/bodydiaglines.png);
     width: 100%;
@@ -2188,6 +2191,9 @@ html, body {
       font-size: 18px;
       letter-spacing: 1px;
     }
+    table.top-performers, table.player-of-the-game {
+      max-width:290px
+    }
   }
   @media (min-width:376px) {
     .the-league-second-row p {
@@ -2317,13 +2323,13 @@ html, body {
     .boxscore .ot {
       width:40px;
     }
-    #season > .sub-body-menu > div, #career_leaders > .sub-body-menu > div {
+    .sub-body-menu > div, #career_leaders > .sub-body-menu > div {
       width:100%
     }
-    #season > .sub-body-menu > div:nth-child(1) {
+    .sub-body-menu > div:nth-child(1) {
       padding-bottom:0!important
     }
-    .record_link_container, #season form, #career_leaders  p.record_link_container {
+    .record_link_container, #season form, #career_leaders  p.record_link_container, .season-container {
       text-align:center
     }
   }
@@ -2413,6 +2419,9 @@ html, body {
     .findPlayer {
       width: 14.5%!important
     }
+    .game-row > .col-lg-4 > .top-performers {
+      margin-top:10px
+    }
     .popover {
       padding-right: 0!important
     }
@@ -2434,7 +2443,7 @@ html, body {
     .home-team-score, .away-team-score {
       display: none
     }
-    .right-bar-container {
+    .right-bar-container,.pog-top-container > div:nth-child(2) {
       padding-top: 15px!important
     }
     .social-media-container-phone {
@@ -2670,8 +2679,8 @@ html, body {
       max-width: 65%;
       min-width: 250px;
     }
-    .pinned .full-standings, .divisionName, .team-stats>tbody>tr td:first-child, .splits tr td:first-child, .splits tr th:first-child, .pinned .full-boxscore>thead>tr>th, .pinned .full-boxscore>tbody>tr>td:nth-child(2), .pinned .full-boxscore>tfoot>tr>td:nth-child(2) {
-      text-align: left
+    .pinned .full-standings, .divisionName, .team-stats>tbody>tr td:first-child, .splits tr td:first-child, .splits tr th:first-child, .pinned .full-boxscore>thead>tr>th, .pinned .full-boxscore>tbody>tr>td:nth-child(2), .pinned .full-boxscore>tfoot>tr>td:nth-child(2),.r-lock {
+      text-align: left!important
     }
     .leaderboard-stat-container {
       padding: 7.5px 15px;
@@ -2684,9 +2693,6 @@ html, body {
     }
     .scores h3 {
       font-size: 18px;
-    }
-    .top-performers {
-      display: none;
     }
     .game-row>.col-lg-8 {
       padding: 0;
@@ -3173,6 +3179,12 @@ html, body {
     .sidebar-item-container-faq, .sidebar-item-container-events {
       margin-left: 7.5px
     }
+    h1 {
+      font-size:30px
+    }
+    .week_scores, .week-container {
+      font-size:24px
+    }
   }
   @media (min-width:768px) and (max-width:938px) {
     .slam-header-container {
@@ -3264,9 +3276,6 @@ html, body {
     }
   }
   @media (min-width:787px) and (max-width:991px) {
-    .top-performers {
-      margin-top: 15px;
-    }
     .powStats {
       width: calc(100% - 75px);
     }
@@ -3390,9 +3399,6 @@ html, body {
     }
     .player-of-the-week {
       margin-bottom: 10px;
-    }
-    .player-of-the-game {
-      margin-top: 30px
     }
     .why-us-left {
       padding: 45px 0
@@ -3619,6 +3625,7 @@ html, body {
     .player-button-container {
       margin: 0 -30px;
     }
+
   }
   @media (min-width:1200px) {
     .last-game {

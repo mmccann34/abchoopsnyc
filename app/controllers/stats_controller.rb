@@ -295,6 +295,8 @@ class StatsController < ActionController::Base
     @season_averages[:ftpct] = get_records('ftpct', 'season_average', season_id: @season, min_games: min_games)
     @season_averages[:ftm] = get_records('ftm', 'season_average', season_id: @season, min_games: min_games)
     @season_averages[:threem] = get_records('threem * 3', 'season_average', season_id: @season, min_games: min_games)
+
+    render :layout => 'no_sidebar'
   end
   
   private
