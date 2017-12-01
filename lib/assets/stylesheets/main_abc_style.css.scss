@@ -1589,11 +1589,12 @@ html, body {
     float: left;
     text-align: center;
   }
-  .week_scores li>.active {
+  .week_scores li>.active,.week_scores li>.inactive:hover {
     color: #e07000;
   }
   .week_scores li>.inactive {
     display: block;
+    color:#fff
   }
   .r-lock {
     font-weight: bold;
@@ -1623,6 +1624,9 @@ html, body {
     display: inline-block;
     padding: 0 5px 5px 0;
     margin-bottom: 0
+  }
+  .scores .fa-map-marker {
+    color:#e07000
   }
   .game-row {
     border-bottom: 1px solid #c0c0c0;
@@ -1677,7 +1681,7 @@ html, body {
   }
   .week-outer-container {
     width: 100%;
-    border-bottom: 1px solid #c0c0c0;
+    background-color:#5a5a5a;
     margin: 0
   }
   .week-container {
@@ -1686,6 +1690,7 @@ html, body {
     font-family: 'Nevis-Bold';
     text-transform: uppercase;
     float: left;
+    color:#fff
   }
   .weeks-container {
     float: left;
@@ -3553,6 +3558,11 @@ html, body {
       border-top: 1px solid #c0c0c0;
       border-bottom: 1px solid #c0c0c0;
     }
+    .week-outer-container {
+      margin-left:-15px;
+      width:calc(100% + 30px);
+      padding:5px 15px
+    }
   }
   @media (max-width:1172px) {
     .record-books-index a {
@@ -3637,6 +3647,11 @@ html, body {
     }
     .questions {
       margin-bottom: 30px;
+    }
+    .week-outer-container {
+      margin-left:-30px;
+      width:calc(100% + 60px);
+      padding:5px 30px
     }
   }
   @media (min-width:1350px) and (max-width:1549px) {
