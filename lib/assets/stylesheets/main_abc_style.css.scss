@@ -1775,18 +1775,10 @@ html, body {
   #career div.table-wrapper div.scrollable table {
     margin-left: 125px!important;
   }
-  #career table {
+  @media (min-width:1200px) {
+  #career table.career {
     table-layout:fixed
-  }
-  #career table > thead > tr:nth-child(1) > th:nth-child(-n+2), #career table > thead > tr:nth-child(1) > th:nth-child(-n+2) {
-    width:75px
-  }
-  #career table > thead > tr:nth-child(1) > th:nth-child(3), #career table > thead > tr:nth-child(1) > th:nth-child(4), #career table > thead > tr:nth-child(1) > th:nth-child(5) {
-    width:17%
-  }
-  #career table > thead > tr:nth-child(1) > th:nth-child(6) {
-    width:15%
-  }
+  }}
   #game-log .pinned {
     width: 100px!important;
   }
@@ -3285,7 +3277,7 @@ html, body {
       font-size: 200px;
       line-height: 275px;
     }
-    .table-stats, .team-stats>thead>tr>th {
+    .table-stats, .team-stats>thead>tr>th, .table-stats>thead>tr>th {
       font-size: 14px;
     }
     .carousel-comprehensive {
@@ -3299,6 +3291,9 @@ html, body {
     }
     .boxscore .ot {
       width:60px
+    }
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(-n+2) {
+      width:57px!important
     }
   }
   @media (min-width:768px) and (max-width:1473px) {
@@ -3327,9 +3322,7 @@ html, body {
     }
   }
   @media (min-width:768px) and (max-width:991px) {
-    .full-boxscore {table-layout:fixed}
     .full-boxscore > tbody > tr > td:nth-child(2) {
-      text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
     }
@@ -3532,9 +3525,7 @@ html, body {
     }
   }
   @media (min-width:992px) and (max-width:1149px) {
-    .full-boxscore {table-layout:fixed}
     .full-boxscore > tbody > tr > td:nth-child(2) {
-      text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
     }
@@ -3553,6 +3544,12 @@ html, body {
     .full-boxscore > thead > tr > th:nth-child(1) {width:40px}
     .full-boxscore > thead > tr > th:nth-child(2) {width:135px}
     .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:115px}
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(3), #career table > thead > tr:nth-child(1) > th:nth-child(4), #career table > thead > tr:nth-child(1) > th:nth-child(5) {
+      width:120px
+    }
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(6) {
+      width:115px
+    }
   }
   @media (max-width:1199px) {
     .player-picture {
@@ -3670,6 +3667,12 @@ html, body {
     .full-boxscore > thead > tr > th:nth-child(1) {width:40px}
     .full-boxscore > thead > tr > th:nth-child(2) {width:175px}
     .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:135px}
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(3), #career table > thead > tr:nth-child(1) > th:nth-child(4), #career table > thead > tr:nth-child(1) > th:nth-child(5) {
+      width:150px
+    }
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(6) {
+      width:135px
+    }
   }
   @media (min-width:1470px) and (max-width:1480px) {
     .dropdown-index-two a, .dropdown-index-two a>br {
@@ -3720,11 +3723,21 @@ html, body {
     }
   }
 
+  #career table.career > thead > tr:nth-child(1) > th:nth-child(-n+2) {
+    width:75px
+  }
+
   @media (min-width:1550px) {
     .full-boxscore {table-layout:fixed}
     .full-boxscore > thead > tr > th:nth-child(1) {width:40px}
-    .full-boxscore > thead > tr > th:nth-child(2) {width:280px}
-    .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:170px}
+    .full-boxscore > thead > tr > th:nth-child(2) {width:225px}
+    .full-boxscore > thead > tr:nth-child(1) > th:nth-child(3), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(4), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(5), .full-boxscore > thead > tr:nth-child(1) > th:nth-child(6) {width:165px}
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(3), #career table > thead > tr:nth-child(1) > th:nth-child(4), #career table > thead > tr:nth-child(1) > th:nth-child(5) {
+      width:17%
+    }
+    #career table.career > thead > tr:nth-child(1) > th:nth-child(6) {
+      width:15%
+    }
   }
 
   @media (min-width:768px) and (max-width:991px) {
@@ -3753,13 +3766,13 @@ table td, table th {  }
   
   table.responsive { margin-bottom: 0; }
   
-  .pinned { position: absolute; left: 0; top: 0; background: #fff; width: 35%; overflow: hidden; overflow-x: scroll; border-right: 1px solid #ccc; border-left: 1px solid #ccc; }
+  .pinned { position: absolute; left: 0; top: 0; background: #fff; width: 30%; overflow: hidden; overflow-x: scroll; border-right: 1px solid #ccc; border-left: 1px solid #ccc; }
   .pinned table { border-right: none; border-left: none; width: 100%; }
   .pinned table th, .pinned table td { white-space: nowrap; }
   .pinned td:last-child { border-bottom: 0; }
   
   div.table-wrapper { position: relative; overflow: hidden; border-right: 1px solid #ccc; }
-  div.table-wrapper div.scrollable table { margin-left: 35%; }
+  div.table-wrapper div.scrollable table { margin-left: 30%; }
   div.table-wrapper div.scrollable { overflow: scroll; overflow-y: hidden; }  
   
   table.responsive td, table.responsive th { position: relative; white-space: nowrap; overflow: hidden; }

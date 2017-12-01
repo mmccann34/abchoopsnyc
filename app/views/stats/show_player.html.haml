@@ -67,14 +67,14 @@
             %td= number_with_precision(splits_totals.threepct, precision: 3)
             %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.ftpct, precision: 3)
-            %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.trb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.trb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: true)
           - splits.select{|s| s != "Totals"}.each do |split, stats|
             %tr.table-head
               %td{ style:"text-align:left;" }= split
@@ -90,14 +90,14 @@
                 %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
                 %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: false)}
                 %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
-                %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: false)
-                %td= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: false)
+                %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: true)
+                %td= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
         %tfoot
           %tr
             %td.r-lock Total
@@ -108,14 +108,14 @@
             %td= number_with_precision(splits_totals.threepct, precision: 3)
             %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision(splits_totals.ftpct, precision: 3)
-            %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.trb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.trb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.ast, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.stl, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.blk, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.fl, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(splits_totals.points, precision: 1, strip_insignificant_zeros: true)
     = render "glossary"
   %div#game-log
     -if @show_stats
@@ -271,14 +271,14 @@
             %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
             %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: false)}
             %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
-            %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: false)
-            %td= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: false)
+            %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.trb, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.ast, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.stl, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.blk, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.fl, precision: 1, strip_insignificant_zeros: true)
+            %td= number_with_precision(stat.points, precision: 1, strip_insignificant_zeros: true)
       %tfoot
         %tr
           %td.r-lock Career
@@ -289,14 +289,14 @@
           %td= number_with_precision(@career_averages.threepct, precision: 3)
           %td #{number_with_precision(@career_averages.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(@career_averages.fta, precision: 1, strip_insignificant_zeros: false)}
           %td= number_with_precision(@career_averages.ftpct, precision: 3)
-          %td= number_with_precision(@career_averages.orb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.drb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.trb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.ast, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.stl, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.fl, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(@career_averages.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.trb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.ast, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.stl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.fl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: true)
     %br
     %h2 Career Cumulative Stats
     %table.table.responsive.responsive-2.table-striped.table-stats.sortable.career.box-score{:cellpadding => "0", :cellspacing => "0"}
@@ -380,14 +380,14 @@
           %td= number_with_precision(average_per_season_totals.threepct, precision: 3)
           %td #{number_with_precision(average_per_season_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fta, precision: 1, strip_insignificant_zeros: false)}
           %td= number_with_precision(average_per_season_totals.ftpct, precision: 3)
-          %td= number_with_precision(average_per_season_totals.orb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.drb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.trb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.ast, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.stl, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.blk, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(average_per_season_totals.points, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(average_per_season_totals.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.trb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.ast, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.stl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.blk, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.fl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(average_per_season_totals.points, precision: 1, strip_insignificant_zeros: true)
     =render "glossary"
     %br
     %h2 Career Highs
