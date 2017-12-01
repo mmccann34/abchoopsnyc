@@ -1033,11 +1033,6 @@ html, body {
     padding: 15px;
     color: #fff;
   }
-  .footer-logo {
-    width: 150px;
-    display: block;
-    margin: 0 auto
-  }
   .navbar a, .rightSatSun a {
     font-weight: normal;
   }
@@ -2170,7 +2165,7 @@ html, body {
       font-size: 28px;
     }
     .main-button-large {
-      font-size: 36px;
+      font-size: 36px!important;
       border: 4px solid #5a5a5a;
     }
     .our-gyms {
@@ -2210,7 +2205,7 @@ html, body {
       font-size: 36px;
     }
     .main-button-large {
-      font-size: 42px;
+      font-size: 42px!important;
       border: 6px solid #5a5a5a;
     }
     .our-gyms {
@@ -2304,6 +2299,9 @@ html, body {
       font-size: 80px;
       line-height: 120px;
     }
+    h1 {
+      font-size: 22px
+    }
   }
   @media (min-width:500px) {
     .player-box {
@@ -2326,7 +2324,7 @@ html, body {
       width: 100%;
     }
   }
-  @media (max-height:500px) and (max-width:768px) {
+  @media (max-height:500px) and (max-width:767px) {
     .dropdown-menu-theleague {
       -webkit-columns: 3!important;
       columns: 3!important
@@ -2361,6 +2359,9 @@ html, body {
     .dropdown-menu>li>a {
       padding: 0px!important;
       letter-spacing: -1px;
+    }
+    h1 {
+      font-size: 26px
     }
   }
   @media (min-width:500px) and (max-width:767px) {
@@ -2585,7 +2586,7 @@ html, body {
       height: 120% !important;
     }
     div.great-gyms {
-      top: 41%;
+      top: 7%;
       left: 0;
     }
     span.caret {
@@ -2663,13 +2664,13 @@ html, body {
       padding: 7.5px 15px;
     }
     .week_scores, .week-container {
-      font-size: 24px;
+      font-size: 20px;
     }
     .week_scores li a {
       padding: 0 10px;
     }
     .scores h3 {
-      font-size: 24px;
+      font-size: 18px;
     }
     .top-performers {
       display: none;
@@ -2699,7 +2700,7 @@ html, body {
       padding-bottom: 45px;
     }
     .button-container-large {
-      padding: 25px;
+      padding: 25px!important;;
     }
     .images-below-sign-up {
       height: 250px;
@@ -2737,6 +2738,11 @@ html, body {
     .sign-up-second-container {
       padding: 0 30px;
       width: 100%
+    }
+    .footer-logo-link {
+      display: block;
+      margin: 0 auto;
+      width: 150px;
     }
   }
   @media (min-width:768px) {
@@ -2831,9 +2837,7 @@ html, body {
     .one_day li {
       height: 100%;
     }
-    h1 {
-      font-size: 26px
-    }
+
     h2 {
       font-size: 22px;
     }
@@ -2960,13 +2964,13 @@ html, body {
       font-size: 48px;
     }
     .week_scores, .week-container {
-      font-size: 32px;
+      font-size: 28px;
     }
     .week_scores li a {
       padding: 0 10px;
     }
     .scores h3 {
-      font-size: 28px;
+      font-size: 24px;
     }
     .week-container {
       width: 110px
