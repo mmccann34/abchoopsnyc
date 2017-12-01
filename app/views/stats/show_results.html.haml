@@ -80,7 +80,7 @@
             .main-button.block
               %a{:href => "#totals"} Totals
         #pergame
-          .row.equal.leaderboard-row
+          .row.equal.leaderboard-row.flexthis
             =render "leaderboard_entry", headers: ['Points Per Game'], entries: [@leaderboard[:points]], precisions: [1]
             =render "leaderboard_entry", headers: ['Rebounds Per Game'], entries: [@leaderboard[:rebounds]], precisions: [1]
             =render "leaderboard_entry", headers: ['Assists Per Game'], entries: [@leaderboard[:assists]], precisions: [1]
@@ -91,7 +91,7 @@
             =render "leaderboard_entry", headers: ['FT%'], entries: [@leaderboard[:ftpct]], precisions: [3]
             =render "leaderboard_entry", headers: ['Free Throws Per Game'], entries: [@leaderboard[:ftm]], precisions: [1]
         #totals
-          .row.equal.leaderboard-row
+          .row.equal.leaderboard-row.flexthis
             =render "leaderboard_entry", headers: ['Points'], entries: [@leaderboard_totals[:points]], precisions: [1]
             =render "leaderboard_entry", headers: ['Rebounds'], entries: [@leaderboard_totals[:rebounds]], precisions: [1]
             =render "leaderboard_entry", headers: ['Assists'], entries: [@leaderboard_totals[:assists]], precisions: [1]

@@ -4,7 +4,7 @@
 -else
   -title "#{@season.name} - #{@league.name} Schedule & Scores"
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
-  .row.sub-body-menu.equal{:style => "margin:-.67em 0 0 0"}
+  .row.sub-body-menu.equal.flexthis{:style => "margin:-.67em 0 0 0"}
     .col-xs-6.season-container
       %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
         Season:
@@ -63,7 +63,7 @@
             %a{:href => location.map_url, :target => "_blank"}
               = fa_icon "map-marker"
         - games.each do |game|
-          .row.game-row.equal
+          .row.game-row.equal.flexthis
             .col-lg-8
               = render "boxscore_summary", game: game, show_week: true
             - if game.winner && !game.forfeit

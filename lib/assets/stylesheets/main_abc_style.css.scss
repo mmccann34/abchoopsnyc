@@ -1848,7 +1848,7 @@ html, body {
   /* BRACKETS */
   
   .playoff-bracket, .old-bracket {
-    width: 100%;
+    width: calc(100% - 10px);
     margin-bottom: 30px;
   }
   .playoff-bracket>tbody>tr>td.time, .old-bracket>tbody>tr>td.time2 {
@@ -2385,6 +2385,11 @@ html, body {
     }
     .boxscore .ot {
       width:50px
+    }
+  }
+  @media (min-width:600px) {
+    .bracket-container {
+      background:none!important
     }
   }
   @media (min-width:761px) {
@@ -3657,8 +3662,8 @@ html, body {
       margin-bottom: 30px;
     }
     .week-outer-container {
-      margin-left:-30px;
-      width:calc(100% + 60px);
+      margin-left:-31px;
+      width:calc(100% + 61px);
       padding:5px 30px
     }
   }
