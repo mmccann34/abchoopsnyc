@@ -17,47 +17,7 @@
     .search-toggle
       %a.find-a-player-toggle{"data-container" => "body", "data-html" => "true", "data-placement" => "left", "data-toggle" => "popover", :href => "#", :type => "button"}
         %i.fa.fa-search{"aria-hidden" => "true"}
-  #findaplayer.hide
-    .search-form-container
-      %form#input{:action => "http://stats.abchoops.com/player-search", :method => "get", :name => "input"}
-        %input#playerSearch.findPlayerField{:autocomplete => "off", :name => "player", :placeholder => "Find a Player", :spellcheck => "false", :type => "text"}/
-        %button.findPlayer{:type => "submit"}
-          %i.fa.fa-search
-    :javascript
-      $(function() {
-                $('input#playerSearch').typeahead({
-                  name: "players", 
-                  prefetch: "http://stats.abchoops.com/api/players.json",
-                  template: [
-                    '<div class="details">',
-                    '<p class="name">{{value}}<\/p>',
-                    '<p class="team">{{team}}<\/p>',
-                    '<\/div>',
-                    '<div class="headshotThumbOuter">',
-                    '{{#pic_url}}',
-                    '<div class="headshotThumbContainer noborder">',
-                    '<img src="{{pic_url}}" height="50px" width="50px" />',
-                    '<\/div>',
-                    '{{/pic_url}}',
-                    '{{^pic_url}}',
-                    '<div class="headshotThumbContainer noborder halfball">',
-                    '<span class="playernumbernopicthumb">{{number}}<\/span>',
-                    '<\/div>',
-                    '{{/pic_url}}',
-                    '<\/div>'
-                  ].join(''),
-                  engine: Hogan
-                });
-      
-                $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoops.com/players/' + datum.slug; });
-            });
-    :javascript
-      $(".fancybox").fancybox({
-        slideShow  : false,
-      fullScreen : true,
-      thumbs     : false,
-      closeBtn   : true,
-      });
+  =render "find_a_player_form"
 .navbar
   .container-fluid.container-fluid-header
     .navbar-header{:style => "width:100%"}
@@ -81,17 +41,17 @@
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed.dropdown-menu-theleague
               %li
-                %a{:href => "http://abchoops.com/theleague.shtml"} Info
+                %a{:href => "http://abchoops.com/theleague.html"} Info
               %li
-                %a{:href => "http://abchoops.com/faq.shtml"} FAQ
+                %a{:href => "http://abchoops.com/faq.html"} FAQ
               %li
-                %a{:href => "http://abchoops.com/theleague.shtml#gyms"} Gyms
+                %a{:href => "http://abchoops.com/theleague.html#gyms"} Gyms
               %li
-                %a{:href => "http://abchoops.com/theleague.shtml#media"} Media
+                %a{:href => "http://abchoops.com/theleague.html#media"} Media
               %li
-                %a{:href => "http://abchoops.com/theleague.shtml#contact"} Contact
+                %a{:href => "http://abchoops.com/theleague.html#contact"} Contact
               %li
-                %a{:href => "http://abchoops.com/news-1.shtml"} Updates
+                %a{:href => "http://abchoops.com/updates.html"} Updates
           %li.dropdown-fixed.dropdown-fixed-scores
             %a.dropdown-toggle.scores_sched{"data-toggle" => "dropdown", :href => schedules_path}
               Scores &amp;
