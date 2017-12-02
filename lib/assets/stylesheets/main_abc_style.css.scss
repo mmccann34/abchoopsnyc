@@ -554,7 +554,7 @@ html, body {
   footer a {
     color: #fff;
   }
-  footer a:hover {
+  footer a:hover,.soc-media-header-container > a:hover {
     color: #e07000;
     text-decoration:none
   }
@@ -1000,7 +1000,7 @@ html, body {
     background: url('/assets/slam23gray.png');
   }
   .slam-header-container a:hover {
-    background: url('/assets/slam23blue.png');
+    background: url('/assets/slam23orange.png');
   }
   .soc-media-header-container {
     width: 14.5%;
@@ -2758,11 +2758,6 @@ html, body {
       padding: 0 30px;
       width: 100%
     }
-    .footer-logo-link {
-      display: block;
-      margin: 0 auto;
-      width: 150px;
-    }
   }
   @media (min-width:768px) {
     .top-sign-up {
@@ -2786,6 +2781,9 @@ html, body {
     .sign-up-second-container {
       padding: 40px;
       width: 100%
+    }
+    a.find-a-player-toggle:hover {
+      color:#e07000
     }
   }
   @media (max-width:786px) {
@@ -3357,6 +3355,11 @@ html, body {
   @media (max-width:991px) {
     .index-menu-item a {
       font-size: 18px!important;
+    }
+    .footer-logo-link {
+      display: block;
+      margin: 0 auto;
+      width: 150px;
     }
     .sign-up-index a {
       font-size: 38px!important
