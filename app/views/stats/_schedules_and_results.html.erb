@@ -6,43 +6,40 @@
           </div>
           <ul class="sched_days three_days">
             <li class="main-button">
-              <% if mode == "schedules" %>
-                <a class="active-season" href=<%="/#{mode}?season=31&league=3"%>>Sunday</a>
-              <% else %>
-                <a href=<%="/#{mode}?season=31&league=3"%>>Sunday
+              <a class="active-season" href=<%="/#{mode}?season=32&league=1"%>>
+                Sunday
+                <% if mode != "schedules" %>
                   <ul class="active-season-list">
                     <li>Full Standings</li>
                     <li>Stat Leaderboard</li>
                     <li>Team Stats</li>
                   </ul>
-                </a>
-              <% end %>
+                <% end %>
+              </a>
             </li>
             <li class="main-button">
-              <% if mode == "schedules" %>
-                <a class="active-season" href="#">Saturday</a>
-              <% else %>
-                <a href="#">Saturday
+              <a class="active-season" href=<%="/#{mode}?season=32&league=2"%>>
+                Saturday
+                <% if mode != "schedules" %>
                   <ul class="active-season-list">
                     <li>Full Standings</li>
                     <li>Stat Leaderboard</li>
                     <li>Team Stats</li>
                   </ul>
-                </a>
-              <% end %>
+                <% end %>
+              </a>
             </li>
             <li class="main-button">
-              <% if mode == "schedules" %>
-                <a class="active-season" href="#">Weekday</a>
-              <% else %>
-                <a href="#">Weekday
+              <a class="active-season" href=<%="/#{mode}?season=32&league=3"%>>
+                Weekday
+                <% if mode != "schedules" %>
                   <ul class="active-season-list">
                     <li>Full Standings</li>
                     <li>Stat Leaderboard</li>
                     <li>Team Stats</li>
                   </ul>
-                </a>
-              <% end %>
+                <% end %>
+              </a>
             </li>
           </ul>
         </div>
@@ -54,7 +51,7 @@
           </div>
           <ul class="sched_days two_days">
             <li class="main-button">
-              <a href="#">Sunday
+              <a href=<%="/#{mode}?season=31&league=1"%>> Sunday
               <ul class="championship-list">
                 <li class="division">Robinson Champ</li>
                 <li>The McFlys</li>
@@ -63,7 +60,7 @@
               </ul></a>
             </li>
             <li class="main-button">
-              <a href="#">Weekday
+              <a href=<%="/#{mode}?season=31&league=3"%>> Weekday
               <ul class="championship-list">
                 <li class="division">Ewing Champ</li>
                 <li>SD Thundering Herd</li>
@@ -81,7 +78,7 @@
           </div>
           <ul class="sched_days three_days">
             <li class="main-button">
-              <a href="#">Sunday
+              <a href=<%="/#{mode}?season=30&league=1"%>> Sunday
               <ul class="championship-list">
                 <li class="division">Barkley Champ</li>
                 <li>Death Row</li>
@@ -92,7 +89,7 @@
               </ul></a>
             </li>
             <li class="main-button">
-              <a href="#">Saturday
+              <a href=<%="/#{mode}?season=30&league=2"%>> Saturday
               <ul class="championship-list">
                 <li class="division">Pippen Champ</li>
                 <li>Mambas</li>
@@ -103,7 +100,7 @@
               </ul></a>
             </li>
             <li class="main-button">
-              <a href="#">Weekday
+              <a href=<%="/#{mode}?season=30&league=3"%>> Weekday
               <ul class="championship-list">
                 <li class="division">Jordan Champ</li>
                 <li>XYZ Hoops</li>

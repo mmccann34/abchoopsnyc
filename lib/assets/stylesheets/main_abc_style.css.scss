@@ -5,7 +5,7 @@ html, body {
   }
   body:after {
     display: none;
-    content: url(../images/slam23blue.png);
+    content: url(/assets/slam23orange.png);
   }
 /*  html {
       overflow: hidden;
@@ -14,13 +14,6 @@ html, body {
       overflow: auto;
   }*/
   @import "font-awesome";
-  @font-face {
-    font-family: 'BebasRegular';
-    src: url(../../../nd/BEBAS___-webfont.eot);
-    src: url(../../../nd/BEBAS___-webfont.eot?#iefix) format("embedded-opentype"), url(../../../nd/BEBAS___-webfont.woff) format("woff"), url(../../../nd/BEBAS___-webfont.ttf) format("truetype"), url(../../../nd/BEBAS___-webfont.svg#BebasRegular) format("svg");
-    font-weight: 400;
-    font-style: normal;
-  }
   @font-face {
     font-family: 'Nevis-Bold';
     src: url(/assets/Nevis-Bold.tff.eot);
@@ -2387,7 +2380,7 @@ html, body {
   }
   @media (min-width:600px) and (max-width:767px) {
     .player-of-the-week {
-      width: 50%;
+      width: 100%;
     }
     .boxscore .ot {
       width:50px
