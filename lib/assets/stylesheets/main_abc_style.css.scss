@@ -2262,7 +2262,7 @@ html, body {
   }
   @media (min-width:414px) and (max-width:767px) {
     .carousel-caption-container h1, ul.carousel-list {
-      font-size: 36px;
+      font-size: 32px;
     }
     .navbar-collapse {
       padding: 15px 30px 0 30px!important
@@ -2324,6 +2324,9 @@ html, body {
     }
     .record_link_container, #season form, #career_leaders  p.record_link_container, .season-container {
       text-align:center
+    }
+    .team-pic {
+      margin-top:15px
     }
   }
   @media (max-width:557px) {
@@ -2592,9 +2595,6 @@ html, body {
     }
     .carousel, .carousel .item {
       height: 600px;
-    }
-    .carousel-caption-container h1 {
-      font-size: 36px;
     }
     .third-slide {
       top: 40% !important;
