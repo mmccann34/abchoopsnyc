@@ -4,60 +4,74 @@
 -else
   -title "#{@season.name} - #{@league.name} Schedule & Scores"
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
-  %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
-    Season:
-    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-    =hidden_field_tag "league", @league.id
-  %br
-  %table.sortable.maintablestand{border: "0", width: "800", cellpadding: "3", cellspacing: "0"}
-    %thead.statthead
-      %tr
-        %th{width: "50"} Week
-        - @games.keys.each do |week|
-          - week_name = week.try(:short_name) || (week ? (week.name.sub "Week", "") : "0")
-          %th= week_name
-    %tbody
-      %tr.even2
-        %td{style: "font-weight: bold;"} Date
-        - @games.keys.each do |week|
-          %td{style: "border-left: 1px dotted #999"} 
-            = week.start_date.strftime("%-m/%-d") 
-            - if [3,4].include?(@league.id)
-              &ndash;
-              = week.end_date.strftime("%-m/%-d")
-      %tr.odd2
-        %td{style: "font-weight: bold;"} Bye
-        - @games.each do |week, games|
-          - if week.playoffs == false
-            - bye_teams = @teams.select{|team| !games.any? {|game| game.home_team == team || game.away_team == team}}.map(&:abbreviation)
-            %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
-          - else
-            %td{style: "border-left: 1px dotted #999"}= "N/A"
-  %p{style:"font-size:12px; font-weight:bold;"}
-  %h3 &nbsp;
-  %ul#weekscores
-    %li
-      %a.weekscores_wk{name: "scores"}
-        %h1 Week
-    - @games.keys.each_with_index do |week, i|
-      - week_name = week.try(:short_name) || (week.name ? (week.name.sub "Week", "") : "0")
-      %li
-        %a.weekscores_wklink{href: "#wk#{(i + 65).chr}"}
-          %h1.weekscores_wkname= week_name
+  .row.sub-body-menu.equal.flexthis{:style => "margin:-.67em 0 0 0"}
+    .col-xs-6.season-container
+      %form{action: "#{schedules_path}", method: "get", style:'font-weight:bold;'}
+        Season:
+        %span.season-dropdown-container
+          =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", params[:season].to_i), { onchange: 'this.form.submit();' }
+          =hidden_field_tag "league", @league.id
+    .col-xs-6{:style => "padding:15px 0"}
+      %p.record_link_container
+        %a#show_byes{href: "#"}
+          Show Dates &amp; Byes
+          %span.caret
+        %a#hide_byes{href: "#"}
+          Hide Dates &amp; Byes
+          %span.upcaret
+  .bye-week-container.table-responsive.inactive
+    %table.table.table-striped.no-hover
+      %thead
+        %tr
+          %th.r-lock Week
+          - @games.keys.each do |week|
+            - week_name = week.try(:short_name) || (week ? (week.name.sub "Week", "") : "0")
+            %th= week_name
+      %tbody
+        %tr
+          %td.r-lock Date
+          - @games.keys.each do |week|
+            %td
+              = week.start_date.strftime("%-m/%-d") 
+              - if [3,4].include?(@league.id)
+                &ndash;
+                = week.end_date.strftime("%-m/%-d")
+        %tr
+          %td.r-lock Bye
+          - @games.each do |week, games|
+            - if week.playoffs == false
+              - bye_teams = @teams.select{|team| !games.any? {|game| game.home_team == team || game.away_team == team}}.map(&:abbreviation)
+              %td{style: "border-left: 1px dotted #999"}= bye_teams.empty? ? "N/A" : bye_teams.join(", ")
+            - else
+              %td{style: "border-left: 1px dotted #999"}= "N/A"
+  .row.equal.week-outer-container.flexthis
+    .week-container Week
+    .weeks-container
+      %ul.week_scores
+        - @games.keys.each_with_index do |week, i|
+        - week_name = week.try(:short_name) || (week.name ? (week.name.sub "Week", "") : "0")
+          %li
+            %a{href: "#wk#{(i + 65).chr}"}
+              = week_name
   - @games.each_with_index do |(week, week_games), i|
     .scores{id: "wk#{(i + 65).chr}"}
       - games_by_location = week_games.group_by {|g| g.location}
       - games_by_location.each do |location, games|
-        %h1
+        %h3
           = location.name
           - if location.map_url.present?
             %a{:href => location.map_url, :target => "_blank"}
               = fa_icon "map-marker"
         - games.each do |game|
-          %p.sep
-            %div{:style=>"display:block;float:left;", :class=>"boxscore"}
+          .row.game-row.equal.flexthis
+            .col-lg-8
               = render "boxscore_summary", game: game, show_week: true
-            = render "boxscore_top_performers", game: game, show_week: true
+            - if game.winner && !game.forfeit
+              .col-lg-4
+                = render "boxscore_top_performers", game: game, show_week: true
+            - else
+              .col-lg-4
+                = render "previous_games", game: game
   = javascript_include_tag "activatables"
   %script{type: "text/javascript"}
     activatables('page', #{@week_links.to_s.html_safe})

@@ -1,5 +1,6 @@
 class StatsController < ActionController::Base
   layout "stats"
+  include StatsHelper
   before_filter :load_sidebar
 
   def index
@@ -91,7 +92,7 @@ class StatsController < ActionController::Base
       @old_team_season = Season.where(id: @old_team_url.season_id).first
     end
   end
-  
+
   def show_schedules
     @show_all = true
     if params[:season] && params[:league]
@@ -100,7 +101,9 @@ class StatsController < ActionController::Base
       @seasons = TeamSpot.where(league_id: @league.id).map(&:season).uniq.sort_by{|season| season[:number]}
       if @season && @league
         @show_all = false
-        @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
+        @all_games = @league.games(@season).order(:date)
+        @games = @all_games.select{|game| not game.week.nil?}.group_by { |game| game.week }
+        # @games = @league.games(@season).order(:date).select{|game| not game.week.nil?}.group_by { |game| game.week }
         @teams = @league.teams(@season)
         
         default_week = @games.keys.select{|week| week.end_date >= 2.days.ago.to_datetime()}.first || @games.keys.last
@@ -113,6 +116,8 @@ class StatsController < ActionController::Base
           end
         end
       end
+    else
+      render :layout => 'no_sidebar'
     end
   end
   
@@ -162,6 +167,8 @@ class StatsController < ActionController::Base
         @leaderboard_totals[:ftpct] = get_records('ftpct', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
         @leaderboard_totals[:ftm] = get_records('ftm', 'season_total', season_id: @season, league_id: @league, count: 5, min_games: min_games)
       end
+    else
+      render :layout => 'no_sidebar'
     end
   end
   
@@ -288,6 +295,8 @@ class StatsController < ActionController::Base
     @season_averages[:ftpct] = get_records('ftpct', 'season_average', season_id: @season, min_games: min_games)
     @season_averages[:ftm] = get_records('ftm', 'season_average', season_id: @season, min_games: min_games)
     @season_averages[:threem] = get_records('threem * 3', 'season_average', season_id: @season, min_games: min_games)
+
+    render :layout => 'no_sidebar'
   end
   
   private
@@ -312,7 +321,7 @@ class StatsController < ActionController::Base
 
   def get_all_time_highs(stat_field)
     StatLine.joins(:player).joins(:game).joins("JOIN teams t ON vs_team_id = t.id").select("players.id as id, players.slug, players.first_name, players.last_name, 
-players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, stat_lines.team_id, stat_lines.game_id,
+players.display_name, players.profile_pic_url, #{stat_field} as total, stat_lines.team_id, stat_lines.game_id,
 to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
             .order("#{stat_field} desc").limit(10)
   end
@@ -335,7 +344,7 @@ to_char(games.date, 'FMMM/FMDD/YY') || ' vs. ' || t.abbreviation as game_desc")
     query = query.where("#{minimum}")
     query = query.where(league_id: options[:league_id]) if options[:league_id]
     
-query.select("players.id, players.slug, players.first_name, players.last_name, players.display_name, players.profile_pic_thumb_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name, teams.slug as team_slug")
+query.select("players.id, players.slug, players.first_name, players.last_name, players.display_name, players.profile_pic_url, #{stat_field} as total, player_stats.team_id, teams.abbreviation as team_name, teams.slug as team_slug")
          .order("#{stat_field} desc").limit(options[:count])
   end
 end

@@ -1,94 +1,66 @@
-.playerbox{style:"padding-left:5px;"}
-  .nameContainer
-    %p.playername= @player.name
-  .headshotContainer
+.row.player-box
+  .col-md-8.col-xs-8.info-container
+    .row
+      .col-md-12.col-xs-12.name-container
+        %h1
+          =@player.name
+          -@player.social_media_urls.take(4).each_with_index do |(type, value), i|
+            %a{href:"#{value}", target:"_blank"}
+              %i.fa{:class => ((type == "facebook") ? "fa-facebook-official" : (type == "linkedin") ? "fa-linkedin-square" : (type == "twitter") ? "fa-twitter-square" : (type == "tumblr") ? "fa-tumblr-square" : (type == "instagram") ? "fa-instagram" : (type == "googleplus") ? "fa-google-plus-square" : (type == "youtube") ? "fa-youtube-square" : (type == "vimeo") ? "fa-vimeo-square" : (type == "email") ? "fa-envelope" : (type == "flickr") ? "fa-flickr" : ""), "aria-hidden" => "true"}
+    .col-md-12
+      .row
+        .col-lg-6.col-xs-12.subhead-container{:style => "padding:0"}
+          %h3{:style => "padding-top:0"}
+            -if @player.last_teams.any?
+              %a{class: "no_underline", href: stats_team_path(@player.last_teams[0])}>= @player.last_teams[0].name
+              -if @player.last_teams.count == 2
+                \/
+                %a{class: "no_underline", href: stats_team_path(@player.last_teams[1])}>= @player.last_teams[1].name
+          %h4 Seasons: #{@player.season_count}
+        .col-lg-6.col-xs-12.highlight-stat-table-container{:style => "padding:0"}
+          %table.table.table-striped.no-hover{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => ""}
+            %thead
+              %tr
+                %th  
+                %th PPG
+                %th RPG
+                %th APG
+                %th SPG
+                %th BPG
+            %tr
+              %td CAREER
+              %td= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@career_averages.trb, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@career_averages.ast, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@career_averages.stl, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: true)
+            %tr
+              %td SEASON
+              %td= number_with_precision(@current_season_averages.points, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@current_season_averages.trb, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@current_season_averages.ast, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@current_season_averages.stl, precision: 1, strip_insignificant_zeros: true)
+              %td= number_with_precision(@current_season_averages.blk, precision: 1, strip_insignificant_zeros: true)
+            %tr
+              %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", "data-delay" => "{\"hide\":\"1000\"}", :title => "ABC+ is an advanced metric that measures a player's overall value in ABC Hoops NYC.<br/>\n<a href='http://www.abchoopsnyc.com/ABCplus.pdf'>Read More</a>"}
+                %img{:src => "../assets/abcplus50.png", :style => "display:block;"}/
+                %span{:style => "display:none;"}
+                  ABC+ is an advanced metric that measures a player's
+                  %br/
+                  overall value in ABC Hoops NYC.
+                  %a{:href => "http://www.abchoops.com/ABCplus.pdf", :target => "_blank"} Read More
+              %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :title => "Rookie: 0.00 - 2.99<br/>\nAll-star: 3.00 - 5.99<br/>\nSuperstar: 6.00 - 10.99<br/>\nHall of Fame: 11.00 - &#8734;", :colspan => "5"}
+                %b 0.98
+                %span{:style => "display:none"}
+                  "Rookie" : 0.00 - 2.99
+                  %br/
+                  "All-star" : 3.00 - 5.99
+                  %br/
+                  "Superstar" : 6.00 - 10.99
+                  %br/
+                  "Hall of Fame" : 11:00 - infinity
+  .col-md-4.col-xs-4.half-ball-background{:style => ""}
     -if not @player.profile_pic_url.blank?
-      .headshotBG
-        .headshot{style:"background: url('#{@player.profile_pic_url}') no-repeat center;"}
+      .player-picture{style:"background: url('#{@player.profile_pic_url}') no-repeat center 0;background-size: 280px 200px"}
     -else
-      .numbersBG
-        %span.playernumbernopic{style:"margin-left:#{@player.last_number.to_s.length == 1 ? 0 : -30}px;"}= @player.last_number
-  .playerteamContainer
-    %p.playerteam
-      -if @player.last_teams.any?
-        %a{class: "no_underline", href: stats_team_path(@player.last_teams[0])}>= @player.last_teams[0].name
-        -if @player.last_teams.count == 2
-          \/
-          %a{class: "no_underline", href: stats_team_path(@player.last_teams[1])}>= @player.last_teams[1].name
-  .bioInfoContainer
-    %table{cellpadding:"1", cellspacing:"0", border:"0", style:"padding:0px; margin-top:6px; margin-left:5px;"}
-      -if not @player.hometown.blank?
-        %tr
-          %td{width:"70px"}
-            %b Hometown:
-          %td= @player.hometown
-      -if not @player.birthday.blank?
-        %tr
-          %td
-            %b Age:
-          %td= @player.calc_age
-      -if not @player.school.blank?
-        %tr
-          %td
-            %b School:
-          %td= @player.school
-      -if not @player.day_job.blank?
-        %tr
-          %td
-            %b Day Job:
-          %td= @player.day_job
-      %tr
-        %td
-          %b Seasons:
-        %td= @player.season_count
-  .highlightContainer
-    %table{cellpadding:"3", cellspacing:"0", border:"0"}
-      %thead.statthead{style:"font-size:12px; outline:1px solid #2e3b56;"}
-        %tr
-          %td &nbsp;
-          %td PPG
-          %td RPG
-          %td APG
-          %td SPG
-          %td BPG
-      %tr.odd2{ style:"font-size:14px; outline:1px solid #000000;" }
-        %td{ style:"font-size:10px;"} CAREER
-        %td.lline= number_with_precision(@career_averages.points, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@career_averages.trb, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@career_averages.ast, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@career_averages.stl, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@career_averages.blk, precision: 1, strip_insignificant_zeros: true)  
-      %tr.even2{ style:"font-size:14px; outline:1px solid #000000;" }
-        %td{ style:"font-size:10px;"} SEASON
-        %td.lline= number_with_precision(@current_season_averages.points, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@current_season_averages.trb, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@current_season_averages.ast, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@current_season_averages.stl, precision: 1, strip_insignificant_zeros: true)
-        %td.lline= number_with_precision(@current_season_averages.blk, precision: 1, strip_insignificant_zeros: true)
-      %tr.odd2{style:"font-size:14px; outline:1px solid #000000;"}
-        %td
-          %p.tooltip.n{style:"margin:0px;"}
-            %img{src:"/assets/abcplus50.png", style:"display:block;"}
-            %span
-              %img{src:""}
-              ABC+ is an advanced metric that measures a player's
-              %br
-              overall value in ABC Hoops NYC.
-              %a{href:"http://www.abchoops.com/ABCplus.pdf", target:"_blank"} Read More
-        %td.lline{colspan:"5", style:"font-size:18px; line-height:18px;"}
-          %p.tooltip.n.abc{style:"margin:0px;"}
-            %b= number_with_precision(@player.abc_plus, precision: 2, strip_insignificant_zeros: true)
-            %span
-              %img{src:""}
-              "Rookie" : 0.00 - 2.99
-              %br
-              "All-star" : 3.00 - 5.99
-              %br
-              "Superstar" : 6.00 - 10.99
-              %br
-              "Hall of Fame" : 11:00 - infinity
-  %div
-    -@player.social_media_urls.take(4).each_with_index do |(type, value), i|
-      %div{class: i == 0 ? "socmedfirst2" : "socmednext2"}
-        %a{href:"#{value}", target:"_blank"}
-          %img{class: "pp#{type}", src:"/assets/abc-player-prof-icons.png"}
+      %h1=@player.last_number

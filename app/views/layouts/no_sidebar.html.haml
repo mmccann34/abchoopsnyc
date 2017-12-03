@@ -1,0 +1,36 @@
+- if @league.present?
+  - current_league_id = @league.id
+- elsif @team_spot.present?
+  - current_league_id = @team_spot.league.id
+- elsif @game.present?
+  - current_league_id = @game.league.id
+- else
+  - current_league_id = 1
+
+<!DOCTYPE html>
+%html
+  %head
+    %title #{yield :title}ABC Hoops NYC
+    %meta{name:"description", content:"ABC Hoops NYC is a recreational basketball league for young professionals in New York City.  The goal of ABCHoopsNYC is to provide a fun and competitive environment to play basketball.  All games are played at full sized gyms in Manhattan and the cost to join is very affordable."}
+    %meta{name:"keywords", content:"basketball, basketball league, basketball league new york, basketball league nyc, basketball league manhattan, recreational basketball league, basketball league signup"}
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    = stylesheet_link_tag  "stats", :media => "all"
+    = jquery_include_tag :google
+    //= javascript_include_tag "application"
+    = javascript_include_tag "stats"
+    = csrf_meta_tags
+    %link(rel="shortcut icon" type="image/ico" href="/assets/favicon.ico")
+    =render "layouts/ga" if Rails.env.production?
+  %body
+    = render "header"
+    .container.main-container
+      .row.equal
+        .col-md-12.col-sm-12.col-xs-12.main-container-no-sidebar
+          = yield
+    .bottom-diag
+    = render "footer"
+    .js-container
+      = javascript_tag do
+        window.currentLeagueId = '#{j current_league_id.to_s}';
+      %script{src: "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"}
+      %script{src: "//cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"}

@@ -1,52 +1,19 @@
 - if game.winner && !game.forfeit
-  %div{:style=>"width:220px;display:block;float:left;margin: 5px 0 0 25px;"}
-    %div{:style=>"width:100%;height:100%;"}
-      %table{:width=>"220", :class=>"statTableTeamStats", :style=>"text-align:center;margin: 0 auto;", :cellspacing=>"0", :cellpadding=>"3"}
-        %thead{:class=>"statTableHead"}
-          %tr
-            %td{:colspan=>"4", :style=>"font-size:14px;"}Top Performers
-        -top_performers = game.top_performers.order(:performer_type)
-        -top_performers.each_with_index do |top_performer, i|
-          %tr{class: "#{cycle('odd', 'even')}"}
-            -last_class = i == (top_performers.length - 1) ? "bline" : ""
-            -if top_performer.player_id
-              %td{class: last_class}
-                %a{href:stats_player_path(top_performer.player_id)}=top_performer.name
-              %td{class: last_class}
-                %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
-            -else
-              %td{:colspan=>"2", class: last_class}
-                %a{:href=>"#", :class=>"not-active"}=top_performer.name
-            %td{:class=>"lline rline #{last_class}"}=top_performer.stat
-        -reset_cycle
-          
-        /   - if game.top_scorer[:player]
-        /     %td
-        /       %a{href:stats_player_path(game.top_scorer[:player])}=game.top_scorer[:name]
-        /     %td=game.top_scorer[:team]
-        /   -else
-        /     %td{:colspan=>"2"}
-        /       %a{:href=>"#", :class=>"not-active"}=game.top_scorer[:name]
-        /   %td{:class=>"lline rline"}="#{game.top_scorer[:points]} Points"
-        / %tr{:class=>"even"}
-        /   -if game.second_top_performer
-        /     - if game.second_top_performer[:player]
-        /       %td
-        /         %a{href:stats_player_path(game.second_top_performer[:player])}=game.second_top_performer[:name]
-        /         %td=game.second_top_performer[:team]
-        /     -else
-        /       %td{:colspan=>"2"}
-        /         %a{:href=>"#", :class=>"not-active"}=game.second_top_performer[:name]
-        /     %td{:class=>"lline rline"}=game.second_top_performer[:stat]
-        /   %tr{:class=>"odd"}
-        /     - if game.third_top_performer
-        /       - if game.third_top_performer[:player]
-        /         %td{:class=>"bline"}
-        /           %a{href:stats_player_path(game.third_top_performer[:player])}=game.third_top_performer[:name]
-        /           %td{:class=>"bline"}=game.third_top_performer[:team]
-        /       - else 
-        /         %td{:class=>"bline", :colspan=>"2"}
-        /           %a{:href=>"#", :class=>"not-active"}=game.third_top_performer[:name]
-        /       %td{:class=>"bline lline rline"}=game.third_top_performer[:stat]
-%div{:style=>"clear:both;"}
-%div.horizsched
+  %table.stats.table.table-striped.top-performers.no-hover{:cellspacing=>"0", :cellpadding=>"3"}
+    %thead
+      %tr
+        %th{:colspan=>"3"}Top Performers
+    -top_performers = game.top_performers.order(:performer_type)
+    -top_performers.each_with_index do |top_performer, i|
+      %tr
+        -last_class = i == (top_performers.length - 1) ? "bline" : ""
+        -if top_performer.player_id
+          %td{class: last_class}
+            %a{href:stats_player_path(top_performer.player_id)}=top_performer.name
+          %td{class: last_class}
+            %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
+        -else
+          %td{:colspan=>"2", class: last_class}
+            %a{:href=>"#", :class=>"not-active"}=top_performer.name
+        %td=top_performer.stat
+    -reset_cycle

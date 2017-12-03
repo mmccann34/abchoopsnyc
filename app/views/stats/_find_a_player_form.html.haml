@@ -1,0 +1,34 @@
+#findaplayer.hide
+  .search-form-container
+    %form#input{:action => "http://stats.abchoops.com/player-search", :method => "get", :name => "input"}
+      %input#playerSearch.findPlayerField{:autocomplete => "off", :name => "player", :placeholder => "Find a Player", :spellcheck => "false", :type => "text"}/
+      %button.findPlayer{:type => "submit"}
+        %i.fa.fa-search
+    :javascript
+      $(function() {
+                $('input#playerSearch').typeahead({
+                  name: "players", 
+                  prefetch: "http://stats.abchoops.com/api/players.json",
+                  template: [
+                    '<div class="details">',
+                    '<p class="name">{{value}}<\/p>',
+                    '<p class="team">{{team}}<\/p>',
+                    '<\/div>',
+                    '<div class="headshotThumbOuter">',
+                    '{{#pic_url}}',
+                    '<div class="headshotThumbContainer noborder">',
+                    '<img src="{{pic_url}}" height="50px" width="50px" />',
+                    '<\/div>',
+                    '{{/pic_url}}',
+                    '{{^pic_url}}',
+                    '<div class="headshotThumbContainer noborder halfball">',
+                    '<span class="playernumbernopicthumb">{{number}}<\/span>',
+                    '<\/div>',
+                    '{{/pic_url}}',
+                    '<\/div>'
+                  ].join(''),
+                  engine: Hogan
+                });
+      
+                $('input#playerSearch').on('typeahead:selected', function(e, datum) { window.location.href = 'http://stats.abchoops.com/players/' + datum.slug; });
+            });

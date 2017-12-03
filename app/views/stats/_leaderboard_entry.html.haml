@@ -1,20 +1,19 @@
-%tr.statthead
-  -headers.each_with_index do |header, i|
-    %td{colspan:"3"}= header
-    -if i != 2
-      %td &nbsp;
--5.times do |row|
-  %tr{class: "#{cycle('odd2', 'even2')}"}
-    -entries.each_with_index do |entry, i|
-      -if not entry[row].nil?
-        %td
-          %a{href:stats_player_path(entry[row].slug)} #{entry[row].display_name.blank? ? entry[row].first_name + " " + entry[row].last_name : entry[row].display_name}
-        %td
-          %a{href:stats_team_path(entry[row].team_slug)}= entry[row].team_name
-        %td= number_with_precision(entry[row].total, precision: precisions[i])
-      -else
-        %td &nbsp;
-        %td &nbsp;
-        %td &nbsp;
-      -if i != 2
-        %td &nbsp;
+.col-md-4.col-sm-6.leaderboard-stat-container
+  %table.table.table-striped.table-stats.table-hover
+    %thead
+      %tr
+        %th{:colspan => "3"}= headers.join(', ')
+    %tbody
+      -5.times do |row|
+        %tr{class: "#{cycle('odd2', 'even2')}"}
+          -entries.each_with_index do |entry, i|
+            -if not entry[row].nil?
+              %td
+                %a{href:stats_player_path(entry[row].slug)} #{entry[row].display_name.blank? ? entry[row].first_name + " " + entry[row].last_name : entry[row].display_name}
+              %td
+                %a{href:stats_team_path(entry[row].team_slug)}= entry[row].team_name
+              %td= number_with_precision(entry[row].total, precision: precisions[i])
+            -else
+              %td &nbsp;
+              %td &nbsp;
+              %td &nbsp;

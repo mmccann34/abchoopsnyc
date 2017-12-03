@@ -1,0 +1,29 @@
+.row{:style => "margin:0"}
+  .col-lg-12.col-md-12.col-sm-6.sidebar-item-container.sidebar-item-container-standings
+    .sidebarContent
+      = render 'sidebar'
+  .col-lg-12.col-md-12.col-sm-6.sidebar-item-container.sidebar-item-container-faq
+    .sidebarContent
+      %div
+        %p.standingsHead FAQ
+        %p Questions about the league?
+        %p
+          Check out the
+          = succeed "." do
+            %a{:href => "faq.html"} FAQ
+  .col-lg-12.col-md-12.col-sm-6.sidebar-item-container.sidebar-item-container-events
+    %p.standingsHead{:style => "word-spacing: -8px;"} Parties / Events
+    %p Let ABC Hoops NYC host your next party or corporate event. We offer gym rentals with the following options:
+    %ul
+      %li Referees
+      %li Scorekeepers
+      %li Photographers
+      %li Videographer
+    %p
+      For more information, email
+      = succeed "." do
+        %a{:href=>'mailto:abchoopsnyc@gmail.com'}abchoopsnyc@gmail.com
+      To check out an event we've hosted
+      = succeed "." do
+        %a{:href=>'http://abchoops.com/events/tualum.shtml'}click here
+  %div{:style => "clear:both;"}

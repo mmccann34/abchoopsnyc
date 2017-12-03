@@ -2,124 +2,85 @@
 %script{:type=>"text/html", :src =>"gal/jquery.fancybox.pack.js"}
 -title @team.name
 %h1= @team.name
-%p
-  %form{action: "#{stats_team_path(@team)}", method: "get", style: 'font-weight:bold;'}
-    Season:
-    =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();', style: 'font-size:12px;' }
-//%p Seasons: #{@team.season_count}
+.row.sub-body-menu
+  .col-lg-4.col-md-6.col-xs-6{:style => "padding:15px 2.5%"}
+    %form{action: "#{stats_team_path(@team)}", method: "get", style: 'font-weight:bold;'}
+      Season:
+      %span.season-dropdown-container
+        =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();' }
 -if @team_spot.team_photo_url.present?
-  %img.teampic{alt:"", src:"#{@team_spot.team_photo_url}"}
--elsif
-  - @old_team_url.present?
-  %img.teampic{alt:"#{@old_team_season.name}", src:"#{@old_team_url.team_photo_url}"}
+  %img.team-pic{alt:"", src:"#{@team_spot.team_photo_url}"}
+-elsif @old_team_url.present?
+  %img.team-pic{alt:"#{@old_team_season.name}", src:"#{@old_team_url.team_photo_url}"}
   %p{:style => "font-size:10px;font-weight:bold;text-align:center"} #{@old_team_season.name}
-%p &nbsp;
 %a#schedule{ name: "schedule" }
 %h1 Schedule
-%p.hl
-%table.statTableTeamStats.maintablestand{ border: "0", width: "800", cellpadding:"5", cellspacing:"0" }
-  %thead.statTableHead
-    %tr
-      %td Week
-      %td Date
-      %td Time
-      %td Opponent
-      %td Location
-      %td{ colspan: "2" } Result
-  %tbody
-    -@weeks.each do |week|
-      -games = @games.select{|g| g.week.try(:id) == week.id}
-      -if games.empty? && !week.playoffs && week != @weeks[-1]
-        %tr{class: "#{cycle('odd', 'even')}"}
-          %td= week.name.blank? ? "N/A" : week.name
-          %td{colspan:"6"}
-            %em BYE
-      -else
-        -games.sort_by{|g| g.date}.each do |game|
-          %tr{class: "#{cycle('odd', 'even')}"}
-            %td
-              %a{href: stats_boxscore_path(game)}= @team_spot.division ? game.boxscore_week_name.gsub("#{@team_spot.division.name} - ", "") : game.boxscore_week_name
-            %td= game.date.to_s(:short_ordinal)
-            %td= game.time.strftime("%l:%M%p")
-            %td
-              -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
-              %a{href: stats_team_path(opponent)}= opponent.name
-            %td
-              = game.location.name
-              - if game.location.map_url.present?
-                %a{:href => game.location.map_url, :target => "_blank"}
-                  = fa_icon "map-marker"
-            - if game.winner
-              - result = game.winner == -1 ? "T" : (game.winner == @team.id ? "W" : "L")
-              %td{ class: result == "T" ? "" : (result == "W" ? "win" : "loss") }= result
-              - if !game.forfeit
-                %td
-                  %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+.table-responsive
+  %table.table.responsive-2.table-striped.table-stats{ border: "0", cellpadding:"0", cellspacing:"0" }
+    %thead
+      %tr
+        %th Week
+        %th Date
+        %th Time
+        %th Opponent
+        %th Location
+        %th{ colspan: "2" } Result
+    %tbody
+      -@weeks.each do |week|
+        -games = @games.select{|g| g.week.try(:id) == week.id}
+        -if games.empty? && !week.playoffs && week != @weeks[-1]
+          %tr
+            %td= week.name.blank? ? "N/A" : week.name
+            %td{colspan:"6"}
+              %em BYE
+        -else
+          -games.sort_by{|g| g.date}.each do |game|
+            %tr
+              %td
+                %a{href: stats_boxscore_path(game)}= @team_spot.division ? game.boxscore_week_name.gsub("#{@team_spot.division.name} - ", "") : game.boxscore_week_name
+              %td= game.date.to_s(:short_ordinal)
+              %td= game.time.strftime("%l:%M%p")
+              %td
+                -opponent = game.home_team.id == @team.id ? game.away_team : game.home_team
+                %a{href: stats_team_path(opponent)}= opponent.name
+              %td
+                = game.location.name
+                - if game.location.map_url.present?
+                  %a{:href => game.location.map_url, :target => "_blank"}
+                    = fa_icon "map-marker"
+              - if game.winner
+                - result = game.winner == -1 ? "T" : (game.winner == @team.id ? "W" : "L")
+                %td{ class: result == "T" ? "tie" : (result == "W" ? "win" : "loss") }= result
+                - if !game.forfeit
+                  %td
+                    %a{href: stats_boxscore_path(game)}= game.home_team.id == @team.id ? "#{game.home_score}-#{game.away_score}" : "#{game.away_score}-#{game.home_score}"
+                - else
+                  %td
+                    %a{href: stats_boxscore_path(game)}
+                      %em Forfeit
               - else
                 %td
-                  %a{href: stats_boxscore_path(game)}
-                    %em Forfeit
-            - else
-              %td
-              %td
-%p.ls &nbsp;
+                %td
 %a#stats{name: "stats"}
 %h1 Team Stats
-%p Per game stats for #{@team.name}:
-%table.statTableUpper{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
-  %colgroup
-    %col{ span:"1", style:"width: 20px;" }
-    %col{ span:"1", style:"width: 105px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-  %tbody
+%h4 Per Game
+%table.table.responsive.responsive-2.table-striped.table-stats.full-boxscore.sortable{cellspacing: "0", cellpadding: "3"}
+  %thead
     %tr
-      %td{colspan:"16", style:"font-size:14px;"}= @team.name
+      %th.r-lock  
+      %th.r-lock  
+      %th{:colspan => "2"} Field Goals
+      %th{:colspan => "2"} 3PT
+      %th{:colspan => "2"} FT
+      %th{:colspan => "3"} Rebounds
+      %th  
+      %th  
+      %th  
+      %th  
+      %th  
     %tr
-      %td{colspan: "2"} &nbsp;
-      %td{colspan: "2"} Field Goals
-      %td{colspan: "2"} 3PT
-      %td{colspan: "2"} FT
-      %td{colspan: "3"} Rebounds
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-%table.statTableTeamStats.sortable{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
-  %colgroup
-    %col{ span:"1", style:"width: 20px;" }
-    %col{ span:"1", style:"width: 105px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-  %thead.statTableHead
-    %tr
-      %th No.
-      %th.sorttable_nosort Name
+      %th.r-lock No.
+      %th.sorttable_nosort.r-lock Name
       %th M-A
       %th %
       %th M-A
@@ -138,99 +99,61 @@
     - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @per_game_player_stats.has_key?(roster_spot.player_id)
         - stats = @per_game_player_stats[roster_spot.player_id]
-        %tr{class: "#{cycle('odd', 'even')}"}
+        %tr
           %td= roster_spot.jersey_number
           %td
             %a{href: stats_player_path(roster_spot.player)}= roster_spot.player.name
-          %td.lline #{number_with_precision(stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stats.fga, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stats.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= stats.fgpct ? number_with_precision(stats.fgpct, precision: 3) : "0.000"
-          %td.lline #{number_with_precision(stats.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stats.threea, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stats.threea, precision: 1, strip_insignificant_zeros: true)}
           %td= stats.threepct ? number_with_precision(stats.threepct, precision: 3) : "0.000"
-          %td.lline #{number_with_precision(stats.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stats.fta, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(stats.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stats.fta, precision: 1, strip_insignificant_zeros: true)}
           %td= stats.ftpct ? number_with_precision(stats.ftpct, precision: 3) : "0.000"
-          %td.lline= number_with_precision(stats.orb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.drb, precision: 1, strip_insignificant_zeros: false)
-          %td= number_with_precision(stats.trb, precision: 1, strip_insignificant_zeros: false)
-          %td.lline= number_with_precision(stats.ast, precision: 1, strip_insignificant_zeros: false)
-          %td.lline= number_with_precision(stats.stl, precision: 1, strip_insignificant_zeros: false)
-          %td.lline= number_with_precision(stats.blk, precision: 1, strip_insignificant_zeros: false)
-          %td.lline= number_with_precision(stats.fl, precision: 1, strip_insignificant_zeros: false)
-          %td.lline= number_with_precision(stats.points, precision: 1, strip_insignificant_zeros: false)
+          %td= number_with_precision(stats.orb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.drb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.trb, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.ast, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.stl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.blk, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.fl, precision: 1, strip_insignificant_zeros: true)
+          %td= number_with_precision(stats.points, precision: 1, strip_insignificant_zeros: true)
   %tfoot
-    %tr.stattotal
+    %tr
       -per_game_stats = @per_game_stats || PlayerStat.new
-      %td &nbsp;
-      %td Total
-      %td.lline #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: false)}
+      %td.r-lock &nbsp;
+      %td.r-lock Total
+      %td #{number_with_precision(per_game_stats.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(per_game_stats.fga, precision: 1, strip_insignificant_zeros: true)}
       %td= number_with_precision(per_game_stats.fgpct, precision: 3)
-      %td.lline #{number_with_precision(per_game_stats.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.threea, precision: 1, strip_insignificant_zeros: false)}
+      %td #{number_with_precision(per_game_stats.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(per_game_stats.threea, precision: 1, strip_insignificant_zeros: true)}
       %td= number_with_precision(per_game_stats.threepct, precision: 3)
-      %td.lline #{number_with_precision(per_game_stats.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(per_game_stats.fta, precision: 1, strip_insignificant_zeros: false)}
+      %td #{number_with_precision(per_game_stats.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(per_game_stats.fta, precision: 1, strip_insignificant_zeros: true)}
       %td= number_with_precision(per_game_stats.ftpct, precision: 3)
-      %td.lline= number_with_precision(per_game_stats.orb, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.drb, precision: 1, strip_insignificant_zeros: false)
-      %td= number_with_precision(per_game_stats.trb, precision: 1, strip_insignificant_zeros: false)
-      %td.lline= number_with_precision(per_game_stats.ast, precision: 1, strip_insignificant_zeros: false)
-      %td.lline= number_with_precision(per_game_stats.stl, precision: 1, strip_insignificant_zeros: false)
-      %td.lline= number_with_precision(per_game_stats.blk, precision: 1, strip_insignificant_zeros: false)
-      %td.lline= number_with_precision(per_game_stats.fl, precision: 1, strip_insignificant_zeros: false)
-      %td.lline= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: false)
-%br
-%p Cumulative stats for #{@team.name}:
-%table.statTableUpper{cellspacing: "0", cellpadding: "3", style: "table-layout:fixed;"}
-  %colgroup
-    %col{ span:"1", style:"width: 20px;" }
-    %col{ span:"1", style:"width: 105px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-  %tbody
+      %td= number_with_precision(per_game_stats.orb, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.drb, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.trb, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.ast, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.stl, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.blk, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.fl, precision: 1, strip_insignificant_zeros: true)
+      %td= number_with_precision(per_game_stats.points, precision: 1, strip_insignificant_zeros: true)
+%h4.space Cumulative
+%table.table.responsive.responsive-2.table-striped.table-stats.full-boxscore.sortable{cellspacing: "0", cellpadding: "3"}
+  %thead
     %tr
-      %td{colspan:"16", style:"font-size:14px;"}= @team.name
+      %th.r-lock  
+      %th.r-lock  
+      %th{:colspan => "2"} Field Goals
+      %th{:colspan => "2"} 3PT
+      %th{:colspan => "2"} FT
+      %th{:colspan => "3"} Rebounds
+      %th  
+      %th  
+      %th  
+      %th  
+      %th  
     %tr
-      %td{colspan: "2"} &nbsp;
-      %td{colspan: "2"} Field Goals
-      %td{colspan: "2"} 3PT
-      %td{colspan: "2"} FT
-      %td{colspan: "3"} Rebounds
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-      %td &nbsp;
-%table#teamstats.sortable.statTableTeamStats{cellspacing: "0", cellpadding: "3", style: "width:800px; table-layout:fixed;"}
-  %colgroup
-    %col{ span:"1", style:"width: 20px;" }
-    %col{ span:"1", style:"width: 105px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 60px;" }
-    %col{ span:"1", style:"width: 35px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-    %col{ span:"1", style:"width: 30px;" }
-  %thead.statthead
-    %tr
-      %th No.
-      %th.sorttable_nosort Name
+      %th.r-lock No.
+      %th.sorttable_nosort.r-lock Name
       %th M-A
       %th %
       %th M-A
@@ -249,42 +172,41 @@
     - @roster.sort_by {|rs| rs.player.last_name}.sort_by {|rs| rs.jersey_number ? rs.jersey_number : 1000}.each do |roster_spot|
       - if @cumulative_player_stats.has_key?(roster_spot.player_id)
         - stats = @cumulative_player_stats[roster_spot.player_id]
-        %tr{class: "#{cycle('odd', 'even')}"}
+        %tr
           %td= roster_spot.jersey_number
           %td
             %a{href: stats_player_path(roster_spot.player)}= roster_spot.player.name
-          %td.lline #{stats.fgm.round}-#{stats.fga.round}
+          %td #{stats.fgm.round}-#{stats.fga.round}
           %td= stats.fgpct ? number_with_precision(stats.fgpct, precision: 3) : "0.000"
-          %td.lline #{stats.threem.round}-#{stats.threea.round}
+          %td #{stats.threem.round}-#{stats.threea.round}
           %td= stats.threepct ? number_with_precision(stats.threepct, precision: 3) : "0.000"
-          %td.lline #{stats.ftm.round}-#{stats.fta.round}
+          %td #{stats.ftm.round}-#{stats.fta.round}
           %td= stats.ftpct ? number_with_precision(stats.ftpct, precision: 3) : "0.000"
-          %td.lline= stats.orb.round
+          %td= stats.orb.round
           %td= stats.drb.round
           %td= stats.trb.round
-          %td.lline= stats.ast.round
-          %td.lline= stats.stl.round
-          %td.lline= stats.blk.round
-          %td.lline= stats.fl.round
-          %td.lline= stats.points.round
+          %td= stats.ast.round
+          %td= stats.stl.round
+          %td= stats.blk.round
+          %td= stats.fl.round
+          %td= stats.points.round
   %tfoot
     - per_game_stats = @cumulative_team_stats || PlayerStat.new #total_stat_lines(@cumulative_player_stats.values)
     %tr.stattotal
-      %td &nbsp;
-      %td Total
-      %td.lline #{per_game_stats.fgm.round}-#{per_game_stats.fga.round}
+      %td.r-lock &nbsp;
+      %td.r-lock Total
+      %td #{per_game_stats.fgm.round}-#{per_game_stats.fga.round}
       %td= number_with_precision(per_game_stats.fgpct, precision: 3)
-      %td.lline #{per_game_stats.threem.round}-#{per_game_stats.threea.round}
+      %td #{per_game_stats.threem.round}-#{per_game_stats.threea.round}
       %td= number_with_precision(per_game_stats.threepct, precision: 3)
-      %td.lline #{per_game_stats.ftm.round}-#{per_game_stats.fta.round}
+      %td #{per_game_stats.ftm.round}-#{per_game_stats.fta.round}
       %td= number_with_precision(per_game_stats.ftpct, precision: 3)
-      %td.lline= per_game_stats.orb.round
+      %td= per_game_stats.orb.round
       %td= per_game_stats.drb.round
       %td= per_game_stats.trb.round
-      %td.lline= per_game_stats.ast.round
-      %td.lline= per_game_stats.stl.round
-      %td.lline= per_game_stats.blk.round
-      %td.lline= per_game_stats.fl.round
-      %td.lline= per_game_stats.points.round
-%br
+      %td= per_game_stats.ast.round
+      %td= per_game_stats.stl.round
+      %td= per_game_stats.blk.round
+      %td= per_game_stats.fl.round
+      %td= per_game_stats.points.round
 =render "glossary"
