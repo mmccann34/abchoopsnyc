@@ -52,7 +52,7 @@ html, body {
     color: #fff;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-    top: 250px;
+    top: 225px;
     font-family: 'Nevis-Bold';
     text-transform: uppercase;
     color: #000;
@@ -740,6 +740,9 @@ html, body {
     font-weight: bold;
     font-style: italic;
     text-align: center;
+  }
+  .standingsTableSun > tbody > tr > .divisionName {
+    text-align:center!important;
   }
   .standingsTableSun {
     width: 100%;
