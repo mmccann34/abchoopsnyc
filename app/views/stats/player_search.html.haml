@@ -2,11 +2,11 @@
 %h1 Search Results
 -if @results.any?
   -@results.each do |player|
-    %div{style: "padding-top:20px; padding-bottom:20px; padding-left:5px;"}
+    %div{style: "padding-top:20px; padding-bottom:20px; padding-left:5px;border-bottom:1px solid #c0c0c0"}
       %div{style:"float:left;"}
         =render "headshot_thumb", player: player
-      %div{style:"float:left; line-height:20px; margin-left:10px; margin-top:5px; word-spacing:3px;border-bottom:1px solid #c0c0c0"}
-        %a{style:"font-size:18px; font-weight:normal;", href:stats_player_path(player)}= player.name
+      %div{style:"float:left;margin-left:10px; margin-top:5px; word-spacing:3px;"}
+        %a.nevis{style:"font-size:20px; font-weight:normal;", href:stats_player_path(player)}= player.name
         -if player.last_team
           %br
           %a{style:"font-weight:normal;", href:stats_team_path(player.last_team)}= player.last_team.name
