@@ -2422,7 +2422,8 @@ html, body {
       margin-top:10px
     }
     .popover {
-      padding-right: 0!important
+      padding-right: 0!important;
+      position:fixed!important
     }
     .twitter-typeahead {
       width: 85.5%!important;
