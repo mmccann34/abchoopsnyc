@@ -774,6 +774,9 @@ html, body {
     font-size: 16px;
     border-right: 1px solid #2e3b56;
   }
+  .time2 {
+    text-align:center!important
+  }
   .table td, .table th {
     text-align: center;
   }
@@ -2311,7 +2314,7 @@ html, body {
     }
   }
   @media (max-width: 500px) {
-    .boxscore .hs, .location span, .full-box span {
+    .boxscore .hs, .location span, .full-box span, .boxscore span.forfeit-message {
       display: none;
     }
   }

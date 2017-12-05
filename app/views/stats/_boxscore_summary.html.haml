@@ -49,7 +49,7 @@
       %td.score.total= game.away_score
     -else
       %td{colspan: "3", style: "text-align:center"}
-        %span
+        %span.forfeit-message
           = game.home_team.id == game.winner ? "#{game.away_team.name} forfeits to #{game.home_team.name}" : "#{game.home_team.name} forfeits to #{game.away_team.name}"
   %tr
     %td &nbsp;
