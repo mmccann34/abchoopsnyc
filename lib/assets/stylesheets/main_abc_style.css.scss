@@ -819,7 +819,12 @@ html, body {
   }
   .home-team-score, .away-team-score {
     text-align: center;
-    padding:0
+    padding:0;
+    word-break: break-all;
+    hyphens: auto;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
   }
   .game-description {
     margin-bottom:15px
