@@ -5,7 +5,7 @@ html, body {
   }
   body:after {
     display: none;
-    content: url(/assets/slam23orange.png);
+    background: image-url("slam23orange.png");
   }
 /*  html {
       overflow: hidden;
@@ -114,7 +114,7 @@ html, body {
     border: none;
   }
   .headshotThumbContainer.halfball {
-    background: url(/assets/ball.png) no-repeat;
+    background: image-url("ball.png") no-repeat;
     background-size: 75px 75px;
     background-color: #fff;
   }
@@ -124,7 +124,6 @@ html, body {
   .playernumbernopicthumb {
     font-family: 'Nevis-Bold', Verdana, Geneva, sans-serif;
     font-size: 52px;
-    margin-left: -3px;
     -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: #fff;
     letter-spacing: -2px;
@@ -219,7 +218,7 @@ html, body {
   height:121px
   }
   .player-of-the-game {width:325px!important}
-  .player-of-the-game > tbody > tr > td.number-container {padding:0;background: url(/assets/ball.png) no-repeat;background-size:90px;width:90px}
+  .player-of-the-game > tbody > tr > td.number-container {padding:0;background: image-url("ball.png") no-repeat;background-size:90px;width:90px}
   td.number-container > a > div {width: 90px;height: 90px;text-align: center;overflow: hidden;}
   td.number-container > a > div > img {position: relative;left: 50%;transform: translate(-50%,0);height: 90px;}
   td.number-container > a {display: block;height: 100%;width: 100%;}
@@ -232,7 +231,7 @@ html, body {
   .lsh {font-weight:bold;font-size:18px}
   .bottom-diag {
     height: 40px;
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     position: relative;
     border-bottom: 2px solid #fff;
@@ -521,7 +520,7 @@ html, body {
     display:inline-block
   }
   .wholeDivider {
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     width: 100%;
     height: 20px;
     float: left;
@@ -589,7 +588,7 @@ html, body {
   }
   .bottom-nav-border {
     height: 4px;
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     width: 100%;
     position: absolute;
@@ -830,7 +829,7 @@ html, body {
     margin-bottom:15px
   }
   .upper-diag-bar {
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     margin: 0;
     padding: 10px;
@@ -843,14 +842,14 @@ html, body {
     margin: 0 auto
   }
   .lower-diag-bar {
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     width: 100%;
     position: inherit;
     border-top: 2px solid #fff;
   }
   .right-bar-container {
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     float: right;
   }
   h8 {
@@ -1004,10 +1003,10 @@ html, body {
   .slam-header-container a {
     display: block;
     margin: 0 auto;
-    background: url('/assets/slam23gray.png');
+    background: image-url("slam23gray.png");
   }
   .slam-header-container a:hover {
-    background: url('/assets/slam23orange.png');
+    background: image-url("slam23orange.png");
   }
   .soc-media-header-container {
     width: 14.5%;
@@ -1186,7 +1185,7 @@ html, body {
   }
   .bottom-footer-bar {
     height: 40px;
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     width: 100%;
     position: relative;
@@ -1194,7 +1193,7 @@ html, body {
   }
   .slide-controls {
     height: 40px;
-    background: url(/assets/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     width: 100%;
     position: relative;
@@ -1751,7 +1750,7 @@ html, body {
     background-color:#fff
   }
   .half-ball-background {
-    background: url(../assets/half-ball.png) no-repeat;
+    background: image-url("half-ball.png") no-repeat;
     background-size: contain;
     background-position: right;
     margin-top: 0px;
@@ -1932,7 +1931,7 @@ html, body {
     width: 100%;
   }
   .diag-bar {
-    background: url(../../../images/bodydiaglines.png);
+    background: image-url("bodydiaglines.png");
     background-color: #fff;
     width: 100%;
     border-top: 2px solid #fff;
@@ -2479,7 +2478,7 @@ html, body {
       display:none;
     }
     .nav-bottom-diag {
-      background: url(/assets/bodydiaglines.png);
+      background: image-url("bodydiaglines.png");
       background-color: #fff;
       width: 100%;
       position: inherit;
