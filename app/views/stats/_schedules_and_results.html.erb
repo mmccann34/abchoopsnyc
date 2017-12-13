@@ -6,7 +6,7 @@
           </div>
           <ul class="sched_days three_days">
             <li class="main-button">
-              <a class="active-season" href=<%="/#{mode}?season=32&league=1"%>>
+              <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=1"%>>
                 Sunday
                 <% if mode != "schedules" %>
                   <ul class="active-season-list">
@@ -18,7 +18,7 @@
               </a>
             </li>
             <li class="main-button">
-              <a class="active-season" href=<%="/#{mode}?season=32&league=2"%>>
+              <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=2"%>>
                 Saturday
                 <% if mode != "schedules" %>
                   <ul class="active-season-list">
@@ -30,7 +30,7 @@
               </a>
             </li>
             <li class="main-button">
-              <a class="active-season" href=<%="/#{mode}?season=32&league=3"%>>
+              <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=3"%>>
                 Weekday
                 <% if mode != "schedules" %>
                   <ul class="active-season-list">
@@ -44,32 +44,75 @@
           </ul>
         </div>
         <h1 style="margin-top:15px">Prior Seasons' Scores &amp; Schedule</h1>
-      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season26.png');">
-          <div class="season_container">
-            <h1>Summer 2017</h1>
-            <h3>Season 26</h3>
-          </div>
-          <ul class="sched_days two_days">
-            <li class="main-button">
-              <a href=<%="/#{mode}?season=31&league=1"%>> Sunday
-              <ul class="championship-list">
-                <li class="division">Robinson Champ</li>
-                <li>The McFlys</li>
-                <li class="division">Kerr Champ</li>
-                <li>bAllstars</li>
-              </ul></a>
-            </li>
-            <li class="main-button">
-              <a href=<%="/#{mode}?season=31&league=3"%>> Weekday
-              <ul class="championship-list">
-                <li class="division">Ewing Champ</li>
-                <li>SD Thundering Herd</li>
-                <li class="division">Johnson Champ</li>
-                <li>Lipi's Losers</li>
-              </ul></a>
-            </li>
-          </ul>
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season27.png');">
+        <div class="season_container">
+          <h1>Fall 2017</h1>
+          <h3>Season 27</h3>
         </div>
+        <ul class="sched_days three_days">
+          <li class="main-button">
+            <a href=<%="/#{mode}?season=32&league=1"%>> Sunday
+              <ul class="championship-list">
+                <li class="division">Gaudi Champ</li>
+                <li>Chiefs</li>
+                <li class="division">Foster Champ</li>
+                <li>Mezzan and Main</li>
+                <li class="division">Hadid Champ</li>
+                <li>Super Soul Sonics</li>
+              </ul>
+            </a>
+          </li>
+          <li class="main-button">
+            <a href=<%="/#{mode}?season=32&league=2"%>> Saturday
+              <ul class="championship-list">
+                <li class="division">Pei Champ</li>
+                <li>TBD</li>
+                <li class="division">Ingels Champ</li>
+                <li>TBD</li>
+              </ul>
+            </a>
+          </li>
+          <li class="main-button">
+            <a href=<%="/#{mode}?season=32&league=3"%>> Weekday
+              <ul class="championship-list">
+                <li class="division">Wright Champ</li>
+                <li>Raw Sports Productions</li>
+                <li class="division">Gehry Champ</li>
+                <li>Houlie Hoopers</li>
+                <li class="division">Nouvel Champ</li>
+                <li>Lights Out</li>
+              </ul>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season26.png');">
+        <div class="season_container">
+          <h1>Summer 2017</h1>
+          <h3>Season 26</h3>
+        </div>
+        <ul class="sched_days two_days">
+          <li class="main-button">
+            <a href=<%="/#{mode}?season=31&league=1"%>> Sunday
+            <ul class="championship-list">
+              <li class="division">Robinson Champ</li>
+              <li>The McFlys</li>
+              <li class="division">Kerr Champ</li>
+              <li>bAllstars</li>
+            </ul></a>
+          </li>
+          <li class="main-button">
+            <a href=<%="/#{mode}?season=31&league=3"%>> Weekday
+            <ul class="championship-list">
+              <li class="division">Ewing Champ</li>
+              <li>SD Thundering Herd</li>
+              <li class="division">Johnson Champ</li>
+              <li>Lipi's Losers</li>
+            </ul></a>
+          </li>
+        </ul>
+      </div>
 
       <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season25.png');">
           <div class="season_container">
