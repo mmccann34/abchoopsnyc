@@ -930,53 +930,14 @@ html, body {
     background-color: #fff!important;
     height: 28px
   }
-  .tt-hint {
-    width: 100%
-  }
-  .tt-dropdown-menu {
-    width: 100%;
-    top: inherit!important;
-    background-color: #fff;
-    border: 1px solid #c0c0c0;
-    border-bottom: none
-  }
   .twitter-typeahead:nth-child(2) {
     width: 100%
   }
   .findPlayer .fa-search {
     color: #fff
   }
-  .tt-suggestion .details {
-    width: calc(100% - 65px);
-    float: right;
-    font-weight: bold;
-    padding-top: 5px;
-  }
-  .tt-suggestion .team, .tt-suggestion .name {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .tt-suggestion .headshotThumbOuter {
-    float: left;
-    border: 2px #5a5a5a solid;
-    height: 60px;
-    width: 60px;
-  }
-  .tt-suggestion .headshotThumbContainer.halfball {
-    background-size: 60px 60px;
-  }
-  .tt-suggestion {
-    height: 70px;
-    width: 100%;
-    border-bottom: 1px solid #c0c0c0;
-    padding: 5px
-  }
   .tt-suggestion .playernumbernopicthumb {
     font-size: 44px;
-  }
-  .tt-suggestion:hover {
-    background-color: #c0c0c0
   }
   a.dropdown-toggle {
     z-index: 100
