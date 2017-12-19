@@ -55,7 +55,7 @@
   :javascript
     $(document).ready(function() {
       $(".fancybox").fancybox({
-      slideShow  : false,
+        slideShow  : false,
         fullScreen : true,
         thumbs     : false,
         closeBtn   : true,
@@ -64,12 +64,10 @@
   .dashed-divider
   %ul.game-thumbs
     - pic_count = @game.photo_urls.count
-    - if pic_count > 5
-      - pic_count = pic_count/2
     - @game.photo_urls.each do |url|
-      %li
+      %li{:class => 'count' + pic_count.to_s + 'thumbs'}
         %a{"data-fancybox" => "group", :href => url, :rel => "group"}
-          %img.img-responsive{:class => 'count' + pic_count.to_s + 'thumbs', :src => url }/
+          %img.img-responsive{:src => url }/
 %div{:style => "clear:both"}
 .dashed-divider
 %a#fullboxscore{:name => "fullboxscore"}

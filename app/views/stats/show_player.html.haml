@@ -61,11 +61,11 @@
           %tr
             %td Total
             %td= splits_totals.game_count
-            %td #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision(splits_totals.fgpct, precision: 3)
-            %td #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision(splits_totals.threepct, precision: 3)
-            %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision(splits_totals.ftpct, precision: 3)
             %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: true)
             %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: true)
@@ -84,11 +84,11 @@
               %tr
                 %td= stat.split_name
                 %td=  stat.game_count
-                %td #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: false)}
+                %td #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
                 %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
-                %td #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: false)}
+                %td #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}
                 %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
-                %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: false)}
+                %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: true)}
                 %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
                 %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
                 %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
@@ -102,11 +102,11 @@
           %tr
             %td.r-lock Total
             %td= splits_totals.game_count
-            %td #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(splits_totals.fga, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision(splits_totals.fgpct, precision: 3)
-            %td #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(splits_totals.threea, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision(splits_totals.threepct, precision: 3)
-            %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(splits_totals.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(splits_totals.fta, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision(splits_totals.ftpct, precision: 3)
             %td= number_with_precision(splits_totals.orb, precision: 1, strip_insignificant_zeros: true)
             %td= number_with_precision(splits_totals.drb, precision: 1, strip_insignificant_zeros: true)
@@ -265,11 +265,11 @@
           %tr
             %td= stat.season_number
             %td= link_to stat.team.abbreviation, stats_team_path(stat.team, season: stat.season_id)
-            %td #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(stat.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fga, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision((stat.fgpct ? stat.fgpct : 0), precision: 3)
-            %td #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(stat.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.threea, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision((stat.threepct ? stat.threepct : 0), precision: 3)
-            %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: false)}
+            %td #{number_with_precision(stat.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(stat.fta, precision: 1, strip_insignificant_zeros: true)}
             %td= number_with_precision((stat.ftpct ? stat.ftpct : 0), precision: 3)
             %td= number_with_precision(stat.orb, precision: 1, strip_insignificant_zeros: true)
             %td= number_with_precision(stat.drb, precision: 1, strip_insignificant_zeros: true)
@@ -283,11 +283,11 @@
         %tr
           %td.r-lock Career
           %td.r-lock Avg
-          %td #{number_with_precision(@career_averages.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(@career_averages.fga, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(@career_averages.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@career_averages.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(@career_averages.fgpct, precision: 3)
-          %td #{number_with_precision(@career_averages.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(@career_averages.threea, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(@career_averages.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@career_averages.threea, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(@career_averages.threepct, precision: 3)
-          %td #{number_with_precision(@career_averages.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(@career_averages.fta, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(@career_averages.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(@career_averages.fta, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(@career_averages.ftpct, precision: 3)
           %td= number_with_precision(@career_averages.orb, precision: 1, strip_insignificant_zeros: true)
           %td= number_with_precision(@career_averages.drb, precision: 1, strip_insignificant_zeros: true)
@@ -374,11 +374,11 @@
           -average_per_season_totals = average_stat_lines(@career_season_totals)
           %td.r-lock Avg
           %td.r-lock Season
-          %td #{number_with_precision(average_per_season_totals.fgm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fga, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(average_per_season_totals.fgm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(average_per_season_totals.fga, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(average_per_season_totals.fgpct, precision: 3)
-          %td #{number_with_precision(average_per_season_totals.threem, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.threea, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(average_per_season_totals.threem, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(average_per_season_totals.threea, precision: 1, strip_insignificant_zeros:  true)}
           %td= number_with_precision(average_per_season_totals.threepct, precision: 3)
-          %td #{number_with_precision(average_per_season_totals.ftm, precision: 1, strip_insignificant_zeros: false)}-#{number_with_precision(average_per_season_totals.fta, precision: 1, strip_insignificant_zeros: false)}
+          %td #{number_with_precision(average_per_season_totals.ftm, precision: 1, strip_insignificant_zeros: true)}-#{number_with_precision(average_per_season_totals.fta, precision: 1, strip_insignificant_zeros: true)}
           %td= number_with_precision(average_per_season_totals.ftpct, precision: 3)
           %td= number_with_precision(average_per_season_totals.orb, precision: 1, strip_insignificant_zeros: true)
           %td= number_with_precision(average_per_season_totals.drb, precision: 1, strip_insignificant_zeros: true)

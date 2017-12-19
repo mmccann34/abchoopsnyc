@@ -64,7 +64,7 @@ input.tt-hint {
 }
 
 .tt-suggestion:hover {
-    background-color: #c0c0c0;
+    background-color: #2e3b56;
 }
 
 @media (min-width:768px) {
