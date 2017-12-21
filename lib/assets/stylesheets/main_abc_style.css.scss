@@ -110,6 +110,13 @@ html, body {
     text-decoration: none !important;
     text-align: center;
   }
+  .tt-suggestion .headshotThumbContainer {
+    overflow:hidden
+  }
+  .tt-suggestion .headshotThumbContainer > img {
+    height:100%;
+    margin:0 -50%
+  }
   .headshotThumbContainer.noborder {
     border: none;
   }
@@ -1493,6 +1500,7 @@ html, body {
   .record-book-entry .playernumbernopicthumb {
     line-height: 50px;
     font-size: 40px;
+    margin-left:-3px
   }
   .sub-body-menu, .nevis {
     font-family: 'Nevis-Bold', Verdana, Geneva, sans-serif;
