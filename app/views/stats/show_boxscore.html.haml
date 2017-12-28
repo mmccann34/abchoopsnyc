@@ -3,9 +3,9 @@
   .col-md-4.col-md-push-4.col-sm-12.col-xs-12.game-description{:style => "text-align:center"}
     %div{:style => "margin:auto;"}
       %p.game-detail 
-        %a{href: schedules_path(season: @game.season.id, league: @game.league.id)} #{@game.season.name} - #{@game.league.name}
+        %a{href: schedules_path(season: @game.season_id, league: @game.league_id)} #{@game.season.name} - #{@game.league.name}
       %p.game-detail
-        %a{href: schedules_path(season: @game.season.id, league: @game.league.id) + '#page=wk' + week_schedule_link(@game)} #{@game.week_name} - #{@game.date.strftime("%A %-m/%-d")}
+        %a{href: schedules_path(season: @game.season_id, league: @game.league_id) + '#page=wk' + week_schedule_link(@game)} #{@game.week_name} - #{@game.date.strftime("%A %-m/%-d")}
       %p.game-detail= @game.time.strftime("%l:%M%p")
   .col-md-4.col-md-pull-4.col-sm-6.col-xs-6.home-team-score
     %div{:style => "margin:auto;"}
