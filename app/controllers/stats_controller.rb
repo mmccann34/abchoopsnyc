@@ -53,17 +53,6 @@ class StatsController < ActionController::Base
     @ot_three = @game.home_score_ot_three != 0 || @game.away_score_ot_three != 0
     @divisions = @game.season.divisions
     @current_season = @game.season
-    @thumb_width = 149
-    if @game.photo_urls && @game.photo_urls.count < 5
-      case @game.photo_urls.count
-      when 4
-        @thumb_width = 187
-      when 3
-        @thumb_width = 249
-      when 2
-        @thumb_width = 374
-      end
-    end
   end
   
   def show_team

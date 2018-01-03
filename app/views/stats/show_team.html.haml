@@ -9,7 +9,7 @@
       %span.season-dropdown-container
         =select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @current_season.id), { onchange: 'this.form.submit();' }
 -if @team_spot.team_photo_url.present?
-  %img.team-pic{alt:"", src:"#{@team_spot.team_photo_url}"}
+  %img.team-pic{alt:"#{@team.name}", src:"#{@team_spot.team_photo_url}"}
 -elsif @old_team_url.present?
   %img.team-pic{alt:"#{@old_team_season.name}", src:"#{@old_team_url.team_photo_url}"}
   %p{:style => "font-size:10px;font-weight:bold;text-align:center"} #{@old_team_season.name}

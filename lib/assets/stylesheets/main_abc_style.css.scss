@@ -527,6 +527,21 @@ html, body {
   #show_byes > span.caret {
     display:inline-block
   }
+  .location i.fa-map-marker {
+    display:block;
+    color:#e07000;
+    line-height:20px
+  }
+  .location a:hover, .location i.fa-map-marker:hover {
+    color:#5a5a5a;
+    text-decoration:none
+  }
+  .location span.played {
+    display:block
+  }
+  .location span {
+    float:left
+  }
   .wholeDivider {
     background: image-url("bodydiaglines.png");
     width: 100%;
@@ -1695,7 +1710,6 @@ html, body {
   .team-pic {
     border: 3px solid #5a5a5a;
     border-radius: 0px;
-    width: inherit;
     margin: 0 auto 20px;
   }
   /* PLAYER PAGE */
@@ -2293,7 +2307,7 @@ html, body {
     }
   }
   @media (max-width: 500px) {
-    .boxscore .hs, .location span, .full-box span, .boxscore span.forfeit-message {
+    .boxscore .hs, .location span.played, .full-box span, .boxscore span.forfeit-message {
       display: none;
     }
   }

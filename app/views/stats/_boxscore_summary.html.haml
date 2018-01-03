@@ -54,8 +54,11 @@
   %tr
     %td &nbsp;
     %td.location
-      %span Played at the
-      #{game.location.try(:name)}
+      %span.played Played at the&nbsp;
+      %span.location-name #{game.location.try(:name)}&nbsp;
+      - if game.location.map_url.present?
+        %a{:href => game.location.map_url, :target => "_blank"}
+          = fa_icon "map-marker"
     %td.hs &nbsp;
     - if ot_two
       %td.hs(width="10") &nbsp;
