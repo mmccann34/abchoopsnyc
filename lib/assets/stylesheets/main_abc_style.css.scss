@@ -530,7 +530,9 @@ html, body {
   .location i.fa-map-marker {
     display:block;
     color:#e07000;
-    line-height:20px
+    line-height:20px;
+    width: 30px;
+    float: left;
   }
   .location a:hover, .location i.fa-map-marker:hover {
     color:#5a5a5a;
