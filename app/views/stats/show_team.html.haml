@@ -11,7 +11,7 @@
 -if @team_spot.team_photo_url.present?
   %img.team-pic{alt:"#{@team.name}", src:"#{@team_spot.team_photo_url}"}
 -elsif @old_team_url.present?
-  %img.team-pic{alt:"#{@old_team_season.name}", src:"#{@old_team_url.team_photo_url}"}
+  %img.team-pic.img-responsive{alt:"#{@old_team_season.name}", src:"#{@old_team_url.team_photo_url}"}
   %p{:style => "font-size:10px;font-weight:bold;text-align:center"} #{@old_team_season.name}
 %a#schedule{ name: "schedule" }
 %h1 Schedule
