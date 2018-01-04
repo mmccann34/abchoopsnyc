@@ -24,7 +24,7 @@ private
         player.last_name,
         player.display_name,
         player.last_team.try(:name),
-        player.number,
+        player.last_number,
         player.position,
         player.height,
         player.school,
