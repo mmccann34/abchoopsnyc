@@ -37,7 +37,7 @@ gem 'protected_attributes'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '5.0.4'
+  gem 'sass-rails',   '5.0.6'
   gem 'coffee-rails', '4.1.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
