@@ -173,7 +173,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    pg (1.0.0)
+    pg (0.21.0)
     protected_attributes (1.1.4)
       activemodel (>= 4.0.1, < 5.0)
     pry (0.11.3)
@@ -312,7 +312,7 @@ DEPENDENCIES
   minitest
   newrelic_rpm
   paperclip (~> 3.0)
-  pg
+  pg (~> 0.21)
   protected_attributes
   puma
   rack-timeout
@@ -328,5 +328,8 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   will_paginate (~> 3.0.5)
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.12.5
+   1.16.1

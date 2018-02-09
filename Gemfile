@@ -7,7 +7,7 @@ gem 'rails', '4.2.5.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+gem 'pg', '~> 0.21'
 # gem 'sqlite3'
 gem 'simple_form'
 gem "paperclip", "~> 3.0"
