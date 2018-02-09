@@ -61,6 +61,6 @@
                   "Hall of Fame" : 11:00 - infinity
   .col-md-4.col-xs-4.half-ball-background{:style => ""}
     -if not @player.profile_pic_url.blank?
-      .player-picture{style:"background: url('#{@player.profile_pic_url}') no-repeat center 0;background-size: 280px 200px"}
+      .player-picture{style:"background: url('#{@player.profile_pic_url}') no-repeat center 0;background-size: contain"}
     -else
       %h1=@player.last_number
