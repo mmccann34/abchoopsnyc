@@ -1,8 +1,11 @@
 class Game < ActiveRecord::Base
   attr_accessible :away_team_id, :home_team_id, :season_id, :home_score_first, :home_score_second, :home_score_ot_one, :home_score_ot_two, :home_score_ot_three, 
   :away_score_first, :away_score_second, :away_score_ot_one, :away_score_ot_two, :away_score_ot_three, :date, :time, :location_id, :forfeit, :winner, :league_id,
-  :playoff_round
+  :playoff_round, :no_of_urls, :url_template, :photo_urls
   serialize :photo_urls
+  
+  attr_writer :url_template, :url_number, :no_of_urls
+
   validates :away_team_id, :home_team_id, :location_id, :league_id, :season_id, presence: true
 
   belongs_to :home_team, class_name: 'Team', foreign_key: 'home_team_id'
@@ -331,6 +334,19 @@ class Game < ActiveRecord::Base
     stats_string
   end
 
+  def url_template
+    unless self.photo_urls.blank?
+      self.photo_urls.first.to_s.split(/\d*.jpg/).first
+    end
+  end
+
+  def url_number
+    @url_number.nil? ? photo_urls.to_s.split(/(?!\d*.jpg)./).last.to_i : @url_number
+  end
+
+  def no_of_urls
+
+  end
 
   private
   def surrounding_games(game)

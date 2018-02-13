@@ -11,17 +11,34 @@
   <%= f.input :playoff_round, placeholder: 'Playoff Round' %>
   <p style="font-weight:bold;">Photo URLs</p>
   <div id="photo_urls">
-  <% if (not @game.photo_urls.nil?) && @game.photo_urls.any? %>
-    <% @game.photo_urls.each_with_index do |url, i| %>
-      <%= text_field_tag "photo_urls[#{i+1}]", url, class: 'input-block-level' %>
-    <% end %>
-  <% else %>
-    <% 5.times do |i| %>       
-      <%= text_field_tag "photo_urls[#{i+1}]", "", placeholder: 'Photo URL', class: 'input-block-level' %>
+
+  <% if @game.photo_urls.nil? || @game.photo_urls.empty? %>
+    <%= f.text_field :url_template, placeholder: 'URL Template' %> <%= f.text_field :no_of_urls, placeholder: 'No. of URLS' %>
+  <% end %>
+  <% if @game.photo_urls.present? %> 
+<p><b>URL Template</b><br/><%= @game.url_template %></p>
+<p><b>File Names</b></p>
+  <ul>
+    <% @game.photo_urls.each do |url| %>
+    <li><%= url.split(/\/(...)\//).last %>
     <% end %>
   <% end %>
+  </ul>
+  <!-- MAKE EDIT WORK -->
+  <p><%= link_to('Clear URLs', clear_photos_game_path(@game)) %> | <%= link_to "Edit URLs", "#", id: "edit-urls" %></p>
+  <fieldset id="urls" style="display:none">
+    <% if @game.photo_urls.present? %> 
+      <% @game.photo_urls.each_with_index do |url, index| %>
+        <div class="url_set" id="url_set<%= index %>">
+            <input type="text" class="input-block-level photo_url_input" value="<%= url %>" name="game[photo_urls][]">
+            <a class="delete_url">Delete</a>
+        </div>
+      <% end %>
+    <% end %>
+  </fieldset>
+
   </div>
-  <button id="add_photo_url" type="button" class="btn btn-info" style="margin-bottom:20px;">Add Photo URL</button>
+  <!-- <button id="add_photo_url" type="button" class="btn btn-info" style="margin-bottom:20px;">Add Photo URL</button> -->
   <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
 </fieldset>
 <% end %>

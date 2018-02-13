@@ -30,10 +30,13 @@ Abchoops::Application.routes.draw do
         get 'boxscore' => "boxscores#show"
         get 'boxscore/edit' => "boxscores#edit"
         put 'boxscore/edit' => "boxscores#update"
+        get 'clear_photos'
       end
       collection do
         get 'resave' => "games#resave"
+        delete 'remove_url' => "games#remove_url"
       end
+
     end
     
     resources :seasons do

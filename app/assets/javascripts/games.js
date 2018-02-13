@@ -8,8 +8,14 @@ $(function() {
       count++;
     }
   });
+
+  $(document).on("click","#edit-urls", function(e){
+    $("#urls").show();
+    e.preventDefault();
+  });
   
   $('#add_photo_url').click(addPhotoUrl);
+  $('.delete_url').click(removePhotoUrl);
 });
 
 function addPhotoUrl() {
@@ -22,4 +28,11 @@ function addPhotoUrl() {
     id: "photo_urls_" + i,
     name: "photo_urls[" + i + "]"
   }).val('').appendTo('#photo_urls');
+}
+
+function removePhotoUrl() {
+  cache = $(this).closest(".url_set")
+    cache.fadeOut
+      cache.remove()
+      null
 }
