@@ -36,3 +36,20 @@ function removePhotoUrl() {
       cache.remove()
       null
 }
+
+$(document).ready(function(){
+  $(".game_photos_indicator").hide();
+  $('.hide_game_photos').hide();
+  $(".show_game_photos").show();
+
+  $('.show_game_photos').click(function(){
+    $(".game_photos_indicator").show();
+    $('.hide_game_photos').show();
+    $('.show_game_photos').hide();
+  });
+  $('.hide_game_photos').click(function(){
+    $(".game_photos_indicator").hide();
+    $('.hide_game_photos').hide();
+    $('.show_game_photos').show();
+  });
+});

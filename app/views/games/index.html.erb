@@ -6,17 +6,20 @@
   <%= select_tag "season", options_from_collection_for_select(@seasons, "id", "name", @selected_season.id), { onchange: 'this.form.submit();'} %>
 </form>
 <% if @games %>
-
+<p style="margin-top:15px">Game Photos Indicator: <btn class="hide_game_photos btn btn-small btn-info" href="#">Hide</btn><a class="show_game_photos btn btn-small btn-info" href="#">Show</a> </p>
   <% @games.group_by{ |g| g.date.to_date }.each do |date, games| %>
     <ul class="unstyled">
       <hr />
-      <h3><%= date.strftime('%m/%d/%Y') %></h3>
+      <h3><%= date.strftime('%m/%d/%Y - %A') %></h3>
       <% games.group_by{ |g| g.league }.each do |league, games| %> 
           <% games.group_by{ |g| g.location }.each do |location, games| %> 
             <h5><%= league.name %> - <%= location.name %></h5>
             <% games.sort_by{ |g| g.date }.each do |game| %>
               <li id="game_<%= game.id %>">
                 <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name}" %>
+                <% if game.date < Time.now %>
+                  <span class="game_photos_indicator"><%= game.photo_urls.nil? ? "\u274C" : "\u2705" %></span>
+                <% end %>
                 | <%= link_to 'Edit', edit_game_path(game) %>
                 | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
                 | <%= link_to 'View Box Score', boxscore_game_path(game) %>
