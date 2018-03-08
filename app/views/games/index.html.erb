@@ -17,7 +17,7 @@
             <% games.sort_by{ |g| g.date }.each do |game| %>
               <li id="game_<%= game.id %>">
                 <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name}" %>
-                <% if game.date < Time.now %>
+                <% if game.date < Time.now && game.forfeit != TRUE %>
                   <span class="game_photos_indicator"><%= game.photo_urls.nil? ? "\u274C" : "\u2705" %></span>
                 <% end %>
                 | <%= link_to 'Edit', edit_game_path(game) %>
