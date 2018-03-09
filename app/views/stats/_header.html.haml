@@ -27,11 +27,11 @@
         %span.icon-bar
       #color_logo.header-aside
         %a{:href => "http://abchoops.com"}
-          %img.header-logo{:src => "/assets/whitelogo.png"}/
+          =image_tag 'whitelogo.png', class: 'header-logo'
       #myNavbar.collapse.navbar-collapse
         .header_slide_logo_container{:style => "border:none"}
           %a{:href => "http://abchoops.com"}
-            %img.header-logo.white-header-logo{:src => "/assets/whitelogo.png"}/
+            =image_tag 'whitelogo.png', class: 'header-logo white-header-logo'
         %ul.nav.navbar-nav
           %li.dropdown-fixed.dropdown-fixed-theleague
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "http://abchoops.com/theleague.html"}
