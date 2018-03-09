@@ -1,5 +1,5 @@
         <h1><%="Current Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
-        <div class="sched_block" style="background-image:url(/assets/ball.png);">
+        <div class="sched_block current_sched">
           <div class="season_container">
             <h1>IBL</h1>
             <h3>Winter '17-'18</h3>
@@ -19,7 +19,7 @@
             </li>
           </ul>
         </div>
-        <div class="sched_block" style="background-image:url(/assets/ball.png);">
+        <div class="sched_block current_sched">
           <div class="season_container">
             <h1><%= Season.current.name %></h1>
             <h3>Season <%= Season.current.number %></h3>

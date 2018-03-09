@@ -43,7 +43,7 @@
               %td= number_with_precision(@current_season_averages.blk, precision: 1, strip_insignificant_zeros: true)
             %tr
               %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", "data-delay" => "{\"hide\":\"1000\"}", :title => "ABC+ is an advanced metric that measures a player's overall value in ABC Hoops NYC.<br/>\n<a href='http://www.abchoopsnyc.com/ABCplus.pdf'>Read More</a>"}
-                %img{:src => "../assets/abcplus50.png", :style => "display:block;"}/
+                =image_tag "abcplus50.png", style: 'display:block'
                 %span{:style => "display:none;"}
                   ABC+ is an advanced metric that measures a player's
                   %br/

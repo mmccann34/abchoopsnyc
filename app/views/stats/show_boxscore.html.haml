@@ -42,7 +42,7 @@
                 &ndash;
                 %a{:href=>stats_team_path(@game.player_of_the_game[:team])}=@game.player_of_the_game[:team].abbreviation
               %td{"data-container" => "body", "data-html" => "true", "data-toggle" => "tooltip", :rowspan => "2", :title => "<b>Win Probability Added</b><br/>\nWeighs the contribution of each player to see how \nmuch their actions added to the probability that \ntheir team wins the game.<br/><b>#{@game.player_of_the_game[:name]} added #{@game.player_of_the_game[:wpa]}% to #{@game.player_of_the_game[:team].name}'s \nchance of winning the game.</b>"}
-                %img{:src => "http://stats.abchoopsnyc.com/assets/abcplus50.png"}/
+                =image_tag "abcplus50.png"
                 %p{:style => "margin:0px;font-size:10px;font-weight:bold;"} WPA
                 %p{:style => "margin:0px;font-size:16px;font-weight:bold;"}
                   #{@game.player_of_the_game[:wpa]} %
