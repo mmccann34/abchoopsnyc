@@ -876,7 +876,6 @@ html, body {
     background-color: #fff;
     width: 100%;
     position: inherit;
-    border-top: 2px solid #fff;
   }
   .right-bar-container {
     background: image-url("bodydiaglines.png");
@@ -2900,7 +2899,8 @@ html, body {
     }
     .navbar-collapse {
       padding: 0 2.5%!important;
-      border-top:2px solid #fff
+      border-top:2px solid #fff;
+      border-bottom:2px solid #fff
     }
     li.dropdown-fixed, li.record-books {
       text-align: center
