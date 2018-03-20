@@ -18,7 +18,7 @@
               <li id="game_<%= game.id %>">
                 <%= "#{game.date.strftime('%l:%M %p')}: #{game.away_team.name} @ #{game.home_team.name}" %>
                 <% if game.date < Time.now && game.forfeit != TRUE %>
-                  <span class="game_photos_indicator"><%= game.photo_urls.nil? ? "\u274C" : "\u2705" %></span>
+                  <span class="game_photos_indicator"><%= game.photo_urls.blank? ? "\u274C" : "\u2705" %></span>
                 <% end %>
                 | <%= link_to 'Edit', edit_game_path(game) %>
                 | <%= link_to 'Delete', game, method: 'delete', data: { confirm: 'Are you sure?' } %>
