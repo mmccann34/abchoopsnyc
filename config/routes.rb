@@ -75,6 +75,6 @@ Abchoops::Application.routes.draw do
   get 'api/standings' => "stats#get_standings"
   get 'api/players' => "stats#get_players"
   
-  get '*path' => redirect("http://www.abchoopsnyc.com")
+  get '*path' => redirect("/404.html")
   
 end

@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>ABC Hoops | The page you were looking for doesn't exist (404)</title>
+  <link href='/favicon.ico' rel='shortcut icon' type='image/ico'>
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+  <meta http-equiv="refresh" content="10; URL='http://abchoops.com'" />
   <style>
     body {
       font-size:14px;
@@ -9,40 +15,13 @@
       color:#444444;
       margin:0;
       padding:0;
-      background:#2e3b56;
-    }
-    h2 { 
-      font-size: 20px;
-      font-family:Arial, Geneva, sans-serif;color:#444444;
-      font-weight: normal;
-      word-spacing: 1px;
-    }
-    h1 {font-size: 36px;
-      font-family:Arial, Geneva, sans-serif;color:#444444;
-      font-weight:bold;
-    }
-    .center {
-      left:0;
-      margin-top:0;
-      position:absolute;
-      text-align:center;
-      top:10%;
-      width:100%;
-      border-top:    3px solid  #000;
-      border-bottom:    3px solid  #000;
-      padding: 10px 0 0 0;
-      background-color:#fff;
+      background:url('/images/gym_error.jpg') no-repeat center center fixed;
+    background-size:cover;
     }
     p {
       font-family:Arial, Geneva, sans-serif;color:#444444;
       font-size:24px;
-    }
-    .orangeHeader {
-      height: 20px;
-      margin-bottom:10px;
-      background-color: #e07000;
-      width: 100%;
-      margin-top:-10px;
+      padding:0 10px
     }
     A:link {
       text-decoration:none;
@@ -57,16 +36,83 @@
       text-decoration:underline;
       color:#444444;
     }
+    @font-face {
+  font-family: 'Nevis-Bold';
+  src: url('http://abchoops.com/font/Nevis-Bold.ttf.eot');
+  src: url('http://abchoops.com/font/Nevis-Bold.ttf.eot?#iefix') format("embedded-opentype"), url('http://abchoops.com/font/Nevis-Bold.ttf.woff') format("woff"), url('http://abchoops.com/font/Nevis-Bold.tff.svg#Nevis-Bold') format("svg");
+  font-weight: 400;
+  font-style: normal
+}
+.main-container {
+    width:33%;position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    min-width:450px
+}
+.error-title {
+    font-size:48px;
+    width:100%;
+    text-align:center;
+    font-family:'Nevis-Bold';
+    color:#e07000
+}
+.inner-container {
+    background-color:#fff;width:100%;font-size:18px;text-align:center
+}
+.orange-upper {
+    background-color:#e07000;height:80px;
+}
+.orange-upper img {height:70px;margin-top:5px}
+ul {
+    list-style-type:none;font-family:'Nevis-Bold';display:table-row;text-transform:uppercase;padding-left:0;background-color:#e07000;color:#fff;padding:5px 0;height:70px
+}
+ul li {
+    display:table-cell;width:25%;vertical-align:middle;background-color:#e07000
+}
+ul li.signup {
+    font-size:24px
+}
+ul li a, ul li a:visited {display:block;color:#fff!important;}
+ul li a:hover {text-decoration:underline;}
+.menu-container {margin-left:-20px;width:calc(100% + 40px)}
+@media (max-width:449px) {
+    ul li {width:100%;float:left;height:40px;line-height:40px;}
+    ul li.signup, p {font-size:18px;}
+    .main-container {width:90%;min-width:90%;}
+    .menu-container {margin-left:0;width:100%;}
+}
   </style>
-  <meta http-equiv="refresh" content="5; URL='http://abchoops.com'" />
 </head>
 <body>
-  <div class="center">
-    <div class="orangeHeader">
+    <div class="main-container">
+        <div class="error-title">404 Error</div>
+        <div class="inner-container">
+            <div class="orange-upper">
+                <a href="http://abchoops.com">
+                    <img src="/images/whitelogo.png" />
+                </a>
+            </div>
+            <p>We're sorry, but the page or record you were looking for cannot be found.</p>
+            <p><a href="http://abchoops.com">Click here</a> to return to the homepage or navigate to other pages below:</p>
+            <div class="menu-container">
+                <ul>
+                    <li>
+                        <a href="/schedules">Scores &amp; Schedule</a>
+                    </li>
+                    <li>
+                        <a href="/results">Stats &amp; Standings</a>
+                    </li>
+                    <li>
+                        <a href="/record-books">Record Books</a>
+                    </li>
+                    <li class="signup">
+                        <a href="http://abchoops.com/signup.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <a href="http://www.abchoops.com/"><img src="http://www.abchoopsnyc.com/images/logo_c.png" style="max-width:414px"/></a>
-    <h1>Error 404</h1>
-    <h2>We're sorry, but the page you were looking for cannot be found.  <a href="http://abchoops.com">Click here</a> to return to the homepage.</h2>
-  </div>
 </body>
 </html>

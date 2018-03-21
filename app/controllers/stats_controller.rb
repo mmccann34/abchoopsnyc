@@ -45,7 +45,7 @@ class StatsController < ActionController::Base
   def show_boxscore
     @game = Game.find_by_id(params[:id])
     if !@game
-      redirect_to 'http://www.abchoops.com' and return
+      redirect_to "#{Rails.root}/public/404.html" and return
     end
     
     @ot_one = @game.home_score_ot_one != 0 || @game.away_score_ot_one != 0
@@ -59,7 +59,7 @@ class StatsController < ActionController::Base
     begin
       @team = Team.find(params[:id])
     rescue
-      redirect_to 'http://www.abchoops.com' and return
+      redirect_to "#{Rails.root}/public/404.html" and return
     end
     
 #.where("seasons.id <= ?", Season.current.id)
@@ -165,7 +165,7 @@ class StatsController < ActionController::Base
     begin
       @player = Player.find(params[:id])
     rescue
-      redirect_to 'http://www.abchoops.com' and return
+      redirect_to "#{Rails.root}/public/404.html" and return
     end
     
     player_stats = @player.player_stats.where("stat_type not like 'splits_%'")

@@ -1,26 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The change you wanted was rejected (422)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>ABC Hoops | The change you wanted to make was rejected (422)</title>
+  <link href='/favicon.ico' rel='shortcut icon' type='image/ico'>
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+  <meta http-equiv="refresh" content="10; URL='http://abchoops.com'" />
+  <style>
+    body {
+      font-size:14px;
+      font-family:Arial, Geneva, sans-serif;
+      color:#444444;
+      margin:0;
+      padding:0;
+      background:url('/images/gym_error.jpg') no-repeat center center fixed;
+    background-size:cover;
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    p {
+      font-family:Arial, Geneva, sans-serif;color:#444444;
+      font-size:24px;
+      padding:0 10px
+    }
+    A:link {
+      text-decoration:none;
+      font-weight:bold;
+      color:#444444;
+    }
+    A:hover {
+      text-decoration:underline;
+      color:#444444;
+    }
+    A:visited {
+      text-decoration:underline;
+      color:#444444;
+    }
+    @font-face {
+  font-family: 'Nevis-Bold';
+  src: url('http://abchoops.com/font/Nevis-Bold.ttf.eot');
+  src: url('http://abchoops.com/font/Nevis-Bold.ttf.eot?#iefix') format("embedded-opentype"), url('http://abchoops.com/font/Nevis-Bold.ttf.woff') format("woff"), url('http://abchoops.com/font/Nevis-Bold.tff.svg#Nevis-Bold') format("svg");
+  font-weight: 400;
+  font-style: normal
+}
+.main-container {
+    width:33%;position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    min-width:450px
+}
+.error-title {
+    font-size:48px;
+    width:100%;
+    text-align:center;
+    font-family:'Nevis-Bold';
+    color:#e07000
+}
+.inner-container {
+    background-color:#fff;width:100%;font-size:18px;text-align:center
+}
+.orange-upper {
+    background-color:#e07000;height:80px;
+}
+.orange-upper img {height:70px;margin-top:5px}
+ul {
+    list-style-type:none;font-family:'Nevis-Bold';display:table-row;text-transform:uppercase;padding-left:0;background-color:#e07000;color:#fff;padding:5px 0;height:70px
+}
+ul li {
+    display:table-cell;width:25%;vertical-align:middle;background-color:#e07000
+}
+ul li.signup {
+    font-size:24px
+}
+ul li a, ul li a:visited {display:block;color:#fff!important;}
+ul li a:hover {text-decoration:underline;}
+.menu-container {margin-left:-20px;width:calc(100% + 40px)}
+@media (max-width:449px) {
+    ul li {width:100%;float:left;height:40px;line-height:40px;}
+    ul li.signup, p {font-size:18px;}
+    .main-container {width:90%;min-width:90%;}
+    .menu-container {margin-left:0;width:100%;}
+}
   </style>
 </head>
-
 <body>
-  <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <h1>The change you wanted was rejected.</h1>
-    <p>Maybe you tried to change something you didn't have access to.</p>
-  </div>
+    <div class="main-container">
+        <div class="error-title">422 Error</div>
+        <div class="inner-container">
+            <div class="orange-upper">
+                <a href="http://abchoops.com">
+                    <img src="/images/whitelogo.png" />
+                </a>
+            </div>
+            <p>We're sorry, but the change you wanted to make was rejected.</p>
+            <p>Perhaps you didn't have permission.</p>
+            <div class="menu-container">
+                <ul>
+                    <li>
+                        <a href="/schedules">Scores &amp; Schedule</a>
+                    </li>
+                    <li>
+                        <a href="/results">Stats &amp; Standings</a>
+                    </li>
+                    <li>
+                        <a href="/record-books">Record Books</a>
+                    </li>
+                    <li class="signup">
+                        <a href="http://abchoops.com/signup.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
