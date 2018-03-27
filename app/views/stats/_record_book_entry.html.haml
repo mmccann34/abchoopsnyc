@@ -12,7 +12,7 @@
         %th No.
         %th Player
         %th #{local_assigns.fetch(:single_game, false) ? "Game" : "Team"}
-        %th{style:"padding-left: 2px;"} Total
+        %th{style:"padding-left: 0px;"} Total
     %tbody
       -entries.each_with_index do |entry, i|
         %tr

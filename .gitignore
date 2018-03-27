@@ -17,6 +17,7 @@
 .DS_Store
 
 config/database.yml
+config/initializers/secret_token.rb
 /logfile
 output.sql
 public/assets/**

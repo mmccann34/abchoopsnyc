@@ -4,5 +4,5 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Abchoops::Application.config.secret_token = '4737123eff0f7c6caa273ffd45b9c953aea8208249597f5cdb29c6001fe98e7269f9cb8f76ce7770714a738942f4329a0fb2d44e6b2492dcbd51200f17c7a5d1'
-Abchoops::Application.config.secret_key_base = '19421a860c65c96466a911b67da424f0a9f5f4187cce2778fa48eb2d61aa0a95f11e512570d5f67cdd5d265dba987360081f082b9a9eca84b8addf77d28dd6c6'
+Abchoops::Application.config.secret_token = '41fa60d6798208ef8d8a2bed46c9d6988d9099344be9b1c9062a65001f5826ae972d5f474450b2c8d8cf9172d4693e49a0dfb1f9eb195f0450fdb84547894af6'
+Abchoops::Application.config.secret_key_base = '7e8771af54bd0cc31d139fe0541a27ee031df7c8c481aafa2adafb23099a0cadb0294672e1d977aa6a42e2e19f1b5345ddb91943613928090c27461f0acd5160'
