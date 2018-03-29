@@ -1,4 +1,5 @@
 -title @player.name
+= provide(:metadescription, "Comprehensive and up to date stats for the playing career of #{@player.name} in ABC Hoops–a recreational basketball league for working professionals in New York City. Stats which are available include a game log, career per game and cumulative stats, and detailed splits.")
 =render "player_box"
 -if not @player.roster_spots.empty?
   .row.player-button-container

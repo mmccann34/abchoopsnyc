@@ -1,6 +1,7 @@
 %link{:rel=>"stylesheet", :href=>"gal/jquery.fancybox.css", :type=>"text/css",:media=>"screen"}
 %script{:type=>"text/html", :src =>"gal/jquery.fancybox.pack.js"}
 -title @team.name
+= provide(:metadescription, "Team schedule, per game, and cumulative stats for all seasons of #{@team.name} in ABC Hoops–a recreational basketball league for working professionals in New York City.")
 %h1= @team.name
 .row.sub-body-menu
   .col-lg-4.col-md-6.col-xs-6{:style => "padding:15px 2.5%"}

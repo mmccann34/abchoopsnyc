@@ -1,8 +1,10 @@
 -if @show_all
   -title "Scores & Schedules"
   = render "schedules_and_results", mode: 'schedules'
+  = provide(:metadescription, "List of all league winners and links to full scores and schedules for all #{Season.current.number} seasons of ABC Hoops–a recreational basketball league for working professionals in New York City.")
 -else
   -title "#{@season.name} - #{@league.name} Schedule & Scores"
+  = provide(:metadescription, "Full scores and schedule for the #{@season.name} #{@league.name} Season of ABC Hoops–a recreational basketball league for working professionals in New York City.")
   %h1 #{@season.name} - #{@league.name} Schedule &amp; Scores
   .row.sub-body-menu.equal.flexthis{:style => "margin:-.67em 0 0 0"}
     .col-xs-6.season-container

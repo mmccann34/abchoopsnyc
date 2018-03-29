@@ -1,4 +1,5 @@
 -title "ABC Hoops | #{@game.home_team.name} vs. #{@game.away_team.name} - #{@game.week_name} - #{@game.season.name}"
+= provide(:metadescription, "Full boxscore including photos of the #{@game.playoff_round.blank? ? @game.week_name : @game.playoff_round} game played between #{@game.home_team.name} and #{@game.away_team.name} in the #{@game.season.name} #{@game.league.name} Season of ABC Hoops–a recreational basketball league for working professionals in New York City.")
 .row.equal.headline-score-container.flexthis
   .col-md-4.col-md-push-4.col-sm-12.col-xs-12.game-description{:style => "text-align:center"}
     %div{:style => "margin:auto;"}
@@ -9,11 +10,13 @@
       %p.game-detail= @game.time.strftime("%l:%M%p")
   .col-md-4.col-md-pull-4.col-sm-6.col-xs-6.home-team-score
     %div{:style => "margin:auto;"}
-      %h3= @game.away_team.name
+      %a{href: stats_team_path(@game.away_team)}
+        %h3= @game.away_team.name
       %h3= @game.away_score
   .col-md-4.col-sm-6.col-xs-6.away-team-score
     %div{:style => "margin:auto;"}
-      %h3= @game.home_team.name
+      %a{href: stats_team_path(@game.home_team)}
+        %h3= @game.home_team.name
       %h3= @game.home_score
 .row
   .col-md-12

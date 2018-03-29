@@ -1,7 +1,9 @@
 -if @show_all
   -title "Stats & Results"
   = render "schedules_and_results", mode: 'results'
+  = provide(:metadescription, "List of all league winners and links to full standings, individual stat leaderboard, per game team stats, and playoff brackets for all #{Season.current.number} seasons of ABC Hoops–a recreational basketball league for working professionals in New York City.")
 -else
+  = provide(:metadescription, "Full standings, individual stat leaderboard, per game team stats, and playoff brackets for the #{@season.name} #{@league.name} Season of ABC Hoops–a recreational basketball league for working professionals in New York City.")
   -if @league.id == 4
     -title "Insurance Basketball League #{@season.name} Stats"
     %h1 Insurance Basketball League #{@season.name} Stats
