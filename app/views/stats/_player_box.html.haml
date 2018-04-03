@@ -5,8 +5,12 @@
         %h1
           =@player.name
           -@player.social_media_urls.take(4).each_with_index do |(type, value), i|
-            %a{href:"#{value}", target:"_blank"}
-              %i.fa{:class => ((type == "facebook") ? "fa-facebook-official" : (type == "linkedin") ? "fa-linkedin-square" : (type == "twitter") ? "fa-twitter-square" : (type == "tumblr") ? "fa-tumblr-square" : (type == "instagram") ? "fa-instagram" : (type == "googleplus") ? "fa-google-plus-square" : (type == "youtube") ? "fa-youtube-square" : (type == "vimeo") ? "fa-vimeo-square" : (type == "email") ? "fa-envelope" : (type == "flickr") ? "fa-flickr" : ""), "aria-hidden" => "true"}
+            -if (type == "email")
+              %a{href:"mailto:#{value}"}
+                %i.fa{:class => "fa-envelope", "aria-hidden" => "true"}
+            -else
+              %a{href:"#{value}", target:"_blank"}
+                %i.fa{:class => ((type == "facebook") ? "fa-facebook-official" : (type == "linkedin") ? "fa-linkedin-square" : (type == "twitter") ? "fa-twitter-square" : (type == "tumblr") ? "fa-tumblr-square" : (type == "instagram") ? "fa-instagram" : (type == "googleplus") ? "fa-google-plus-square" : (type == "youtube") ? "fa-youtube-square" : (type == "vimeo") ? "fa-vimeo-square" : (type == "flickr") ? "fa-flickr" : ""), "aria-hidden" => "true"}
     .col-md-12
       .row
         .col-lg-6.col-xs-12.subhead-container{:style => "padding:0"}

@@ -2,7 +2,7 @@ class Player < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
   
-  attr_accessible :first_name, :last_name, :display_name, :key, :height, :weight, :age, 
+  attr_accessible :first_name, :last_name, :display_name, :email, :key, :height, :weight, :age, 
                   :profile_pic, :profile_pic_url, :profile_pic_thumb_url, :profile_pic_flickr_url, 
                   :team_id, :number, :height_feet, :height_inches, :school, :position, :hometown, :day_job, :about, 
                   :birthday, :main_team_id, :last_number, :league_love, :little_known_fact, :did_you_know, :one_last_thing,

@@ -4,6 +4,7 @@
     <%= f.input :first_name, placeholder: 'First', input_html: { autofocus: 'autofocus' } %>
     <%= f.input :last_name, placeholder: 'Last' %>
     <%= f.input :display_name, placeholder: 'Display Name' %>
+    <%= f.input :email, placeholder: 'Email' %>
     <%= f.number_field :number, placeholder: '#', class: 'input-mini', style: 'float:left;' %>
     <%= f.select :position, ['PG', 'SG', 'SF', 'PF', 'C'], { prompt: 'Pos' }, class: 'input-mini', style: 'float:left; margin-left:10px; width:74px;' %>
     <%= f.number_field :height_feet, placeholder: 'Feet', class: 'input-mini', style: 'clear:both; float:left;' %>
@@ -24,7 +25,7 @@
     <%= f.input :profile_pic_url, placeholder: 'Profile Pic URL' %>
     <%= f.input :profile_pic_thumb_url, placeholder: 'Profile Pic Thumb URL' %>
     <p style="font-weight:bold;">Social Media URLs</p>
-    <% social_media_options = [['Facebook', 'facebook'], ['Twitter', 'twitter'], ['Instagram', 'instagram'], ['LinkedIn', 'linkedin'], ['Tumblr', 'tumblr'], ['Flickr', 'flickr'], ['Google+', 'googleplus'], ['You Tube', 'youtube'], ['Vimeo', 'vimeo'], ['Vine', 'vine'], ['Email', 'email']] %>
+    <% social_media_options = [['Facebook', 'facebook'], ['Twitter', 'twitter'], ['Instagram', 'instagram'], ['LinkedIn', 'linkedin'], ['Tumblr', 'tumblr'], ['Flickr', 'flickr'], ['Google+', 'googleplus'], ['YouTube', 'youtube'], ['Vimeo', 'vimeo'], ['Vine', 'vine'], ['Email', 'email']] %>
     <div id="social_media_urls">
       <% if @player.social_media_urls.any? %>
         <% @player.social_media_urls.each_with_index do |(type, value), i| %>

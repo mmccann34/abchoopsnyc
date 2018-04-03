@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814040218) do
+ActiveRecord::Schema.define(version: 20180403214037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 20160814040218) do
     t.string   "did_you_know",                      limit: 255
     t.string   "one_last_thing",                    limit: 255
     t.integer  "needs_to_calc_stats_for_season_id"
+    t.string   "email"
   end
 
   add_index "players", ["slug"], name: "index_players_on_slug", using: :btree
