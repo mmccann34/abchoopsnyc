@@ -61,24 +61,27 @@ class StatsController < ActionController::Base
     rescue
       redirect_to "#{Rails.root}/public/404.html" and return
     end
-    
-#.where("seasons.id <= ?", Season.current.id)
-    @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
-    @current_season = params[:season] ? Season.find(params[:season]) : (@seasons.include?(Season.current) ? Season.current : @seasons.first)
-    @team_spot = @team.team_spots.where(season_id: @current_season).first
-    
-    latest_game = Game.where(season_id: @current_season).where(league_id: @team_spot.league_id).order("date desc").first
-    @weeks = DateRange.where(season_id: @current_season).where(league_id: @team_spot.league_id).where("start_date <= ?", latest_game.try(:date)).order(:start_date)
-    @games = @team.games(@current_season) #.index_by{|g|g.week.try(:id) || -1}
-    @roster = @team.roster(@current_season)
-    
-    @per_game_player_stats = @team.player_stats.where(stat_type: 'season_average').where(season_id: @current_season).index_by(&:player_id) #@team.per_game_player_stats(@current_season)
-    @per_game_stats = @team.player_stats.where(stat_type: 'team_per_game_average').where(season_id: @current_season).first #@team.per_game_stats(@current_season)
-    @cumulative_player_stats = @team.player_stats.where(stat_type: 'season_total').where(season_id: @current_season).index_by(&:player_id) #@team.cumulative_player_stats(@current_season)
-    @cumulative_team_stats = @team.player_stats.where(stat_type: 'team_season_total').where(season_id: @current_season).first
-    @old_team_url = @team.team_spots.where("team_photo_url <> ''").last
-    if @old_team_url
-      @old_team_season = Season.where(id: @old_team_url.season_id).first
+
+    if !@team.team_spots.blank?
+      @seasons = @team.team_spots.joins(:season).order("seasons.number desc").map(&:season).uniq
+      @current_season = params[:season] ? Season.find(params[:season]) : (@seasons.include?(Season.current) ? Season.current : @seasons.first)
+      @team_spot = @team.team_spots.where(season_id: @current_season).first
+      
+      latest_game = Game.where(season_id: @current_season).where(league_id: @team_spot.league_id).order("date desc").first
+      @weeks = DateRange.where(season_id: @current_season).where(league_id: @team_spot.league_id).where("start_date <= ?", latest_game.try(:date)).order(:start_date)
+      @games = @team.games(@current_season) #.index_by{|g|g.week.try(:id) || -1}
+      @roster = @team.roster(@current_season)
+      
+      @per_game_player_stats = @team.player_stats.where(stat_type: 'season_average').where(season_id: @current_season).index_by(&:player_id) #@team.per_game_player_stats(@current_season)
+      @per_game_stats = @team.player_stats.where(stat_type: 'team_per_game_average').where(season_id: @current_season).first #@team.per_game_stats(@current_season)
+      @cumulative_player_stats = @team.player_stats.where(stat_type: 'season_total').where(season_id: @current_season).index_by(&:player_id) #@team.cumulative_player_stats(@current_season)
+      @cumulative_team_stats = @team.player_stats.where(stat_type: 'team_season_total').where(season_id: @current_season).first
+      @old_team_url = @team.team_spots.where("team_photo_url <> ''").last
+      if @old_team_url
+        @old_team_season = Season.where(id: @old_team_url.season_id).first
+      end
+    else
+      redirect_to results_path
     end
   end
 

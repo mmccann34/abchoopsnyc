@@ -115,21 +115,40 @@ class Game < ActiveRecord::Base
     top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team_id: ts[:team].try(:id), stat: "#{ts[:points]} Points"}
     top_scorer.save
 
+    #ORIGINAL
+
     #Second Top Perfomer
-    stp = self.second_top_performer
+    # stp = self.second_top_performer
+    # if stp
+    #   second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
+    #   second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
+    #   second_peformer.save
+    # end
+
+    #Third Top Perfomer
+    # ttp = self.third_top_performer(stp[:stat_name])
+    # if ttp
+    #   third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
+    #   third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
+    #   third_peformer.save
+    # end
+
+    new_top = self.new_top_performers
+# require 'pry'; binding.pry
+    stp = new_top[0].first
     if stp
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
       second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
       second_peformer.save
     end
 
-    #Third Top Perfomer
-    ttp = self.third_top_performer(stp[:stat_name])
+    ttp = new_top[1].first
     if ttp
       third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
       third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
       third_peformer.save
     end
+          # require 'pry'; binding.pry
   end
 
   def top_scorer
@@ -172,19 +191,29 @@ class Game < ActiveRecord::Base
     second_ties = []
     third_ties = []
 
+    new_ties = [[],[]]
+
+
+    stp = {:stat_name => ""}
+
+# require 'pry'; binding.pry
+
     #GO THROUGH EACH PLAYER'S STATS
     self.stat_lines.includes(:player).each do |stats|
-      next if stats.player.nil?
+
+      #if didnt play dont go through
+      next if stats.dnp == true
       #puts two highest stat into array
       two_stats = stats.weighted_stats.max_by(2){|k, v| v}
 
       #sees if first stat is greater or equal to 0 or newly set second stat
 
-      #IF FIRST STAT IS GREATER THAN SECOND STAT, NEW SECOND TOP PERFORMER
+      #IF FIRST STAT IS GREATER THAN 2ND TP, NEW SECOND TOP PERFORMER
+      #CASE 1
       if two_stats[0][1] >= second_stats
         #if greater than, clears out old info
         if two_stats[0][1] > second_stats
-          second_ties.clear
+          new_ties[0].clear
         end
         #sets info
         second_stats = two_stats[0][1]
@@ -194,12 +223,12 @@ class Game < ActiveRecord::Base
         stp[:team] = stats.team
         stp[:player] = stats.player
         get_unweighted_stat_value(stp, stats)
-        second_ties << stp
-
-        #IF FIRST STAT IS GREATER THAN SECOND STAT, AND SECOND STAT IS GREATER THAN THIRD STAT, NEW THIRD TOP PERFORMER
+        new_ties[0] << stp
+        #IF FIRST STAT IS GREATER THAN 2ND TP, AND SECOND STAT IS GREATER THAN 3RD TP, NEW 3RD TP
+        #CASE 1B
         if two_stats[1][1] >= third_stats
           if two_stats[1][1] > third_stats
-            third_ties.clear
+            new_ties[1].clear
           end
           third_stats = two_stats[1][1]
           ttp = {}
@@ -208,21 +237,15 @@ class Game < ActiveRecord::Base
           ttp[:team] = stats.team
           ttp[:player] = stats.player
           get_unweighted_stat_value(ttp, stats)
-          third_ties << ttp
-      end
-      #dunno if this'll work
-      # if second_ties.length > 1
-      #   decide_ties(second_ties)
-      # else
-      #   return second_ties.first
-      # end
-
-
-      #IF FIRST STAT IS SMALLER THAN SECOND STAT, BUT GREATER THAN THIRD STAT, NEW THIRD TOP PERFORMER
-      elsif two_stats[0][1] >= third_stats
-        if two_stats[0][1] > third_stats
-          third_ties.clear
+          new_ties[1] << ttp
         end
+      #IF FIRST STAT IS SMALLER THAN 2nd TP, BUT GREATER THAN 3RD TP STAT & A DIFFERENT STAT CATEGORY THAN 2nD tp STAT, NEW THIRD TOP PERFORMER
+      #CASE 2
+      elsif two_stats[0][0] != stp[:stat_name] && two_stats[0][1] >= third_stats
+        if two_stats[0][1] > third_stats
+          new_ties[1].clear
+        end
+
         third_stats = max_weighted_stat[1]
         ttp = {}
         ttp[:name] = stats.player.first_name_last_int
@@ -230,14 +253,19 @@ class Game < ActiveRecord::Base
         ttp[:team] = stats.team
         ttp[:player] = stats.player
         get_unweighted_stat_value(ttp, stats)
-        third_ties << ttp
+        new_ties[1] << ttp
       end
+
+
+
       # if second_ties.length > 1
-      #   decide_ties(second_ties)
+        #NEED TO FIX THIS
+        # decide_ties(second_ties)
       # else
-      #   return second_ties.first
-      # end
     end
+    return new_ties
+
+      # end
   end
 
   def second_top_performer
