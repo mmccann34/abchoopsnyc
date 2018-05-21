@@ -182,6 +182,7 @@ class Game < ActiveRecord::Base
     top_scorer
   end
 
+
   def new_top_performers
     #SET TO ZERO TO COMPARE TO STAT
     second_stats = 0
@@ -199,6 +200,24 @@ class Game < ActiveRecord::Base
       #if didnt play dont go through
       next if stats.dnp == true
       #puts two highest stat into array
+
+      require 'pry'; binding.pry
+
+      performer_stats = {}
+
+      performer_stats[:Rebounds] = stats.trb
+      performer_stats[:Assists] = stats.ast
+      performer_stats[:Steals] = stats.stl
+      performer_stats[:Blocks] = stats.blk
+
+
+
+
+
+
+
+
+
       two_stats = stats.weighted_stats.max_by(2){|k, v| v}
 
       #sees if first stat is greater or equal to 0 or newly set second stat
