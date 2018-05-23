@@ -212,7 +212,9 @@ class Game < ActiveRecord::Base
 
 
 
+      #put top two into new hash and compare next <- WRONG
 
+      #GRAB EACH STAT CATEGORY, GET HIGHEST FROM EACH PLAYER, THEN CALC WEIGHTS, TAKE TOP TWO OF EACH WEIGHTED
 
 
 
