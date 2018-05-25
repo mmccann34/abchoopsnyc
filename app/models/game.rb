@@ -117,19 +117,23 @@ class Game < ActiveRecord::Base
 
     #ORIGINAL
 
-    Second Top Perfomer
-    stp = self.second_top_performer
+    # Second Top Perfomer
+    top_perfs = self.new_top_performers
+    stp = top_perfs[0][0]
     if stp
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
-      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
+      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], stat: stp[:stat]}
+      # team_id: stp[:team].try(:id), 
       second_peformer.save
     end
 
-    Third Top Perfomer
-    ttp = self.third_top_performer(stp[:stat_name])
+    # Third Top Perfomer
+    top_perfs = self.new_top_performers
+    ttp = top_perfs[1][0]
     if ttp
       third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
-      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
+      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], stat: ttp[:stat]}
+      # team_id: ttp[:team].try(:id), 
       third_peformer.save
     end
   end
@@ -195,37 +199,39 @@ class Game < ActiveRecord::Base
 
       # @all_stats = stats.new_weighted_stats
 
-      require 'pry'; binding.pry
-
-      if (stats.trb * 0.12) >= @all_stats[:Rebounds][0][0]
-        if (stats.trb * 0.12) >= @all_stats[:Rebounds][0][0]
+      if stats.trb >= @all_stats[:Rebounds][0][0]
+        if stats.trb >= @all_stats[:Rebounds][0][0]
           #CLEAR TIES
         end
-        @all_stats[:Rebounds][0][0] = (stats.trb * 0.12)
+        @all_stats[:Rebounds][0][0] = stats.trb
         @all_stats[:Rebounds][1][0] = stats.player
       end
-      if (stats.ast * 0.22) >= @all_stats[:Assists][0][0]
-        if (stats.ast * 0.22) >= @all_stats[:Assists][0][0]
+      if stats.ast >= @all_stats[:Assists][0][0]
+        if stats.ast >= @all_stats[:Assists][0][0]
           #CLEAR TIES
         end
-        @all_stats[:Assists][0][0] = (stats.ast * 0.22)
+        @all_stats[:Assists][0][0] = stats.ast
         @all_stats[:Assists][1][0] = stats.player
       end
-      if (stats.stl * 0.17) >= @all_stats[:Steals][0][0]
-        if (stats.stl * 0.17) >= @all_stats[:Steals][0][0]
+      if stats.stl >= @all_stats[:Steals][0][0]
+        if stats.stl >= @all_stats[:Steals][0][0]
           #CLEAR TIES
         end
-        @all_stats[:Steals][0][0] = (stats.stl * 0.17)
+        @all_stats[:Steals][0][0] = stats.stl
         @all_stats[:Steals][1][0] = stats.player
       end
-      if (stats.blk * 0.34) >= @all_stats[:Blocks][0][0]
-        if (stats.blk * 0.34) >= @all_stats[:Blocks][0][0]
+      if stats.blk >= @all_stats[:Blocks][0][0]
+        if stats.blk >= @all_stats[:Blocks][0][0]
           #CLEAR TIES
         end
-        @all_stats[:Blocks][0][0] = (stats.blk * 0.34)
+        @all_stats[:Blocks][0][0] = stats.blk
         @all_stats[:Blocks][1][0] = stats.player
       end
     end
+    require 'pry'; binding.pry
+#HAVE TO CALC WEIGHTS TO COMPARE
+#create new to get max of
+
 
     top_two = @all_stats.max_by(2){|k,v| v}.flatten
 
@@ -243,10 +249,14 @@ class Game < ActiveRecord::Base
     ttp[:player] = top_two[5]
     get_unweighted_stat_value(ttp, top_two[4])
 
-    require 'pry'; binding.pry
-    return new_ties
+    top_perfs = [[],[]]
+    top_perfs[0] << stp
+    top_perfs[1] << ttp
 
-      # end
+    return top_perfs
+    # return stp
+
+    # end
   end
 
   def second_top_performer
