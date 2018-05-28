@@ -115,15 +115,13 @@ class Game < ActiveRecord::Base
     top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team_id: ts[:team].try(:id), stat: "#{ts[:points]} Points"}
     top_scorer.save
 
-    #ORIGINAL
-
     # Second Top Perfomer
     top_perfs = self.new_top_performers
     stp = top_perfs[0][0]
     if stp
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
-      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], stat: stp[:stat]}
-      # team_id: stp[:team].try(:id), 
+      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:ids), stat: stp[:stat]}
+      # TEAM ID NOT BEING PASSED
       second_peformer.save
     end
 
@@ -132,8 +130,7 @@ class Game < ActiveRecord::Base
     ttp = top_perfs[1][0]
     if ttp
       third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
-      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], stat: ttp[:stat]}
-      # team_id: ttp[:team].try(:id), 
+      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:ids), stat: ttp[:stat]}
       third_peformer.save
     end
   end
@@ -174,8 +171,6 @@ class Game < ActiveRecord::Base
 
   def new_top_performers
     #SET TO ZERO TO COMPARE TO STAT
-    second_stats = 0
-    third_stats = 0
     second_ties = []
     third_ties = []
 
@@ -184,10 +179,10 @@ class Game < ActiveRecord::Base
     stp = {:stat_name => ""}
 
     @all_stats ||= {}
-    @all_stats[:Rebounds] = [[0],[]]
-    @all_stats[:Assists] = [[0],[]]
-    @all_stats[:Steals] = [[0],[]]
-    @all_stats[:Blocks] = [[0],[]]
+    @all_stats[:Rebounds] = [0]
+    @all_stats[:Assists] = [0]
+    @all_stats[:Steals] = [0]
+    @all_stats[:Blocks] = [0]
 
     #GO THROUGH EACH PLAYER'S STATS
     self.stat_lines.includes(:player).each do |stats|
@@ -195,59 +190,55 @@ class Game < ActiveRecord::Base
       #if didnt play dont go through
       next if stats.dnp == true
 
-      #GRAB EACH STAT CATEGORY, GET HIGHEST FROM EACH PLAYER, THEN CALC WEIGHTS, TAKE TOP TWO OF EACH WEIGHTED
-
-      # @all_stats = stats.new_weighted_stats
-
-      if stats.trb >= @all_stats[:Rebounds][0][0]
-        if stats.trb >= @all_stats[:Rebounds][0][0]
+      if stats.trb >= @all_stats[:Rebounds][0]
+        if stats.trb >= @all_stats[:Rebounds][0]
           #CLEAR TIES
         end
-        @all_stats[:Rebounds][0][0] = stats.trb
-        @all_stats[:Rebounds][1][0] = stats.player
+        @all_stats[:Rebounds][0] = stats.trb
+        @all_stats[:Rebounds][1] = (stats.trb * 0.12)
+        @all_stats[:Rebounds][2] = stats.player
       end
-      if stats.ast >= @all_stats[:Assists][0][0]
-        if stats.ast >= @all_stats[:Assists][0][0]
+      if stats.ast >= @all_stats[:Assists][0]
+        if stats.ast >= @all_stats[:Assists][0]
           #CLEAR TIES
         end
-        @all_stats[:Assists][0][0] = stats.ast
-        @all_stats[:Assists][1][0] = stats.player
+        @all_stats[:Assists][0] = stats.ast
+        @all_stats[:Assists][1] = (stats.ast * 0.22)
+        @all_stats[:Assists][2] = stats.player
       end
-      if stats.stl >= @all_stats[:Steals][0][0]
-        if stats.stl >= @all_stats[:Steals][0][0]
+      if stats.stl >= @all_stats[:Steals][0]
+        if stats.stl >= @all_stats[:Steals][0]
           #CLEAR TIES
         end
-        @all_stats[:Steals][0][0] = stats.stl
-        @all_stats[:Steals][1][0] = stats.player
+        @all_stats[:Steals][0] = stats.stl
+        @all_stats[:Steals][1] = (stats.stl * 0.17)
+        @all_stats[:Steals][2] = stats.player
       end
-      if stats.blk >= @all_stats[:Blocks][0][0]
-        if stats.blk >= @all_stats[:Blocks][0][0]
+      if stats.blk >= @all_stats[:Blocks][0]
+        if stats.blk >= @all_stats[:Blocks][0]
           #CLEAR TIES
         end
-        @all_stats[:Blocks][0][0] = stats.blk
-        @all_stats[:Blocks][1][0] = stats.player
+        @all_stats[:Blocks][0] = stats.blk
+        @all_stats[:Blocks][1] = (stats.blk * 0.34)
+        @all_stats[:Blocks][2] = stats.player
       end
     end
-    require 'pry'; binding.pry
-#HAVE TO CALC WEIGHTS TO COMPARE
-#create new to get max of
 
-
-    top_two = @all_stats.max_by(2){|k,v| v}.flatten
+    top_two = @all_stats.max_by(2){|id, (v,w,p)| w}.flatten
 
     stp = {}
-    stp[:name] = top_two[2].first_name_last_int
+    stp[:name] = top_two[3].first_name_last_int
     stp[:stat_name] = top_two[0].to_s
-    # stp[:team] = top_two[2].team
-    stp[:player] = top_two[2]
+    stp[:team] = top_two[3].teams
+    stp[:player] = top_two[3]
     get_unweighted_stat_value(stp, top_two[1])
 
     ttp = {}
-    ttp[:name] = top_two[5].first_name_last_int
-    ttp[:stat_name] = top_two[3].to_s
-    # ttp[:team] = top_two[2].team
-    ttp[:player] = top_two[5]
-    get_unweighted_stat_value(ttp, top_two[4])
+    ttp[:name] = top_two[7].first_name_last_int
+    ttp[:stat_name] = top_two[4].to_s
+    ttp[:team] = top_two[7].teams
+    ttp[:player] = top_two[7]
+    get_unweighted_stat_value(ttp, top_two[5])
 
     top_perfs = [[],[]]
     top_perfs[0] << stp
@@ -358,13 +349,13 @@ class Game < ActiveRecord::Base
   def get_unweighted_stat_value(second, number)
     case second[:stat_name]
     when "Rebounds"
-      second[:stat] = "#{(number/0.12).to_i} #{second[:stat_name]}"
+      second[:stat] = "#{number.to_i} #{second[:stat_name]}"
     when "Assists"
-      second[:stat] = "#{(number/0.22).to_i} #{second[:stat_name]}"
+      second[:stat] = "#{number.to_i} #{second[:stat_name]}"
     when "Steals"
-      second[:stat] = "#{(number/0.17).to_i} #{second[:stat_name]}"
+      second[:stat] = "#{number.to_i} #{second[:stat_name]}"
     when "Blocks"
-      second[:stat] = "#{(number/0.34).to_i} #{second[:stat_name]}"
+      second[:stat] = "#{number.to_i} #{second[:stat_name]}"
     end
   end
 
