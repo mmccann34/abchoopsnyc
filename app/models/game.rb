@@ -178,10 +178,10 @@ class Game < ActiveRecord::Base
     stp = {:stat_name => ""}
 
     @all_stats ||= {}
-    @all_stats[:Rebounds] = [0]
-    @all_stats[:Assists] = [0]
-    @all_stats[:Steals] = [0]
-    @all_stats[:Blocks] = [0]
+    @all_stats[:Rebounds] = [0,0,0,0]
+    @all_stats[:Assists] = [0,0,0,0]
+    @all_stats[:Steals] = [0,0,0,0]
+    @all_stats[:Blocks] = [0,0,0,0]
 
     #GO THROUGH EACH PLAYER'S STATS
     self.stat_lines.includes(:player).each do |stats|
@@ -189,43 +189,53 @@ class Game < ActiveRecord::Base
       #if didnt play dont go through
       next if stats.dnp == true
 
-      if stats.trb >= @all_stats[:Rebounds][0]
-        if stats.trb >= @all_stats[:Rebounds][0]
+      if (stats.trb != 0) && (stats.trb >= @all_stats[:Rebounds][0])
+        if stats.trb > @all_stats[:Rebounds][0]
           #CLEAR TIES
+          @all_stats[:Rebounds][2] = stats.player
         end
         @all_stats[:Rebounds][0] = stats.trb
         @all_stats[:Rebounds][1] = (stats.trb * 0.12)
-        @all_stats[:Rebounds][2] = stats.player
+        @all_stats[:Rebounds][3] += 1
       end
-      if stats.ast >= @all_stats[:Assists][0]
-        if stats.ast >= @all_stats[:Assists][0]
+      if (stats.ast != 0) && (stats.ast >= @all_stats[:Assists][0])
+        if stats.ast > @all_stats[:Assists][0]
           #CLEAR TIES
+          @all_stats[:Assists][2] = stats.player
         end
         @all_stats[:Assists][0] = stats.ast
         @all_stats[:Assists][1] = (stats.ast * 0.22)
-        @all_stats[:Assists][2] = stats.player
+        @all_stats[:Assists][3] += 1
       end
-      if stats.stl >= @all_stats[:Steals][0]
-        if stats.stl >= @all_stats[:Steals][0]
+      if (stats.stl != 0) && (stats.stl >= @all_stats[:Steals][0])
+        if stats.stl > @all_stats[:Steals][0]
           #CLEAR TIES
+          @all_stats[:Steals][2] = stats.player
         end
         @all_stats[:Steals][0] = stats.stl
         @all_stats[:Steals][1] = (stats.stl * 0.17)
-        @all_stats[:Steals][2] = stats.player
+        @all_stats[:Steals][3] += 1
       end
-      if stats.blk >= @all_stats[:Blocks][0]
-        if stats.blk >= @all_stats[:Blocks][0]
+      if (stats.blk != 0) && (stats.blk >= @all_stats[:Blocks][0])
+        if stats.blk > @all_stats[:Blocks][0]
           #CLEAR TIES
+          @all_stats[:Blocks][2] = stats.player
         end
         @all_stats[:Blocks][0] = stats.blk
         @all_stats[:Blocks][1] = (stats.blk * 0.34)
-        @all_stats[:Blocks][2] = stats.player
+        @all_stats[:Blocks][3] += 1
       end
     end
 
-    top_two = @all_stats.max_by(2){|id, (v,w,p)| w}.flatten
+    top_two = @all_stats.max_by(2){|id, (v,w,p,t)| w}.flatten
 
     stp = {}
+
+    if top_two[4] > 1
+      #ONLY 1 TOP PLAYER
+    end
+    if top_two[9] > 1
+    end
     stp[:name] = top_two[3].first_name_last_int
     stp[:stat_name] = top_two[0].to_s
     stp[:team] = top_two[3].teams.first
@@ -233,15 +243,17 @@ class Game < ActiveRecord::Base
     get_unweighted_stat_value(stp, top_two[1])
 
     ttp = {}
-    ttp[:name] = top_two[7].first_name_last_int
-    ttp[:stat_name] = top_two[4].to_s
-    ttp[:team] = top_two[7].teams.first
-    ttp[:player] = top_two[7]
-    get_unweighted_stat_value(ttp, top_two[5])
+    ttp[:name] = top_two[8].first_name_last_int
+    ttp[:stat_name] = top_two[5].to_s
+    ttp[:team] = top_two[8].teams.first
+    ttp[:player] = top_two[8]
+    get_unweighted_stat_value(ttp, top_two[6])
 
     top_perfs = [[],[]]
     top_perfs[0] << stp
     top_perfs[1] << ttp
+
+    #goes through twice?
 
     return top_perfs
     # return stp
