@@ -120,8 +120,7 @@ class Game < ActiveRecord::Base
     stp = top_perfs[0][0]
     if stp
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
-      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:ids), stat: stp[:stat]}
-      # TEAM ID NOT BEING PASSED
+      second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
       second_peformer.save
     end
 
@@ -130,7 +129,7 @@ class Game < ActiveRecord::Base
     ttp = top_perfs[1][0]
     if ttp
       third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
-      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:ids), stat: ttp[:stat]}
+      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
       third_peformer.save
     end
   end
@@ -229,14 +228,14 @@ class Game < ActiveRecord::Base
     stp = {}
     stp[:name] = top_two[3].first_name_last_int
     stp[:stat_name] = top_two[0].to_s
-    stp[:team] = top_two[3].teams
+    stp[:team] = top_two[3].teams.first
     stp[:player] = top_two[3]
     get_unweighted_stat_value(stp, top_two[1])
 
     ttp = {}
     ttp[:name] = top_two[7].first_name_last_int
     ttp[:stat_name] = top_two[4].to_s
-    ttp[:team] = top_two[7].teams
+    ttp[:team] = top_two[7].teams.first
     ttp[:player] = top_two[7]
     get_unweighted_stat_value(ttp, top_two[5])
 
