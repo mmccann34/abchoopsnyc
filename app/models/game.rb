@@ -118,18 +118,20 @@ class Game < ActiveRecord::Base
     # Second & Third Top Perfomer
     top_perfs = self.new_top_performers
 
-    stp = top_perfs[0]
-    if stp
+    if !top_perfs[0].nil?
+      stp = top_perfs[0]
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
       second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
       second_peformer.save
-    end
 
-    ttp = top_perfs[1]
-    if ttp
-      third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
-      third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
-      third_peformer.save
+      if !top_perfs[1].nil?
+        ttp = top_perfs[1]
+        if ttp
+          third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
+          third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
+          third_peformer.save
+        end
+      end
     end
   end
 
@@ -190,7 +192,6 @@ class Game < ActiveRecord::Base
 
       if (stats.trb != 0) && (stats.trb >= @all_stats[:Rebounds][0])
         if stats.trb > @all_stats[:Rebounds][0]
-          #CLEAR TIES
           @all_stats[:Rebounds][2] = stats.player
         end
         @all_stats[:Rebounds][0] = stats.trb
@@ -199,7 +200,6 @@ class Game < ActiveRecord::Base
       end
       if (stats.ast != 0) && (stats.ast >= @all_stats[:Assists][0])
         if stats.ast > @all_stats[:Assists][0]
-          #CLEAR TIES
           @all_stats[:Assists][2] = stats.player
         end
         @all_stats[:Assists][0] = stats.ast
@@ -208,7 +208,6 @@ class Game < ActiveRecord::Base
       end
       if (stats.stl != 0) && (stats.stl >= @all_stats[:Steals][0])
         if stats.stl > @all_stats[:Steals][0]
-          #CLEAR TIES
           @all_stats[:Steals][2] = stats.player
         end
         @all_stats[:Steals][0] = stats.stl
@@ -217,7 +216,6 @@ class Game < ActiveRecord::Base
       end
       if (stats.blk != 0) && (stats.blk >= @all_stats[:Blocks][0])
         if stats.blk > @all_stats[:Blocks][0]
-          #CLEAR TIES
           @all_stats[:Blocks][2] = stats.player
         end
         @all_stats[:Blocks][0] = stats.blk
@@ -225,12 +223,15 @@ class Game < ActiveRecord::Base
         @all_stats[:Blocks][3] += 1
       end
     end
-    # require 'pry'; binding.pry
+
     top_two = @all_stats.max_by(2){|id, (v,w,p,t)| w}.flatten
 
+    top_perfs = []
+
+    stp = {}
+    ttp = {}
+
     if top_two[1] != 0
-      stp = {}
-      ttp = {}
 
       if top_two[4] > 1
         stp[:team] = nil
@@ -240,27 +241,26 @@ class Game < ActiveRecord::Base
         stp[:team] = top_two[3].teams.first
         stp[:player] = top_two[3]
       end
-
-      if top_two[9] > 1
-        ttp[:team] = nil
-        ttp[:name] = "#{top_two[9]} Players"
-      else
-        ttp[:name] = top_two[8].first_name_last_int
-        ttp[:team] = top_two[8].teams.first
-        ttp[:player] = top_two[8]
-      end
-
       stp[:stat_name] = top_two[0].to_s
       get_unweighted_stat_value(stp, top_two[1])
 
-      ttp[:stat_name] = top_two[5].to_s
-      get_unweighted_stat_value(ttp, top_two[6])
+      if top_two[6] != 0
+        if top_two[9] > 1
+          ttp[:team] = nil
+          ttp[:name] = "#{top_two[9]} Players"
+        else
+          ttp[:name] = top_two[8].first_name_last_int
+          ttp[:team] = top_two[8].teams.first
+          ttp[:player] = top_two[8]
+        end
+        ttp[:stat_name] = top_two[5].to_s
+        get_unweighted_stat_value(ttp, top_two[6])
 
-      top_perfs = []
-      top_perfs << stp
-      top_perfs << ttp
+      end
     end
 
+    top_perfs << stp
+    top_perfs << ttp
     return top_perfs
   end
 
