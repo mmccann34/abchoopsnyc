@@ -115,18 +115,17 @@ class Game < ActiveRecord::Base
     top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team_id: ts[:team].try(:id), stat: "#{ts[:points]} Points"}
     top_scorer.save
 
-    # Second Top Perfomer
+    # Second & Third Top Perfomer
     top_perfs = self.new_top_performers
-    stp = top_perfs[0][0]
+
+    stp = top_perfs[0]
     if stp
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
       second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
       second_peformer.save
     end
 
-    # Third Top Perfomer
-    top_perfs = self.new_top_performers
-    ttp = top_perfs[1][0]
+    ttp = top_perfs[1]
     if ttp
       third_peformer = top_performers[2] || self.top_performers.new(performer_type: 3)
       third_peformer.attributes = {player_id: ttp[:player].try(:id), name: ttp[:name], team_id: ttp[:team].try(:id), stat: ttp[:stat]}
@@ -226,39 +225,43 @@ class Game < ActiveRecord::Base
         @all_stats[:Blocks][3] += 1
       end
     end
-
+    # require 'pry'; binding.pry
     top_two = @all_stats.max_by(2){|id, (v,w,p,t)| w}.flatten
 
-    stp = {}
+    if top_two[1] != 0
+      stp = {}
+      ttp = {}
 
-    if top_two[4] > 1
-      #ONLY 1 TOP PLAYER
+      if top_two[4] > 1
+        stp[:team] = nil
+        stp[:name] = "#{top_two[4]} Players"
+      else
+        stp[:name] = top_two[3].first_name_last_int
+        stp[:team] = top_two[3].teams.first
+        stp[:player] = top_two[3]
+      end
+
+      if top_two[9] > 1
+        ttp[:team] = nil
+        ttp[:name] = "#{top_two[9]} Players"
+      else
+        ttp[:name] = top_two[8].first_name_last_int
+        ttp[:team] = top_two[8].teams.first
+        ttp[:player] = top_two[8]
+      end
+
+      stp[:stat_name] = top_two[0].to_s
+      get_unweighted_stat_value(stp, top_two[1])
+
+      ttp[:stat_name] = top_two[5].to_s
+      get_unweighted_stat_value(ttp, top_two[6])
+
+      top_perfs = []
+      top_perfs << stp
+      top_perfs << ttp
     end
-    if top_two[9] > 1
-    end
-    stp[:name] = top_two[3].first_name_last_int
-    stp[:stat_name] = top_two[0].to_s
-    stp[:team] = top_two[3].teams.first
-    stp[:player] = top_two[3]
-    get_unweighted_stat_value(stp, top_two[1])
-
-    ttp = {}
-    ttp[:name] = top_two[8].first_name_last_int
-    ttp[:stat_name] = top_two[5].to_s
-    ttp[:team] = top_two[8].teams.first
-    ttp[:player] = top_two[8]
-    get_unweighted_stat_value(ttp, top_two[6])
-
-    top_perfs = [[],[]]
-    top_perfs[0] << stp
-    top_perfs[1] << ttp
-
-    #goes through twice?
 
     return top_perfs
-    # return stp
-
-    # end
   end
 
   def second_top_performer
