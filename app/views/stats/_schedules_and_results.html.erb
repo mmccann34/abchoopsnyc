@@ -4,22 +4,10 @@
     <h1><%= Season.current.name %></h1>
     <h3>Season <%= Season.current.number %></h3>
   </div>
-  <ul class="sched_days three_days">
+  <ul class="sched_days two_days">
     <li class="main-button">
       <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=1"%>>
         Sunday
-        <% if mode != "schedules" %>
-          <ul class="active-season-list">
-            <li>Full Standings</li>
-            <li>Stat Leaderboard</li>
-            <li>Team Stats</li>
-          </ul>
-        <% end %>
-      </a>
-    </li>
-    <li class="main-button">
-      <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=2"%>>
-        Saturday
         <% if mode != "schedules" %>
           <ul class="active-season-list">
             <li>Full Standings</li>
@@ -43,6 +31,48 @@
     </li>
   </ul>
 </div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season29.png');">
+  <div class="season_container">
+    <h1>Spring 2018</h1>
+    <h3>Season 29</h3>
+  </div>
+  <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=33&league=1"%>> Sunday
+        <ul class="championship-list">
+          <li class="division">Rolls Champ</li>
+          <li>TBA</li>
+          <li class="division">Lexus Champ</li>
+          <li>Shootout Squad</li>
+          <li class="division">Ford Champ</li>
+          <li>Thankyouuuu</li>
+        </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=33&league=2"%>> Saturday
+        <ul class="championship-list">
+          <li class="division">Maybach Champ</li>
+          <li>Mambas</li>
+          <li class="division">Audi Champ</li>
+          <li>Ray on the Roof</li>
+        </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=33&league=3"%>> Weekday
+        <ul class="championship-list">
+          <li class="division">Benz Champ</li>
+          <li>TBD</li>
+          <li class="division">Aston Champ</li>
+          <li>TBD</li>
+        </ul>
+      </a>
+    </li>
+  </ul>
+</div>
+
 <h1 style="margin-top:15px">Prior Seasons' Scores &amp; Schedule</h1>
 <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season28i.png');">
   <div class="season_container">
