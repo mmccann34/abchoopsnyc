@@ -135,6 +135,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+#good
   def top_scorer
     top_points = 0
     top_scorer = []
@@ -150,6 +151,7 @@ class Game < ActiveRecord::Base
     display_top_scorer(top_scorer)
   end
 
+#good
   def display_top_scorer(top_scorer_array)
     top_scorer = {}
     top_scorer[:stat_value] = top_scorer_array.first.points
@@ -268,34 +270,6 @@ class Game < ActiveRecord::Base
     return top_perfs
   end
 
-  def second_top_performer
-    second_stats = 0
-    ties = []
-    self.stat_lines.includes(:player).each do |stats|
-      next if stats.player.nil?
-      max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
-      if max_weighted_stat[1] >= second_stats
-        if max_weighted_stat[1] > second_stats
-          ties.clear
-        end
-        second_stats = max_weighted_stat[1]
-        stp = {}
-        stp[:name] = stats.player.first_name_last_int
-        stp[:stat_name] = max_weighted_stat[0]
-        stp[:team] = stats.team
-        stp[:player] = stats.player
-        get_unweighted_stat_value(stp, stats)
-        ties << stp
-      end
-    end
-    if ties.length > 1
-      decide_ties(ties)
-    else
-      # ties.first[:ties] = false
-      return ties.first
-    end
-  end
-
   def decide_ties(ties_array)
     top_performer = {}
     ties_array.map do |stat|
@@ -335,35 +309,7 @@ class Game < ActiveRecord::Base
     end
   end
 
-
-  def third_top_performer(second_top_perfomer_stat_name = self.second_top_performer[:stat_name])
-    third_stats = 0
-    ties = []
-    self.stat_lines.includes(:player).each do |stats|
-      next if stats.player.nil?
-      max_weighted_stat = stats.weighted_stats.max_by{|k, v| v}
-      # can't be from same category as second_top_performer
-      if max_weighted_stat[0] != second_top_perfomer_stat_name && max_weighted_stat[1] >= third_stats
-        if max_weighted_stat[1] > third_stats
-          ties.clear
-        end
-        third_stats = max_weighted_stat[1]
-        third = {}
-        third[:name] = stats.player.first_name_last_int
-        third[:stat_name] = max_weighted_stat[0]
-        third[:team] = stats.team
-        third[:player] = stats.player
-        get_unweighted_stat_value(third, stats)
-        ties << third
-      end
-    end
-    if ties.length > 1
-      decide_ties(ties)
-    else
-      ties.first
-    end
-  end
-
+#good
   def get_unweighted_stat_value(second, number)
     case second[:stat_name]
     when "Rebounds"
@@ -377,6 +323,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+#good
   def player_of_the_game
     player_of_game = {}
     top_wpa = 0
