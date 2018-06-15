@@ -72,17 +72,6 @@ class StatLine < ActiveRecord::Base
     return weighted_stats
   end
 
-  def new_weighted_stats
-    #WORKS NOW
-    
-    weighted_stats ||= {}
-    weighted_stats[:Rebounds] = [[(self.trb * 0.12)], [self.player]]
-    weighted_stats[:Assists] = [[(self.ast * 0.22)], []]
-    weighted_stats[:Steals] = [[(self.stl * 0.17)], []]
-    weighted_stats[:Blocks] = [[(self.blk * 0.34)], []]
-    return weighted_stats
-  end
-
   def dnp_future_game
     future_result = self.game.date.future?
     if ( ( self.dnp == true ) && ( future_result == true ) ) || (self.dnp == false)
@@ -91,5 +80,4 @@ class StatLine < ActiveRecord::Base
       return false
     end
   end
-  
 end 

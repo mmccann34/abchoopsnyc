@@ -93,14 +93,6 @@ class Game < ActiveRecord::Base
     self.playoff_round.blank? ? self.week_name : self.playoff_round
   end
   
-  def next_game
-    surrounding_games "next"
-  end
-  
-  def previous_game
-    surrounding_games "previous"
-  end
-  
   def abbreviation
     "#{self.time.strftime("%l%p")}: #{self.home_team.abbreviation} vs #{self.away_team.abbreviation}"
   end
@@ -135,7 +127,6 @@ class Game < ActiveRecord::Base
     end
   end
 
-#good
   def top_scorer
     top_points = 0
     top_scorer = []
@@ -151,7 +142,6 @@ class Game < ActiveRecord::Base
     display_top_scorer(top_scorer)
   end
 
-#good
   def display_top_scorer(top_scorer_array)
     top_scorer = {}
     top_scorer[:stat_value] = top_scorer_array.first.points
@@ -172,24 +162,13 @@ class Game < ActiveRecord::Base
 
 
   def new_top_performers
-    #SET TO ZERO TO COMPARE TO STAT
-    second_ties = []
-    third_ties = []
-
-    new_ties = [[],[]]
-
-    stp = {:stat_name => ""}
-
     @all_stats ||= {}
     @all_stats[:Rebounds] = [0,0,0,0]
     @all_stats[:Assists] = [0,0,0,0]
     @all_stats[:Steals] = [0,0,0,0]
     @all_stats[:Blocks] = [0,0,0,0]
 
-    #GO THROUGH EACH PLAYER'S STATS
     self.stat_lines.includes(:player).each do |stats|
-
-      #if didnt play dont go through
       next if stats.dnp == true
 
       if (stats.trb != 0) && (stats.trb >= @all_stats[:Rebounds][0])
@@ -309,7 +288,6 @@ class Game < ActiveRecord::Base
     end
   end
 
-#good
   def get_unweighted_stat_value(second, number)
     case second[:stat_name]
     when "Rebounds"
@@ -323,7 +301,6 @@ class Game < ActiveRecord::Base
     end
   end
 
-#good
   def player_of_the_game
     player_of_game = {}
     top_wpa = 0
@@ -399,15 +376,6 @@ class Game < ActiveRecord::Base
   end
 
   private
-  def surrounding_games(game)
-    games = Game.where('Date(date) = ?', self.date.to_date).where(league_id: self.league_id, division_id: self.division_id).order(:time)
-    curr_index = games.index(self)
-    if game == "next"
-      curr_index + 1 < games.length ? games[curr_index + 1] : nil
-    else
-      curr_index - 1 >= 0 ? games[curr_index - 1] : nil
-    end
-  end
     
   def update_stat_lines(team)
     team.roster(self.season_id).each do |roster_spot|
