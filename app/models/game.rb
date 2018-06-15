@@ -193,6 +193,7 @@ class Game < ActiveRecord::Base
       if (stats.trb != 0) && (stats.trb >= @all_stats[:Rebounds][0])
         if stats.trb > @all_stats[:Rebounds][0]
           @all_stats[:Rebounds][2] = stats.player
+          @all_stats[:Rebounds][3] = 0
         end
         @all_stats[:Rebounds][0] = stats.trb
         @all_stats[:Rebounds][1] = (stats.trb * 0.12)
@@ -201,6 +202,7 @@ class Game < ActiveRecord::Base
       if (stats.ast != 0) && (stats.ast >= @all_stats[:Assists][0])
         if stats.ast > @all_stats[:Assists][0]
           @all_stats[:Assists][2] = stats.player
+          @all_stats[:Assists][3] = 0
         end
         @all_stats[:Assists][0] = stats.ast
         @all_stats[:Assists][1] = (stats.ast * 0.22)
@@ -209,6 +211,7 @@ class Game < ActiveRecord::Base
       if (stats.stl != 0) && (stats.stl >= @all_stats[:Steals][0])
         if stats.stl > @all_stats[:Steals][0]
           @all_stats[:Steals][2] = stats.player
+          @all_stats[:Steals][3] = 0
         end
         @all_stats[:Steals][0] = stats.stl
         @all_stats[:Steals][1] = (stats.stl * 0.17)
@@ -217,6 +220,7 @@ class Game < ActiveRecord::Base
       if (stats.blk != 0) && (stats.blk >= @all_stats[:Blocks][0])
         if stats.blk > @all_stats[:Blocks][0]
           @all_stats[:Blocks][2] = stats.player
+          @all_stats[:Blocks][3] = 0
         end
         @all_stats[:Blocks][0] = stats.blk
         @all_stats[:Blocks][1] = (stats.blk * 0.34)
