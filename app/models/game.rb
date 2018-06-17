@@ -160,7 +160,6 @@ class Game < ActiveRecord::Base
     top_scorer
   end
 
-
   def new_top_performers
     @all_stats ||= {}
     @all_stats[:Rebounds] = [0,0,0,0]
@@ -170,54 +169,15 @@ class Game < ActiveRecord::Base
 
     self.stat_lines.includes(:player).each do |stats|
       next if stats.dnp == true
-
-      if (stats.trb != 0) && (stats.trb >= @all_stats[:Rebounds][0])
-        if stats.trb > @all_stats[:Rebounds][0]
-          @all_stats[:Rebounds][2] = stats.player
-          @all_stats[:Rebounds][3] = 0
-        end
-        @all_stats[:Rebounds][0] = stats.trb
-        @all_stats[:Rebounds][1] = (stats.trb * 0.12)
-        @all_stats[:Rebounds][3] += 1
-      end
-      if (stats.ast != 0) && (stats.ast >= @all_stats[:Assists][0])
-        if stats.ast > @all_stats[:Assists][0]
-          @all_stats[:Assists][2] = stats.player
-          @all_stats[:Assists][3] = 0
-        end
-        @all_stats[:Assists][0] = stats.ast
-        @all_stats[:Assists][1] = (stats.ast * 0.22)
-        @all_stats[:Assists][3] += 1
-      end
-      if (stats.stl != 0) && (stats.stl >= @all_stats[:Steals][0])
-        if stats.stl > @all_stats[:Steals][0]
-          @all_stats[:Steals][2] = stats.player
-          @all_stats[:Steals][3] = 0
-        end
-        @all_stats[:Steals][0] = stats.stl
-        @all_stats[:Steals][1] = (stats.stl * 0.17)
-        @all_stats[:Steals][3] += 1
-      end
-      if (stats.blk != 0) && (stats.blk >= @all_stats[:Blocks][0])
-        if stats.blk > @all_stats[:Blocks][0]
-          @all_stats[:Blocks][2] = stats.player
-          @all_stats[:Blocks][3] = 0
-        end
-        @all_stats[:Blocks][0] = stats.blk
-        @all_stats[:Blocks][1] = (stats.blk * 0.34)
-        @all_stats[:Blocks][3] += 1
-      end
+      stats.top_stat_check(@all_stats)
     end
 
     top_two = @all_stats.max_by(2){|id, (v,w,p,t)| w}.flatten
-
     top_perfs = []
-
     stp = {}
     ttp = {}
 
     if top_two[1] != 0
-
       if top_two[4] > 1
         stp[:team] = nil
         stp[:name] = "#{top_two[4]} Players"
@@ -240,7 +200,6 @@ class Game < ActiveRecord::Base
         end
         ttp[:stat_name] = top_two[5].to_s
         get_unweighted_stat_value(ttp, top_two[6])
-
       end
     end
 
@@ -372,11 +331,9 @@ class Game < ActiveRecord::Base
   end
 
   def no_of_urls
-
   end
 
   private
-    
   def update_stat_lines(team)
     team.roster(self.season_id).each do |roster_spot|
       player = roster_spot.player

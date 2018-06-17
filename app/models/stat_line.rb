@@ -72,6 +72,22 @@ class StatLine < ActiveRecord::Base
     return weighted_stats
   end
 
+  def top_stat_check(stat_hash)
+    stat_cycle = [[self.trb, :Rebounds, 0.12], [self.ast, :Assists, 0.22], [self.stl, :Steals, 0.17], [self.blk, :Blocks, 0.34]]
+
+    stat_cycle.each do |type|
+      if (type[0] != 0) && (type[0] >= stat_hash[type[1]][0])
+        if type[0] > stat_hash[type[1]][0]
+          stat_hash[type[1]][2] = self.player
+          stat_hash[type[1]][3] = 0
+        end
+        stat_hash[type[1]][0] = type[0]
+        stat_hash[type[1]][1] = (type[0] * type[2])
+        stat_hash[type[1]][3] += 1
+      end
+    end
+  end
+
   def dnp_future_game
     future_result = self.game.date.future?
     if ( ( self.dnp == true ) && ( future_result == true ) ) || (self.dnp == false)
