@@ -723,7 +723,6 @@ html, body {
     padding: 15px 0;
   }
   .game-thumbs li {
-    margin-top: 2px;
     padding: 2px 2px 2px 2px;
     display: block;
     float: left;
@@ -732,7 +731,7 @@ html, body {
   .game-thumbs li.count3thumbs, .game-thumbs li.count6thumbs {
     width:33.3%
   }
-  .game-thumbs li.count4thumbs, .game-thumbs li.count8thumbs {
+  .game-thumbs li.count4thumbs, .game-thumbs li.count7thumbs, .game-thumbs li.count8thumbs {
     width:25%
   }
   .game-thumbs li.count5thumbs, .game-thumbs li.count10thumbs {
