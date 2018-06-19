@@ -78,11 +78,12 @@ class StatLine < ActiveRecord::Base
       if (type[0] != 0) && (type[0] >= stat_hash[type[1]][0])
         if type[0] > stat_hash[type[1]][0]
           stat_hash[type[1]][2] = self.player
-          stat_hash[type[1]][3] = 0
+          stat_hash[type[1]][3] = self.team
+          stat_hash[type[1]][4] = 0
         end
         stat_hash[type[1]][0] = type[0]
         stat_hash[type[1]][1] = (type[0] * type[2])
-        stat_hash[type[1]][3] += 1
+        stat_hash[type[1]][4] += 1
       end
     end
   end

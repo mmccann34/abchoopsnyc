@@ -155,40 +155,41 @@ class Game < ActiveRecord::Base
 
   def new_top_performers
     @all_stats ||= {}
-    @all_stats[:Rebounds] = [0,0,0,0]
-    @all_stats[:Assists] = [0,0,0,0]
-    @all_stats[:Steals] = [0,0,0,0]
-    @all_stats[:Blocks] = [0,0,0,0]
+    @all_stats[:Rebounds] = [0,0,0,0,0]
+    @all_stats[:Assists] = [0,0,0,0,0]
+    @all_stats[:Steals] = [0,0,0,0,0]
+    @all_stats[:Blocks] = [0,0,0,0,0]
     self.stat_lines.includes(:player).each do |stats|
       next if stats.dnp == true
       stats.top_stat_check(@all_stats)
     end
-    top_two = @all_stats.max_by(2){|id, (v,w,p,t)| w}.flatten
+    top_two = @all_stats.max_by(2){|id, (value,weight,player,team,tie)| weight}.flatten
     top_perfs = []
     stp = {}
     ttp = {}
+        # require 'pry'; binding.pry
     if top_two[1] != 0
-      if top_two[4] > 1
+      if top_two[5] > 1
         stp[:team] = nil
-        stp[:name] = "#{top_two[4]} Players"
+        stp[:name] = "#{top_two[5]} Players"
       else
         stp[:name] = top_two[3].first_name_last_int
-        stp[:team] = top_two[3].stat_lines.first.team
+        stp[:team] = top_two[4]
         stp[:player] = top_two[3]
       end
       stp[:stat_name] = top_two[0].to_s
       get_unweighted_stat_value(stp, top_two[1])
-      if top_two[6] != 0
-        if top_two[9] > 1
+      if top_two[7] != 0
+        if top_two[11] > 1
           ttp[:team] = nil
-          ttp[:name] = "#{top_two[9]} Players"
+          ttp[:name] = "#{top_two[11]} Players"
         else
-          ttp[:name] = top_two[8].first_name_last_int
-          ttp[:team] = top_two[8].stat_lines.first.team
-          ttp[:player] = top_two[8]
+          ttp[:name] = top_two[9].first_name_last_int
+          ttp[:team] = top_two[10]
+          ttp[:player] = top_two[9]
         end
-        ttp[:stat_name] = top_two[5].to_s
-        get_unweighted_stat_value(ttp, top_two[6])
+        ttp[:stat_name] = top_two[6].to_s
+        get_unweighted_stat_value(ttp, top_two[7])
       end
     end
     top_perfs << stp
