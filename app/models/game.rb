@@ -167,13 +167,14 @@ class Game < ActiveRecord::Base
     top_perfs = []
     stp = {}
     ttp = {}
+    require 'pry'; binding.pry
     if top_two[1] != 0
       if top_two[4] > 1
         stp[:team] = nil
         stp[:name] = "#{top_two[4]} Players"
       else
         stp[:name] = top_two[3].first_name_last_int
-        stp[:team] = top_two[3].teams.first
+        stp[:team] = top_two[3].stat_lines.first.team
         stp[:player] = top_two[3]
       end
       stp[:stat_name] = top_two[0].to_s
@@ -184,7 +185,7 @@ class Game < ActiveRecord::Base
           ttp[:name] = "#{top_two[9]} Players"
         else
           ttp[:name] = top_two[8].first_name_last_int
-          ttp[:team] = top_two[8].teams.first
+          ttp[:team] = top_two[8].stat_lines.first.team
           ttp[:player] = top_two[8]
         end
         ttp[:stat_name] = top_two[5].to_s
