@@ -167,7 +167,6 @@ class Game < ActiveRecord::Base
     top_perfs = []
     stp = {}
     ttp = {}
-    require 'pry'; binding.pry
     if top_two[1] != 0
       if top_two[4] > 1
         stp[:team] = nil
