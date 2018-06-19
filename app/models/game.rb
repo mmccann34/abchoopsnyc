@@ -99,23 +99,16 @@ class Game < ActiveRecord::Base
 
   def save_top_performers
     top_performers = self.top_performers.order(:performer_type)
-
-    #Could probably combine these more
-    #Top Scorer
     top_scorer = top_performers[0] || self.top_performers.new(performer_type: 1)
     ts = self.top_scorer
     top_scorer.attributes = {player_id: ts[:player].try(:id), name: ts[:name], team_id: ts[:team].try(:id), stat: "#{ts[:points]} Points"}
     top_scorer.save
-
-    # Second & Third Top Perfomer
     top_perfs = self.new_top_performers
-
     if !top_perfs[0].nil?
       stp = top_perfs[0]
       second_peformer = top_performers[1] || self.top_performers.new(performer_type: 2)
       second_peformer.attributes = {player_id: stp[:player].try(:id), name: stp[:name], team_id: stp[:team].try(:id), stat: stp[:stat]}
       second_peformer.save
-
       if !top_perfs[1].nil?
         ttp = top_perfs[1]
         if ttp
@@ -166,17 +159,14 @@ class Game < ActiveRecord::Base
     @all_stats[:Assists] = [0,0,0,0]
     @all_stats[:Steals] = [0,0,0,0]
     @all_stats[:Blocks] = [0,0,0,0]
-
     self.stat_lines.includes(:player).each do |stats|
       next if stats.dnp == true
       stats.top_stat_check(@all_stats)
     end
-
     top_two = @all_stats.max_by(2){|id, (v,w,p,t)| w}.flatten
     top_perfs = []
     stp = {}
     ttp = {}
-
     if top_two[1] != 0
       if top_two[4] > 1
         stp[:team] = nil
@@ -188,7 +178,6 @@ class Game < ActiveRecord::Base
       end
       stp[:stat_name] = top_two[0].to_s
       get_unweighted_stat_value(stp, top_two[1])
-
       if top_two[6] != 0
         if top_two[9] > 1
           ttp[:team] = nil
@@ -202,7 +191,6 @@ class Game < ActiveRecord::Base
         get_unweighted_stat_value(ttp, top_two[6])
       end
     end
-
     top_perfs << stp
     top_perfs << ttp
     return top_perfs
