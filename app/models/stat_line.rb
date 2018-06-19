@@ -68,12 +68,12 @@ class StatLine < ActiveRecord::Base
     weighted_stats[:Rebounds] = (self.trb * 0.12)
     weighted_stats[:Assists] = (self.ast * 0.22)
     weighted_stats[:Steals] = (self.stl * 0.17)
-    weighted_stats[:Blocks] = (self.blk * 0.34)
+    weighted_stats[:Blocks] = (self.blk * 0.33)
     return weighted_stats
   end
 
   def top_stat_check(stat_hash)
-    stat_cycle = [[self.trb, :Rebounds, 0.12], [self.ast, :Assists, 0.22], [self.stl, :Steals, 0.17], [self.blk, :Blocks, 0.34]]
+    stat_cycle = [[self.trb, :Rebounds, 0.12], [self.ast, :Assists, 0.22], [self.stl, :Steals, 0.17], [self.blk, :Blocks, 0.33]]
     stat_cycle.each do |type|
       if (type[0] != 0) && (type[0] >= stat_hash[type[1]][0])
         if type[0] > stat_hash[type[1]][0]
