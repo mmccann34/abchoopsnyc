@@ -79,15 +79,20 @@ class GamesController < ApplicationController
     else
       @game.photo_urls.clear
     end
-
     game = params[:game]
     no_of_pics = game[:no_of_urls].to_i
     url_template = game[:url_template]
-
     if url_template
       url_template = url_template.split(/\d*.jpg/).first
       no_of_pics.times do |n|
         @game.photo_urls << url_template + "#{n+1}.jpg"
+      end
+    end
+    if !params[:photo_urls].blank?
+      params[:photo_urls].each do |index, value|
+        if not value.blank?
+          @game.photo_urls << value
+        end
       end
     end
   end

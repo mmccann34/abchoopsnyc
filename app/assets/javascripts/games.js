@@ -11,6 +11,7 @@ $(function() {
 
   $(document).on("click","#edit-urls", function(e){
     $("#urls").show();
+    $(".photo-list").hide();
     e.preventDefault();
   });
   

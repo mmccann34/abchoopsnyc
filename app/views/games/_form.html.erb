@@ -17,13 +17,18 @@
     <% if @game.photo_urls.present? %> 
       <p><b>URL Template</b><br/><%= @game.url_template %></p>
       <p><b>File Names</b></p>
-      <ul>
+      <ul class="photo-list">
         <% @game.photo_urls.each do |url| %>
           <li><%= url.split(/\/(...)\//).last %>
         <% end %>
-    <% end %>
       </ul>
-    <p><%= link_to('Clear URLs', clear_photos_game_path(@game)) %> | <%= link_to "Edit URLs", "#", id: "edit-urls" %></p>
+      <div id="urls" style="display:none">
+        <% @game.photo_urls.each_with_index do |url, i| %>
+          <%= text_field_tag "photo_urls[#{i+1}]", url, class: 'input-block-level' %>
+        <% end %>
+      </div>
+      <p><%= link_to('Clear URLs', clear_photos_game_path(@game)) %> | <%= link_to "Edit URLs", "#", id: "edit-urls" %></p>
+    <% end %>
   </div>
   <%= f.button :submit, class: 'btn-primary btn-large  btn-block' %>
 </fieldset>
