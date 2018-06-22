@@ -60,12 +60,10 @@
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
-                %a{href:schedules_path(season: Season.current.id, league: 3)} Summer Weekday
+                %a{href:schedules_path(season: Season.current.id, league: 3)} Weekday
               %li
-                %a{href:schedules_path(season: Season.current.id, league: 1)} Summer Sunday
-              %li{:style => "border-bottom: 1px solid #fff!important;"}
-                %a{href:schedules_path(season: 34, league: 3)} Spring Weekday
-              %li
+                %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
+              %li{:style => "border-top: 1px solid #fff!important;"}
                 %a.past_seasons{href:schedules_path}
                   Past
                   %br/
@@ -78,12 +76,10 @@
               %span.caret
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
-                %a{href:results_url(season: Season.current.id, league: 3)} Summer Weekday
+                %a{href:results_url(season: Season.current.id, league: 3)} Weekday
               %li
-                %a{href:results_url(season: Season.current.id, league: 1)} Summer Sunday
-              %li{:style => "border-bottom: 1px solid #fff!important;"}
-                %a{href:results_url(season: 34, league: 3)} Spring Weekday
-              %li
+                %a{href:results_url(season: Season.current.id, league: 1)} Sunday
+              %li{:style => "border-top: 1px solid #fff!important;"}
                 %a.past_seasons{href:results_url}
                   Past
                   %br/
