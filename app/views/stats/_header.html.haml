@@ -62,6 +62,8 @@
               %li
                 %a{href:schedules_path(season: Season.current.id, league: 3)} Weekday
               %li
+                %a{href:schedules_path(season: 34, league: 2)} Saturday
+              %li
                 %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
               %li{:style => "border-top: 1px solid #fff!important;"}
                 %a.past_seasons{href:schedules_path}
@@ -77,6 +79,8 @@
             %ul.dropdown-menu.dropdown-menu-fixed
               %li
                 %a{href:results_url(season: Season.current.id, league: 3)} Weekday
+              %li
+                %a{href:results_url(season: 34, league: 2)} Saturday
               %li
                 %a{href:results_url(season: Season.current.id, league: 1)} Sunday
               %li{:style => "border-top: 1px solid #fff!important;"}
