@@ -83,7 +83,7 @@
             <%= number_field_tag "roster_spots[#{roster_spot.id}[jersey_number]]", roster_spot.jersey_number, class: 'input-mini', form: 'form_update_numbers', min: 0 %>
           </td>
           <td>
-            <%= radio_button_tag "roster_spots[#{roster_spot.id}[captain]]", roster_spot.captain, false, :checked => true, form: 'form_update_numbers' %>
+            <%= text_field "roster_spots[#{roster_spot.id}[captain]]", roster_spot.captain, form: 'form_update_numbers' %>
           </td>
         </tr>
       <% end %>

@@ -42,7 +42,6 @@ class RostersController < ApplicationController
       roster_spot = RosterSpot.find(id)
       roster_spot.update_attributes(rs)
     end
-    
     redirect_to roster_edit_team_url(params[:id], season: params[:season_id]), notice: "Jersey #s have been updated."
   end
 
