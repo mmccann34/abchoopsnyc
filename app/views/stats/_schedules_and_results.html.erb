@@ -44,6 +44,26 @@
   </ul>
 </div>
 
+<div class="sched_block current_sched">
+  <div class="season_container">
+    <h1>IBL</h1>
+    <h3>Winter 2019</h3>
+  </div>
+  <ul class="sched_days one_day">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=37&league=4"%>> IBL
+      <% if mode != "schedules" %>
+          <ul class="active-season-list">
+            <li>Full Standings</li>
+            <li>Stat Leaderboard</li>
+            <li>Team Stats</li>
+          </ul>
+        <% end %>
+      </a>
+    </li>
+  </ul>
+</div>
+
 <h1 style="margin-top:15px">Prior Seasons' Scores &amp; Schedule</h1>
 
 <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season31.png');">
