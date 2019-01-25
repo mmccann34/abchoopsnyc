@@ -71,6 +71,8 @@ class TeamsController < ApplicationController
         end
       end
     end
+    
+    redirect_to teams_url, notice: "Calendar refreshed"
   end
   
   def save_changes
