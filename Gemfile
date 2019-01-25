@@ -30,7 +30,7 @@ gem 'friendly_id'
 gem 'rails_12factor' #To skip heroku plugin injection
 gem 'font-awesome-rails'
 gem 'delayed_job_active_record'
-gem 'google-api-client', '~> 0.11'
+gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'
 gem 'googleauth', '~> 0.8.0'
 
 # Rails 4.2.5.1 upgrade
