@@ -86,7 +86,7 @@ class TeamsController < ApplicationController
   end
 
   private
-  def create_google_calendar_event(game):
+  def create_google_calendar_event(game)
     event = Google::Apis::CalendarV3::Event.new({
       summary: 'Game',
       start: {
