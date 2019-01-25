@@ -21,6 +21,7 @@ Abchoops::Application.routes.draw do
         post 'roster/edit' => "rosters#add"
         put 'roster/edit' => "rosters#edit_number"
         delete 'roster/edit' => "rosters#remove"
+        get 'refresh-google-calendar' => "teams#refresh_google_calendar"
       end
     end
     put "teams" => "teams#save_changes"

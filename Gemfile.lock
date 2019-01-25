@@ -72,6 +72,8 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     debug_inspector (0.0.3)
+    declarative (0.0.10)
+    declarative-option (0.1.0)
     delayed_job (4.1.4)
       activesupport (>= 3.0, < 5.2)
     delayed_job_active_record (4.1.2)
@@ -104,6 +106,21 @@ GEM
     gon (4.1.1)
       actionpack (>= 2.3.0)
       json
+    google-api-client (0.28.0)
+      addressable (~> 2.5, >= 2.5.1)
+      googleauth (>= 0.5, < 0.10.0)
+      httpclient (>= 2.8.1, < 3.0)
+      mime-types (~> 3.0)
+      representable (~> 3.0)
+      retriable (>= 2.0, < 4.0)
+      signet (~> 0.10)
+    googleauth (0.8.0)
+      faraday (~> 0.12)
+      jwt (>= 1.4, < 3.0)
+      memoist (~> 0.16)
+      multi_json (~> 1.11)
+      os (>= 0.9, < 2.0)
+      signet (~> 0.7)
     guard (2.14.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -121,6 +138,7 @@ GEM
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
+    httpclient (2.8.3)
     i18n (0.9.4)
       concurrent-ruby (~> 1.0)
     jquery-datatables-rails (1.11.3)
@@ -132,6 +150,7 @@ GEM
     jquery-rails-cdn (1.1.2)
       jquery-rails
     json (1.8.6)
+    jwt (2.1.0)
     koala (1.6.0)
       addressable (~> 2.2)
       faraday (~> 0.8)
@@ -151,6 +170,7 @@ GEM
     lumberjack (1.0.12)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    memoist (0.16.0)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -168,6 +188,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    os (1.0.0)
     paperclip (3.5.4)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -220,9 +241,14 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    representable (3.0.4)
+      declarative (< 0.1.0)
+      declarative-option (< 0.2.0)
+      uber (< 0.2.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    retriable (3.1.2)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -257,6 +283,11 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     shellany (0.0.1)
+    signet (0.11.0)
+      addressable (~> 2.3)
+      faraday (~> 0.9)
+      jwt (>= 1.5, < 3.0)
+      multi_json (~> 1.10)
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
@@ -276,6 +307,7 @@ GEM
       i18n
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    uber (0.1.0)
     uglifier (4.1.6)
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
@@ -301,6 +333,8 @@ DEPENDENCIES
   font-awesome-rails
   friendly_id
   gon (~> 4.1.1)
+  google-api-client (~> 0.11)
+  googleauth (~> 0.8.0)
   guard-rspec
   haml
   jquery-datatables-rails (~> 1.11.2)
@@ -332,4 +366,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.16.1
+   1.17.3

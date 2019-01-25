@@ -53,6 +53,25 @@ class TeamsController < ApplicationController
       redirect_to teams_url, flash: { error: "Team does not exist." }
     end
   end
+
+  def refresh_google_calendar
+    # Initialize the Google API
+    client = Google::Apis::CalendarV3::CalendarService.new
+    client.authorization = Google::Auth.get_application_default(Google::Apis::CalendarV3::AUTH_CALENDAR) 
+
+    team = Team.find(params[:id])
+    if team.google_calendar_id
+      team.games().each do |game|
+        event = create_google_calendar_event(game)
+        if game.google_calendar_id
+          client.update_event(team.google_calendar_id, game.google_calendar_id, event)
+        else
+          result = client.insert_event(team.google_calendar_id, event)
+          game.update_attributes(google_calendar_id: result.id)
+        end
+      end
+    end
+  end
   
   def save_changes
     params[:teams].each do |id, t|
@@ -64,5 +83,21 @@ class TeamsController < ApplicationController
     end
     
     redirect_to teams_url, notice: 'Changes were saved successfully.'
+  end
+
+  private
+  def create_google_calendar_event(game):
+    event = Google::Apis::CalendarV3::Event.new({
+      summary: 'Game',
+      start: {
+        date_time: game.date.strftime('%FT%T'),
+        time_zone: 'America/New_York',
+      },
+      end: {
+        date_time: game.date.change(hour: game.date.to_time().hour + 1).strftime('%FT%T'),
+        time_zone: 'America/New_York',
+      },
+    })
+    return event
   end
 end
