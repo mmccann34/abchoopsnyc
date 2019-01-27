@@ -90,14 +90,15 @@ class TeamsController < ApplicationController
   private
   def create_google_calendar_event(team, game)
     opponent = game.home_team_id == team.id ? game.away_team.name : game.home_team.name
+    game_time = game.date.to_time()
     event = Google::Apis::CalendarV3::Event.new({
-      summary: "Game vs. ${opponent}",
+      summary: "Game vs. #{opponent}",
       start: {
         date_time: game.date.strftime('%FT%T'),
         time_zone: 'America/New_York',
       },
       end: {
-        date_time: game.date.change(hour: game.date.to_time().hour + 1).strftime('%FT%T'),
+        date_time: game.date.change(hour: game_time.hour + 1, minute: game_time.minute).strftime('%FT%T'),
         time_zone: 'America/New_York',
       },
     })
