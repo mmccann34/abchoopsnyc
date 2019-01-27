@@ -62,7 +62,7 @@ class TeamsController < ApplicationController
     team = Team.find(params[:id])
     if team.google_calendar_id
       team.games().each do |game|
-        event = create_google_calendar_event(game)
+        event = create_google_calendar_event(team, game)
         if game.google_calendar_id
           client.update_event(team.google_calendar_id, game.google_calendar_id, event)
         else
@@ -71,7 +71,7 @@ class TeamsController < ApplicationController
         end
       end
     end
-    
+
     redirect_to teams_url, notice: "Calendar refreshed"
   end
   
@@ -88,9 +88,10 @@ class TeamsController < ApplicationController
   end
 
   private
-  def create_google_calendar_event(game)
+  def create_google_calendar_event(team, game)
+    opponent = game.home_team_id == team.id ? game.away_team.name : game.home_team.name
     event = Google::Apis::CalendarV3::Event.new({
-      summary: 'Game',
+      summary: "Game vs. ${opponent}",
       start: {
         date_time: game.date.strftime('%FT%T'),
         time_zone: 'America/New_York',
