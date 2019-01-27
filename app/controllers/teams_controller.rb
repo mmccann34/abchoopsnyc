@@ -110,7 +110,7 @@ class TeamsController < ApplicationController
         date_time: game.date.change(hour: game_time.hour + 1, min: game_time.min).strftime('%FT%T'),
         time_zone: 'America/New_York',
       },
-      location: "#{game.location}, New York, NY",
+      location: "#{game.location.address}, New York, NY",
     })
     return event
   end
