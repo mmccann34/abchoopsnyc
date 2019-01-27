@@ -98,6 +98,7 @@ class TeamsController < ApplicationController
       location = '411 Pearl St, New York, NY 10038'
     else
       location = ''
+    end
     event = Google::Apis::CalendarV3::Event.new({
       summary: "Game vs. #{opponent}",
       start: {
