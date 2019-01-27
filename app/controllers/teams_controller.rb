@@ -98,7 +98,7 @@ class TeamsController < ApplicationController
         time_zone: 'America/New_York',
       },
       end: {
-        date_time: game.date.change(hour: game_time.hour + 1, minute: game_time.minute).strftime('%FT%T'),
+        date_time: game.date.change(hour: game_time.hour + 1, min: game_time.min).strftime('%FT%T'),
         time_zone: 'America/New_York',
       },
     })
