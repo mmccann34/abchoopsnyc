@@ -91,6 +91,13 @@ class TeamsController < ApplicationController
   def create_google_calendar_event(team, game)
     opponent = game.home_team_id == team.id ? game.away_team.name : game.home_team.name
     game_time = game.date.to_time()
+    case game.location_id
+    when 7
+      location = '273 Bowery, New York, NY 10002'
+    when 2
+      location = '411 Pearl St, New York, NY 10038'
+    else
+      location = ''
     event = Google::Apis::CalendarV3::Event.new({
       summary: "Game vs. #{opponent}",
       start: {
@@ -101,6 +108,7 @@ class TeamsController < ApplicationController
         date_time: game.date.change(hour: game_time.hour + 1, min: game_time.min).strftime('%FT%T'),
         time_zone: 'America/New_York',
       },
+      location: location,
     })
     return event
   end
