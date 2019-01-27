@@ -101,7 +101,7 @@ class TeamsController < ApplicationController
     # end
     event = Google::Apis::CalendarV3::Event.new({
       summary: "Game vs. #{opponent}",
-      description: "http://stats.abchoopsnyc.com/games/#{game.id}/boxscore"
+      description: "http://stats.abchoopsnyc.com/games/#{game.id}/boxscore",
       start: {
         date_time: game.date.strftime('%FT%T'),
         time_zone: 'America/New_York',
