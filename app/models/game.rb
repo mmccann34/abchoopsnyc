@@ -53,6 +53,10 @@ class Game < ActiveRecord::Base
     create_stat_lines
   end
 
+  after_save do
+    create_or_update_google_calendar_events
+  end
+
   def set_defaults
     self.home_score ||= 0
     self.home_score_first ||= 0
@@ -75,6 +79,51 @@ class Game < ActiveRecord::Base
   def create_stat_lines
     update_stat_lines(home_team)
     update_stat_lines(away_team)
+  end
+
+  def create_or_update_google_calendar_events
+    # Initialize the Google API
+    client = Google::Apis::CalendarV3::CalendarService.new
+    client.authorization = Google::Auth.get_application_default(Google::Apis::CalendarV3::AUTH_CALENDAR) 
+
+    if self.home_team.google_calendar_id
+      event = self.build_google_calendar_event(self.home_team)
+      if self.home_team_google_calendar_id
+        client.update_event(self.home_team.google_calendar_id, self.home_team_google_calendar_id, event)
+      else
+        result = client.insert_event(self.home_team.google_calendar_id, event)
+        self.update_column(home_team_google_calendar_id: result.id)
+      end
+    end
+
+    if self.away_team.google_calendar_id
+      event = self.build_google_calendar_event_for_team(self.away_team)
+      if self.away_team_google_calendar_id
+        client.update_event(self.away_team.google_calendar_id, self.away_team_google_calendar_id, event)
+      else
+        result = client.insert_event(self.away_team.google_calendar_id, event)
+        self.update_column(away_team_google_calendar_id: result.id)
+      end
+    end
+  end
+
+  def build_google_calendar_event_for_team(team)
+    opponent = game.home_team_id == team.id ? game.away_team.name : game.home_team.name
+    game_time = self.date.to_time()
+    event = Google::Apis::CalendarV3::Event.new({
+      summary: "Game vs. #{opponent.name}",
+      description: "http://stats.abchoopsnyc.com/games/#{self.id}/boxscore",
+      start: {
+        date_time: self.date.strftime('%FT%T'),
+        time_zone: 'America/New_York',
+      },
+      end: {
+        date_time: self.date.change(hour: game_time.hour + 1, min: game_time.min).strftime('%FT%T'),
+        time_zone: 'America/New_York',
+      },
+      location: "#{self.location.address}, New York, NY",
+    })
+    return event
   end
   
   def week

@@ -55,21 +55,9 @@ class TeamsController < ApplicationController
   end
 
   def refresh_google_calendar
-    # Initialize the Google API
-    client = Google::Apis::CalendarV3::CalendarService.new
-    client.authorization = Google::Auth.get_application_default(Google::Apis::CalendarV3::AUTH_CALENDAR) 
-
     team = Team.find(params[:id])
-    if team.google_calendar_id
-      team.games().each do |game|
-        event = create_google_calendar_event(team, game)
-        if game.google_calendar_id
-          client.update_event(team.google_calendar_id, game.google_calendar_id, event)
-        else
-          result = client.insert_event(team.google_calendar_id, event)
-          game.update_attributes(google_calendar_id: result.id)
-        end
-      end
+    team.games().each do |game|
+      game.create_or_update_google_calendar_events
     end
 
     redirect_to teams_url, notice: "Calendar refreshed"
@@ -85,33 +73,5 @@ class TeamsController < ApplicationController
     end
     
     redirect_to teams_url, notice: 'Changes were saved successfully.'
-  end
-
-  private
-  def create_google_calendar_event(team, game)
-    opponent = game.home_team_id == team.id ? game.away_team.name : game.home_team.name
-    game_time = game.date.to_time()
-    # case game.location_id
-    # when 7
-    #   location = '273 Bowery, New York, NY 10002'
-    # when 2
-    #   location = '411 Pearl St, New York, NY 10038'
-    # else
-    #   location = ''
-    # end
-    event = Google::Apis::CalendarV3::Event.new({
-      summary: "Game vs. #{opponent}",
-      description: "http://stats.abchoopsnyc.com/games/#{game.id}/boxscore",
-      start: {
-        date_time: game.date.strftime('%FT%T'),
-        time_zone: 'America/New_York',
-      },
-      end: {
-        date_time: game.date.change(hour: game_time.hour + 1, min: game_time.min).strftime('%FT%T'),
-        time_zone: 'America/New_York',
-      },
-      location: "#{game.location.address}, New York, NY",
-    })
-    return event
   end
 end
