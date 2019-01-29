@@ -87,7 +87,7 @@ class Game < ActiveRecord::Base
     client.authorization = Google::Auth.get_application_default(Google::Apis::CalendarV3::AUTH_CALENDAR) 
 
     if self.home_team.google_calendar_id
-      event = self.build_google_calendar_event(self.home_team)
+      event = self.build_google_calendar_event_for_team(self.home_team)
       if self.home_team_google_calendar_id
         client.update_event(self.home_team.google_calendar_id, self.home_team_google_calendar_id, event)
       else
