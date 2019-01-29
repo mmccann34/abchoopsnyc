@@ -92,7 +92,7 @@ class Game < ActiveRecord::Base
         client.update_event(self.home_team.google_calendar_id, self.home_team_google_calendar_id, event)
       else
         result = client.insert_event(self.home_team.google_calendar_id, event)
-        self.update_column(home_team_google_calendar_id: result.id)
+        self.update_column(:home_team_google_calendar_id, result.id)
       end
     end
 
@@ -102,7 +102,7 @@ class Game < ActiveRecord::Base
         client.update_event(self.away_team.google_calendar_id, self.away_team_google_calendar_id, event)
       else
         result = client.insert_event(self.away_team.google_calendar_id, event)
-        self.update_column(away_team_google_calendar_id: result.id)
+        self.update_column(:away_team_google_calendar_id, result.id)
       end
     end
   end
