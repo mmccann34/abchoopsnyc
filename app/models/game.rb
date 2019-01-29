@@ -108,10 +108,10 @@ class Game < ActiveRecord::Base
   end
 
   def build_google_calendar_event_for_team(team)
-    opponent = self.home_team_id == team.id ? self.away_team.name : self.home_team.name
+    opponent_name = self.home_team_id == team.id ? self.away_team.name : self.home_team.name
     game_time = self.date.to_time()
     event = Google::Apis::CalendarV3::Event.new({
-      summary: "Game vs. #{opponent.name}",
+      summary: "Game vs. #{opponent_name}",
       description: "http://stats.abchoopsnyc.com/games/#{self.id}/boxscore",
       start: {
         date_time: self.date.strftime('%FT%T'),
