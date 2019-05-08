@@ -63,10 +63,10 @@
                 %a{href:schedules_path(season: Season.current.id, league: 3)} Weekday
               %li
                 %a{href:schedules_path(season: Season.current.id, league: 2)} Saturday
-              %li
-                %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
               %li{:style => "padding-bottom:10px;"}
-                %a{href:schedules_path(season: 37, league: 4)} IBL
+                %a{href:schedules_path(season: Season.current.id, league: 1)} Sunday
+              / %li{:style => "padding-bottom:10px;"}
+              /   %a{href:schedules_path(season: 37, league: 4)} IBL
               %li{:style => "border-top: 1px solid #fff!important;padding-top:10px"}
                 %a.past_seasons{href:schedules_path}
                   Past
@@ -83,10 +83,10 @@
                 %a{href:results_url(season: Season.current.id, league: 3)} Weekday
               %li
                 %a{href:results_url(season: Season.current.id, league: 2)} Saturday
-              %li
-                %a{href:results_url(season: Season.current.id, league: 1)} Sunday
               %li{:style => "padding-bottom:10px;"}
-                %a{href:results_url(season: 37, league: 4)} IBL
+                %a{href:results_url(season: Season.current.id, league: 1)} Sunday
+              / %li{:style => "padding-bottom:10px;"}
+              /   %a{href:results_url(season: 37, league: 4)} IBL
               %li{:style => "border-top: 1px solid #fff!important;padding-top:10px"}
                 %a.past_seasons{href:results_url}
                   Past
