@@ -17,7 +17,7 @@
         <% end %>
       </a>
     </li>
-    <li class="main-button">
+<!--     <li class="main-button">
       <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=2"%>>
         Saturday
         <% if mode != "schedules" %>
@@ -28,7 +28,7 @@
           </ul>
         <% end %>
       </a>
-    </li>
+    </li> -->
     <li class="main-button">
       <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=3"%>>
         Weekday
@@ -39,6 +39,47 @@
             <li>Team Stats</li>
           </ul>
         <% end %>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season33.png');">
+  <div class="season_container">
+    <h1>Spring 2019</h1>
+    <h3>Season 33</h3>
+  </div>
+  <ul class="sched_days three_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=38&league=1"%>> Sunday
+        <ul class="championship-list">
+          <li class="division">Targaryen Champ</li>
+          <li>TBD</li>
+          <li class="division">Baratheon Champ</li>
+          <li>TBD</li>
+        </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=38&league=2"%>> Saturday
+        <ul class="championship-list">
+          <li class="division">Night's Watch Champ</li>
+          <li>Occupy John Wall St.</li>
+          <li class="division">White Walkers Champ</li>
+          <li>TBD</li>
+        </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=38&league=3"%>> Weekday
+        <ul class="championship-list">
+          <li class="division">Lannister Champ</li>
+          <li>The Wake</li>
+          <li class="division">Tyrell Champ</li>
+          <li>Super Strokers</li>
+          <li class="division">Stark Champ</li>
+          <li>Cookies &amp; Kareem</li>
+        </ul>
       </a>
     </li>
   </ul>
