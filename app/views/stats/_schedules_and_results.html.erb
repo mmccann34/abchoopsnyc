@@ -1,10 +1,8 @@
 <h1><%="Current Season " + (mode == 'schedules' ? "Schedule & Scores" : "Stats & Results")%></h1>
 <div class="sched_block current_sched">
   <div class="season_container">
-    <!-- <h1><%= Season.current.name %></h1>
-    <h3>Season <%= Season.current.number %></h3> -->
-    <h1>Summer 2019</h1>
-    <h3>Season 34</h3>
+    <h1><%= Season.current.name %></h1>
+    <h3>Season <%= Season.current.number %></h3>
   </div>
   <ul class="sched_days three_days">
     <li class="main-button">
@@ -46,6 +44,9 @@
   </ul>
 </div>
 
+
+<h1 style="margin-top:15px">Prior Seasons' Scores &amp; Schedule</h1>
+
 <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season33.png');">
   <div class="season_container">
     <h1>Spring 2019</h1>
@@ -56,9 +57,9 @@
       <a href=<%="/#{mode}?season=38&league=1"%>> Sunday
         <ul class="championship-list">
           <li class="division">Targaryen Champ</li>
-          <li>TBD</li>
+          <li>Asphalt Ninjas</li>
           <li class="division">Baratheon Champ</li>
-          <li>TBD</li>
+          <li>BKB</li>
         </ul>
       </a>
     </li>
@@ -68,7 +69,7 @@
           <li class="division">Night's Watch Champ</li>
           <li>Occupy John Wall St.</li>
           <li class="division">White Walkers Champ</li>
-          <li>TBD</li>
+          <li>Rock, Paper, Scissors</li>
         </ul>
       </a>
     </li>
@@ -86,9 +87,6 @@
     </li>
   </ul>
 </div>
-
-
-<h1 style="margin-top:15px">Prior Seasons' Scores &amp; Schedule</h1>
 
 <div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season32i.png');">
   <div class="season_container">
