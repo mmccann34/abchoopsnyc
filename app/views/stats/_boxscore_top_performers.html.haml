@@ -7,13 +7,16 @@
     -if !top_performer.stat.nil?
       %tr
         -last_class = i == (top_performers.length - 1) ? "bline" : ""
-        -if top_performer.player_id
-          %td{class: last_class}
-            %a{href:stats_player_path(top_performer.player_id)}=top_performer.name
-          %td{class: last_class}
-            %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
-        -else
+        -if !top_performer.team_id
           %td{:colspan=>"2", class: last_class}
             =top_performer.name
+        -else
+          %td{class: last_class}
+            -if top_performer.player_id
+              %a{href:stats_player_path(top_performer.player_id)}=top_performer.name
+            -else
+              =top_performer.name
+            %td{class: last_class}
+              %a{href:stats_team_path(top_performer.team_id)}=top_performer.team.abbreviation
         %td=top_performer.stat
   -reset_cycle

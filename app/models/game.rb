@@ -81,8 +81,8 @@ class Game < ActiveRecord::Base
     update_stat_lines(away_team)
   end
 
+  # Initialize the Google API
   def create_or_update_google_calendar_events
-    # Initialize the Google API
     client = Google::Apis::CalendarV3::CalendarService.new
     client.authorization = Google::Auth.get_application_default(Google::Apis::CalendarV3::AUTH_CALENDAR) 
 
@@ -216,13 +216,16 @@ class Game < ActiveRecord::Base
     top_perfs = []
     stp = {}
     ttp = {}
-        # require 'pry'; binding.pry
     if top_two[1] != 0
       if top_two[5] > 1
         stp[:team] = nil
         stp[:name] = "#{top_two[5]} Players"
       else
-        stp[:name] = top_two[3].first_name_last_int
+        if top_two[3] != nil
+          stp[:name] = top_two[3].first_name_last_int
+        else
+          stp[:name] = 'Sub'
+        end
         stp[:team] = top_two[4]
         stp[:player] = top_two[3]
       end
@@ -233,7 +236,11 @@ class Game < ActiveRecord::Base
           ttp[:team] = nil
           ttp[:name] = "#{top_two[11]} Players"
         else
-          ttp[:name] = top_two[9].first_name_last_int
+          if top_two[9] != nil
+            ttp[:name] = top_two[9].first_name_last_int
+          else
+            ttp[:name] = 'Sub'
+          end
           ttp[:team] = top_two[10]
           ttp[:player] = top_two[9]
         end
