@@ -4,9 +4,9 @@
     <h1><%= Season.current.name %></h1>
     <h3>Season <%= Season.current.number %></h3>
   </div>
-  <ul class="sched_days two_days">
+  <ul class="sched_days three_days">
     <li class="main-button">
-      <a class="active-season" href=<%="/#{mode}?season=39&league=1"%>>
+      <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=1"%>>
         Sunday
         <% if mode != "schedules" %>
           <ul class="active-season-list">
@@ -17,7 +17,7 @@
         <% end %>
       </a>
     </li>
-<!--     <li class="main-button">
+    <li class="main-button">
       <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=2"%>>
         Saturday
         <% if mode != "schedules" %>
@@ -28,9 +28,9 @@
           </ul>
         <% end %>
       </a>
-    </li> -->
+    </li>
     <li class="main-button">
-      <a class="active-season" href=<%="/#{mode}?season=39&league=3"%>>
+      <a class="active-season" href=<%="/#{mode}?season=#{Season.current.id}&league=3"%>>
         Weekday
         <% if mode != "schedules" %>
           <ul class="active-season-list">
@@ -39,6 +39,35 @@
             <li>Team Stats</li>
           </ul>
         <% end %>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="sched_block" style="background-image:url('http://www.abchoops.com/images/seasons/season34.png');">
+  <div class="season_container">
+    <h1>Summer 2019</h1>
+    <h3>Season 34</h3>
+  </div>
+  <ul class="sched_days two_days">
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=38&league=1"%>> Sunday
+        <ul class="championship-list">
+          <li class="division">Julius Erving Champ</li>
+          <li>Average Joes</li>
+          <li class="division">Kenny Anderson Champ</li>
+          <li>TBD</li>
+        </ul>
+      </a>
+    </li>
+    <li class="main-button">
+      <a href=<%="/#{mode}?season=38&league=3"%>> Weekday
+        <ul class="championship-list">
+          <li class="division">Jason Kidd Champ</li>
+          <li>The Come Up</li>
+          <li class="division">Derrick Coleman Champ</li>
+          <li>ARUP Avengers</li>
+        </ul>
       </a>
     </li>
   </ul>
