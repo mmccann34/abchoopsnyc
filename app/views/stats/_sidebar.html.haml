@@ -19,7 +19,7 @@
 = javascript_tag do
   window.leagueDay = '#{j league_short_name}';
 - if current_league_id == 4
-  - teams = TeamSpot.where(league_id: 4).where(season_id: 33).group_by { |ts| ts.league }
+  - teams = TeamSpot.where(league_id: 4).where(season_id: 41).group_by { |ts| ts.league }
 - else
   - teams = Season.current.team_spots.includes(:league, :division).where("league_id is not null").group_by { |ts| ts.league }
   - if teams.keys.collect(&:id).exclude?(current_league_id)
