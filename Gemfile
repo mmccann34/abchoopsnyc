@@ -60,7 +60,7 @@ group :test, :development do
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
   gem 'launchy'
-  gem 'better_errors', '1.1.0'
+  gem 'better_errors', '2.8.0'
   gem 'binding_of_caller'
 end
 
